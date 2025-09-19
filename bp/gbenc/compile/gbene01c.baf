@@ -1,0 +1,450 @@
+IF
+  OR(2)
+    See([GOODCUTOFF])
+    See([PC])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Global("GB_DoOnce","LOCALS",0)
+  !GlobalTimerNotExpired("GB_SpellPrep","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_SpellPrep","LOCALS",2880)
+    SetGlobal("GB_DoOnce","LOCALS",1)
+END
+
+IF
+  Global("GB_DoOnce","LOCALS",1)
+  !GlobalTimerNotExpired("GB_SpellPrep","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_SpellPrep","LOCALS",2880)
+    Rest()
+END
+
+IF
+  Allegiance(Myself,NEUTRAL)
+  AttackedBy([GOODCUTOFF],DEFAULT)
+THEN
+  RESPONSE #100
+    Enemy()
+    GlobalShout(10000)
+    SetGlobal("GB_Attacked","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,NEUTRAL)
+  SpellCastOnMe([GOODCUTOFF],0)
+THEN
+  RESPONSE #100
+    Enemy()
+    GlobalShout(10000)
+    SetGlobal("GB_Attacked","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,NEUTRAL)
+  OR(3)
+    SpellCast([PC],0)
+    SpellCastPriest([PC],0)
+    SpellCastInnate([PC],0)
+THEN
+  RESPONSE #100
+    Enemy()
+    GlobalShout(10000)
+    SetGlobal("GB_Attacked","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,NEUTRAL)
+  Heard([EVILCUTOFF],10000)
+THEN
+  RESPONSE #100
+    Enemy()
+    GlobalShout(10000)
+    SetGlobal("GB_Attacked","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,NEUTRAL)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  HasItem("POTN52",Myself)  // ~Potion of Extra Healing~
+  !GlobalTimerNotExpired("GB_Cast","LOCALS")
+  OR(2)
+    HPPercentLT(Myself,50)
+    DamageTakenGT(26)
+  OR(3)
+    !Detect([PC])
+    StateCheck(Myself,STATE_INVISIBLE)
+    HPPercentLT(Myself,35)
+THEN
+  RESPONSE #100
+    ActionOverride(Myself,UseItem("POTN52",Myself))  // ~Potion of Extra Healing~
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  Global("GB_Attacked","LOCALS",0)
+  OR(6)
+    Heard([EVILCUTOFF],10000)
+    Heard([EVILCUTOFF],10001)
+    SpellCastOnMe([GOODCUTOFF],0)
+    See(NearestEnemyOf(Myself))
+    TookDamage()
+    Allegiance(Myself,EVILCUTOFF)
+THEN
+  RESPONSE #100
+    GlobalShout(10000)
+    SetGlobal("GB_Attacked","LOCALS",1)
+END
+
+IF
+  Heard([EVILCUTOFF],10000)
+  !See([PC])
+  !Range(LastHeardBy(Myself),0)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_OnMyWay","LOCALS",24)
+    MoveToObject(LastHeardBy(Myself))
+    MoveToObject(LastSeenBy(LastHeardBy(Myself)))
+END
+
+IF
+  Heard([EVILCUTOFF],10001)
+  !See([PC])
+  !Range(LastHeardBy(Myself),0)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_OnMyWay","LOCALS",24)
+    MoveToObject(LastHeardBy(Myself))
+    MoveToObject(LastSeenBy(LastHeardBy(Myself)))
+END
+
+IF
+  StateCheck(Myself,STATE_BLIND)
+  !See([PC])
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  Global("GB_Attacked","LOCALS",0)
+THEN
+  RESPONSE #100
+END
+
+IF
+  !See([PC])
+  !StateCheck(Player1,STATE_INVISIBLE)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+  OR(3)
+    See([GOODCUTOFF])
+    SpellCastOnMe([GOODCUTOFF],0)
+    TookDamage()
+THEN
+  RESPONSE #100
+    GlobalShout(10000)
+    MoveToObject(Player1)
+END
+
+IF
+  Delay(18)
+  !See([PC])
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  Delay(18)
+  See([PC])
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+END
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_DEAD)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Heard([EVILCUTOFF],10002)
+  InParty(LastTargetedBy(LastHeardBy(Myself)))
+  Range(LastTargetedBy(LastHeardBy(Myself)),7)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,35124)  // ~Worthless worm! You will die here and now!~
+    EquipMostDamagingMelee()
+    AttackOneRound(LastTargetedBy(LastHeardBy(Myself)))
+END
+
+IF
+  Heard([EVILCUTOFF],10002)
+  InParty(LastTargetedBy(LastHeardBy(Myself)))
+  !Range(LastTargetedBy(LastHeardBy(Myself)),7)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,35124)  // ~Worthless worm! You will die here and now!~
+    EquipRanged()
+    AttackOneRound(LastTargetedBy(LastHeardBy(Myself)))
+END
+
+IF
+  OR(4)
+    CheckStatGT(LastSeenBy(Myself),0,HELD)
+    StateCheck(LastSeenBy(Myself),STATE_STUNNED)
+    StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+    StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  InParty(LastSeenBy(Myself))
+  Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,18450)  // ~At 'em lads! No mercy!~
+    GlobalShout(10002)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  OR(4)
+    CheckStatGT(LastSeenBy(Myself),0,HELD)
+    StateCheck(LastSeenBy(Myself),STATE_STUNNED)
+    StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+    StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  InParty(LastSeenBy(Myself))
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,18450)  // ~At 'em lads! No mercy!~
+    GlobalShout(10002)
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  GlobalTimerNotExpired("GB_Cast","LOCALS")
+  See([PC])
+  InParty(LastSeenBy(Myself))
+  Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  GlobalTimerNotExpired("GB_Cast","LOCALS")
+  OR(3)
+    See([PC])
+    See(TenthNearest([PC.0.0.CLERIC_ALL]))
+    See(TenthNearest([PC.0.0.MAGE_ALL]))
+  InParty(LastSeenBy(Myself))
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  HasItem("SCRL8J",Myself)  // ~Mantle~
+  See([PC])
+  InParty(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL8J",Myself)  // ~Mantle~
+    SetInterrupt(TRUE)
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  CheckStatLT(Myself,18,CON)
+  HasItem("POTN28",Myself)  // ~Potion of Fortitude~
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("POTN28",Myself)  // ~Potion of Fortitude~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  HasItem("POTN52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,50)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("POTN52",Myself)  // ~Potion of Extra Healing~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  HaveSpell(WIZARD_MIRROR_IMAGE)
+  OR(2)
+    TookDamage()
+    Range(NearestEnemyOf(Myself),8)
+  !StateCheck(Myself,STATE_MIRRORIMAGE)
+  !CheckStatGT(Myself,35,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_MIRROR_IMAGE)
+END
+
+IF
+  HaveSpell(WIZARD_ARMOR)
+  !CheckStatLT(Myself,7,ARMORCLASS)
+  !CheckStatGT(Myself,35,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_ARMOR)
+END
+
+IF
+  HaveSpell(WIZARD_HASTE)
+  See([PC])
+  InParty(LastSeenBy(Myself))
+  !StateCheck(Myself,STATE_HASTED)
+  !CheckStatGT(Myself,35,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_HASTE)
+END
+
+IF
+  HaveSpell(WIZARD_MAGIC_MISSILE)
+  See(ThirdNearest([PC]))
+  InParty(LastSeenBy(Myself))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),50,MAGICDAMAGERESISTANCE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  !CheckStatGT(Myself,35,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+END
+
+IF
+  HaveSpell(WIZARD_MAGIC_MISSILE)
+  See([PC])
+  InParty(LastSeenBy(Myself))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(LastSeenBy(Myself),STATE_BLIND)
+  !CheckStatGT(Myself,35,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_CastNAttack","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+END
+
+IF
+  HaveSpell(WIZARD_VAMPIRIC_TOUCH)
+  See(NearestEnemyOf(Myself))
+  InParty(LastSeenBy(Myself))
+  Range(LastSeenBy(Myself),7)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(Myself,35,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_CastNAttack","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_VAMPIRIC_TOUCH)
+END
+
+IF
+  HaveSpell(WIZARD_STRENGTH)
+  See([PC])
+  InParty(LastSeenBy(Myself))
+  Range(LastSeenBy(Myself),7)
+  CheckStatLT(Myself,19,STR)
+  CheckStatLT(Myself,50,STREXTRA)
+  !CheckStatGT(Myself,35,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_CastNAttack","LOCALS",6)
+    Spell(Myself,WIZARD_STRENGTH)
+END
+
+IF
+  See([PC])
+  InParty(LastSeenBy(Myself))
+  Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #75
+    GlobalShout(10001)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #25
+    GlobalShout(10001)
+    EquipMostDamagingMelee()
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  OR(3)
+    See([PC])
+    See(TenthNearest([PC.0.0.CLERIC_ALL]))
+    See(TenthNearest([PC.0.0.LONG_BOW]))
+  InParty(LastSeenBy(Myself))
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #75
+    GlobalShout(10001)
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #25
+    GlobalShout(10001)
+    EquipRanged()
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  See([GOODCUTOFF])
+  Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #75
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #25
+    EquipMostDamagingMelee()
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  See([GOODCUTOFF])
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #75
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #25
+    EquipRanged()
+    Attack(LastSeenBy(Myself))
+END
+

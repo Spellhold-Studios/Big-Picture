@@ -1,0 +1,39 @@
+IF
+  !Difficulty(EASIEST)
+  Global("BP_MoreStooges","AR0412",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0412",1)
+    CreateCreature("BPSOLD01",[700.1450],2)  // ~Amnish Legionary~
+    CreateCreature("BPSOLD01",[785.1470],2)  // ~Amnish Legionary~
+END
+
+IF
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+  Global("BP_MoreStooges","AR0412",1)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0412",2)
+    CreateCreature("BPSOLD01",[890.1490],2)  // ~Amnish Legionary~
+    CreateCreature("BPSOLD01",[975.1550],2)  // ~Amnish Legionary~
+END
+
+IF
+  Difficulty(EASIEST)
+  Global("WIMP","AR0412",0)
+THEN
+  RESPONSE #100
+    SetGlobal("WIMP","AR0412",1)
+    ActionOverride("TOLGER2",ChangeAIScript("SHOUT",OVERRIDE))
+    ActionOverride("TOLGER2",ChangeAIScript("TOLGER",CLASS))
+    ActionOverride("TOLGER2",ChangeAIScript("SHOUTDLG",RACE))
+    ActionOverride("TOLGER2",ChangeAIScript("MAGE16C",GENERAL))
+    ActionOverride("TOLGER2",ChangeAIScript("WTASIGHT",DEFAULT))
+    ActionOverride("TOLMAG02",ChangeAIScript("SHOUT",OVERRIDE))
+    ActionOverride("TOLMAG02",ChangeAIScript("MAGE12E",CLASS))
+    ActionOverride("TOLMAG02",ChangeAIScript("",RACE))
+    ActionOverride("TOLMAG02",ChangeAIScript("",GENERAL))
+    ActionOverride("TOLMAG02",ChangeAIScript("WTASIGHT",DEFAULT))
+END
+

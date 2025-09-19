@@ -1,0 +1,18 @@
+IF
+  True()
+THEN
+  RESPONSE #100
+    CutSceneId("Ilyich")  // 
+    MoveToPointNoInterrupt([2050.270])
+    Wait(1)
+    MoveViewPoint([2050.270],FAST)
+    SmallWait(12)
+    DisplayStringHead(Myself,@0)
+    ReallyForceSpell(Myself,WIZARD_INVISIBILITY)
+    Wait(3)
+    DisplayStringHead(Myself,@1)
+    EscapeArea()
+    Wait(2)
+    EndCutSceneMode()
+END
+

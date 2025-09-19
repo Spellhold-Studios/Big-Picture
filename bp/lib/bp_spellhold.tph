@@ -1,0 +1,804 @@
+
+////////////////////////SPELLHOLD//////////////////////////////
+
+DEFINE_ACTION_FUNCTION spellhold BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+LAF enemy_bard END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpkobwit.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpkobwit.cre~ ~override~ // BP-original component, bring in what's needed from BP Main
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsfgtmg.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsfgtmg.cre~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsdwfgt.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsdwfgt.cre~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsdwfth.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsdwfth.cre~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsthef1.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsthef1.cre~ ~override~
+  END
+  
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsthef2.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsthef2.cre~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsthef3.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsthef3.cre~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsthmg1.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsthmg1.cre~ ~override~  
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpsfight.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpsfight.cre~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpraksha.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpraksha.cre~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpumber.cre~ BEGIN  //BP AI/Creature not installed
+  COPY ~bp/cre/bpumber.cre~  ~override~
+END
+
+COPY_EXISTING ~icmin01.cre~ ~override~ //Minotaur
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 65 // CurrHP (was 50)
+    WRITE_SHORT 0x26 65 // MaxHP (was 50)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~icmyc01.cre~ ~override~ //Myconid
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #2412 // LongName (~Myconid~)
+    SAY NAME2 #2412 // ShortName (~Myconid~)
+    WRITE_BYTE 0x242 0 // MrlReco (was 1)
+    WRITE_LONG 0x244 1073741824 // KitInfo (was 0)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppaph2.cre~ ~override~ //Aphril
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~asylum~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x250 ~bpmag14a~ #8 // Class (was ASYLUM)
+    WRITE_ASCII 0x260 ~~ #8 // General (was MAGE14A)
+    WRITE_ASCII 0x268 ~bpally~ #8 // Default (was )
+    WRITE_BYTE 0x270 29 // EnemyAlly (was 128)
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppaphril.cre~ ~override~ //Aphril
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x260 ~bpmag14a~ #8 // General (was MAGE14A)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was )
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppdili2.cre~ ~override~ //Dili
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was DILI)
+    WRITE_ASCII 0x268 ~bpally~ #8 // Default (was WTRUNSGT)
+    WRITE_BYTE 0x270 29 // EnemyAlly (was 128)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppdradee.cre~ ~override~ //Dradeel
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bpmag16m~ #8 // Race (was MAGE16M)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppdra2.cre~ ~override~ //Dradeel
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was MAGE16M)
+    WRITE_ASCII 0x268 ~bpally~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x270 29 // EnemyAlly (was 128)
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~STAF07~ #0 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppireni1.cre~ ~override~ //Coordinator
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x241 255 // Racial (was 0)
+    WRITE_ASCII 0x268 ~~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppireni2.cre~ ~override~ //Jon Irenicus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x272 2 // IDSRace (was 1)
+    WRITE_BYTE 0x27b 35 // Alignment (was 49)
+    REMOVE_CRE_ITEM ~JONHP1~
+    REPLACE_CRE_ITEM ~MINHP1~ #0 #0 #0 ~NONE~ ~RRING~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppnalj.cre~ ~override~ //Naljier Skal
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x260 ~bp!bard~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppnalj2.cre~ ~override~ //Naljier Skal
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpally~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x270 29 // EnemyAlly (was 128)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pptiax.cre~ ~override~ //Tiax
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 40 // DtectIll (was 0)
+    WRITE_BYTE 0x68 60 // Stealth (was 0)
+    WRITE_ASCII 0x258 ~bppri12a~ #8 // Race (was THICLR10)
+    WRITE_ASCII 0x260 ~bpmag12a~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppwanev.cre~ ~override~ //Wanev
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x260 ~bpwdasgt~ #8 // General (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppwanev2.cre~ ~override~ //Wanev
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was MAGE18D)
+    WRITE_ASCII 0x260 ~~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpally~ #8 // Default (was )
+    WRITE_BYTE 0x270 29 // EnemyAlly (was 128)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pptiax2.cre~ ~override~ //Tiax
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 60 // Stealth (was 0)
+    WRITE_ASCII 0x248 ~~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was THICLR10)
+    WRITE_ASCII 0x268 ~bpally~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x270 29 // EnemyAlly (was 128)
+    REMOVE_KNOWN_SPELL ~sppr301~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppworker.cre~ ~override~ //Lonk the Sane
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~DAGG02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DAGG25~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6a.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/re-baf/core/bpmage6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8d.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/re-baf/core/bpmage8d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10a.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/re-baf/core/bpmag10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12a.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/re-baf/core/bpmag12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14a.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/re-baf/core/bpmag14a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16m.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/re-baf/core/bpmag16m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12a.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/re-baf/core/bpmag12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  COMPILE ~bp/baf/shouts/strings/humansht.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpally.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/new_baf/core/bpally.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!bard.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/new_baf/core/bp!bard.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpbounty.bcs~ BEGIN  //BP AI/Creature not installed
+  COMPILE ~bp/baf/new_baf/core/bpbounty.baf~
+END
+
+COPY_EXISTING ~ppsplit.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~CreateCreature("umbhul01",\[1055.950\],0)~ ~CreateCreature("BPUMBER",[1055.950],0)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+EXTEND_TOP ~ar1512.bcs~ ~bp/spellhd/snip/tar1512a.baf~
+EXTEND_TOP ~ar1513.bcs~ ~bp/spellhd/snip/tar1513.baf~
+
+
+END
+
+/////////////////////////////////////////
+DEFINE_ACTION_FUNCTION spellhold_items BEGIN
+
+COPY ~bp/spellhd/copy~ ~override~
+
+COMPILE ~bp/spellhd/compile~
+
+COPY ~bp/spellhd/auto/bpgoodys.cre~ ~override/bpgoodys.cre~
+
+COPY ~bp/spellhd/auto/spedwin.spl~ ~override/spedwin.spl~
+
+COPY ~bp/spellhd/auto/spnalia.spl~ ~override/spnalia.spl~
+
+COPY ~bp/spl/spimoen.spl~ ~override~
+
+ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+  COPY ~bp/spellhd/auto/sprobil.spl~ ~override/sprobil.spl~
+  COPY ~bp/spellhd/auto/spshart.spl~ ~override/spshart.spl~
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~kachi01.wav~ BEGIN
+  COPY ~bp/spellhd/auto/spkachi.spl~ ~override/spkachi.spl~
+  COPY ~bp/spellhd/auto/spsime1.spl~ ~override/spsime1.spl~
+  COPY ~bp/spellhd/auto/spsime2.spl~ ~override/spsime2.spl~
+  COPY ~bp/spellhd/auto/spvalyg.spl~ ~override/spvalyg.spl~
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~ar4230.are~ BEGIN
+  COPY ~bp/spellhd/auto/spselen.spl~ ~override/spselen.spl~
+END
+
+//Adds treasure pile BP_LittleHelp (Spellhold Relief Fund)
+//I should deactivate this if the party is on the EASY/EASIEST setting: Global("BP_HardRoad","GLOBAL",2)
+COPY ~bp/spellhd/auto/ar0012.are~ ~override/ar0012.are~
+
+EXTEND_TOP ~ar1506.bcs~ ~bp/spellhd/snip/tar1506.baf~
+EXTEND_TOP ~ar1512.bcs~ ~bp/spellhd/snip/tar1512b.baf~
+
+COPY_EXISTING ~ar1515.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    PATCH_IF (INDEX_BUFFER (CASE_INSENSITIVE ~Global("BP_HardRoad","GLOBAL",2)~) = `0) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~Global("freethem","AR1515",0)~ ~Global("freethem","AR1515",0) Global("BP_HardRoad","GLOBAL",2)~
+    END
+    PATCH_IF (INDEX_BUFFER (CASE_INSENSITIVE ~Wait(1)~) = `0) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~SetGlobal("speakWhenLonkDead","GLOBAL",1)~ ~SetGlobal("speakWhenLonkDead","GLOBAL",1) Wait(1)~
+    END
+  END
+BUT_ONLY
+
+EXTEND_TOP ~ar1515.bcs~ ~bp/spellhd/snip/tar1515.baf~
+EXTEND_BOTTOM ~ar1515.bcs~ ~bp/spellhd/snip/bar1515.baf~
+
+COPY_EXISTING ~ppjon.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SPELLHD/SNIP/oPPJON.baf~   ~bp/SPELLHD/SNIP/nPPJON.baf~
+BUT_ONLY
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION chapter_four BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+
+
+
+COPY_EXISTING ~pirbob01.cre~ ~override~ //Captn' Bob Holmes
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bp!plot~ #8 // Race (was NONE)
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pirexe01.cre~ ~override~ //Executioner
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pirmur02.cre~ ~override~ //Assassin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 35 // CurrHP (was 15)
+    WRITE_SHORT 0x26 35 // MaxHP (was 15)
+    WRITE_BYTE 0x68 35 // Stealth (was 20)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pirpir02.cre~ ~override~ //Andar the Pirate
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pirpir05.cre~ ~override~ //Chremy
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 25 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 0)
+    WRITE_BYTE 0x234 12 // HighestLevelPrimary (was 1)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pirsea03.cre~ ~override~ //Pirate
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    ADD_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    ADD_CRE_ITEM ~DAGG05~ #15 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pirfsh01.cre~ ~override~ //Fisherman
+              ~pirfsh02.cre~ ~override~ //Fishwife
+              ~pirgrd01.cre~ ~override~ //Guard
+              ~pirmur01.cre~ ~override~ //Galvena
+              ~pirmur04.cre~ ~override~ //Guard
+              ~pirmur08.cre~ ~override~ //Guard
+              ~pirmur09.cre~ ~override~ //Golin
+              ~pirmur11.cre~ ~override~ //Guard
+              ~pirmur12.cre~ ~override~ //Guard
+              ~pirpir01.cre~ ~override~ //Pirate
+              ~pirpir07.cre~ ~override~ //Pirate Bill
+              ~pirpir08.cre~ ~override~ //Pirate Dan
+              ~pirpir09.cre~ ~override~ //Pirate Jimmy
+              ~pirpir10.cre~ ~override~ //Pirate Scotty
+              ~pirpir11.cre~ ~override~ //Pirate Paul
+              ~pirpir12.cre~ ~override~ //Pirate Newf
+              ~pirprv01.cre~ ~override~ //Privateer
+              ~pirsea02.cre~ ~override~ //Pirate
+              ~ppaltk1.cre~ ~override~ //Kobold Shaman
+              ~ppaltk2.cre~ ~override~ //Kobold Shaman
+              ~ppbhaal.cre~ ~override~ //Bhaal
+              ~ppdesh.cre~ ~override~ //Desharik
+              ~ppdesh2.cre~ ~override~ //Desharik
+              ~ppdoor.cre~ ~override~ //Pirate Door Guard
+              ~ppduel1.cre~ ~override~ //Andante
+              ~ppduel2.cre~ ~override~ //Dirbish the Black
+              ~ppduelc.cre~ ~override~ //Duel Coordinator
+              ~ppgithgi.cre~ ~override~ //Githyanki
+              ~ppgithma.cre~ ~override~ //Githyanki
+              ~ppguard1.cre~ ~override~ //Kobold
+              ~ppguard2.cre~ ~override~ //Kobold
+              ~ppguard3.cre~ ~override~ //Kobold
+              ~ppguarda.cre~ ~override~ //Pirate
+              ~ppinn01.cre~ ~override~ //Innkeeper
+              ~pplackey.cre~ ~override~ //Pirate
+              ~ppmind01.cre~ ~override~ //Mind Flayer
+              ~pppirate.cre~ ~override~ //Pirate
+              ~ppright.cre~ ~override~ //Dunbar
+              ~ppsaem.cre~ ~override~ //Saemon Havarian
+              ~ppsaem2.cre~ ~override~ //Saemon Havarian
+              ~ppsaem3.cre~ ~override~ //Saemon Havarian
+              ~ppsha.cre~ ~override~ //Saemon Havarian
+              ~ppsuna.cre~ ~override~ //Suna Seni
+              ~ppumb02.cre~ ~override~ //Umber Hulk
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pirmur05.cre~ ~override~ //Guard Capt
+              ~pirmur06.cre~ ~override~ //Guard Capt
+              ~pirmur13.cre~ ~override~ //Guard Capt
+              ~pirsea01.cre~ ~override~ //Pirate Captain
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pparan2.cre~ ~override~ //Aran Linvail
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_LONG 0x10 0 // CreatureFlags (was 134217728)
+    WRITE_BYTE 0x64 60 // DtectIll (was 0)
+    WRITE_ASCII 0x248 ~shoutinv~ #8 // Override (was MAGTHF14)
+    WRITE_ASCII 0x250 ~pparan2~ #8 // Class (was SHOUTINV)
+    WRITE_ASCII 0x258 ~magthf14~ #8 // Race (was PPARAN2)
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spwi116~
+    REMOVE_KNOWN_SPELL ~spwi217~
+    REMOVE_KNOWN_SPELL ~spwi306~
+    REMOVE_KNOWN_SPELL ~spwi318~
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi113~
+    REMOVE_MEMORIZED_SPELL ~spwi220~
+    REMOVE_MEMORIZED_SPELL ~spwi405~
+    REMOVE_MEMORIZED_SPELL ~spwi506~
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (8)
+    ADD_MEMORIZED_SPELL ~spwi113~ #0 ~wizard~ (8)
+    ADD_MEMORIZED_SPELL ~spwi220~ #1 ~wizard~ (8)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~ (8)
+    ADD_MEMORIZED_SPELL ~spwi506~ #4 ~wizard~ (8)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+
+
+COPY ~bp/cre/ppgith90.cre~ ~override~
+
+COPY ~bp/cre/ppgith91.cre~ ~override~
+
+COPY ~bp/cre/ppgith92.cre~ ~override~
+
+COPY ~bp/cre/ppgith93.cre~ ~override~
+
+COPY ~bp/cre/ppgith97.cre~ ~override~
+
+COPY ~bp/cre/ppgith98.cre~ ~override~
+
+COPY ~bp/cre/ppgith99.cre~ ~override~
+
+COPY ~bp/cre/ppguy02.cre~ ~override~
+
+COPY ~bp/cre/ppsail04.cre~ ~override~
+
+COPY_EXISTING ~ppcowled.cre~ ~override~ //Perth the Adept
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bpmag18b~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART03~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppdel.cre~ ~override~ //Del
+              ~ppparis.cre~ ~override~ //Parisa
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 73 // CurrHP (was 53)
+    WRITE_SHORT 0x26 73 // MaxHP (was 53)
+    WRITE_ASCII 0x268 ~bpvamp01~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppdjinn.cre~ ~override~ //Genie
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpdjinni~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppdjinn2.cre~ ~override~ //Djinni
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~bpdjinni~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppgith.cre~ ~override~ //Githyanki Captain
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x241 255 // Racial (was 0)
+    WRITE_ASCII 0x248 ~bp!plot~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x250 ~bpleader~ #8 // Class (was GITHCHP4)
+    WRITE_ASCII 0x258 ~humansht~ #8 // Race (was FIGMAG10)
+    WRITE_ASCII 0x260 ~githchp4~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~figmag10~ #8 // Default (was NONE)
+    REMOVE_MEMORIZED_SPELL ~spwi302~
+    ADD_MEMORIZED_SPELL ~spwi302~ #2 ~wizard~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppgithwa.cre~ ~override~ //Githyanki
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bpmag12e~ #8 // Race (was )
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppguard.cre~ ~override~ //Pirate
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~ppshout~ #8 // Override (was SHOUT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppguard1.cre~ ~override~ //Pirate
+              ~ppguard2.cre~ ~override~
+              ~ppguard3.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~ppshout~ #8 // Override (was SHOUT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppguard4.cre~ ~override~ //Kobold Witch Doctor
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 22 // CurrHP (was 10)
+    WRITE_SHORT 0x26 22 // MaxHP (was 10)
+    WRITE_ASCII 0x250 ~ppshout~ #8 // Override (was SHOUT)
+    WRITE_ASCII 0x258 ~bpmage6a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~BOW05~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~AROW08~ #12 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppjoye.cre~ ~override~ //Dace Sontan
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpvamp01~ #8 // Default (was WTASIGHT)
+    REMOVE_CRE_ITEM ~IMMUNE3~
+    REPLACE_CRE_ITEM ~IMMUNE2~ #0 #0 #0 ~NONE~ ~RRING~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppldr01.cre~ ~override~ //Pirate Leader
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 153 // CurrHP (was 93)
+    WRITE_SHORT 0x26 153 // MaxHP (was 93)
+    WRITE_SHORT 0x46 4 // ACNatul (was 10)
+    WRITE_SHORT 0x48 4 // ACEffec (was 10)
+    WRITE_BYTE 0x53 2 // NOAtt (was 7)
+    WRITE_BYTE 0x238 19 // Str (was 9)
+    WRITE_BYTE 0x23c 19 // Dex (was 9)
+    WRITE_BYTE 0x23d 25 // Con (was 9)
+    WRITE_ASCII 0x248 ~shoutdlg~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x250 ~ppshout~ #8 // Class (was SHOUTDLG)
+    WRITE_ASCII 0x258 ~bpleader~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppmag01.cre~ ~override~ //Pirate Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~ppshout~ #8 // Override (was PPMAG01)
+    WRITE_ASCII 0x250 ~bpmag16m~ #8 // Class (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spwi311~
+    REMOVE_KNOWN_SPELL ~spwi415~
+    REMOVE_MEMORIZED_SPELL ~spwi311~
+    REMOVE_MEMORIZED_SPELL ~spwi415~
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (5)
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi219~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi318~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi303~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppmur.cre~ ~override~ //Murderer
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x234 7 // HighestLevelPrimary (was 3)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppsail01.cre~ ~override~ //Pirate
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 4 // ACNatul (was 10)
+    WRITE_SHORT 0x48 4 // ACEffec (was 10)
+    WRITE_BYTE 0x53 2 // NOAtt (was 7)
+    WRITE_BYTE 0x238 18 // Str (was 9)
+    WRITE_BYTE 0x239 50 // StrBon (was 0)
+    WRITE_BYTE 0x23c 18 // Dex (was 9)
+    WRITE_BYTE 0x23d 18 // Con (was 9)
+    WRITE_ASCII 0x248 ~ppshout~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppsail02.cre~ ~override~ //Pirate
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 40 // DtectIll (was 0)
+    WRITE_BYTE 0x68 60 // Stealth (was 0)
+    WRITE_BYTE 0x23d 16 // Con (was 14)
+    WRITE_ASCII 0x248 ~ppshout~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 1 // IDSSpecifc (was 5)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppsail03.cre~ ~override~ //Pirate
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x248 ~ppshout~ #8 // Override (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_CRE_ITEM ~LEAT01~ ~SW1H20~
+    REPLACE_CRE_ITEM ~LEAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~SW1H20~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppsanik.cre~ ~override~ //Sanik
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF06~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppshad01.cre~ ~override~ //Shadow Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 85 // CurrHP (was 5)
+    WRITE_SHORT 0x26 85 // MaxHP (was 5)
+    WRITE_ASCII 0x250 ~magthf14~ #8 // Class (was  )
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was  )
+    REMOVE_KNOWN_SPELL ~spwi116~
+    REMOVE_KNOWN_SPELL ~spwi217~
+    REMOVE_KNOWN_SPELL ~spwi306~
+    REMOVE_KNOWN_SPELL ~spwi318~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppsime.cre~ ~override~ //Sime
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 70 // DtectIll (was 0)
+    WRITE_BYTE 0x68 90 // Stealth (was 100)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppthf01.cre~ ~override~ //Pirate
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_BYTE 0x68 60 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppthf02.cre~ ~override~ //Pirate
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_BYTE 0x68 60 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ppumb01.cre~ ~override~ //Priestess of Umberlee
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~
+  END
+BUT_ONLY
+
+
+//Script Paradise
+
+EXTEND_BOTTOM ~ar1600.bcs~ ~bp/snip/bar1600.baf~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~ppshout.bcs~ BEGIN
+  COMPILE ~bp/baf/shouts/strings/ppshout.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12e.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12e.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdjinni.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/misc/bpdjinni.baf~
+END
+
+
+END

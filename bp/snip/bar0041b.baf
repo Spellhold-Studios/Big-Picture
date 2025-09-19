@@ -1,0 +1,128 @@
+
+IF
+  OnCreation()
+  OR(2)
+    XPLT(Player1,250001)
+    Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("REBAND01",[488.558],10)
+    CreateCreature("REBAND02",[500.454],10)
+    CreateCreature("REBAND03",[552.476],10)
+    CreateCreature("REBAND04",[427.548],10)
+    CreateCreature("REBAND05",[525.591],10)
+END
+
+IF
+  OnCreation()
+  XPGT(Player1,250000)
+  XPLT(Player1,1000001)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("REBAND01",[488.558],10)
+    CreateCreature("REBAND02",[500.454],10)
+    CreateCreature("REBAND03",[552.476],10)
+    CreateCreature("REBAND04",[427.548],10)
+    CreateCreature("REBAND05",[525.591],10)
+  RESPONSE #100
+    CreateCreature("GBBand1a",[488.558],10)
+    CreateCreature("GBBand1a",[500.454],10)
+    CreateCreature("GBBand1b",[552.476],10)
+    CreateCreature("GBBand1c",[427.548],10)
+    CreateCreature("GBBand1d",[525.591],10)
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1b",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1c",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1d",0,0,0)
+END
+
+IF
+  OnCreation()
+  XPGT(Player1,1000000)
+  XPLT(Player1,2000001)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("REBAND01",[488.558],10)
+    CreateCreature("REBAND02",[500.454],10)
+    CreateCreature("REBAND03",[552.476],10)
+    CreateCreature("REBAND04",[427.548],10)
+    CreateCreature("REBAND05",[525.591],10)
+  RESPONSE #100
+    CreateCreature("GBBand1a",[488.558],10)
+    CreateCreature("GBBand1a",[500.454],10)
+    CreateCreature("GBBand1b",[552.476],10)
+    CreateCreature("GBBand1c",[427.548],10)
+    CreateCreature("GBBand1d",[525.591],10)
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1b",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1c",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1d",0,0,0)
+  RESPONSE #100
+    CreateCreature("GBEne01a",[488.558],10)
+    CreateCreature("GBEne01b",[500.454],10)
+    CreateCreature("GBEne01c",[552.476],10)
+    CreateCreature("GBEne01d",[427.548],10)
+    CreateCreature("GBEne01e",[525.591],10)
+    CreateCreature("GBEne01f",[585.542],10)
+    GiveItemCreate("RndTre04","GBEne01a",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01b",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01c",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01d",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01e",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01f",0,0,0)
+END
+
+IF
+  OnCreation()
+  XPGT(Player1,2000000)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("REBAND01",[488.558],10)
+    CreateCreature("REBAND02",[500.454],10)
+    CreateCreature("REBAND03",[552.476],10)
+    CreateCreature("REBAND04",[427.548],10)
+    CreateCreature("REBAND05",[525.591],10)
+  RESPONSE #100
+    CreateCreature("GBBand1a",[488.558],10)
+    CreateCreature("GBBand1a",[500.454],10)
+    CreateCreature("GBBand1b",[552.476],10)
+    CreateCreature("GBBand1c",[427.548],10)
+    CreateCreature("GBBand1d",[525.591],10)
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1b",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1c",0,0,0)
+    GiveItemCreate("RndTre03","GBBand1d",0,0,0)
+  RESPONSE #100
+    CreateCreature("GBEne01a",[488.558],10)
+    CreateCreature("GBEne01b",[500.454],10)
+    CreateCreature("GBEne01c",[552.476],10)
+    CreateCreature("GBEne01d",[427.548],10)
+    CreateCreature("GBEne01e",[525.591],10)
+    CreateCreature("GBEne01f",[585.542],10)
+    GiveItemCreate("RndTre04","GBEne01a",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01b",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01c",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01d",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01e",0,0,0)
+    GiveItemCreate("RndTre04","GBEne01f",0,0,0)
+  RESPONSE #100
+    CreateCreature("GBEne02a",[488.558],10)
+    CreateCreature("GBEne02b",[500.454],10)
+    CreateCreature("GBEne02c",[552.476],10)
+    CreateCreature("GBEne02d",[427.548],10)
+    CreateCreature("GBEne02e",[525.591],10)
+    CreateCreature("GBEne02f",[585.542],10)
+    GiveItemCreate("RndTre05","GBEne02a",0,0,0)
+    GiveItemCreate("RndTre05","GBEne02b",0,0,0)
+    GiveItemCreate("RndTre05","GBEne02c",0,0,0)
+    GiveItemCreate("RndTre05","GBEne02d",0,0,0)
+    GiveItemCreate("RndTre05","GBEne02e",0,0,0)
+    GiveItemCreate("RndTre05","GBEne02f",0,0,0)
+END
+

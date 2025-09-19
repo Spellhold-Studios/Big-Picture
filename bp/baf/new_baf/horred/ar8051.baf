@@ -1,0 +1,110 @@
+IF
+  RandomNum(3,1)
+  !CombatCounter(0)
+  GlobalTimerExpired("BPHorredHoard","AR8501")
+  !Dead("HORRED")  // ~Horred~
+  NumCreatureVsPartyLT([EVILCUTOFF],4)
+  GlobalLT("BPSoManyHelpers","AR8051",3)
+THEN
+  RESPONSE #100
+    CreateCreature("BPSKELAR",[300.620],11)  // ~Skeleton Archer~
+    CreateCreature("BPSKELAR",[400.800],10)  // ~Skeleton Archer~
+    CreateCreature("BPSKELAR",[600.400],5)  // ~Skeleton Archer~
+    CreateCreature("BPSKELAR",[800.425],6)  // ~Skeleton Archer~
+    SetGlobalTimer("BPHorredHoard","AR8051",90)
+    IncrementGlobal("BPSoManyHelpers","AR8051",1)
+END
+
+IF
+  RandomNum(3,2)
+  !CombatCounter(0)
+  GlobalTimerExpired("BPHorredHoard","AR8501")
+  !Dead("HORRED")  // ~Horred~
+  NumCreatureVsPartyLT([EVILCUTOFF],4)
+  GlobalLT("BPSoManyHelpers","AR8051",3)
+THEN
+  RESPONSE #100
+    CreateCreature("BPGHAST",[300.620],11)  // ~Greater Ghast~
+    CreateCreature("BPGHAST",[400.800],10)  // ~Greater Ghast~
+    CreateCreature("BPGHAST",[600.400],5)  // ~Greater Ghast~
+    CreateCreature("BPGHAST",[800.425],6)  // ~Greater Ghast~
+    SetGlobalTimer("BPHorredHoard","AR8051",90)
+    IncrementGlobal("BPSoManyHelpers","AR8051",1)
+END
+
+IF
+  RandomNum(3,3)
+  GlobalTimerExpired("BPHorredHoard","AR8501")
+  !Dead("HORRED")  // ~Horred~
+  NumCreatureVsPartyLT([EVILCUTOFF],4)
+  GlobalLT("BPSoManyHelpers","AR8051",3)
+THEN
+  RESPONSE #100
+    CreateCreature("BPSKELAR",[300.620],11)  // ~Skeleton Archer~
+    CreateCreature("BPGHAST",[400.800],10)  // ~Greater Ghast~
+    CreateCreature("BPGHAST",[600.400],5)  // ~Greater Ghast~
+    CreateCreature("BPSKELAR",[800.425],6)  // ~Skeleton Archer~
+    SetGlobalTimer("BPHorredHoard","AR8051",90)
+    IncrementGlobal("BPSoManyHelpers","AR8051",1)
+END
+
+IF
+  !Global("KeyCheck8500","GLOBAL",1)
+  Global("DoorKeep8050","LOCALS",0)
+  Entered([ANYONE])
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR01")
+    Lock("DOOR01")
+    SetGlobal("DoorKeep8050","LOCALS",1)
+END
+
+IF
+  Unlocked("DOOR01")  // DOOR01
+  !PartyHasItem("KEY66")  // ~Demon-Head Key~
+THEN
+  RESPONSE #100
+    Lock("DOOR01")
+END
+
+IF
+  !Global("KeyCheck8500","GLOBAL",1)
+  PickLockFailed([GOODCUTOFF])
+  Detect(LastTrigger)
+THEN
+  RESPONSE #100
+    DisplayStringHead(LastTrigger,23169)  // ~The mechanism that operates this does not have a conventional lock, and may be warded against simple spells.~
+END
+
+IF
+  !Global("KeyCheck8500","GLOBAL",1)
+  !PartyHasItem("KEY66")  // ~Demon-Head Key~
+  OR(2)
+    SpellCast([GOODCUTOFF],WIZARD_KNOCK)
+    SpellCastOnMe([GOODCUTOFF],WIZARD_KNOCK)
+THEN
+  RESPONSE #100
+    Lock("DOOR01")
+    DisplayStringHead(Myself,23169)  // ~The mechanism that operates this does not have a conventional lock, and may be warded against simple spells.~
+END
+
+IF
+  Global("KeyCheck8500","GLOBAL",0)
+  !PartyHasItem("KEY66")  // ~Demon-Head Key~
+  Opened("DOOR01")  // DOOR01
+  Detect(LastTrigger)
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR01")
+    Lock("DOOR01")
+    DisplayStringHead(Myself,23169)  // ~The mechanism that operates this does not have a conventional lock, and may be warded against simple spells.~
+END
+
+IF
+  PartyHasItem("KEY66")  // ~Demon-Head Key~
+THEN
+  RESPONSE #100
+    Unlock("DOOR01")
+    SetGlobal("KeyCheck8500","GLOBAL",1)
+END
+

@@ -1,0 +1,746 @@
+
+//////////////////////SULDANESSALLAR///////////////////////////
+
+
+DEFINE_ACTION_FUNCTION suldanessalar BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF demon_rules END
+
+
+APPEND ~specific.ids~ ~6 SULDANESSALLAR~ UNLESS ~SULDANESSALLAR~
+APPEND ~SHOUTIDS.IDS~ ~199 ALERT_199~ UNLESS ~ALERT_199~
+
+COPY ~bp/spl/bptarget.spl~ ~override~
+
+COMPILE ~bp/baf/new_baf/spl/bptarget.baf~
+
+COPY ~bp/cre/bptarget.cre~ ~override~
+
+COPY_EXISTING ~c6warsa1.cre~ ~override~ //Elven War Sage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~~ #8 // Override (was C6WARSA1)
+    WRITE_ASCII 0x260 ~~ #8 // General (was MAGE10B)
+    WRITE_ASCII 0x268 ~bpelfmag~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 5)
+    REPLACE_CRE_ITEM ~DART01~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~c6warsa2.cre~ ~override~ //Elven War Sage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~~ #8 // General (was MAGE10B)
+    WRITE_ASCII 0x268 ~bpelfmag~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 5)
+    REPLACE_CRE_ITEM ~DART01~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+
+
+
+//New triggers (10), maybe spawns too--Improved Suldanessallar
+COPY_EXISTING ~ar2800.are~ ~override~
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 583
+    fj_box_top      = 879
+    fj_box_right    = 593
+    fj_box_bottom   = 888
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 590 + (878 << 16)
+    fj_vertex_1     = 583 + (879 << 16)
+    fj_vertex_2     = 586 + (888 << 16)
+    fj_vertex_3     = 593 + (886 << 16)
+    fj_vertex_4     = 590 + (878 << 16)
+    fj_loc_x        = 588
+    fj_loc_y        = 883
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE0
+    fj_name             = Dragon0
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 906
+    fj_box_top      = 1134
+    fj_box_right    = 915
+    fj_box_bottom   = 1143
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 914 + (1138 << 16)
+    fj_vertex_1     = 906 + (1135 << 16)
+    fj_vertex_2     = 909 + (1143 << 16)
+    fj_vertex_3     = 915 + (1140 << 16)
+    fj_vertex_4     = 914 + (1133 << 16)
+    fj_loc_x        = 910
+    fj_loc_y        = 1138
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE1
+    fj_name             = Dragon1
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 2937
+    fj_box_top      = 1032
+    fj_box_right    = 2949
+    fj_box_bottom   = 1041
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 2947 + (1031 << 16)
+    fj_vertex_1     = 2937 + (1033 << 16)
+    fj_vertex_2     = 2942 + (1041 << 16)
+    fj_vertex_3     = 2949 + (1038 << 16)
+    fj_vertex_4     = 2947 + (1031 << 16)
+    fj_loc_x        = 2943
+    fj_loc_y        = 1036
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE2
+    fj_name             = Dragon2
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 3441
+    fj_box_top      = 870
+    fj_box_right    = 3451
+    fj_box_bottom   = 878
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 3441 + (870 << 16)
+    fj_vertex_1     = 3451 + (869 << 16)
+    fj_vertex_2     = 3450 + (877 << 16)
+    fj_vertex_3     = 3441 + (878 << 16)
+    fj_vertex_4     = 3441 + (870 << 16)
+    fj_loc_x        = 3446
+    fj_loc_y        = 874
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE3
+    fj_name             = Dragon3
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 4782
+    fj_box_top      = 1078
+    fj_box_right    = 4792
+    fj_box_bottom   = 1086
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 4789 + (1077 << 16)
+    fj_vertex_1     = 4782 + (1079 << 16)
+    fj_vertex_2     = 4784 + (1086 << 16)
+    fj_vertex_3     = 4792 + (1085 << 16)
+    fj_vertex_4     = 4789 + (1077 << 16)
+    fj_loc_x        = 4787
+    fj_loc_y        = 1082
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE4
+    fj_name             = Dragon4
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 3878
+    fj_box_top      = 1941
+    fj_box_right    = 3890
+    fj_box_bottom   = 1950
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 3888 + (1940 << 16)
+    fj_vertex_1     = 3878 + (1941 << 16)
+    fj_vertex_2     = 3880 + (1950 << 16)
+    fj_vertex_3     = 3890 + (1950 << 16)
+    fj_vertex_4     = 3888 + (1940 << 16)
+    fj_loc_x        = 3884
+    fj_loc_y        = 1945
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE5
+    fj_name             = Dragon5
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 1778
+    fj_box_top      = 1774
+    fj_box_right    = 1791
+    fj_box_bottom   = 1782
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 1788 + (1773 << 16)
+    fj_vertex_1     = 1778 + (1774 << 16)
+    fj_vertex_2     = 1781 + (1782 << 16)
+    fj_vertex_3     = 1791 + (1780 << 16)
+    fj_vertex_4     = 1788 + (1773 << 16)
+    fj_loc_x        = 1784
+    fj_loc_y        = 1778
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE6
+    fj_name             = Dragon6
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 2127
+    fj_box_top      = 1728
+    fj_box_right    = 2137
+    fj_box_bottom   = 1735
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 2135 + (1727 << 16)
+    fj_vertex_1     = 2127 + (1728 << 16)
+    fj_vertex_2     = 2130 + (1735 << 16)
+    fj_vertex_3     = 2137 + (1734 << 16)
+    fj_vertex_4     = 2135 + (1727 << 16)
+    fj_loc_x        = 2132
+    fj_loc_y        = 1731
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE7
+    fj_name             = Dragon7
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 2156
+    fj_box_top      = 3380
+    fj_box_right    = 2167
+    fj_box_bottom   = 3391
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 2164 + (3380 << 16)
+    fj_vertex_1     = 2156 + (3380 << 16)
+    fj_vertex_2     = 2157 + (3391 << 16)
+    fj_vertex_3     = 2167 + (3388 << 16)
+    fj_vertex_4     = 2164 + (3380 << 16)
+    fj_loc_x        = 2161
+    fj_loc_y        = 3385
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE8
+    fj_name             = Dragon8
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 3372
+    fj_box_top      = 2737
+    fj_box_right    = 3382
+    fj_box_bottom   = 2746
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 3380 + (2737 << 16)
+    fj_vertex_1     = 3372 + (2737 << 16)
+    fj_vertex_2     = 3374 + (2746 << 16)
+    fj_vertex_3     = 3382 + (2744 << 16)
+    fj_vertex_4     = 3380 + (2737 << 16)
+    fj_loc_x        = 3377
+    fj_loc_y        = 2741
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = BPSIEGE9
+    fj_name             = Dragon9
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 0    //trap
+    fj_box_left     = 932
+    fj_box_top      = 2630
+    fj_box_right    = 1071
+    fj_box_bottom   = 2724
+    fj_cursor_idx   = 0 
+    fj_trap_active = 1
+    fj_trap_status = 0
+    fj_vertex_0     = 1041 + (2629 << 16)
+    fj_vertex_1     = 1071 + (2675 << 16)
+    fj_vertex_2     = 962 + (2724 << 16)
+    fj_vertex_3     = 932 + (2676 << 16)
+    fj_vertex_4     = 1041 + (2629 << 16)
+    fj_loc_x        = 1001
+    fj_loc_y        = 2677
+    STR_VAR
+    fj_structure_type   = region
+    fj_reg_script       = SUSCENE5
+    fj_name             = Scene5
+  END
+
+
+COPY ~bp/suldan/dragredd.cre~ ~override/dragredd.cre~
+
+COPY_EXISTING ~jondal.cre~ ~override~ //Jondalar
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~bpwdasgt~ #8 // General (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~jondal3.cre~ ~override~ //Jondalar
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #17633 // LongName (was 17632)
+    WRITE_ASCII 0x260 ~bpwdasgt~ #8 // General (was WTASIGHT)
+    // WRITE_LONG 0x10c 101077 // Ref26 (was 11095)
+    // WRITE_LONG 0xa4 101077 // Ref0 (was 11095)
+    // WRITE_LONG 0xc8 101078 // Ref9 (was 5167)
+    // WRITE_LONG 0xec 100914 // Ref18 (was 5884)
+    // WRITE_LONG 0xf0 100915 // Ref19 (was 5885)
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~suadsaan.cre~ ~override~ //Adsaan
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpmage8d~ #8 // Class (was MAGE8B)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sudemin.cre~ ~override~ //Priestess Demin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~~ #8 // Race (was PRIES12C)
+    WRITE_ASCII 0x268 ~bpelfpre~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sudemde1.cre~ ~override~ //Balor
+              ~sudemde2.cre~ ~override~ //Balor
+              ~sudemon.cre~ ~override~ //Balor
+              ~sudemon2.cre~ ~override~ //Balor
+              ~sudemw1.cre~ ~override~ //Balor
+              ~jondem05.cre~ ~override~ //Glabrezu
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~jondem01.cre~ ~override~ //Glabrezu
+              ~jondem03.cre~ ~override~ //Glabrezu
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpglabrz~ #8 // Override (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~jondem02.cre~ ~override~ //Balor
+              ~jondem04.cre~ ~override~ //Balor
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~dembal01~ #8 // Override (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelf10.cre~ ~override~ //Reirra
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x258 ~~ #8 // Race (was PRIET12B)
+    WRITE_ASCII 0x268 ~bpelfpre~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 0)
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    REMOVE_MEMORIZED_SPELL ~sppr608~
+    REMOVE_MEMORIZED_SPELL ~sppr603~
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr699~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr698~ #5 ~priest~
+    REPLACE_CRE_ITEM ~CHAN12~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM12~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~SHLD03~ #0 #0 #0 ~NONE~ ~SHIELD~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelf11.cre~ ~override~ //Wounded Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelf12.cre~ ~override~ //Captain Aduo'on
+              ~suelf13.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 0)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelf2.cre~ ~override~ //Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was NONE)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 0)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelf3.cre~ ~override~ //Elven Warrior
+              ~suelf4.cre~ ~override~ //Girl
+              ~suelf5.cre~ ~override~ //Boy
+              ~suelle.cre~ ~override~ //Ellesime
+              ~suelle2.cre~ ~override~ //Ellesime
+              ~suelleap.cre~ ~override~ //Ellesime
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 0)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw1.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpsuelf1~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw2.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpsuelf2~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw3.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpsuelf3~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw4.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpsuelf4~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw5.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpsuelf5~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw6.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpsuelf6~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw7.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpsuelf7~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw8.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpsuelf8~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw9.cre~ ~override~ //Elven Battle Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x248 ~bpsuelf9~ #8
+    WRITE_ASCII 0x250 ~~ #8 // Class (was MAGE8A)
+    WRITE_ASCII 0x268 ~bpelfmag~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 2)
+    REPLACE_CRE_ITEM ~DAGG02~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG05~ #20 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw10.cre~ ~override~ //Elven Battle Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x248 ~bpsuel10~ #8
+    WRITE_ASCII 0x250 ~~ #8 // Class (was MAGE8A)
+    WRITE_ASCII 0x268 ~bpelfmag~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 2)
+    REPLACE_CRE_ITEM ~DAGG02~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG05~ #20 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw11.cre~ ~override~ //Elven Battle Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x248 ~bpsuel11~ #8
+    WRITE_ASCII 0x250 ~~ #8 // Class (was MAGE8A)
+    WRITE_ASCII 0x268 ~bpelfmag~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 2)
+    REPLACE_CRE_ITEM ~DAGG02~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG05~ #20 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw12.cre~ ~override~ //Elven Battle Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x248 ~bpsuel12~ #8
+    WRITE_ASCII 0x250 ~~ #8 // Class (was MAGE8A)
+    WRITE_ASCII 0x268 ~bpelfmag~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 2)
+    REPLACE_CRE_ITEM ~DAGG02~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG05~ #20 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw13.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpsuel13~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw14.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpsuel14~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelfw15.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpsuel15~ #8
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelf6.cre~ ~override~ //Elven Warrior
+              ~suelf7.cre~ ~override~ //Elven Warrior
+              ~suelf8.cre~ ~override~ //Elven Warrior
+              ~suelf9.cre~ ~override~ //Wounded Elf
+              ~c6fake.cre~ ~override~  //Elhan
+              ~suelf13.cre~ ~override~ //Elven Warrior
+              ~suendel1.cre~ ~override~ //Elven Warrior
+              ~suendel2.cre~ ~override~ //Elven Warrior
+              ~suendel3.cre~ ~override~ //Elf Male
+              ~suendel4.cre~ ~override~ //Elf Female
+              ~suendel5.cre~ ~override~ //Elf
+              ~suendel6.cre~ ~override~ //Elf
+              ~suendel7.cre~ ~override~ //Elven Warrior
+              ~suendel8.cre~ ~override~ //Elven Warrior
+              ~sumoon.cre~ ~override~ //Elven Warrior
+                PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 1)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelhan.cre~ ~override~ //Elhan
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 0)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suelleg1.cre~ ~override~ //Elven Warrior
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 6 // IDSSpecifc (was 0)
+  END
+BUT_ONLY
+
+
+
+COPY_EXISTING ~surakw1.cre~ ~override~ //Rakshasa
+              ~surakw2.cre~ ~override~ //Rakshasa
+              ~surakw3.cre~ ~override~ //Rakshasa
+              ~surakw4.cre~ ~override~ //Rakshasa
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~wgarsgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~surakmah.cre~ ~override~ //Maharajah
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bprakmah~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~surakraj.cre~ ~override~ //Rajah
+              ~surakruh.cre~ ~override~ //Ruhk
+              ~suraksha.cre~ ~override~ //Rakshasa
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bprakruh~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~susuneer.cre~ ~override~ //Suneer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sutroll.cre~ ~override~ //Troll
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x234 8 // HighestLevelPrimary (was 6)
+    WRITE_BYTE 0x239 100 // StrBon (was 0)
+    WRITE_ASCII 0x248 ~troll01~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suraam.cre~ ~override~ //Raamilat
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 96 // CurrHP (was 56)
+    WRITE_SHORT 0x26 96 // MaxHP (was 56)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~RAKRING~ #0 #0 #0 ~NONE~ ~LRING~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~suziyaad.cre~ ~override~ //Ziyaad
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpmage8e~ #8 // Override (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~RAKRING~ #0 #0 #0 ~NONE~ ~LRING~
+  END
+BUT_ONLY
+
+
+///From the UD Escape--still Suldanessalar citizens, but move if a component can be made
+
+COPY_EXISTING ~udelf01.cre~ ~override~ //War Elf
+              ~udelf03.cre~ ~override~ //War Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~udelf02.cre~ ~override~ //War Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPSHOUT)
+    WRITE_ASCII 0x260 ~~ #8 // General (was GPARCHER)
+    WRITE_ASCII 0x268 ~bpsuelf~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~udelf04.cre~ ~override~ //War Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPSHOUT)
+    WRITE_ASCII 0x260 ~~ #8 // General (was MAGE10B)
+    WRITE_ASCII 0x268 ~bpelfmag~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DAGG16~ #15 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~udelf05.cre~ ~override~ //War Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpelfpre~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COMPILE ~bp/suldan/compile~
+
+COPY_EXISTING ~suelfsht.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~Shout(100)~ ~Shout(ALERT_199)~
+    REPLACE_TEXTUALLY ~Shout(ALERT_100)~ ~Shout(ALERT_199)~
+    REPLACE_TEXTUALLY ~\[ANYONE\],100)~ ~[0.0.ELF.0.SULDANESSALLAR],ALERT_199)~
+    REPLACE_TEXTUALLY ~\[ANYONE\],ALERT_100)~ ~[0.0.ELF.0.SULDANESSALLAR],ALERT_199)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+EXTEND_TOP ~suscene4.bcs~ ~bp/snip/tsuscen4.baf~
+
+EXTEND_TOP ~ar2800.bcs~ ~bp/snip/tar2800.baf~
+EXTEND_TOP ~ar2801.bcs~ ~bp/snip/tar2801.baf~
+EXTEND_TOP ~ar2802.bcs~ ~bp/snip/tar2802.baf~
+EXTEND_TOP ~ar2803.bcs~ ~bp/snip/tar2803.baf~
+EXTEND_TOP ~ar2807.bcs~ ~bp/snip/tar2807.baf~
+
+ACTION_IF FILE_EXISTS_IN_GAME ~ar2811.bcs~ BEGIN
+  EXTEND_BOTTOM ~ar2811.bcs~ ~bp/suldan/ar2811.baf~
+END ELSE BEGIN
+  COMPILE ~bp/suldan/ar2811.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wgarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wgarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wgarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8e.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8e.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bprakmah.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/misc/bprakmah.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bprakruh.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/misc/bprakruh.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~dragredd.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/dragon/dragredd.baf~
+END
+
+
+END

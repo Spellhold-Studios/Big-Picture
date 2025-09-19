@@ -1,0 +1,25 @@
+IF
+  Global("TannerMove","GLOBAL",1)
+  Global("AlreadySpawned","Ar0500",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("AlreadySpawned","Ar0500",1)
+    CreateCreature("TanTugn1",[2617.2252],1)
+    CreateCreature("TanTugn1",[2611.2242],1)
+    CreateCreature("TanTugn1",[2447.2322],0)
+    CreateCreature("TanThf01",[2031.2352],1)
+    CreateCreature("TanThf01",[2948.2452],1)
+END
+
+IF
+  Global("AlreadySpawned","AR0500",1)
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("AlreadySpawned","AR0500",2)
+    CreateCreature("TanThf01",[2409.2312],1)
+    CreateCreature("TanThf01",[2612.2232],1)
+END
+

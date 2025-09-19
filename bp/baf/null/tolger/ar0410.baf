@@ -1,0 +1,71 @@
+IF
+  Global("LavSpy","GLOBAL",1)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    MultiPlayerSync()
+    Wait(2)
+    SetGlobal("LavSpy","GLOBAL",2)
+    CloseDoor("DOOR412B")
+    Lock("DOOR412B")
+    CloseDoor("DOOR0419")
+    Lock("DOOR0419")
+    CloseDoor("DOOR0420")
+    Lock("DOOR0420")
+    EndCutSceneMode()
+END
+
+IF
+  Global("LavSpy","GLOBAL",2)
+  OpenState("DOOR412B",TRUE)  // DOOR412B
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR412B")
+    Lock("DOOR412B")
+END
+
+IF
+  Global("LavSpy","GLOBAL",2)
+  OpenState("DOOR0419",TRUE)  // DOOR0419
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR0419")
+    Lock("DOOR0419")
+END
+
+IF
+  Global("LavSpy","GLOBAL",2)
+  OpenState("DOOR0420",TRUE)  // DOOR0419
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR0420")
+    Lock("DOOR0420")
+END
+
+IF
+  HPGT("LAVOK",9)  // LAVOK
+  Global("switch","AR0410",0)
+THEN
+  RESPONSE #100
+    SetGlobal("switch","AR0410",1)
+    TriggerActivation("TRAN0412b",FALSE)
+    TriggerActivation("TRAN0419",FALSE)
+    TriggerActivation("TRAN0420",FALSE)
+END
+
+IF
+  Global("LavSpy","GLOBAL",3)
+THEN
+  RESPONSE #100
+    SetGlobal("LavSpy","GLOBAL",4)
+    TriggerActivation("TRAN0412b",TRUE)
+    TriggerActivation("TRAN0419",TRUE)
+    TriggerActivation("TRAN0420",TRUE)
+    Unlock("DOOR412B")
+    OpenDoor("DOOR412B")
+    Unlock("DOOR0419")
+    OpenDoor("DOOR0419")
+    Unlock("DOOR0420")
+    OpenDoor("DOOR0420")
+END
+

@@ -1,0 +1,44 @@
+IF
+  ActionListEmpty()
+  HaveSpell(INNATE_HORROR)
+  See(NearestEnemyOf(Myself))
+  !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+  !StateCheck(NearestEnemyOf(Myself),STATE_INVISIBLE)
+  !StateCheck(NearestEnemyOf(Myself),0)
+  RandomNumLT(140,71)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(NearestEnemyOf(Myself),INNATE_HORROR)
+END
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,70)
+  HaveSpell(INNATE_VAMPIRIC_TOUCH)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !StateCheck(NearestEnemyOf(Myself),STATE_INVISIBLE)
+  !StateCheck(NearestEnemyOf(Myself),0)
+  RandomNumLT(141,71)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(NearestEnemyOf(Myself),INNATE_VAMPIRIC_TOUCH)
+END
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,50)
+  HaveSpell(ENEMY_SUMMON_GHAST)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  NumCreatureLT([EVILCUTOFF.0.0.0.0.SUMMONED],7)
+  !StateCheck(NearestEnemyOf(Myself),STATE_INVISIBLE)
+  !StateCheck(NearestEnemyOf(Myself),0)
+  RandomNumLT(142,71)
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),ENEMY_SUMMON_GHAST)
+END
+

@@ -1,0 +1,8 @@
+IF
+  Global("BPGLAC","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("BPGLAC","GLOBAL",2)
+    EscapeArea()
+END
+

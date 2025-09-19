@@ -1,0 +1,53 @@
+IF
+  OR(2)
+    Global("MaeVarExposed","GLOBAL",1)
+    Allegiance(Myself,ENEMY)
+  Global("BPLockup","AR0301",0)
+  !Difficulty(EASIEST)
+  !Dead("MAEVAR")
+THEN
+  RESPONSE #100
+    SetGlobal("BPLockup","AR0301",1)
+    TriggerActivation("TRAN0300",FALSE)
+    TriggerActivation("TRAN0301",FALSE)
+    DisplayStringNoName(Player1,20668)
+END
+
+IF
+  Global("BPLockup","AR0301",1)
+  Dead("MaeVar")
+THEN
+  RESPONSE #100
+    SetGlobal("BPLockup","AR0301",2)
+    TriggerActivation("TRAN0300",TRUE)
+    TriggerActivation("TRAN0301",TRUE)
+    DisplayStringNoName(Player1,456)
+END
+
+IF
+  Global("MVHelp","GLOBAL",1)
+  !Difficulty(EASIEST)
+  NumInPartyGT(1)
+THEN
+  RESPONSE #100
+    SetGlobal("MVHelp","GLOBAL",2)
+    CreateCreature("MVGUARD2",[800.430],3)
+    CreateCreature("MVGUARD2",[765.400],3)
+    CreateCreature("MVGUARD2",[565.540],13)
+    CreateCreature("MVMAGE",[1115.480],6)
+END
+
+IF
+  Global("MVHelp","GLOBAL",2)
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+  NumInPartyGT(3)
+THEN
+  RESPONSE #100
+    SetGlobal("MVHelp","GLOBAL",3)
+    CreateCreature("MVGUARD2",[500.600],13)
+    CreateCreature("MVGUARD2",[540.740],6)
+    CreateCreature("MVGUARD2",[350.760],6)
+    CreateCreature("MVPRIES2",[1025.320],6)
+END
+

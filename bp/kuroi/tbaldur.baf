@@ -1,0 +1,73 @@
+IF
+    Global("KuroiSpawn","GLOBAL",0)
+    AreaType(OUTDOOR)
+    AreaType(CITY)
+    CombatCounter(0)
+    !Difficulty(EASIEST)
+    OR(12)
+        HasItemEquiped("sw1h45",Player1) // Malakar +2
+        HasItemEquiped("sw1h45",Player2) // Malakar +2
+        HasItemEquiped("sw1h45",Player3) // Malakar +2
+        HasItemEquiped("sw1h45",Player4) // Malakar +2
+        HasItemEquiped("sw1h45",Player5) // Malakar +2
+        HasItemEquiped("sw1h45",Player6) // Malakar +2
+        HasItemEquiped("sw1h51",Player1) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player2) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player3) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player4) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player5) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player6) // Ziggi's Katana
+    OR(2)
+        GlobalLT("Chapter","GLOBAL",4)
+        GlobalGT("Chapter","GLOBAL",5)
+THEN
+    RESPONSE #100
+        IncrementGlobal("KuroiSpawn","GLOBAL",1)
+        SetGlobalTimer("KuroiSpawnTimer","GLOBAL",ONE_DAY)
+END
+
+IF
+    !Global("KuroiSpawn","GLOBAL",2)
+    !Difficulty(EASIEST)
+    OR(6)
+        HasItemEquiped("solak1",Player1) // Kuroisan
+        HasItemEquiped("solak1",Player2) // Kuroisan
+        HasItemEquiped("solak1",Player3) // Kuroisan
+        HasItemEquiped("solak1",Player4) // Kuroisan
+        HasItemEquiped("solak1",Player5) // Kuroisan
+        HasItemEquiped("solak1",Player6) // Kuroisan
+THEN
+    RESPONSE #100
+        SetGlobal("KuroiSpawn","GLOBAL",2)
+END
+
+IF
+    Global("KuroiSpawn","GLOBAL",1)
+    GlobalTimerExpired("KuroiSpawnTimer","GLOBAL")
+    !Difficulty(EASIEST)
+    AreaType(OUTDOOR)
+    AreaType(CITY)
+    CombatCounter(0)
+    OR(12)
+        HasItemEquiped("sw1h45",Player1) // Malakar +2
+        HasItemEquiped("sw1h45",Player2) // Malakar +2
+        HasItemEquiped("sw1h45",Player3) // Malakar +2
+        HasItemEquiped("sw1h45",Player4) // Malakar +2
+        HasItemEquiped("sw1h45",Player5) // Malakar +2
+        HasItemEquiped("sw1h45",Player6) // Malakar +2
+        HasItemEquiped("sw1h51",Player1) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player2) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player3) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player4) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player5) // Ziggi's Katana
+        HasItemEquiped("sw1h51",Player6) // Ziggi's Katana
+    OR(2)
+        GlobalLT("Chapter","GLOBAL",4)
+        GlobalGT("Chapter","GLOBAL",5)
+THEN
+    RESPONSE #100
+        IncrementGlobal("KuroiSpawn","GLOBAL",1)
+        CreateCreatureObjectOffScreen("solak1",Player1,0,0,0) // Kuroisan
+END
+
+

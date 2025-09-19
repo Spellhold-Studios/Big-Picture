@@ -1,0 +1,213 @@
+IF
+  OnCreation()
+  RandomNum(8,1)
+  !LevelLT(Player1,15)
+  NumInPartyGT(1)
+  PartyHasItem("Sw2h15")
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("GorGith2",[488.558],10)
+    CreateCreature("GorGith2",[500.454],10)
+    CreateCreature("GorGith2",[552.476],10)
+    CreateCreature("GorGith2",[427.548],10)
+    CreateCreature("GorGith2",[525.591],10)
+    CreateCreature("GorGith2",[585.542],10)
+    CreateCreature("Gith04",[488.558],10)
+    CreateCreature("Gith04",[500.454],10)
+    CreateCreature("Gith05",[552.476],10)
+    CreateCreature("Gith05",[427.548],10)
+    CreateCreature("Gith03",[525.591],10)
+    CreateCreature("Gith03",[585.542],10)
+    GiveItemCreate("Misc07","Gith03",6000,0,0)
+    MoveViewObject("Gith03",INSTANT)
+    Wait(3)
+    DisplayStringHead("Gith03",62958)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,1)
+  OR(2)
+    LevelLT(Player1,15)
+    NumInParty(1)
+  PartyHasItem("Sw2h15")
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("GorGith2",[488.558],10)
+    CreateCreature("GorGith2",[500.454],10)
+    CreateCreature("GorGith2",[585.542],10)
+    CreateCreature("Gith04",[488.558],10)
+    CreateCreature("Gith05",[552.476],10)
+    CreateCreature("Gith03",[525.591],10)
+    GiveItemCreate("Misc07","Gith03",3000,0,0)
+    MoveViewObject("Gith03",INSTANT)
+    Wait(3)
+    DisplayStringHead("Gith03",62958)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,2)
+  !LevelLT(Player1,15)
+  NumInPartyGT(1)
+  OR(3)
+    PartyHasItem("Sw1h51")
+    PartyHasItem("Staf11")
+    PartyHasItem("Leat21")
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("TanThf01",[488.558],10)
+    CreateCreature("TanThf01",[500.454],10)
+    CreateCreature("TanThf01",[552.476],10)
+    CreateCreature("TanThf01",[427.548],10)
+    CreateCreature("TanWiz02",[525.591],10)
+    CreateCreature("TanWiz02",[585.542],10)
+    GiveItemCreate("Misc45","TanWiz02",6,0,0)
+    MoveViewObject("TanWiz02",INSTANT)
+    Wait(3)
+    DisplayStringHead("TanThf01",68594)
+    Wait(6)
+    DisplayStringHead("TanWiz02",56004)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,2)
+  OR(2)
+    LevelLT(Player1,15)
+    NumInParty(1)
+  OR(3)
+    PartyHasItem("Sw1h51")
+    PartyHasItem("Staf11")
+    PartyHasItem("Leat21")
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("TanThf01",[488.558],10)
+    CreateCreature("TanThf01",[500.454],10)
+    CreateCreature("TanWiz02",[525.591],10)
+    GiveItemCreate("Misc45","TanWiz02",3,0,0)
+    MoveViewObject("TanWiz02",INSTANT)
+    Wait(3)
+    DisplayStringHead("TanThf01",68594)
+    Wait(6)
+    DisplayStringHead("TanWiz02",56004)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,3)
+  !LevelLT(Player1,15)
+  NumInPartyGT(1)
+  PartyHasItem("Blun14")
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("Raksha01",[488.558],10)
+    CreateCreature("Raksha01",[500.454],10)
+    CreateCreature("RakRaj01",[552.476],10)
+    CreateCreature("RakMah01",[427.548],10)
+    GiveItemCreate("Misc44","RakMah01",4,0,0)
+    MoveViewObject("RakMah01",INSTANT)
+    Wait(3)
+    DisplayStringHead("RakMah01",27041)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,3)
+  OR(2)
+    LevelLT(Player1,15)
+    NumInParty(1)
+  PartyHasItem("Blun14")
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("RakRuh01",[488.558],10)
+    CreateCreature("RakRuh01",[500.454],10)
+    GiveItemCreate("Misc44","RakRuh01",2,0,0)
+    MoveViewObject("RakRuh01",INSTANT)
+    Wait(3)
+    DisplayStringHead("RakRuh01",27041)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,4)
+  Global("PCKeepOwner","GLOBAL",1)
+  Global("RoenalControl","GLOBAL",0)
+  !Dead("kproen01")
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("SPMugg",[488.558],10)
+    CreateCreature("SPMugg",[500.454],10)
+    CreateCreature("SPMugg",[552.476],10)
+    CreateCreature("SPMugg",[427.548],10)
+    CreateCreature("HLFight",[525.591],10)
+    GiveItemCreate("RndTre05","HLFight",0,0,0)
+    MoveViewObject("HLFight",INSTANT)
+    Wait(3)
+    DisplayStringHead("HLFight",40661)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,5)
+  Global("PCSphere","GLOBAL",1)
+  GlobalLT("Chapter","GLOBAL",6)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("SPMugg",[488.558],10)
+    CreateCreature("SPMugg",[500.454],10)
+    CreateCreature("SPMugg",[552.476],10)
+    CreateCreature("HLCleric",[427.548],10)
+    CreateCreature("HLFight",[525.591],10)
+    GiveItemCreate("RndTre05","HLCleric",0,0,0)
+    GiveItemCreate("RndTre05","HLFight",0,0,0)
+    MoveViewObject("HLFight",INSTANT)
+    Wait(3)
+    DisplayStringHead("HLFight",42296)
+    Wait(2)
+    EndCutSceneMode()
+END
+
+IF
+  OnCreation()
+  RandomNum(8,6)
+  Global("PlayerThiefGuild","GLOBAL",1)
+  Global("AmaSetup","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",6)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("SPMugg",[488.558],10)
+    CreateCreature("SPMugg",[500.454],10)
+    CreateCreature("SPMugg",[552.476],10)
+    CreateCreature("SPMugg",[427.548],10)
+    CreateCreature("GBHRep1a",[525.591],10)
+    GiveItemCreate("RndTre05","GBHRep1a",0,0,0)
+    MoveViewObject("GBHRep1a",INSTANT)
+    Wait(3)
+    DisplayStringHead("GBHRep1a",33038)
+    Wait(2)
+    EndCutSceneMode()
+END

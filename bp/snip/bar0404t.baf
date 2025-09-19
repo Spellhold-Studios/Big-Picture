@@ -1,0 +1,36 @@
+IF
+  Global("BP_Gunner","ar0404",0)
+  DifficultyGT(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("ogre01",[875.589],4)
+    CreateCreature("ogre01",[935.639],4)
+    CreateCreature("minttrog",[2014.2327],4)
+    CreateCreature("minttrog",[1974.2387],4)
+    CreateCreature("bugbear",[1329.1636],4)
+    CreateCreature("bugarch",[1288.1579],4)
+    CreateCreature("bugarch",[1222.1579],4)
+    CreateCreature("hobsha01",[1700.1000],4)
+    CreateCreature("hobarc03",[1615.975],5)
+    CreateCreature("hobarc03",[1515.975],5)
+    CreateCreature("hobeli01",[1540.915],5)
+    SetGlobal("BP_Gunner","AR0404",1)
+END
+
+IF
+  Global("BP_Gunner","AR0404",1)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    CreateCreature("hobwiz02",[1500.1120],8)
+    CreateCreature("hobcap01",[1640.1120],7)
+    CreateCreature("bugarch",[1420.1160],8)
+    CreateCreature("bugarch",[1575.1200],7)
+    CreateCreature("minttrog",[2043.2369],4)
+    CreateCreature("minttrog",[2279.2149],4)
+    CreateCreature("minttrog",[2361.2146],4)
+    CreateCreature("ogre01",[2736.2466],4)
+    CreateCreature("ogre01",[2752.2426],4)
+    SetGlobal("BP_Gunner","AR0404",2)
+END
+

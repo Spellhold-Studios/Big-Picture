@@ -1,0 +1,41 @@
+BEGIN RITEND // Ender
+
+IF ~NumTimesTalkedTo(0)~ THEN BEGIN s0
+  SAY @0
+    = @1
+    = @2
+  IF ~~ THEN EXIT
+END
+
+BEGIN RITS1 // Li Kao
+
+IF ~NumTimesTalkedTo(0)~ THEN BEGIN s0
+  SAY @3
+  IF ~~ THEN REPLY @4 GOTO what
+  IF ~~ THEN REPLY @5 GOTO yes
+  IF ~~ THEN REPLY @6 GOTO no
+END
+
+IF ~~ THEN BEGIN what
+  SAY @7
+  IF ~~ THEN REPLY @5 GOTO yes
+  IF ~~ THEN REPLY @6 GOTO no
+END
+
+IF ~~ THEN BEGIN yes
+  SAY @8
+
+  IF ~~ THEN EXIT
+END
+
+IF ~~ THEN BEGIN no
+  SAY @9
+  IF ~~ THEN REPLY @10 GOTO why
+  IF ~~ THEN REPLY @11 GOTO why
+  IF ~~ THEN REPLY @12 GOTO why
+END
+
+IF ~~ THEN BEGIN why
+  SAY @13
+  IF ~~ THEN EXIT
+END

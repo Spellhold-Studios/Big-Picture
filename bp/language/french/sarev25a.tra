@@ -1,0 +1,162 @@
+@0    = ~Bien. Tu es enfin arrivé. Je t'attendais.~ ~Bien. Tu es enfin arrivée. Je t'attendais.~ [SAREVO01]
+@1    = ~Sarevok ? Je croyais t'avoir tué en enfer ?~
+@2    = ~Où suis-je, Sarevok ? Pourquoi m'as-tu fait venir ici ?!~ ~Où suis-je, Sarevok ? Pourquoi m'as-tu faite venir ici ?!~
+@3    = ~Tu l'as fait, effectivement... mais ce n'était pas de mon fait. C'est toi qui m'avais convoqué alors, même si les mots étaient les miens. Depuis, je n'ai rien fait d'autre que d'essayer de me "reformer".~
+@4    = ~Ah. C'est encore toi. Que veux-tu ?~
+@5    = ~Moi ? Ce n'est pas moi qui t'ai fait venir ici, imbécile. Cela m'a pris beaucoup de temps pour me "reformer" depuis la dernière fois que tu m'as convoqué. Tu te souviens bien m'avoir tué, n'est-ce pas ?~ ~Moi ? Ce n'est pas moi qui t'ai faite venir ici, imbécile. Cela m'a pris beaucoup de temps pour me "reformer" depuis la dernière fois que tu m'as convoqué. Tu te souviens bien m'avoir tué, n'est-ce pas ?~
+@6    = ~Tu finiras par te souvenir que c'est ta volonté qui donne forme au royaume de ton père... que tu en sois conscient ou pas. Je ne suis rien d'autre aujourd'hui que l'ombre que tu vois.~ ~Tu finiras par te souvenir que c'est ta volonté qui donne forme au royaume de ton père... que tu en sois consciente ou pas. Je ne suis rien d'autre aujourd'hui que l'ombre que tu vois.~
+@7    = ~Tu veux dire que je suis à nouveau en enfer ?~
+@8    = ~Cela ne m'explique pas ce que tu fais ici.~
+@9    = ~Hé bien, ombre ou pas, je vais te détruire une fois de plus !~
+@10   = ~Tu... tu ne sais pas où tu es ? Tu n'es pas venu ici dans un but précis ?~ ~Tu... tu ne sais pas où tu es ? Tu n'es pas venue ici dans un but précis ?~
+@11   = ~Ha ha ! Quelle cruelle ironie ! Tu avances à tâtons vers ton véritable pouvoir et tu es toujours en vie, alors que moi, Sarevok, j'en suis réduit à cela. Bah ! Très bien, <CHARNAME>... je vais te dire où tu es.~
+@12   = ~Je veux conclure un marché, naturellement. Je n'ai pas grand-chose à perdre... et beaucoup à gagner. Comme toi. Et j'ai attendu chez toi suffisamment longtemps pour te parler.~
+@13   = ~Chez moi ? Mais de quoi parles-tu ?~
+@14   = ~Laisse tomber, Sarevok. Je n'ai pas l'intention de conclure un marché avec toi.~
+@15   = ~Tu ne peux pas me détruire, <CHARNAME>, car je ne suis qu'une ombre. Et je parie que tu n'as pas le pouvoir de me forcer à partir de chez toi.~
+@16   = ~Chez moi ? Que veux-tu dire ? Je n'habite pas ici !~
+@17   = ~Tu es dans le royaume abyssal de ton père. Ce plan était autrefois sous le règne de Bhaal, et sa forme actuelle dépend de la souillure qui est dans ton âme... et qui n'est plus dans la mienne. Tu es déjà venu ici.~ ~Tu es dans le royaume abyssal de ton père. Ce plan était autrefois sous le règne de Bhaal, et sa forme actuelle dépend de la souillure qui est dans ton âme... et qui n'est plus dans la mienne. Tu es déjà venue ici.~
+@18   = ~C'est une sorte de... cocon. Une version miniature du grand royaume de ton père, une sorte de plan à l'intérieur du plan. Je présume que ton esprit l'a créé pour te protéger du pouvoir qui baigne cet endroit. C'est assez ingénieux, cher frère... je ne pensais pas que tu avais ça en toi.~ ~C'est une sorte de... cocon. Une version miniature du grand royaume de ton père, une sorte de plan à l'intérieur du plan. Je présume que ton esprit l'a créé pour te protéger du pouvoir qui baigne cet endroit. C'est assez ingénieux, chère soeur... je ne pensais pas que tu avais ça en toi.~
+@19   = ~Néanmoins, j'ai remarqué son existence et j'ai deviné son utilité. Alors je suis venu ici et j'ai attendu, sachant que tu finirais par venir... et que nous pourrions discuter de mon... marché.~
+@20   = ~Quelle sorte de marché ? Que peux-tu bien vouloir ?~
+@21   = ~Dis-moi comment je peux sortir d'ici... c'est tout ce que je veux savoir.~
+@22   = ~Alors, tu vas errer longtemps. Cherche la sortie, si tu le veux. Mais tu reviendras.~
+@23   = ~Sarevok en enfer : Acte 2
+
+Un ange m'a ramené dans les abysses pour m'informer, d'après ce que je crois comprendre, que ma destinée d'enfant de Bhaal me sera bientôt révélée. Mais il semble que je ne sois pas encore prêt. Mon esprit n'est pas préparé à recevoir tout le pouvoir du royaume de Bhaal... et il a donc créé un plan pour moi, une sorte de cocon dans lequel je dois me préparer.
+
+Il n'y a pas de sortie apparente... et l'endroit n'est pas très grand. J'ai déjà reçu la visite d'importuns voisins. Mon vieil ennemi, Sarevok, est même venu me faire une proposition... il m'indiquera comment sortir de ce plan et me dira tout ce qu'il sait en échange d'une petite parcelle de mon âme, qui lui permettra de retrouver un semblant de vie. Je ne sais pas si je suis prêt à le faire... mon âme a déjà été échangée suffisamment pour toute une vie. Je trouverai peut-être un moyen de quitter ce plan moi-même, nous verrons bien.~
+@24   = ~Et où irais-tu ? Nous ne sommes pas dans un bâtiment, nous sommes dans un autre plan. Et si tu n'as pas appris à voyager entre les plans depuis notre dernière rencontre, tu ne pourras pas sortir d'ici.~
+@25   = ~Je sais comment sortir d'ici, mais pas toi. Et je doute que tu aies le temps ou la patience de trouver par toi-même. Accepte ma proposition, <CHARNAME>, et je te le dirai.~
+@26   = ~Que me proposes-tu ? Que veux-tu, exactement ?~
+@27   = ~Laisse tomber. Je trouverai le moyen de sortir d'ici.~
+@28   = ~Que crois-tu que je veuille ? Je veux exister... je veux revivre. Tu peux m'aider.~
+@29   = ~Un tout petit morceau de ton âme... offert librement, et contenant la souillure de ton père défunt. Ma chair serait ainsi recréée, ma mortalité serait restaurée... Sarevok vivrait à nouveau !~
+@30   = ~Et que me proposes-tu en échange ?~
+@31   = ~Je t'ai déjà tué... qu'est-ce qui te fait penser que je voudrais te rendre la vie ?~
+@32   = ~Je ne suis pas venu les mains vides, <CHARNAME>. Tu me prends pour un idiot ? Tu es plus fort que moi... je ne le conteste pas. Mais je peux t'aider. Et c'est le prix à payer.~ ~Je ne suis pas venu les mains vides, <CHARNAME>. Tu me prends pour un idiot ? Tu es plus forte que moi... je ne le conteste pas. Mais je peux t'aider. Et c'est le prix à payer.~
+@33   = ~Et comment peux-tu m'aider ?~
+@34   = ~Je peux t'apprendre comment quitter ce plan qui est le tien, <CHARNAME>.  Je peux t'offrir cela en échange, même si je l'ignorais quand je suis venu ici.~
+@35   = ~Mais ce que je te propose est bien plus important. C'est quelque chose qui date de mon existence mortelle, alors que je gagnais des pouvoirs dans le Trône de Fer. Quelque chose qui t'intéressera au plus haut point.~
+@36   = ~Quelle est ta décision ?~
+@37   = ~Et comment sais-tu cela ?~
+@38   = ~M'apprendre ? Est-ce là tout ce que tu m'offres en échange d'un morceau de mon âme ?~
+@39   = ~Hé hé. Et qu'est-ce qui m'empêcherait de te tuer une nouvelle fois dès que tu m'auras révélé ce que tu sais ?~
+@40   = ~Alors dis-le moi, je jugerai si tes informations en valent la peine.~
+@41   = ~N'y a-t-il pas un autre moyen de te faire revivre ?~
+@42   = ~Laisse tomber, Sarevok. Je ne te fais absolument pas confiance.~
+@43   = ~Et qu'as-tu l'intention de faire avec ta... nouvelle vie ?~
+@44   = ~Très bien, j'accepte ce que tu me demandes.~
+@45   = ~De mon vivant, j'ai beaucoup étudié les anciennes légendes. Souviens-toi <CHARNAME>, mon but était d'endosser le manteau de ton père. Je suis peut-être mort aujourd'hui, mais la légende est toujours vraie... pour toi.~
+@46   = ~Bah ! La connaissance est plus importante que tout, imbécile ! Et je ne te demande qu'une étincelle... un fragment de la flamme divine qui est en toi. Je ne suis plus un enfant de Bhaal, la mienne a disparu... mais je reviendrai à la vie.~
+@47   = ~Rien, peut-être. Mais cela ne te rendrait pas ce que tu m'auras donné librement, en tout cas.~
+@48   = ~Et pourquoi me tuerais-tu ? Pour te venger ? Tu as déjà eu ta revanche. Peux-tu me blâmer pour mon ambition d'autrefois ? Je referais la même chose, si cela était possible. Mais je ne le peux pas, et tu n'as rien à craindre de moi.~
+@49   = ~Je ne suis pas idiot. J'ai lutté pour arriver jusqu'ici après ma mort, et je sais que les événements suivent leur cours à l'heure où nous parlons. Tu n'as pas le temps d'apprendre cela par toi-même... et je n'aurai jamais une autre chance.~
+@50   = ~Je... je ne sais pas. J'éviterai de te trahir, <CHARNAME>, cela est certain. Mon ambition était tout pour moi, autrefois. Maintenant que la souillure de Bhaal n'est plus en moi... je ne sais pas vraiment. Mais j'ai envie de vivre.~
+@51   = ~Peut-être. N'importe quelle étincelle divine suffira, elle peut venir de n'importe quel enfant de Bhaal. Mais je doute que notre petite soeur ait le courage nécessaire.~
+@52   = ~Tu as trouvé cela toute seule ? Même si l'idée de prendre un morceau de ton âme enfantine pour l'éternité ne me réjouit pas vraiment... oui, cela suffirait aussi.~
+@53   = ~J'ai tué beaucoup de gens, ma chère Imoen, pour assouvir mes ambitions. Mais toi, combien en as-tu tué... et <CHARNAME> ? Es-tu vraiment aussi innocente ? Gorion l'était-il ? Je ne réclame aucune indulgence.~
+@54   = ~Ah, <CHARNAME> a trouvé quelqu'un pour le remplacer. Tu en es bien sûre, mon enfant ? Tu ne pourras pas revenir en arrière et dire que <CHARNAME> s'est servi de toi. Tu dois le faire de ton plein gré.~ ~Ah, <CHARNAME> a trouvé quelqu'un pour le remplacer. Tu en es bien sûre, mon enfant ? Tu ne pourras pas revenir en arrière et dire que <CHARNAME> s'est servie de toi. Tu dois le faire de ton plein gré.~
+@55   = ~Si je porte ton étincelle en moi, j'irai certainement folâtrer gaiement dans les prés avant la fin de la saison. Mais je considère néanmoins cela comme un 'oui'.~
+@56   = ~Il n'y a aucun autre moyen, <CHARNAME>, sauf s'il existe un autre enfant de Bhaal dont j'ignore l'existence. C'est ton étincelle, ou rien. Choisis.~
+@57   = ~Très bien. Alors, je pense que je vais permettre à Imoen de se sacrifier.~
+@58   = ~D'accord, j'accepte.~
+@59   = ~Je n'ai pas encore pris ma décision.~
+@60   = ~Rien à faire. Je ne te fais pas confiance.~
+@61   = ~A ta guise. Alors, tu peux explorer librement ton domaine. Le temps passe et celui de la prophétie approche. Je sais qu'il ne te faudra pas longtemps avant de comprendre la vérité.~
+@62   = ~Ainsi, j'ai pu échapper à la mort ! Merci, cher <CHARNAME>... c'est le plus beau cadeau que je puisse recevoir.~ ~Ainsi, j'ai pu échapper à la mort ! Merci, chère <CHARNAME>... c'est le plus beau cadeau que je puisse recevoir.~
+@63   = ~Va-t'en. Je ne veux parler qu'à <CHARNAME>, pas à l'un de ses infortunés serviteurs. Tu ne peux rien faire pour moi.~
+@64   = ~Tiens, mais c'est ma chère petite soeur ! Dis-moi, petite... tu continues toujours à te pavaner en te prenant pour une voleuse ? Te crois-tu digne d'avoir le sang de Bhaal dans tes veines ?~ [SAREVO74]
+@65   = ~Oh ? Mais je l'ignorais. Passe un peu de temps dans les abysses quand tu seras morte, fillette... et on verra quel genre de rêves tu feras alors. Je parie que tu te fânerais comme une fleur privée d'eau.~
+@66   = ~Alors ? As-tu trouvé la sortie ? As-tu découvert tout ce que tu voulais, ou bien as-tu décidé d'écouter la voix de la raison ?~
+@67   = ~Je veux bien écouter ta proposition, Sarevok. Dis-moi ce que tu veux.~
+@68   = ~Je n'ai pas fini d'explorer les environs.~
+@69   = ~J'ai décidé de faire ce que tu me demandes. Imoen va te rendre la vie.~
+@70   = ~J'ai décidé de faire ce que tu me demandes, Sarevok. Je vais te rendre la vie.~
+@71   = ~J'aimerais d'abord savoir comment tu sais tout cela.~
+@72   = ~Je ne sais pas si j'ai envie de te donner une partie de mon âme pour quelques informations.~
+@73   = ~Et qu'est-ce qui m'empêcherait de te tuer une nouvelle fois dès que tu m'auras révélé ce que tu sais ?~
+@74   = ~N'y a-t-il pas un autre moyen de te faire revivre ?~
+@75   = ~Je... je vis ! Je suis fait de chair, de sang et d'os ! Je suis vivant ! Ha ! J'avais juré de tout faire pour revenir dans le monde des vivants... et j'ai réussi !~ [SAREVO76]
+@76   = ~Mon épée et mon armure ne sont pas revenues. Peu importe. Sans l'essence de Bhaal pour canaliser leur pouvoir, elles me sont inutiles. Je me débrouillerai sans elles, comme autrefois. Merci, <CHARNAME>. Je suis satisfait.~
+@77   = ~Ne me remercie pas. Remercie plutôt Imoen.~
+@78   = ~C'est étrange... je ne sens aucune différence.~
+@79   = ~J'ai respecté ma part du marché, Sarevok. Maintenant, dis-moi ce que tu sais.~
+@80   = ~Peu importe. Maintenant, crache le morceau sinon ça va saigner. Compris ?~
+@81   = ~Certainement. Merci, petite soeur. Cela va sûrement t'exaspérer, mais je prendrai bien soin de ta petite étincelle qui est en moi.~
+@82   = ~Ne t'ai-je pas dit qu'un infime fragment suffisait ? Je pensais qu'en le faisant ici, dans ce lieu, cela pourrait marcher... mais je n'en étais pas sûr. Je suis content de voir que je ne me trompais pas.~
+@83   = ~Tu n'en étais pas sûr ? Tu as pris un gros risque.~
+@84   = ~Je n'ai pas réussi dans la vie sans prendre de risques, imbécile. Ce n'était pas du bluff... j'avais suffisamment d'informations pour me douter que cela pouvait réussir, notre héritage étant le même. Mais ce n'est pas important. J'imagine que tu es impatient d'entendre ce que j'ai à te dire.~ ~Je n'ai pas réussi dans la vie sans prendre de risques, imbécile. Ce n'était pas du bluff... j'avais suffisamment d'informations pour me douter que cela pouvait réussir, notre héritage étant le même. Mais ce n'est pas important. J'imagine que tu es impatiente d'entendre ce que j'ai à te dire.~
+@85   = ~D'abord, je dois te dire comment quitter cette Antichambre que tu as créée. Elle est la prolongation de ta volonté, <CHARNAME>... elle existe parce que tu as besoin qu'elle existe.~
+@86   = ~C'est ce plan qui ouvre le portail, mais tu ne pourras aller là où tu veux. Tu ne pourras aller que là où tu dois être. Ou peut-être là où tu crois que tu dois être.~
+@87   = ~Mais je ne peux pas te donner le pouvoir de faire en sorte que ce plan crée un tel portail. Dans ce plan qui est le tien, il y a de nombreux passages dont je ne sais presque rien. Mais je peux néanmoins en ouvrir un... au-delà, tu y trouveras ce que tu cherches. Regarde...~
+@88   = ~Entre dans cette pièce et affronte ton épreuve, <CHARNAME>. Elle sera difficile... et tu ne souhaites peut-être pas l'affronter seul. Il y a ici un... esprit... qui peut convoquer les compagnons qui t'accompagneront, si tu le désires.~ ~Entre dans cette pièce et affronte ton épreuve, <CHARNAME>. Elle sera difficile... et tu ne souhaites peut-être pas l'affronter seule. Il y a ici un... esprit... qui peut convoquer les compagnons qui t'accompagneront, si tu le désires.~
+@89   = ~J'ai passé beaucoup de temps à étudier les vieilles légendes de l'ordre de Bhaal. J'ai découvert l'une des anciennes prophéties provenant d'une secte de Cyric peu coopérative... qui parle longuement des temps que nous vivons aujourd'hui.~ [SAREVO78]
+@90   = ~La Côte des Epées baignera dans le sang, oui... mais les combats culmineront au cours d'une immense bataille dans une ville du sud, la cité de Saradush, dans le Téthyr.~ [SAREVO79]
+@91   = ~Sarevok en enfer : Acte 2
+
+Un ange m'a ramené dans les abysses pour m'informer que ma destinée d'enfant de Bhaal me serait bientôt révélée. Mais il semble que je ne sois pas encore prêt. Mon esprit n'est pas préparé à recevoir tout le pouvoir du royaume de Bhaal... et il a donc créé un plan pour moi, une sorte de 'cocon' selon ses dires, et dans lequel je dois me préparer.
+
+L'ange venait à peine de partir que Sarevok en personne est arrivé. Il voulait me proposer un marché : en échange du moyen de quitter l'Antichambre et d'informations sur ma destinée, il pourrait revenir à la vie. Je n'avais pas vraiment le choix, et j'ai accepté.~
+@92   = ~C'est là que tu DOIS aller, c'est là que la prophétie commencera à se réaliser. Mais tu dois bien sûr d'abord affronter ton épreuve.~ [SAREVO80]
+@93   = ~Et que se passera-t-il ensuite ?~
+@94   = ~Les épreuves et l'Esprit du Destin
+
+Sarevok ma révélé deux aspects essentiels de mon Antichambre.
+
+D'abord, il y a les épreuves. Je ne sais pas de quoi il s'agit, mais il y a 5 couloirs qui partent de la pièce principale. Je sais qu'ils s'ouvriront dès que je serai prêt à affronter ce qui est au bout. Sarevok pense que ces épreuves seront très difficiles, et que je devrais peut-être assurer solidement mes arrières.
+
+Ce qui me conduit droit à cet 'Esprit du Destin'. Je ne sais pas comment cet esprit agit, mais il semble avoir un certain contrôle sur les gens dont le destin est lié au mien. L'esprit du destin convoquera des compagnons pour moi... pas des serviteurs, mais des amis éventuels. Pour parler à l'esprit, il me suffit d'aller le voir à ce qui pourrait être l'entrée de l'Antichambre.~
+@95   = ~Comment puis-je être sûr que tu dis la vérité ?~ ~Comment puis-je être sûre que tu dis la vérité ?~
+@96   = ~Alors, je vais subir cette épreuve maintenant.~
+@97   = ~Mais es-tu encore un enfant de Bhaal ?~
+@98   = ~Alors, le futur commencera. Et nous verrons alors quel rôle tu joueras dans ce conflit, et si tu es digne de l'héritage de ton seigneur.~
+@99   = ~Alors, je vais m'y rendre maintenant.~
+@100  = ~Alors, es-tu toujours un enfant de Bhaal, ou non ?~
+@101  = ~Très bien. J'en ai assez entendu.~
+@102  = ~Non. L'essence de Bhaal m'a quitté quand je suis mort... et celle qui m'a été donnée aujourd'hui ne préserve que ma mortalité. Certains peuvent me considérer encore comme un enfant de Bhaal, mais ce n'est qu'une question d'histoire et de mémoire.~
+@103  = ~Et que se passera-t-il quand j'irai à Saradush ?~
+@104  = ~Alors, je vais subir cette épreuve maintenant.~
+@105  = ~Tu ne me crois pas, bien sûr. Pourquoi le ferais-tu ? Emmène-moi avec toi, <CHARNAME>.~
+@106  = ~Quoi ?!~
+@107  = ~Avant de partir, je dois te demander autre chose, <CHARNAME>. Emmène-moi avec toi.~
+@108  = ~Je pensais autrefois que les anciennes prophéties parlaient de moi. Même si ce n'est plus le cas, j'en sais plus sur ces prophéties que quiconque. Je peux t'aider, <CHARNAME>. Pour l'épreuve qui t'attend dans cette pièce, et plus encore.~
+@109  = ~Bien sûr, je ne suis pas désintéressé. Un grand pouvoir t'attend, <CHARNAME>. Je ne dois pas être le premier à te le dire. Et je n'ai rien de mieux à faire ailleurs.~
+@110  = ~De plus... tu m'as vaincu depuis longtemps. Tu as gagné mon respect. Penses-y, <CHARNAME> ! Nous serons ensemble, comme deux frères !~ ~De plus... tu m'as vaincu depuis longtemps. Tu as gagné mon respect. Penses-y, <CHARNAME> ! Nous serons ensemble, comme frère et soeur !~
+@111  = ~Laisse tomber. Tu n'es pas mon frère et je me méfierai toujours de toi.~
+@112  = ~Mais je ne vois pas à quoi tu me serais utile ?~
+@113  = ~Je pourrais éventuellement accepter de t'emmener... mais tu devras faire exactement ce que je te dis.~
+@114  = ~Je n'ai pas de place pour toi dans mon groupe, même si je voulais t'emmener.~
+@115  = ~Je vois. Qu'il en soit ainsi. Alors nous n'avons plus rien à nous dire, <CHARNAME>. Tu as ce dont tu as besoin, et moi aussi. Rassemble tes compagnons pour subir ton épreuve et pars. J'espère que nous ne nous reverrons jamais.~
+@116  = ~La prochaine étape du destin
+
+D'après Sarevok, je dois maintenant me rendre à Saradush, la ville du Téthyr. Je crois bien que je n'ai pas vraiment le choix... cette 'Antichambre' n'est pas un simple portail magique qui m'emmène là où je veux. Il m'emmène là où je dois me trouver.~
+@117  = ~En plus de mes connaissances, je suis un guerrier très capable. Tu m'as affronté, <CHARNAME>, tu devrais le savoir. Mon séjour en enfer m'a rendu encore plus fort. Sous tes ordres, je peux l'être encore plus.~
+@118  = ~Sans ton armure et tes pouvoirs divins, je ne vois pas à quoi tu pourrais me servir. Va-t-en.~
+@119  = ~Comment puis-je être sûr que tu ne me trahiras pas dès que tu en auras l'occasion ?~ ~Comment puis-je être sûre que tu ne me trahiras pas dès que tu en auras l'occasion ?~
+@120  = ~Je ferai serment de te suivre, si cela peut te satisfaire. Ici... dans ce lieu... un tel serment aura beaucoup de pouvoir. Je ne pourrai pas te trahir.~
+@121  = ~Non, ta bonne volonté me paraît louche. Je ne te fais pas confiance. Laisse tomber.~
+@122  = ~Non, inutile de prêter serment. Viens avec moi. En route.~
+@123  = ~Très bien. Si tu fais serment de ne pas me trahir... tu peux venir avec moi.~
+@124  = ~Je reviendrai peut-être te chercher plus tard. Tu pourras alors prêter serment.~
+@125  = ~Alors, laisse un de tes laquais dans ton Antichambre, tu reviendras le chercher plus tard. Ou bien laisse-moi ici en attendant que tu aies besoin de moi. Je veux savoir ce qu'il adviendra de toi, j'attendrai donc.~
+@126  = ~Non, cela me paraît trop facile. Jamais je ne te ferai confiance. Laisse tomber.~
+@127  = ~Comment puis-je être sûr que tu ne me trahiras pas dès que tu en auras l'occasion ?~ ~Comment puis-je être sûre que tu ne me trahiras pas dès que tu en auras l'occasion ?~
+@128  = ~Non, ne m'attends pas ici. Tu ne viendras pas avec moi, quoi qu'il arrive.~
+@129  = ~Tu... tu ne veux pas de serment ? C'est... très... étrange, mon cher frère. Moi, je te l'aurais demandé. Si je t'avais laissé vivre. Mais à ta guise... occupons-nous de ton épreuve. N'oublie pas... tu auras peut-être besoin d'autres compagnons pour la surmonter.~ ~Tu... tu ne veux pas de serment ? C'est... très... étrange, ma chère soeur. Moi, je te l'aurais demandé. Si je t'avais laissée vivre. Mais à ta guise... occupons-nous de ton épreuve. N'oublie pas... tu auras peut-être besoin d'autres compagnons pour la surmonter.~
+@130  = ~Très bien. Moi, Sarevok, je jure sur les cendres de ma mère et sur le défunt maître qui était mon père, au nom de la vengeance et de la bile amère qui coule dans mes veines... je jure de ne jamais trahir <CHARNAME> tant que je suis en vie.~
+@131  = ~Très bien. En route.~
+@132  = ~Cela suffit. Je reviendrai peut-être te chercher plus tard. Attends-moi ici.~
+@133  = ~Je n'en crois pas un mot. Ta parole ne vaut rien pour moi, Sarevok.~
+@134  = ~Parfait ! Maintenant, je n'aurai aucun mal à te tuer une troisième fois !~
+@135  = ~A ta guise. J'attendrai ton retour, <CHARNAME>. N'oublie pas que cette épreuve risque d'être difficile. Pense à convoquer des compagnons pour t'aider à la surmonter.~
+@136  = ~Tu te retournes contre moi ? J'aurais dû m'y attendre. J'aurais fait la même chose. Mais je sais comment quitter cet endroit... j'espère que nous ne nous reverrons jamais, cher frère.~ ~Tu te retournes contre moi ? J'aurais dû m'y attendre. J'aurais fait la même chose. Mais je sais comment quitter cet endroit... j'espère que nous ne nous reverrons jamais, chère soeur.~
+@137  = ~Tu as encore besoin de mon épée ? Elle est prête à tuer sur tes ordres.~ [SAREVO81]
+@138  = ~Oui, viens avec moi.~
+@139  = ~Je crois que tu vas devoir prononcer un serment de loyauté pour que je puisse te faire confiance.~
+@140  = ~Non, attends-moi encore ici. Je reviendrai.~
+@141  = ~Va-t-en. Je n'ai rien à te dire. Je ne veux traiter qu'avec <CHARNAME>.~
+@142  = ~Je sais quelle est ta destinée, <CHARNAME>. Je sais où tu dois aller pour la rencontrer. Si tu cherches par toi-même, il sera bientôt trop tard... le temps de l'ancienne prophétie est venu. En tout cas, pour toi.~
+@143  = ~Silence. J'attendais <CHARNAME>, et je ne veux parler qu'à lui seul.~ ~Silence. J'attendais <CHARNAME>, et je ne veux parler qu'à elle seule.~
+@144  = ~Bien, comme tu voudras, mon cher frère. N'oublie pas... tu dois subir ton épreuve dans cette caverne. Tu pourrais faire appel à l'esprit pour obtenir main forte.~ ~Bien, comme tu voudras, ma chère soeur. N'oublie pas... tu dois subir ton épreuve dans cette caverne. Tu pourrais faire appel à l'esprit pour obtenir main forte.~
+@145  = ~Néanmoins, quand tu auras surmonté cette épreuve, tu pourras quitter ce plan qui est le tien. Mais il ne t'emmènera pas là où tu veux aller... il t'emmènera là où tu dois être. Et je sais où, comme je te l'ai dit.~

@@ -1,0 +1,180 @@
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("PrepTimer","LOCALS",0)
+    SetGlobalTimer("KaiTimer","LOCALS",0)
+END
+
+IF
+  GlobalTimerExpired("PrepTimer","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("PrepTimer","LOCALS",3600)
+    SetGlobalTimer("Cast","LOCALS",0)
+    GiveItemCreate("potn52",Myself,3,0,0)  // ~Potion of Extra Healing~
+    Continue()
+END
+
+IF
+  OR(8)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+    See(WorstAC)
+    See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_HELPLESS)
+  CheckStat(SixthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(SixthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_HELPLESS)
+  CheckStat(FifthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_HELPLESS)
+  CheckStat(FourthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_HELPLESS)
+  CheckStat(ThirdNearestEnemyOf(Myself),0,SANCTUARY)
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_HELPLESS)
+  CheckStat(SecondNearestEnemyOf(Myself),0,SANCTUARY)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+  CheckStat(NearestEnemyOf(Myself),0,SANCTUARY)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck([PC.0.0.BARD_ALL],STATE_IMPROVEDINVISIBILITY)
+  !StateCheck([PC.0.0.BARD_ALL],STATE_HELPLESS)
+  CheckStat([PC.0.0.BARD_ALL],0,SANCTUARY)
+  See([PC.0.0.BARD_ALL])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck([PC.0.0.CLERIC_ALL],STATE_IMPROVEDINVISIBILITY)
+  !StateCheck([PC.0.0.CLERIC_ALL],STATE_HELPLESS)
+  CheckStat([PC.0.0.CLERIC_ALL],0,SANCTUARY)
+  See([PC.0.0.CLERIC_ALL])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck([PC.0.0.DRUID_ALL],STATE_IMPROVEDINVISIBILITY)
+  !StateCheck([PC.0.0.DRUID_ALL],STATE_HELPLESS)
+  CheckStat([PC.0.0.DRUID_ALL],0,SANCTUARY)
+  See([PC.0.0.DRUID_ALL])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck([PC.0.0.LONG_BOW],STATE_IMPROVEDINVISIBILITY)
+  !StateCheck([PC.0.0.LONG_BOW],STATE_HELPLESS)
+  CheckStat([PC.0.0.LONG_BOW],0,SANCTUARY)
+  See([PC.0.0.LONG_BOW])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck(WorstAC,STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(WorstAC,STATE_HELPLESS)
+  CheckStat(WorstAC,0,SANCTUARY)
+  See(WorstAC)
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,90)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  Heard([ENEMY],ALERT)
+  !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject(LastHeardBy(Myself))
+END
+

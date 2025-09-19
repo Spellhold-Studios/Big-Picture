@@ -1,0 +1,9 @@
+IF
+  Detect([PC])
+  !GlobalTimerNotExpired("GBBlast","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GBBlast","LOCALS",0)
+    ReallyForceSpell(LastSeenBy(Myself),BRAIN_PSIONIC_BLAST)
+END
+

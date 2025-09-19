@@ -1,0 +1,208 @@
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("PrepTimer","LOCALS",0)
+    SetGlobalTimer("KaiTimer","LOCALS",0)
+END
+
+IF
+  GlobalTimerExpired("PrepTimer","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("PrepTimer","LOCALS",3600)
+    SetGlobalTimer("Cast","LOCALS",0)
+    GiveItemCreate("potn10",Myself,5,0,0)  // ~Potion of Invisibility~
+    GiveItemCreate("potn52",Myself,2,0,0)  // ~Potion of Extra Healing~
+    Continue()
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !Detect(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    Hide()
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  HasItem("potn10",Myself)  // ~Potion of Invisibility~
+  GlobalTimerExpired("Cast","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn10",Myself)  // ~Potion of Invisibility~
+END
+
+IF
+  OR(8)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+    See(WorstAC)
+    See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(SixthNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(SixthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(SixthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(FifthNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(FifthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(FourthNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(FourthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(ThirdNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(ThirdNearestEnemyOf(Myself),0,SANCTUARY)
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(SecondNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(SecondNearestEnemyOf(Myself),0,SANCTUARY)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(NearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(NearestEnemyOf(Myself),0,SANCTUARY)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(WorstAC,0,STONESKINS)
+  !StateCheck(WorstAC,STATE_IMPROVEDINVISIBILITY)
+  CheckStat(WorstAC,0,SANCTUARY)
+  See(WorstAC)
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,90)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  StateCheck(Myself,STATE_INVISIBLE)
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalTimerExpired("KaiTimer","LOCALS")
+  HaveSpell(KENSAI_KIA)
+  Range([PC],10)
+THEN
+  RESPONSE #100
+    Spell(Myself,KENSAI_KIA)
+    SetGlobalTimer("KaiTimer","LOCALS",6)
+    SetGlobalTimer("Cast","LOCALS",6)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  StateCheck(Myself,STATE_INVISIBLE)
+  !GlobalTimerExpired("Cast","LOCALS")
+  GlobalTimerExpired("KaiTimer","LOCALS")
+  HaveSpell(KENSAI_KIA)
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  StateCheck(Myself,STATE_INVISIBLE)
+  !GlobalTimerExpired("KaiTimer","LOCALS")
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,25511)  // ~Men!  Come at once!  Intruders!!~
+    Shout(125)
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    !StateCheck(Myself,STATE_INVISIBLE)
+    !HaveSpell(KENSAI_KIA)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,25511)  // ~Men!  Come at once!  Intruders!!~
+    Shout(125)
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  StateCheck(Myself,STATE_INVISIBLE)
+  !ModalState(DETECTTRAPS)
+THEN
+  RESPONSE #100
+    FindTraps()
+END
+
+IF
+  Heard([ENEMY],ALERT)
+  !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject(LastHeardBy(Myself))
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  StateCheck(Myself,STATE_INVISIBLE)
+  !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+

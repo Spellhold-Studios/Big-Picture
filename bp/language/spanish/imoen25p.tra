@@ -1,0 +1,43 @@
+@0     = ~¿Quieres que me vaya? ¿Seguro? Parte de mí siente que necesita estar contigo, que algo importante está pasando. Pero si estás seguro...~ [IMOE2528] ~¿Quieres que me vaya? ¿Seguro? Parte de mí siente que necesita estar contigo, que algo importante está pasando. Pero si estás segura...~ [IMOE2528]
+@1     = ~Puede que no. Entonces, quédate conmigo.~
+@2     = ~Estoy seguro. Espera aquí un poco.~
+@3     = ~Te enviaré de vuelta a la bolsa planar. Espérame allí.~
+@4     = ~De... de acuerdo. Pero no me dejes aquí... por favor. No creo que pudiera soportarlo, estar aquí sin hacer nada mientras todo ocurre.~
+@5     = ~Ya iba siendo hora de que volvieras. Me estaba poniendo nerviosa.~ [IMOE2529]
+@6     = ~En ese caso, vuelve a unirte al grupo.~
+@7     = ~Espera aquí un poco más.~
+@8     = ~De acuerdo, lo que tú digas.~
+@9     = ~¡Nnngh!  ¡Ah, duele!  ¡¡<CHARNAME>, detenla ... esto... esto duele!!~ [IMOEN18]
+@10    = ~¡¿Qué le estás haciendo?!  ¡¡Detente, lo exigo!!~
+@11    = ~¡Yo soy el que buscas, Melissan!  ¡¡Déjala en paz!!~ ~¡Yo soy la que buscas, Melissan!  ¡¡Déjala en paz!!~
+@12    = ~¡Contrólate, Imoen!  ¡¡Ataca!!~
+@13    = ~¿Qué me importa Imoen?  Mátala, Melissan.~
+@14    = ~¿Q-Qué... dónde estoy?  ¿Qué sucede?  ¿<CHARNAME>?~
+@15    = ~¡No voy a ninguna parte contigo!  ¡Y nadie va a tocar mi alma!  ¡¡Otra vez no!!~
+@16    = ~Se...se ha acabado...soy humana de nuevo.  ¡Ohhhh, ahora sé lo que pasaste, <CHARNAME>!  ¡No sé si podría pasar por eso otra vez!~
+@17    = ~¡Y tampoco puedo creerme lo que dijiste!  ¿"Adelante, mátala"?  ¡¿Después de todo por lo que hemos pasado, eso es lo dices en mi defensa?!~
+@18    = ~¡Estaba intentando convencer a Melissan de que te dejase en paz, Imoen!~
+@19    = ~Sobreponte, niñita.  Nunca te pedí que vinieras, ¿verdad?~
+@20    = ~¡No tenemos tiempo para charlas, Imoen!  ¡Estamos en medio de una batalla!~
+@21    = ~Bueno...supongo.  De hecho, me convenciste más a mí que a ella.  Yo... me alegro de no haber hecho más daño como Asesina.  No sé cómo te las arreglaste.  Gracias por...por no matarme.~
+@22    = ~Pero no...no puedo quedarme aquí.  Esto es demasiado para mí.  Te deseo lo mejor, <CHARNAME>, y espero que nos veamos de nuevo.  Quizás en Candelero, ¿eh?  En cualquier caso... buena suerte...~
+@23    = ~¿Me necesitas de nuevo?  Podría... dejar el Trono, creo... creo que tengo ese poder, ahora, igual que tú.  Pero lucharé a tu lado otra vez, si quieres.~
+@24    = ~Por supuesto. Juntos somos mas fuertes.~ ~Por supuesto. Juntas somos mas fuertes.~
+@25    = ~Imoen Ha Sobrevivido
+
+Imoen se las ha arreglado para sobrevivir al intento de Melissan de forzarla a adoptar forma de Asesina.  Parece que al hacerlo, Imoen ha aumentado considerablemente su control sobre la mancha de Bhaal.  Ahora no sólo puede transformarse en la misma forma de Asesino que yo mismo comencé a adoptar en la Prisión del Hechicero... sino que también ha adquirido la habilidad de hacerse etérea durante breves períodos de tiempo.
+
+Etérea
+-------
+Imoen es capaz ahora de entrar en el Plano Etéreo durante breves períodos de tiempo.  Esta habilidad puede utilizarse una vez por minuto, y su uso la impide adoptar la forma de Asesina durante, igualmente, un minuto.  Imoen puede permanecer totalmente etérea e intangible a las fuerzas de este Plano durante una ronda completa... durante la cual es invisible y completamente inmune al daño.  Durante esa ronda, tampoco puede lanzar hechizos o usar habilidades. 
+Las dos rondas posteriores, Imoen será 'medio-etérea'... está parcialmente en el plano etéreo y parcialmente en éste.  Todavía es invisible, pero sufre la mitad de daño de cualquier fuente. En este estado, hay una pequeña posibilidad (10%) de que falle el lanzamiento de un hechizo.  Durante las tres rondas completas, es capaz de vez cualquier objeto invisible.~
+@26    = ~No... sal de aquí mientras puedas, Imoen.~
+@27    = ~Te deseo lo mejor, <CHARNAME>, y espero que nos veamos de nuevo.  Quizás en Candelero, ¿eh?  En cualquier caso... buena suerte...~
+@28    = ~Sí, vale.  Haz lo que tengas que hacer, <CHARNAME>.  Yo...me largo tan lejos de aquí como pueda. ¡Adiós!~
+@29    = ~No, seguro que no lo hiciste.  Gracias por nada.  Haz lo que tengas que hacer, <CHARNAME>.  Yo... me largo tan lejos de aquí como pueda.  ¡Adiós!~
+@30    = ~Yo... estoy contenta de no haber hecho nada peor mientras estaba... cuando yo... Oh, no sé cómo lo soportaste en la Prisión.  Gracias por... por no matarme, ¿vale?~
+@31    = ~¡Oh, es cierto!  ¿Me necesitas de nuevo en el grupo?  Podría... dejar el Trono, creo... creo que tengo ese poder, ahora, igual que tú.  Pero lucharé a tu lado otra vez, si quieres.~
+@32    = ~Ya veo que la lucha todavía continúa.  ¿Me necesitas de nuevo en el grupo?  Podría... dejar el Trono, creo... creo que tengo ese poder, ahora, igual que tú.  Pero ver el final de todo esto, igual que tú.~
+@33    = ~¡Deja de distraerme en medio de un combate!  ¡Vuelve al grupo!~
+@34    = ~¡Sí, señor!  (¡risita!)  Hora de patearle el culo a alguien, ¿no?~ ~¡Sí, señora!  (¡risita!)  Hora de patearle el culo a alguien, ¿no?~
+

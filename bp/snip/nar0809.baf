@@ -1,0 +1,14 @@
+IF
+  PartyHasItem("c6lantho")
+  Global("LanthornExp","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("LanthornExp","GLOBAL",1)
+    AddXPObject(Player1,25000)
+    AddXPObject(Player2,25000)
+    AddXPObject(Player3,25000)
+    AddXPObject(Player4,25000)
+    AddXPObject(Player5,25000)
+    AddXPObject(Player6,25000)
+END
+

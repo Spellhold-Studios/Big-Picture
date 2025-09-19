@@ -1,0 +1,12 @@
+IF
+  See([ANYONE])
+  Allegiance(Myself,ENEMY)
+  !GlobalTimerNotExpired("STUN","LOCALS")
+THEN
+  RESPONSE #30
+    SetGlobalTimer("STUN","LOCALS",10)
+    ForceSpell(NearestEnemyOf(Myself),WIZARD_POWER_WORD_STUN)
+  RESPONSE #70
+    SetGlobalTimer("STUN","LOCALS",4)
+END
+

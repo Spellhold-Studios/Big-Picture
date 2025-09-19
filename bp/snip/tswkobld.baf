@@ -1,0 +1,30 @@
+IF
+  Heard([ANYONE],0)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  Global("BP_KoboldMadness","GLOBAL",0)
+  OR(4)
+    Allegiance(Myself,ENEMY)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    HitBy([GOODCUTOFF],CRUSHING)
+    Die()
+THEN
+  RESPONSE #100
+    Shout(0)
+    SetGlobalTimer("BP_KoboldCrew","GLOBAL",4)
+    SetGlobal("BP_KoboldMadness","GLOBAL",1)
+END
+
+IF
+  GlobalTimerExpired("BP_KoboldCrew","GLOBAL")
+  Global("BP_KoboldCrusaders","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_KoboldCrusaders","GLOBAL",1)
+END
+

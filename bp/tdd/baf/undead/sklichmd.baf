@@ -1,0 +1,503 @@
+IF
+  OnCreation()
+  !HasItem("PLAY1ID",Myself)  // ~Mage Duel ID~
+  HasItem("PLAY1ID",LastSummonerOf(Myself))  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    ChangeRace(Myself,DRIDER)
+    GiveItemCreate("PLAY1ID",Myself,0,0,0)  // ~Mage Duel ID~
+END
+
+IF
+  OnCreation()
+  !HasItem("PLAY2ID",Myself)  // ~Mage Duel ID~
+  HasItem("PLAY2ID",LastSummonerOf(Myself))  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    ChangeRace(Myself,162)
+    GiveItemCreate("PLAY2ID",Myself,0,0,0)  // ~Mage Duel ID~
+END
+
+IF
+  OnCreation()
+  !HasItem("PLAY3ID",Myself)  // ~Mage Duel ID~
+  HasItem("PLAY3ID",LastSummonerOf(Myself))  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    ChangeRace(Myself,163)
+    GiveItemCreate("PLAY3ID",Myself,0,0,0)  // ~Mage Duel ID~
+END
+
+IF
+  OnCreation()
+  !HasItem("PLAY4ID",Myself)  // ~Mage Duel ID~
+  HasItem("PLAY4ID",LastSummonerOf(Myself))  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    ChangeRace(Myself,164)
+    GiveItemCreate("PLAY4ID",Myself,0,0,0)  // ~Mage Duel ID~
+END
+
+IF
+  OnCreation()
+  !HasItem("PLAY5ID",Myself)  // ~Mage Duel ID~
+  HasItem("PLAY5ID",LastSummonerOf(Myself))  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    ChangeRace(Myself,165)
+    GiveItemCreate("PLAY5ID",Myself,0,0,0)  // ~Mage Duel ID~
+END
+
+IF
+  OnCreation()
+  !HasItem("PLAY6ID",Myself)  // ~Mage Duel ID~
+  HasItem("PLAY6ID",LastSummonerOf(Myself))  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    ChangeRace(Myself,166)
+    GiveItemCreate("PLAY6ID",Myself,0,0,0)  // ~Mage Duel ID~
+END
+
+IF
+  Global("mageduel_off0_active1","GLOBAL",0)
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("CALLLIGH",Myself)
+    CreateVisualEffectObject("SPDIMNDR",Myself)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  HasItem("PLAY1ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY1ID",Player1)  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("CALLLIGH",Myself)
+    CreateVisualEffectObject("SPDIMNDR",Myself)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  HasItem("PLAY2ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY2ID",Player2)  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("CALLLIGH",Myself)
+    CreateVisualEffectObject("SPDIMNDR",Myself)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  HasItem("PLAY3ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY3ID",Player3)  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("CALLLIGH",Myself)
+    CreateVisualEffectObject("SPDIMNDR",Myself)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  HasItem("PLAY4ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY4ID",Player4)  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("CALLLIGH",Myself)
+    CreateVisualEffectObject("SPDIMNDR",Myself)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  HasItem("PLAY5ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY5ID",Player5)  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("CALLLIGH",Myself)
+    CreateVisualEffectObject("SPDIMNDR",Myself)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  HasItem("PLAY6ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY6ID",Player6)  // ~Mage Duel ID~
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("CALLLIGH",Myself)
+    CreateVisualEffectObject("SPDIMNDR",Myself)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  HasItem("MDaddSPL",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    AddSpecialAbility("MDfireSU")  // ~Fire of Unsummoning~
+    AddSpecialAbility("MDfireSU")  // ~Fire of Unsummoning~
+    AddSpecialAbility("MDboltSU")  // ~Bolt of Unsummoning~
+    AddSpecialAbility("MDboltSU")  // ~Bolt of Unsummoning~
+    AddSpecialAbility("MDunsum")  // ~Unsummon~
+    AddSpecialAbility("MDunsum")  // ~Unsummon~
+    DestroyItem("MDaddSPL")  // ~Quarterstaff~
+END
+
+IF
+  HasItem("MDBRAKFR",Myself)  // ~Quarterstaff~
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    DestroyItem("MDBRAKFR")  // ~Quarterstaff~
+    DestroyItem("PLAY1ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY2ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY3ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY4ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY5ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY6ID")  // ~Mage Duel ID~
+    ChangeRace(Myself,NO_RACE)
+    ChangeEnemyAlly(Myself,ENEMY)
+    Enemy()
+END
+
+IF
+  HasItem("MDBRAKFR",Myself)  // ~Quarterstaff~
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    DestroyItem("MDBRAKFR")  // ~Quarterstaff~
+END
+
+IF
+  HasItem("MDNSLAV1",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    ChangeEnemyAlly(Myself,PC)
+    DestroyItem("MDSLAV1")  // MDSLAV1
+    DestroyItem("PLAY1ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY2ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY3ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY4ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY5ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY6ID")  // ~Mage Duel ID~
+    GiveItemCreate("PLAY1ID",Myself,0,0,0)  // ~Mage Duel ID~
+    ChangeRace(Myself,DRIDER)
+END
+
+IF
+  HasItem("MDNSLAV2",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    ChangeEnemyAlly(Myself,PC)
+    DestroyItem("MDSLAV2")  // MDSLAV2
+    DestroyItem("PLAY1ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY2ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY3ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY4ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY5ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY6ID")  // ~Mage Duel ID~
+    GiveItemCreate("PLAY2ID",Myself,0,0,0)  // ~Mage Duel ID~
+    ChangeRace(Myself,162)
+END
+
+IF
+  HasItem("MDNSLAV3",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    ChangeEnemyAlly(Myself,PC)
+    DestroyItem("MDNSLAV3")  // ~Quarterstaff~
+    DestroyItem("PLAY1ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY2ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY3ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY4ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY5ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY6ID")  // ~Mage Duel ID~
+    GiveItemCreate("PLAY3ID",Myself,0,0,0)  // ~Mage Duel ID~
+    ChangeRace(Myself,163)
+END
+
+IF
+  HasItem("MDNSLAV4",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    ChangeEnemyAlly(Myself,PC)
+    DestroyItem("MDNSLAV4")  // ~Quarterstaff~
+    DestroyItem("PLAY1ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY2ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY3ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY4ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY5ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY6ID")  // ~Mage Duel ID~
+    GiveItemCreate("PLAY4ID",Myself,0,0,0)  // ~Mage Duel ID~
+    ChangeRace(Myself,164)
+END
+
+IF
+  HasItem("MDNSLAV5",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    ChangeEnemyAlly(Myself,PC)
+    DestroyItem("MDNSLAV5")  // ~Quarterstaff~
+    DestroyItem("PLAY1ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY2ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY3ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY4ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY5ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY6ID")  // ~Mage Duel ID~
+    GiveItemCreate("PLAY5ID",Myself,0,0,0)  // ~Mage Duel ID~
+    ChangeRace(Myself,165)
+END
+
+IF
+  HasItem("MDNSLAV6",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    ChangeEnemyAlly(Myself,PC)
+    DestroyItem("MDNSLAV6")  // ~Quarterstaff~
+    DestroyItem("PLAY1ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY2ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY3ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY4ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY5ID")  // ~Mage Duel ID~
+    DestroyItem("PLAY6ID")  // ~Mage Duel ID~
+    GiveItemCreate("PLAY6ID",Myself,0,0,0)  // ~Mage Duel ID~
+    ChangeRace(Myself,166)
+END
+
+IF
+  HasItem("PLAY1ID",Myself)  // ~Mage Duel ID~
+  Global("P1_haste","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    Wait(1)
+END
+
+IF
+  HasItem("PLAY2ID",Myself)  // ~Mage Duel ID~
+  Global("P2_haste","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    Wait(1)
+END
+
+IF
+  HasItem("PLAY3ID",Myself)  // ~Mage Duel ID~
+  Global("P3_haste","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    Wait(1)
+END
+
+IF
+  HasItem("PLAY4ID",Myself)  // ~Mage Duel ID~
+  Global("P4_haste","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    Wait(1)
+END
+
+IF
+  HasItem("PLAY5ID",Myself)  // ~Mage Duel ID~
+  Global("P5_haste","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    Wait(1)
+END
+
+IF
+  HasItem("PLAY6ID",Myself)  // ~Mage Duel ID~
+  Global("P6_haste","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    Wait(1)
+END
+
+IF
+  HasItem("MDUNSUMM",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    DestroyItem("MDUNSUMM")  // ~Quarterstaff~
+    DestroySelf()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  See([ANYONE])
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #75
+    AttackReevaluate(LastSeenBy(Myself),30)
+  RESPONSE #25
+    RunAwayFrom(LastSeenBy(Myself),120)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !Range([ANYONE],10)
+THEN
+  RESPONSE #100
+    RandomWalk()
+END
+
+IF
+  ActionListEmpty()
+  See([ANYONE])
+  HasItem("PLAY1ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY1ID",LastSeenBy(Myself))  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See([ANYONE])
+  HasItem("PLAY2ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY2ID",LastSeenBy(Myself))  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See([ANYONE])
+  HasItem("PLAY3ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY3ID",LastSeenBy(Myself))  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See([ANYONE])
+  HasItem("PLAY4ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY4ID",LastSeenBy(Myself))  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See([ANYONE])
+  HasItem("PLAY5ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY5ID",LastSeenBy(Myself))  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See([ANYONE])
+  HasItem("PLAY6ID",Myself)  // ~Mage Duel ID~
+  !HasItem("PLAY6ID",LastSeenBy(Myself))  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See(Player1)
+  !HasItem("PLAY1ID",Myself)  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See(Player2)
+  !HasItem("PLAY2ID",Myself)  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See(Player3)
+  !HasItem("PLAY3ID",Myself)  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See(Player4)
+  !HasItem("PLAY4ID",Myself)  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See(Player5)
+  !HasItem("PLAY5ID",Myself)  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  ActionListEmpty()
+  See(Player6)
+  !HasItem("PLAY6ID",Myself)  // ~Mage Duel ID~
+  OR(2)
+    Range(LastSeenBy(Myself),7)
+    HitBy(LastSeenBy(Myself),CRUSHING)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+

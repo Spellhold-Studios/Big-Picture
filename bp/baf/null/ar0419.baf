@@ -1,0 +1,10 @@
+IF
+  !Difficulty(EASIEST)
+  Global("BP_MoreStooges","AR0419",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0419",1)
+    CreateCreature("ICFUNGUS",[645.370],14)  // ~Spore Colony~
+    CreateCreature("ICFUNGUS",[550.370],14)  // ~Spore Colony~
+END
+

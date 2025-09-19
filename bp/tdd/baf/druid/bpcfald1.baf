@@ -1,0 +1,411 @@
+IF
+  See("Cernd")  // Cernd
+  !InParty("Cernd")  // Cernd
+  Global("change","LOCALS",0)
+THEN
+  RESPONSE #100
+    ReallyForceSpell("Cernd",CERND_BEAR)
+    SetGlobal("change","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !Range(LastSeenBy(Myself),4)
+  HPPercentLT(Myself,40)
+  HaveSpell(CLERIC_HEAL)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    SetInterrupt(FALSE)
+    Spell(Myself,CLERIC_HEAL)
+    SetInterrupt(TRUE)
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !Range(LastSeenBy(Myself),4)
+  CheckStat(Myself,0,CLERIC_REGENERATION)
+  HPPercentLT(Myself,50)
+  HaveSpell(CLERIC_REGENERATE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    SetInterrupt(FALSE)
+    Spell(Myself,CLERIC_HEAL)
+    SetInterrupt(TRUE)
+END
+
+IF
+  Global("Panther","LOCALS",0)
+  HPLT(Myself,20)
+THEN
+  RESPONSE #100
+    ReallyForceSpell(Myself,FALDORN_PANTHER)
+    SetGlobal("Panther","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  Allegiance(Myself,ENEMY)
+  Global("didOnce","LOCALS",0)
+  OR(2)
+    See("Cernd")  // Cernd
+    See([PC.0.0.DRUID_ALL])
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,CLERIC_IRONSKIN)
+    ApplySpell(Myself,CLERIC_PROTECTION_FROM_LIGHTNING)
+    ApplySpell(Myself,CLERIC_REGENERATE)
+    SetGlobal("didOnce","LOCALS",1)
+    SetGlobalTimer("BPT","LOCALS",10)
+END
+
+IF
+  ActionListEmpty()
+  Global("Pickup","LOCALS",0)
+  OR(2)
+    See("Cernd")  // Cernd
+    See([PC.0.0.DRUID_ALL])
+THEN
+  RESPONSE #100
+    PickUpItem("STAF04")
+    FillSlot(SLOT_WEAPON1)
+    EquipItem("STAF04")
+    SetGlobal("Pickup","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("didOnce","LOCALS",1)
+  OR(2)
+    See("Cernd")  // Cernd
+    See([PC.0.0.DRUID_ALL])
+THEN
+  RESPONSE #100
+    SetGlobal("didOnce","LOCALS",2)
+    ReallyForceSpell(Myself,CLERIC_CHAOTIC_COMMANDS)
+    ReallyForceSpell(Myself,CLERIC_FREE_ACTION)
+    ForceSpell(LastSeenBy(Myself),CLERIC_CALL_LIGHTNING)
+    SetGlobalTimer("BPT","LOCALS",10)
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("didOnce","LOCALS",2)
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+THEN
+  RESPONSE #100
+    SetGlobal("didOnce","LOCALS",3)
+    ReallyForceSpell(Myself,CLERIC_RESIST_FIRE)
+    ReallyForceSpell(Myself,COM_DRUID_DELAY_POISEN)
+    ReallyForceSpell(Myself,CLERIC_MAGIC_RESISTANCE)
+    ForceSpell(LastSeenBy(Myself),CLERIC_INSECT_PLAGUE)
+    SetGlobalTimer("BPT","LOCALS",10)
+END
+
+IF
+  ActionListEmpty()
+  Global("didOnce","LOCALS",3)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+THEN
+  RESPONSE #100
+    SetGlobal("didOnce","LOCALS",4)
+    ReallyForceSpell(Myself,CLERIC_RIGHTEOUS_MAGIC)
+    ReallyForceSpell(Myself,CLERIC_FLAME_BLADE)
+    ReallyForceSpell(Myself,CLERIC_ARMOR_OF_FAITH)
+    ForceSpell(LastSeenBy(Myself),CLERIC_POISON)
+    SetGlobalTimer("BPT","LOCALS",10)
+END
+
+IF
+  ActionListEmpty()
+  OR(4)
+    CheckStatGT(Myself,0,CLERIC_INSECT_PLAGUE)
+    CheckStatGT(Myself,0,SCRIPTINGSTATE4)
+    CheckStatGT(Myself,60,SPELLFAILUREPRIEST)
+    StateCheck(Myself,STATE_SILENCED)
+  See([PC.0.0.DRUID_ALL])
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),45)
+END
+
+IF
+  StateCheck(Myself,STATE_POISONED)
+  HaveSpell(CLERIC_SLOW_POISON)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_SLOW_POISON)
+END
+
+IF
+  HPPercentLT(Myself,65)
+  HaveSpell(CLERIC_CURE_SERIOUS_WOUNDS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    SetInterrupt(FALSE)
+    Spell(Myself,CLERIC_CURE_SERIOUS_WOUNDS)
+    SetInterrupt(TRUE)
+END
+
+IF
+  HPPercentLT(Myself,70)
+  HaveSpell(CLERIC_CURE_MEDIUM_WOUNDS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    SetInterrupt(FALSE)
+    Spell(Myself,CLERIC_CURE_MEDIUM_WOUNDS)
+    SetInterrupt(TRUE)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_SANCTUARY)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(Myself,0,SANCTUARY)
+  OR(2)
+    RandomNum(4,1)
+    HPPercentLT(Myself,50)
+THEN
+  RESPONSE #100
+    Spell(Myself,CLERIC_SANCTUARY)
+    Spell(Myself,CLERIC_PROTECTION_FROM_FIRE)
+    Spell(Myself,CLERIC_DRAW_UPON_HOLY_MIGHT)
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_BARKSKIN)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_IRONSKIN)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(Myself,0,STONESKINS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_IRONSKIN)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_CHAOTIC_COMMANDS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(Myself,0,CLERIC_CHAOTIC_COMMANDS)
+  RandomNumLT(4,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_CHAOTIC_COMMANDS)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(INNATE_SUMMON_DREADWOLF)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See("Cernd")  // Cernd
+    See([PC.0.0.DRUID_ALL])
+  RandomNumLT(15,12)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),INNATE_SUMMON_DREADWOLF)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_ANIMAL_SUMMONING_3)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See("Cernd")  // Cernd
+    See([PC.0.0.DRUID_ALL])
+  RandomNumLT(3,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_MISCAST_MAGIC)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  CheckStatLT(LastSeenBy(Myself),60,SPELLFAILUREMAGE)
+  CheckStatLT(LastSeenBy(Myself),60,SPELLFAILUREPRIEST)
+  RandomNumLT(5,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_MISCAST_MAGIC)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_FLAME_STRIKE)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  !CheckStatGT(LastSeenBy(Myself),65,RESISTMAGICFIRE)
+  RandomNumLT(6,5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_FLAME_STRIKE)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_CALL_WOODLAND_BEINGS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  RandomNumLT(7,5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_CALL_WOODLAND_BEINGS)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_CALL_LIGHTNING)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  CheckStatLT(LastSeenBy(Myself),50,RESISTELECTRICITY)
+  AreaType(OUTDOOR)
+  RandomNumLT(8,6)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_CALL_LIGHTNING)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_SUMMON_INSECTS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  CheckStat(LastSeenBy(Myself),0,CLERIC_INSECT_PLAGUE)
+  RandomNumLT(9,7)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_SUMMON_INSECTS)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_POISON)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  !StateCheck(LastSeenBy(Myself),STATE_POISONED)
+  RandomNumLT(10,7)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_POISON)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_ANIMAL_SUMMONING_1)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  RandomNumLT(11,6)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_1)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_CHARM_PERSON)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  OR(2)
+    General(LastSeenBy(Myself),HUMANOID)
+    General(LastSeenBy(Myself),ANIMAL)
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  !StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+  RandomNumLT(12,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_CHARM_PERSON)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_COMMAND)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  RandomNumLT(13,5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_COMMAND)
+END
+
+IF
+  HaveSpell(CLERIC_DOOM)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  RandomNumLT(14,5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_DOOM)
+END
+
+IF
+  OR(2)
+    See([PC.0.0.DRUID_ALL])
+    See("Cernd")  // Cernd
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackReevaluate(LastSeenBy(Myself),45)
+END
+

@@ -1,0 +1,82 @@
+IF
+  Delay(10)
+  Range([PC],20)
+  ReputationLT([PC],4)
+  !StateCheck([PC],STATE_INVISIBLE)
+  !StateCheck([PC],STATE_IMPROVEDINVISIBILITY)
+  !GlobalTimerNotExpired("RepTrap","GLOBAL")
+  !GlobalTimerNotExpired("CDMostNobleOrder","GLOBAL")
+  Global("MostNobleOrder","GLOBAL",0)
+  LevelGT(Player1,13)
+THEN
+  RESPONSE #75
+    SetGlobal("MostNobleOrder","GLOBAL",1)
+    SetGlobalTimer("RepTrap","GLOBAL",1200)
+    Wait(3)
+    DisplayString(Myself,8205)
+    CreateCreatureObject("JOLUS",Myself,0,0,0)
+    CreateCreatureObject("WILLIAM",Myself,0,0,0)
+    CreateCreatureObject("ALEX",Myself,0,0,0)
+    CreateCreatureObject("RYAN",Myself,0,0,0)
+    CreateCreatureObject("ALHEL",Myself,0,0,0)
+    CreateCreatureObject("KENDAK",Myself,0,0,0)
+    Wait(40)
+  RESPONSE #25
+    DisplayString(Myself,8205)
+    Wait(2)
+END
+
+IF
+  Delay(10)
+  Range([PC],20)
+  ReputationLT([PC],4)
+  !StateCheck([PC],STATE_INVISIBLE)
+  !StateCheck([PC],STATE_IMPROVEDINVISIBILITY)
+  !GlobalTimerNotExpired("RepTrap","GLOBAL")
+THEN
+  RESPONSE #75
+    SetGlobalTimer("RepTrap","GLOBAL",600)
+    Wait(3)
+    DisplayString(Myself,8205)
+    CreateCreatureObject("AMNCEN1",Myself,0,0,0)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    CreateCreatureObject("COWENF1",Myself,0,0,0)
+    CreateCreatureObject("COWENF1",Myself,0,0,0)
+    Wait(40)
+  RESPONSE #25
+    DisplayString(Myself,8205)
+    Wait(2)
+END
+
+IF
+  Delay(10)
+  Range([PC],20)
+  !StateCheck([PC],STATE_INVISIBLE)
+  !StateCheck([PC],STATE_IMPROVEDINVISIBILITY)
+  !GlobalTimerNotExpired("RepTrap","GLOBAL")
+  !GlobalTimerNotExpired("CDMostNobleOrder","GLOBAL")
+  Global("MostNobleOrder","GLOBAL",0)
+  OR(2)
+    Global("FollowGarren","GLOBAL",1)
+    Global("FollowedGarren","GLOBAL",1)
+THEN
+  RESPONSE #75
+    SetGlobal("MostNobleOrder","GLOBAL",1)
+    SetGlobalTimer("RepTrap","GLOBAL",1200)
+    Wait(3)
+    DisplayString(Myself,8205)
+    CreateCreatureObject("JOLUS",Myself,0,0,0)
+    CreateCreatureObject("WILLIAM",Myself,0,0,0)
+    CreateCreatureObject("ALEX",Myself,0,0,0)
+    CreateCreatureObject("RYAN",Myself,0,0,0)
+    CreateCreatureObject("ALHEL",Myself,0,0,0)
+    CreateCreatureObject("KENDAK",Myself,0,0,0)
+    Wait(40)
+  RESPONSE #25
+    DisplayString(Myself,8205)
+    Wait(2)
+END
+

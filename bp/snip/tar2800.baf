@@ -1,0 +1,26 @@
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR2800",0)
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+THEN
+  RESPONSE #100
+    CreateCreature("SURAKSHA",[4850.650],0)
+    CreateCreature("SURAKRUH",[4950.720],0)
+    CreateCreature("SURAKRAJ",[4870.670],0)
+    CreateCreature("SURAKMAH",[4900.690],0)
+    CreateCreature("SURAKRAJ",[4860.710],0)
+    CreateCreature("SURAKSHA",[4920.710],0)
+    CreateCreature("SURAKMAH",[1750.3240],0)
+    CreateCreature("SURAKRAJ",[1825.3280],0)
+    CreateCreature("SURAKRAJ",[1900.3320],0)
+    CreateCreature("SURAKSHA",[1850.3300],0)
+    CreateCreature("SURAKMAH",[1925.3350],0)
+    CreateCreature("SURAKSHA",[2000.3400],0)
+    SetGlobal("BP_MoreStooges","AR2800",1)
+    Continue()
+END
+

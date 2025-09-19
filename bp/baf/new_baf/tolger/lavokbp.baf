@@ -1,0 +1,62 @@
+IF
+  !HasItem("STAF01",Myself)  // ~Quarterstaff~
+THEN
+  RESPONSE #100
+    GiveItemCreate("STAF01",Myself,0,0,0)  // ~Quarterstaff~
+    FillSlot(SLOT_WEAPON0)
+    EquipMostDamagingMelee()
+END
+
+IF
+  !HasItem("DART01",Myself)  // ~Dart~
+THEN
+  RESPONSE #100
+    GiveItemCreate("DART01",Myself,40,0,0)  // ~Dart~
+    FillSlot(SLOT_WEAPON1)
+    EquipRanged()
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  Range(NearestEnemyOf(Myself),5)
+  Global("STAF","LOCALS",0)
+  HasItem("STAF01",Myself)  // ~Quarterstaff~
+  !HasItemEquipedReal("STAF01",Myself)
+THEN
+  RESPONSE #100
+    SetGlobal("STAF","LOCALS",1)
+    EquipItem("STAF01")
+    EquipMostDamagingMelee()
+    AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  !Range(NearestEnemyOf(Myself),5)
+  Global("DART","LOCALS",0)
+  HasItem("DART01",Myself)  // ~Dart~
+  !HasItemEquipedReal("DART01",Myself)
+THEN
+  RESPONSE #100
+    SetGlobal("DART","LOCALS",1)
+    EquipItem("DART01")
+    EquipRanged()
+    AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+  !Range(NearestEnemyOf(Myself),5)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+
+IF
+  True()
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+

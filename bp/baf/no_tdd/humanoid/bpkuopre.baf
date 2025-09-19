@@ -1,0 +1,58 @@
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_IRONSKIN)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  CheckStatLT(Myself,1,STONESKINS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_IRONSKIN)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_COMMAND)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  !StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  RandomNumLT(151,41)
+THEN
+  RESPONSE #100
+    Spell(LastSeenBy(Myself),CLERIC_COMMAND)
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_SPIRITUAL_HAMMER)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !HasItem("SHAMMR",Myself)  // ~Spiritual Hammer~
+  !HasItem("SHILLE",Myself)  // ~Shillelagh~
+  RandomNumLT(152,36)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_SPIRITUAL_HAMMER)
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_SHILLELAGH)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !HasItem("SHAMMR",Myself)  // ~Spiritual Hammer~
+  !HasItem("SHILLE",Myself)  // ~Shillelagh~
+  RandomNumLT(153,36)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_SHILLELAGH)
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+

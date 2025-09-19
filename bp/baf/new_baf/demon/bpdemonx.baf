@@ -1,0 +1,9 @@
+IF
+  See([0.0.DEMONIC])
+  Global("BP_DemonGuard","LOCALS",0)
+THEN
+  RESPONSE #100
+    SpellNoDec(Myself,CLERIC_PROTECT_FROM_EVIL)
+    SetGlobal("BP_DemonGuard","LOCALS",1)
+END
+

@@ -1,0 +1,798 @@
+IF
+  HPLT(Myself,20)
+  Global("DeathScriptYaga","AR6200",0)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobal("DeathScriptYaga","AR6200",1)
+    ClearActions(Myself)
+    CreateVisualEffectObject("ICRMPARI",Myself)
+    CreateVisualEffectObject("SPROTECT",Myself)
+    ActionOverride("finmel01",ClearActions(Myself))
+    ActionOverride("finmel01",DestroyItem("finyaga"))  // <Invalid Strref -1>
+    ReallyForceSpellDeadRES("melspl10","finmel01")
+    Kill(Myself)
+END
+
+IF
+  Global("IMPRISON","LOCALS",1)
+  Global("YagaImprisoned","AR6200",0)
+THEN
+  RESPONSE #100
+    ClearActions(Myself)
+    SetInterrupt(FALSE)
+    SetGlobal("IMPRISON","LOCALS",0)
+    SetGlobal("YagaImprisoned","AR6200",1)
+    DisplayStringHead(Myself,46151)  // ~help!~
+    SetInterrupt(TRUE)
+END
+
+IF
+  Global("CloseCombat","LOCALS",1)
+  GlobalTimerExpired("attacked","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("CloseCombat","LOCALS",0)
+    SetGlobalTimer("SafeForAWhile","LOCALS",6)
+END
+
+IF
+  Global("CloseCombat","LOCALS",0)
+  Global("safe","LOCALS",0)
+  GlobalTimerExpired("SafeForAWhile","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("safe","LOCALS",1)
+END
+
+IF
+  Global("CloseCombat","LOCALS",0)
+  OR(2)
+    HitBy([ANYONE],CRUSHING)
+    AttackedBy([ANYONE],DEFAULT)
+  Range(NearestEnemyOf(Myself),8)
+THEN
+  RESPONSE #100
+    SetGlobal("CloseCombat","LOCALS",1)
+    SetGlobal("safe","LOCALS",0)
+    SetGlobalTimer("attacked","LOCALS",5)
+END
+
+IF
+  Global("SetFirstWeakenTimer","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("SetFirstWeakenTimer","LOCALS",1)
+    SetGlobalTimer("WeakenYaga","LOCALS",6)
+END
+
+IF
+  CheckStatGT(Myself,0,RESISTCOLD)
+  !GlobalTimerNotExpired("WeakenYaga","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("WeakenYaga","LOCALS",9)
+    ApplySpellRES("YAGWEAK",Myself)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],50,RESISTFIRE)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],30,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See([GOODCUTOFF.0.0.CLERIC_ALL])
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],50,RESISTFIRE)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],30,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See([GOODCUTOFF.0.0.MAGE_ALL])
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  CheckStatLT([EVILCUTOFF.0.0.CLERIC_ALL],50,RESISTFIRE)
+  CheckStatLT([EVILCUTOFF.0.0.CLERIC_ALL],30,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See([EVILCUTOFF.0.0.CLERIC_ALL])
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  CheckStatLT([EVILCUTOFF.0.0.MAGE_ALL],50,RESISTFIRE)
+  CheckStatLT([EVILCUTOFF.0.0.MAGE_ALL],30,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See([EVILCUTOFF.0.0.MAGE_ALL])
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  CheckStatLT(NearestEnemyOf(Myself),25,RESISTFIRE)
+  CheckStatLT(NearestEnemyOf(Myself),25,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See(NearestEnemyOf(Myself))
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  CheckStatLT(SecondNearestEnemyOf(Myself),25,RESISTFIRE)
+  CheckStatLT(SecondNearestEnemyOf(Myself),25,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See(SecondNearestEnemyOf(Myself))
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  CheckStatLT(ThirdNearestEnemyOf(Myself),25,RESISTFIRE)
+  CheckStatLT(ThirdNearestEnemyOf(Myself),25,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See(ThirdNearestEnemyOf(Myself))
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  CheckStatLT(WeakestOf,25,RESISTFIRE)
+  CheckStatLT(WeakestOf,25,RESISTMAGIC)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See(WeakestOf)
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  Range(ThirdNearestEnemyOf(Myself),10)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  OR(3)
+    See(NearestEnemyOf(Myself))
+    See(SecondNearestEnemyOf(Myself))
+    See(ThirdNearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  HPPercentLT(Myself,50)
+  Range(NearestEnemyOf(Myself),8)
+  OR(2)
+    !Range("finsend",10)
+    !Dead("finsend")
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",10)
+    Dead("finbalth")
+    CheckStat("finbalth",100,RESISTFIRE)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  StateCheck(Myself,STATE_BLIND)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",1)
+END
+
+IF
+  Global("UseLavaBomb","LOCALS",1)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  !GlobalTimerNotExpired("LavaBomb","LOCALS")
+  DifficultyGT(EASY)
+  RandomNumLT(3,3)
+THEN
+  RESPONSE #70
+    SetGlobalTimer("LavaBomb","LOCALS",18)
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(LastSeenBy(Myself),FIRE_GIANT_LAVA)
+  RESPONSE #30
+    SetGlobalTimer("LavaBomb","LOCALS",18)
+    SetGlobalTimer("Spell","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),FIRE_GIANT_LAVA)
+END
+
+IF
+  Global("UseLavaBomb","LOCALS",1)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  !GlobalTimerNotExpired("LavaBomb","LOCALS")
+  !DifficultyGT(EASY)
+  RandomNumLT(3,3)
+THEN
+  RESPONSE #70
+    SetGlobalTimer("LavaBomb","LOCALS",30)
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(LastSeenBy(Myself),FIRE_GIANT_LAVA)
+  RESPONSE #30
+    SetGlobalTimer("LavaBomb","LOCALS",30)
+    SetGlobalTimer("Spell","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),FIRE_GIANT_LAVA)
+END
+
+IF
+  Global("UseLavaBomb","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseLavaBomb","LOCALS",0)
+END
+
+IF
+  !GlobalTimerNotExpired("Firestorm","LOCALS")
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  OR(2)
+    Range(SecondNearestEnemyOf(Myself),10)
+    HPPercentLT(Myself,50)
+  HPPercentLT(Myself,75)
+  RandomNumLT(4,3)
+THEN
+  RESPONSE #70
+    SetGlobalTimer("Firestorm","LOCALS",1000)
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(Myself,CLERIC_FIRE_STORM)
+  RESPONSE #30
+    SetGlobalTimer("Firestorm","LOCALS",1000)
+    SetGlobalTimer("Spell","LOCALS",6)
+    SpellNoDec(Myself,CLERIC_FIRE_STORM)
+END
+
+IF
+  Global("CloseCombat","LOCALS",1)
+  CheckStatLT(LastAttackerOf(Myself),25,RESISTFIRE)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  !GlobalTimerNotExpired("AuraFire","LOCALS")
+  RandomNumLT(6,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("AuraFire","LOCALS",60)
+    SetGlobalTimer("Spell","LOCALS",6)
+    ReallyForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
+END
+
+IF
+  Global("UseSunray","LOCALS",0)
+  Allegiance(Myself,GOODCUTOFF)
+  Range([EVILCUTOFF.UNDEAD],10)
+  OR(3)
+    !Range("finsend",15)
+    Dead("finsend")
+    CheckStatGT("finsend",99,RESISTFIRE)
+  OR(3)
+    !Range("finilla",15)
+    Dead("finilla") 
+    StateCheck("finilla",STATE_INVISIBLE)
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",15)
+    Dead("finbalth")
+    CheckStatGT("finbalth",99,RESISTFIRE)
+THEN
+  RESPONSE #100
+    SetGlobal("UseSunray","LOCALS",1)
+END
+
+IF
+  Global("UseSunray","LOCALS",0)
+  Allegiance(Myself,EVILCUTOFF)
+  Range([GOODCUTOFF.UNDEAD],10)
+  OR(3)
+    !Range("finsend",15)
+    Dead("finsend")
+    CheckStatGT("finsend",99,RESISTFIRE)
+  OR(3)
+    !Range("finilla",15)
+    Dead("finilla") 
+    StateCheck("finilla",STATE_INVISIBLE)
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",15)
+    Dead("finbalth")
+    CheckStatGT("finbalth",99,RESISTFIRE)
+THEN
+  RESPONSE #100
+    SetGlobal("UseSunray","LOCALS",1)
+END
+
+IF
+  Global("UseSunray","LOCALS",0)
+  Range(NearestEnemyOf(Myself),15)
+  CheckStatLT(NearestEnemyOf(Myself),50,RESISTFIRE)
+  OR(3)
+    !Range("finsend",15)
+    Dead("finsend")
+    CheckStatGT("finsend",99,RESISTFIRE)
+  OR(3)
+    !Range("finilla",15)
+    Dead("finilla") 
+    StateCheck("finilla",STATE_INVISIBLE)
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",15)
+    Dead("finbalth")
+    CheckStatGT("finbalth",99,RESISTFIRE)
+THEN
+  RESPONSE #100
+    SetGlobal("UseSunray","LOCALS",1)
+END
+
+IF
+  Global("UseSunray","LOCALS",0)
+  Range(SecondNearestEnemyOf(Myself),15)
+  CheckStatLT(SecondNearestEnemyOf(Myself),50,RESISTFIRE)
+  OR(3)
+    !Range("finsend",15)
+    Dead("finsend")
+    CheckStatGT("finsend",99,RESISTFIRE)
+  OR(3)
+    !Range("finilla",15)
+    Dead("finilla") 
+    StateCheck("finilla",STATE_INVISIBLE)
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",15)
+    Dead("finbalth")
+    CheckStatGT("finbalth",99,RESISTFIRE)
+THEN
+  RESPONSE #100
+    SetGlobal("UseSunray","LOCALS",1)
+END
+
+IF
+  Global("UseSunray","LOCALS",0)
+  Range(ThirdNearestEnemyOf(Myself),15)
+  CheckStatLT(ThirdNearestEnemyOf(Myself),50,RESISTFIRE)
+  OR(3)
+    !Range("finsend",15)
+    Dead("finsend")
+    CheckStatGT("finsend",99,RESISTFIRE)
+  OR(3)
+    !Range("finilla",15)
+    Dead("finilla") 
+    StateCheck("finilla",STATE_INVISIBLE)
+  OR(4)
+    !Global("BalthazarFights","GLOBAL",0)
+    !Range("finbalth",15)
+    Dead("finbalth")
+    CheckStatGT("finbalth",99,RESISTFIRE)
+THEN
+  RESPONSE #100
+    SetGlobal("UseSunray","LOCALS",1)
+END
+
+IF
+  Global("UseSunray","LOCALS",1)
+  !GlobalTimerNotExpired("Sunray","LOCALS")
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  RandomNumLT(5,5)
+THEN
+  RESPONSE #70
+    SetGlobalTimer("Sunray","LOCALS",15)
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(Myself,CLERIC_SUNRAY)
+  RESPONSE #30
+    SetGlobalTimer("Sunray","LOCALS",15)
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(Myself,CLERIC_SUNRAY)
+END
+
+IF
+  Global("UseSunray","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetGlobal("UseSunray","LOCALS",0)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Range(Player1,15)
+  See(Player1)
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Range(LastAttackerOf(Myself),8)
+  HPGT(LastAttackerOf(Myself),0)  // astAttackerOf(Myself))
+  Global("CloseCombat","LOCALS",1)
+  !StateCheck(LastAttackerOf(Myself),STATE_PANIC)
+  !StateCheck(LastAttackerOf(Myself),STATE_STUNNED)
+  !StateCheck(LastAttackerOf(Myself),STATE_HELPLESS)
+  !StateCheck(LastAttackerOf(Myself),STATE_SLEEPING)
+  See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  HPPercentLT("finabaz",50)  // ~Abazigal~
+  !Dead("finabaz")  // ~Abazigal~
+  Range(LastAttackerOf("finabaz"),15) 
+  HPGT(LastAttackerOf("finabaz"),0)
+  !StateCheck(LastAttackerOf("finabaz"),STATE_STUNNED)  // ~Abazigal~
+  !StateCheck(LastAttackerOf("finabaz"),STATE_SLEEPING)  // ~Abazigal~
+  !StateCheck(LastAttackerOf("finabaz"),STATE_HELPLESS)  // ~Abazigal~
+  !StateCheck(LastAttackerOf("finabaz"),STATE_CONFUSED)  // ~Abazigal~
+  !CheckStatGT(LastAttackerOf("finabaz"),0,128)
+  CheckStatLT(LastAttackerOf("finabaz"),100,RESISTFIRE)
+  RandomNum(2,1)
+  See(LastAttackerOf("finabaz"))  // ~Abazigal~
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  HPPercentLT("finilla",50)  // ~Illasera~
+  !Dead("finilla")  // ~Illasera~
+  Range(LastAttackerOf("finilla"),15)  // ~Illasera~
+  HPGT(LastAttackerOf("finilla"),0)  // astTargetedBy(
+  !StateCheck(LastAttackerOf("finilla"),STATE_STUNNED)  // ~Illasera~
+  !StateCheck(LastAttackerOf("finilla"),STATE_SLEEPING)  // ~Illasera~
+  !StateCheck(LastAttackerOf("finilla"),STATE_HELPLESS)  // ~Illasera~
+  !StateCheck(LastAttackerOf("finilla"),STATE_CONFUSED)  // ~Illasera~
+  !CheckStatGT(LastAttackerOf("finilla"),0,128)
+  CheckStatLT(LastAttackerOf("finilla"),100,RESISTFIRE)  // ~Illasera~
+  RandomNum(2,1)
+  See(LastAttackerOf("finilla"))  // ~Illasera~
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  HPPercentLT("finsend",50)  // ~Sendai~
+  !Dead("finsend")  // ~Sendai~
+  Range(LastAttackerOf("finsend"),15)  // ~Sendai~
+  HPGT(LastAttackerOf("finsend"),0)  // astTargetedBy(
+  !StateCheck(LastAttackerOf("finsend"),STATE_STUNNED)  // ~Sendai~
+  !StateCheck(LastAttackerOf("finsend"),STATE_SLEEPING)  // ~Sendai~
+  !StateCheck(LastAttackerOf("finsend"),STATE_HELPLESS)  // ~Sendai~
+  !StateCheck(LastAttackerOf("finsend"),STATE_CONFUSED)  // ~Sendai~
+  !CheckStatGT(LastAttackerOf("finsend"),0,128)
+  CheckStatLT(LastAttackerOf("finsend"),100,RESISTFIRE)  // ~Sendai~
+  RandomNum(2,1)
+  See(LastAttackerOf("finsend"))  // ~Sendai~
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_SILENCED)
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_STUNNED)
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_PANIC)
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_SLEEPING)
+  !CheckStatGT([GOODCUTOFF.0.0.CLERIC_ALL],0,128)
+  !CheckStatGT([GOODCUTOFF.0.0.CLERIC_ALL],50,RESISTFIRE)
+  See([GOODCUTOFF.0.0.CLERIC_ALL])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !StateCheck([GOODCUTOFF.0.0.MAGE_ALL],STATE_SILENCED)
+  !StateCheck([GOODCUTOFF.0.0.MAGE_ALL],STATE_STUNNED)
+  !StateCheck([GOODCUTOFF.0.0.MAGE_ALL],STATE_PANIC)
+  !StateCheck([GOODCUTOFF.0.0.MAGE_ALL],STATE_SLEEPING)
+  !CheckStatGT([GOODCUTOFF.0.0.MAGE_ALL],0,128)
+  !CheckStatGT([GOODCUTOFF.0.0.MAGE_ALL],50,RESISTFIRE)
+  See([GOODCUTOFF.0.0.MAGE_ALL])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Range(Player1,15)
+  See(Player1)
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(SixthNearestEnemyOf(Myself),50,RESISTFIRE)
+  !CheckStatGT(SixthNearestEnemyOf(Myself),0,128)
+  OR(2)
+    !Gender(SixthNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(SixthNearestEnemyOf(Myself),10)
+  OR(4)
+    CheckStatGT(SixthNearestEnemyOf(Myself),-5,ARMORCLASS)
+    StateCheck(SixthNearestEnemyOf(Myself),STATE_STUNNED)
+    HPPercentLT(SixthNearestEnemyOf(Myself),25)
+    General(SixthNearestEnemyOf(Myself),UNDEAD)
+  Range(SixthNearestEnemyOf(Myself),15)
+  See(SixthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(FifthNearestEnemyOf(Myself),50,RESISTFIRE)
+  !CheckStatGT(FifthNearestEnemyOf(Myself),0,128)
+  OR(2)
+    !Gender(FifthNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(FifthNearestEnemyOf(Myself),10)
+  OR(4)
+    CheckStatGT(FifthNearestEnemyOf(Myself),-5,ARMORCLASS)
+    StateCheck(FifthNearestEnemyOf(Myself),STATE_STUNNED)
+    HPPercentLT(FifthNearestEnemyOf(Myself),25)
+    General(FifthNearestEnemyOf(Myself),UNDEAD)
+  Range(FifthNearestEnemyOf(Myself),15)
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(FourthNearestEnemyOf(Myself),50,RESISTFIRE)
+  !CheckStatGT(FourthNearestEnemyOf(Myself),0,128)
+  OR(2)
+    !Gender(FourthNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(FourthNearestEnemyOf(Myself),10)
+  OR(4)
+    CheckStatGT(FourthNearestEnemyOf(Myself),-5,ARMORCLASS)
+    StateCheck(FourthNearestEnemyOf(Myself),STATE_STUNNED)
+    HPPercentLT(FourthNearestEnemyOf(Myself),25)
+    General(FourthNearestEnemyOf(Myself),UNDEAD)
+  Range(FourthNearestEnemyOf(Myself),15)
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(ThirdNearestEnemyOf(Myself),50,RESISTFIRE)
+  !CheckStatGT(ThirdNearestEnemyOf(Myself),0,128)
+  OR(2)
+    !Gender(ThirdNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(ThirdNearestEnemyOf(Myself),10)
+  OR(4)
+    CheckStatGT(ThirdNearestEnemyOf(Myself),-5,ARMORCLASS)
+    StateCheck(ThirdNearestEnemyOf(Myself),STATE_STUNNED)
+    HPPercentLT(ThirdNearestEnemyOf(Myself),25)
+    General(ThirdNearestEnemyOf(Myself),UNDEAD)
+  Range(ThirdNearestEnemyOf(Myself),15)
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(SecondNearestEnemyOf(Myself),50,RESISTFIRE)
+  !CheckStatGT(SecondNearestEnemyOf(Myself),0,128)
+  OR(2)
+    !Gender(SecondNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(SecondNearestEnemyOf(Myself),10)
+  OR(4)
+    CheckStatGT(SecondNearestEnemyOf(Myself),-5,ARMORCLASS)
+    StateCheck(SecondNearestEnemyOf(Myself),STATE_STUNNED)
+    HPPercentLT(SecondNearestEnemyOf(Myself),25)
+    General(SecondNearestEnemyOf(Myself),UNDEAD)
+  Range(SecondNearestEnemyOf(Myself),15)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(NearestEnemyOf(Myself),50,RESISTFIRE)
+  !CheckStatGT(NearestEnemyOf(Myself),0,128)
+  OR(2)
+    !Gender(NearestEnemyOf(Myself),SUMMONED)
+    LevelGT(NearestEnemyOf(Myself),10)
+  OR(4)
+    CheckStatGT(NearestEnemyOf(Myself),-5,ARMORCLASS)
+    StateCheck(NearestEnemyOf(Myself),STATE_STUNNED)
+    HPPercentLT(NearestEnemyOf(Myself),25)
+    General(NearestEnemyOf(Myself),UNDEAD)
+  Range(NearestEnemyOf(Myself),15)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(WorstAC,50,RESISTFIRE)
+  !CheckStatGT(WorstAC,0,128)
+  !Gender(WorstAC,SUMMONED)
+  !StateCheck(WorstAC,STATE_STUNNED)
+  Range(WorstAC,15)
+  See(WorstAC)
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Range(SecondNearestEnemyOf(Myself),8)
+  CheckStatGT(SecondNearestEnemyOf(Myself),4,NUMBEROFATTACKS)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_PANIC)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_STUNNED)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_HELPLESS)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_SLEEPING)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Range(NearestEnemyOf(Myself),8)
+  CheckStatGT(NearestEnemyOf(Myself),4,NUMBEROFATTACKS)
+  !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+  !StateCheck(NearestEnemyOf(Myself),STATE_STUNNED)
+  !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+  !StateCheck(NearestEnemyOf(Myself),STATE_SLEEPING)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+  See([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject([GOODCUTOFF])
+END
+
+IF
+  OR(2)
+    !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+    !See([GOODCUTOFF])
+  !Range(Player1,15)
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  OR(2)
+    !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+    !See([GOODCUTOFF])
+  Range(Player1,15)
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_DEAD)
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+  OR(3)
+    CheckStatLT(LastSeenBy(Myself),100,RESISTCRUSHING)
+    CheckStatLT(LastSeenBy(Myself),100,RESISTFIRE)
+    General(LastSeenBy(Myself),UNDEAD)
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  True()
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+

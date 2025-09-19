@@ -1,0 +1,17 @@
+IF
+  Global("Speed","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Speed","LOCALS",1)
+    ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+END
+
+IF
+  OR(2)
+    See("Cernd")  // Cernd
+    See([PC.0.0.DRUID_ALL])
+THEN
+  RESPONSE #100
+    Attack(LastSeenBy(Myself))
+END
+

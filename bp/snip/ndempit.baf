@@ -1,0 +1,11 @@
+IF
+  See([ANYONE])
+  Allegiance(Myself,ENEMY)
+  Global("PITFEAR","LOCALS",1)
+THEN
+  RESPONSE #30
+    SetGlobal("PITFEAR","LOCALS",0)
+  RESPONSE #70
+    Continue()
+END
+

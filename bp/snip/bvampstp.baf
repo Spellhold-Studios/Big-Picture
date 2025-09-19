@@ -1,0 +1,27 @@
+IF
+  Delay(10)
+  CombatCounter(0)
+  Range([PC],20)
+  !Range("ShThDr01",30)
+  OR(2)
+    TimeGT(DUSK_START)
+    TimeLT(DAWN_START)
+  GlobalGT("VampShadWar","GLOBAL",4)
+  Global("BPVAMSHD","GLOBAL",0)
+  Global("WorkingForAran","GLOBAL",1)
+  !GlobalTimerNotExpired("GBTrapsAll","GLOBAL")
+  !GlobalTimerNotExpired("VampShadTimer","GLOBAL")
+  !StateCheck([PC],STATE_INVISIBLE)
+  !Dead("C6Bodhi")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GBTrapsAll","GLOBAL",0)
+    SetGlobalTimer("VampShadTimer","GLOBAL",0)
+    SetGlobal("BPVAMSHD","GLOBAL",1)
+    CreateCreatureObjectOffScreen("VAMMAT01",Player1,0,0,0)
+    CreateCreatureObjectOffScreen("VAMANC01",Player1,0,0,0)
+    CreateCreatureObjectOffScreen("VAMANC01",Player1,0,0,0)
+    DisplayStringHead("VAMMAT01",60225)
+END
+
+

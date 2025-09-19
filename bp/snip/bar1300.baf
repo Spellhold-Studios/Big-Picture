@@ -1,0 +1,28 @@
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR1300",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1300",1)
+    CreateCreature("TROLGI01",[3220.1170],10)
+    CreateCreature("TROLL01",[3300.1140],10)
+    CreateCreature("TROLGI01",[3080.1125],10)
+    CreateCreature("TROLL01",[1875.965],0)
+    CreateCreature("TROLGI01",[1800.1000],0)
+    CreateCreature("TROLGI01",[1705.920],0)
+    CreateCreature("ICYUAN02",[505.870],8)
+    CreateCreature("ICYUAN02",[580.1050],8)
+    CreateCreature("ICYUAN03",[1750.845],8)
+    CreateCreature("ICYUAN02",[2800.660],8)
+    CreateCreature("ICYUAN03",[2930.740],8)
+    CreateCreature("ICYUAN03",[2910.850],8)
+    CreateCreature("ICYUAN03",[2820.1940],10)
+    CreateCreature("ICYUAN03",[2700.1915],10)
+    CreateCreature("ICYUAN04",[2485.1900],10)
+    CreateCreature("ICYUAN02",[2965.1845],10)
+    CreateCreature("ICYUAN02",[3040.1780],10)
+    CreateCreature("ICYUAN01",[3010.1750],10)
+    CreateCreature("ICYUAN01",[3250.1615],6)
+END
+

@@ -1,0 +1,41 @@
+IF
+  See(NearestEnemyOf(Myself))
+  Range(LastSeenBy(Myself),10)
+  !HPPercentLT(Myself,75)
+  HasItem("DART04",Myself)
+THEN
+  RESPONSE #100
+    RunAwayFrom(NearestEnemyOf(Myself),30)
+END
+
+IF
+  !HPPercentLT(Myself,25)
+  HasItem("DART04",Myself)
+  See(NearestEnemyOf(Myself))
+  !Range(LastSeenBy(Myself),10)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+  !HPPercentLT(Myself,25)
+  See(NearestEnemyOf(Myself))
+  OR(2)
+    !HasItem("DART04",Myself)
+    Range(LastSeenBy(Myself),10)
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !See([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+

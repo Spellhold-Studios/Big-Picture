@@ -1,0 +1,10 @@
+IF
+  Global("EnteredArea","AR5002",0)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    SetGlobal("EnteredArea","AR5002",1)
+    StartCutSceneMode()
+    StartCutScene("cut225a")
+END
+

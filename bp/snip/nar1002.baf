@@ -1,0 +1,7 @@
+IF
+  Dead("TOLGER2")
+THEN
+  RESPONSE #100
+    ActionOverride("TOLGER",DestroySelf())
+END
+

@@ -1,0 +1,92 @@
+0     Core
+10    Innate Fix
+25    GUI Switcher
+35    Bags & Throwing Daggers
+50    Level 50 Rules
+60    Custom Grandmastery
+75    Halberds & Spears
+325   Animals
+350   Beholders
+375   Demons
+390   Djinni
+400   Dragons
+425   Drow
+440   Duergar, Irenicus Dungeon
+450   Irenicus Dungeon
+460   Duergar
+475   Elementals
+500   Generic Mages
+525   Generic Priests
+550   Generic Thieves
+575   Githyanki
+600   Golems
+625   Hellhounds
+650   Humanoids
+675   Paladins & Knights
+700   Mind Flayers
+725   Mists
+750   Sahuagin, Kuo Toa
+760   Shade Lord, Shadows
+770   Shade Lord
+780   Shadows
+800   Shadow Thieves
+875   Trolls
+900   Undead
+925   Were-Creatures
+
+[150] Generic Creature Processing
+[175] Fewer Shouts
+
+1000  Generic Encounters
+1020  Beholder Cult
+1030  Vampires, Chapter 3, Bodhi
+1040  Vampires, Chapter 3
+1050  Vampires, Chapter 6, Bodhi
+1060  Vampires, Chapter 6
+1070  Vampires, Chapters 3 & 6, Bodhi
+1080  Vampires, Chapter 3 & 6
+1090  Vampires
+1100  Copper Coronet, Slavers
+1110  Brown Dragon
+1120  Crypt King
+1130  Drizzt
+1140  Druid's Grove
+1150  Druid Encounter
+1160  Treant Spell Only
+1170  Treant Encounter
+1175  Gnome Fighter/Illusionist
+1190  Hell Trials
+1200  Horred's Lair
+1210  Irenicus Dungeon
+1225  Kangaxx
+1250  Kuroisan
+1275  Lich in the Docks
+1300  Mae Var
+1325  Nalia
+1350  Planar Prison
+1375  Planar Sphere
+1400  Random Encounters
+1425  Red Badge
+1450  Ritual
+1525  Small Teeth Pass
+1550  Spellhold
+1560  Chapter 4
+1570  Spellhold, Chapter 4
+1580  Spellhold, Items
+1590  Spellhold, Chapter 4, Items
+1600  Suldanessallar
+1625  Tanners
+1650  Trademeet
+1675  Wand of Orcus
+1700  Windspear Hills
+1725  Xvart Village
+1750  Watchers Keep
+1800  ToB Improvements
+
+2000  Ascension
+2100  Abazigail
+2200  Demogorgon
+2300  Gromnir
+2400  Illasera
+2500  Sendai
+2600  Yaga Shura

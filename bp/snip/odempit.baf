@@ -1,0 +1,10 @@
+IF
+  See([ANYONE])
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #70
+    AttackReevaluate([ANYONE],15)
+  RESPONSE #20
+    SetGlobal("PITFIRE","LOCALS",0)
+END
+

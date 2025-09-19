@@ -1,0 +1,1767 @@
+
+/////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION generic_mages BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF mage_scripts END
+
+COPY ~bp/cre/slmage3.cre~ ~override~
+
+COPY_EXISTING ~genmag01.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REMOVE_KNOWN_SPELL ~spwi605~
+    REMOVE_MEMORIZED_SPELL ~spwi402~
+    ADD_MEMORIZED_SPELL ~spwi402~ #3 ~wizard~ (4)
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gentmg01.cre~ ~override~ //Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 60 // DtectIll (was 0)
+    WRITE_BYTE 0x68 90 // Stealth (was 0)
+    WRITE_BYTE 0x235 14 // HighestLevelSecond (was 10)
+    WRITE_ASCII 0x250 ~bpmag10a~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was THIEFMAG)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    REMOVE_KNOWN_SPELL ~spwi205~
+    REMOVE_KNOWN_SPELL ~spwi306~
+    REMOVE_KNOWN_SPELL ~spwi511~
+    REMOVE_KNOWN_SPELL ~spwi623~
+    REMOVE_MEMORIZED_SPELL ~spwi205~
+    REMOVE_MEMORIZED_SPELL ~spwi306~
+    REMOVE_MEMORIZED_SPELL ~spwi511~
+    REMOVE_MEMORIZED_SPELL ~spwi505~
+    REMOVE_MEMORIZED_SPELL ~spwi623~
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi118~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi206~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi219~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi214~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi302~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi318~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi304~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi406~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi505~ #4 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi506~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi504~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi523~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi615~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi612~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gpmage1.cre~ ~override~ //N'ashtar
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~wsasight~ #8 // General (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~magcle20.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x235 20 // HighestLevelSecond (was 1)
+    WRITE_ASCII 0x250 ~bpcmag2a~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpccle2b~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~~ #8 // Default (was CMAGE20A)
+    WRITE_BYTE 0x273 14 // IDSClass (was 1)
+    REPLACE_CRE_ITEM ~BLUN21~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~SLNG04~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    REPLACE_CRE_ITEM ~BULL03~ #40 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage6a.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmage6a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage6b.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmage6b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage6c.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmage6c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage8a.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmage8a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage8b.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmage8b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage8c.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmage8c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage8e.cre~ ~override~ //Relonar
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpmage8e~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage10a.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag10a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage10b.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag10b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage10c.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag10c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage10d.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag10d~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage11.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmage11~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage12a.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag12a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage12b.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag12b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage12c.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag12c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage12d.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag12d~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage14a.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag14a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage14b.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag14b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage14c.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag14c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage14m.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag14m~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage16a.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag16a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage16b.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag16b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF07~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART03~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage16c.cre~ ~override~ //Khollynnus Paac
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag16c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF07~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~STONSKIN~ #0 #0 #0 ~NONE~ ~LRING~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage16m.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag16m~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF07~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage18a.cre~ ~override~ //Cowled Wizard
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag18a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF18~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage18b.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag18b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF18~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DAGG16~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage18c.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag18c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF05~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage18d.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag18d~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~BRAC03~ #0 #0 #0 ~NONE~ ~GLOVES~
+    REPLACE_CRE_ITEM ~STAF08~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage18e.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag18e~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF05~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage18y.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag18y~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF05~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage18z.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #3139 // LongName (Mage, was 22068 Zyntris)
+    SAY NAME2 #3139 // ShortName (Mage, was 22069 Zyntris)
+    WRITE_ASCII 0x248 ~bpmag18z~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~STAF05~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage20.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpmag20a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DART05~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage20b.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpmag20b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DART05~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mage20c.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpmag20c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DART05~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~vakmag01.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bpprst12~ #8 // Race (was NONE)
+    WRITE_ASCII 0x260 ~bpmag10a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~corneil.cre~ ~override~ //Corneil
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpmage6~ #8 // Class (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~cowenf3.cre~ ~override~ //Cowled Enforcer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x48 4 // ACEffec (was 10)
+    WRITE_ASCII 0x250 ~bpmag16a~ #8 // Class (was COWENF03)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~cowenf4.cre~ ~override~ //Cowled Enforcer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpmag16m~ #8 // Class (was COWENF04)
+    WRITE_ASCII 0x260 ~bpwdasgt~ #8 // General (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DAGG02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DART03~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~daelf.cre~ ~override~ //Elven Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DAGG05~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~daelf2.cre~ ~override~ //Elven Mage
+              ~remage02.cre~ ~override~ //Slaver Wizard
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~dcowl1.cre~ ~override~ //Rayic Gethras
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi211~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi306~
+    REMOVE_MEMORIZED_SPELL ~spwi408~
+    REMOVE_MEMORIZED_SPELL ~spwi523~
+    REMOVE_MEMORIZED_SPELL ~spwi505~
+    REMOVE_MEMORIZED_SPELL ~spwi616~
+    REMOVE_MEMORIZED_SPELL ~spwi601~
+    REMOVE_MEMORIZED_SPELL ~spwi715~
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi104~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi125~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi213~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi317~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi418~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi419~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi505~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi523~ #4 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi615~ #5 ~wizard~
+    REPLACE_CRE_ITEM ~DART02~ #20 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~POTN52~ #2 #0 #0 ~NONE~ ~QITEM2~
+    REPLACE_CRE_ITEM ~POTN17~ #4 #0 #0 ~NONE~ ~QITEM3~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~vaelasa.cre~ ~override~ //Vaelasa
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 3 // ACNatul (was 10)
+    WRITE_SHORT 0x48 3 // ACEffec (was 10)
+    WRITE_BYTE 0x52 17 // THAC0 (was 20)
+    WRITE_BYTE 0x54 10 // SaveVDth (was 20)
+    WRITE_BYTE 0x55 10 // SaveVWnd (was 20)
+    WRITE_BYTE 0x56 10 // SaveVPoly (was 20)
+    WRITE_BYTE 0x57 10 // SaveVAtks (was 20)
+    WRITE_BYTE 0x58 10 // SaveVspell (was 20)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spwi316~
+    ADD_MEMORIZED_SPELL ~spwi316~ #2 ~wizard~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~wyvmag14.cre~ ~override~ //Wyvern Cultist
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x48 4 // ACEffec (was 10)
+    WRITE_ASCII 0x260 ~bpwdasgt~ #8 // General (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~xappren1.cre~ ~override~ //Prebek
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpprst12~ #8 // Class (was MAGE8A)
+    WRITE_ASCII 0x258 ~bpmage8a~ #8 // Race (was NONE)
+    REPLACE_CRE_ITEM ~DAGG05~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~xappren2.cre~ ~override~ //Sanasha
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 32 // CurrHP (was 20)
+    WRITE_SHORT 0x26 32 // MaxHP (was 20)
+    WRITE_ASCII 0x258 ~bpprst12~ #8 // Race (was MAGE8B)
+    WRITE_ASCII 0x260 ~bpmage8b~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~wgarsgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+
+
+END
+
+
+/////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION generic_priests BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF priest_scripts END
+
+COPY_EXISTING ~pries10a.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bppri10a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries10b.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bppri10b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries10c.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bppri10c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries12a.cre~ ~override~ //Zeela
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 18218 Zeela)
+    SAY NAME2 #1079 // ShortName (Cleric, was 18219 Zeela)
+    WRITE_ASCII 0x248 ~bppri12a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    ADD_MEMORIZED_SPELL ~sppr105~ #0 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr204~ #1 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr211~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr310~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr319~ #2 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr414~ #3 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr405~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr699~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr698~ #5 ~priest~ (2)
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries12b.cre~ ~override~ //Zeela
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 18218 Zeela)
+    SAY NAME2 #1079 // ShortName (Cleric, was 18219 Zeela)
+    WRITE_ASCII 0x248 ~bppri12b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    REMOVE_MEMORIZED_SPELL ~sppr608~
+    REMOVE_MEMORIZED_SPELL ~sppr603~
+    REMOVE_MEMORIZED_SPELL ~sppr698~
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr699~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr698~ #5 ~priest~ (2)
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries12c.cre~ ~override~ //Zeela
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 18218 Zeela)
+    SAY NAME2 #1079 // ShortName (Cleric, was 18219 Zeela)
+    WRITE_ASCII 0x248 ~bppri12c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    REMOVE_MEMORIZED_SPELL ~sppr608~
+    REMOVE_MEMORIZED_SPELL ~sppr603~
+    ADD_MEMORIZED_SPELL ~sppr102~ #0 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr208~ #1 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr310~ #2 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr314~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr405~ #3 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr699~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr698~ #5 ~priest~ (2)
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries18a.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bppri18a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT05~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM08~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN15~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries18b.cre~ ~override~ //Zorl
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bppri18b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries18c.cre~ ~override~ //Zorl
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bppri18c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    REMOVE_MEMORIZED_SPELL ~sppr608~
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr699~ #5 ~priest~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries6a.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bpprie6a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries6b.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bpprie6b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries6c.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bpprie6c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries8a.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bpprie8a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries8b.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bpprie8b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~pries8c.cre~ ~override~ //Zorl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    SAY NAME1 #1079 // LongName (Cleric, was 12781 Zorl)
+    SAY NAME2 #1079 // ShortName (Cleric, was 12763 Zorl)
+    WRITE_ASCII 0x248 ~bpprie8c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+  END
+BUT_ONLY
+
+
+END
+
+/////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION generic_thieves BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF thief_scripts END
+
+COPY_EXISTING ~bmthief.cre~ ~override~ //Black Market Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 25 // DtectIll (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin486~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~bmugg1.cre~ ~override~ //Mugger
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 35 // DtectIll (was 0)
+    WRITE_BYTE 0x68 45 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gaylan.cre~ ~override~ //Gaylan Bael
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spin486~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~genth01.cre~ ~override~ //Thief
+              ~genth02.cre~ ~override~ //Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 90 // Stealth (was 100)
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPUSE)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was THIEF14T)
+    WRITE_ASCII 0x260 ~~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~genthf01.cre~ ~override~ //Thug
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x64 60 // DtectIll (was 0)
+    WRITE_BYTE 0x68 90 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gpthief1.cre~ ~override~ //Damien
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPUSE)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was THIEF14T)
+    WRITE_ASCII 0x260 ~~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hlassa.cre~ ~override~ //Assassin
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 60 // Stealth (was 20)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mugger1.cre~ ~override~ //Shady Character
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 40 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 100)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mugger3.cre~ ~override~ //Shady Character
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #19773 // LongName (was 19771)
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_BYTE 0x68 55 // Stealth (was 0)
+    WRITE_BYTE 0x234 9 // HighestLevelPrimary (was 2)
+    WRITE_ASCII 0x250 ~~ #8 // Class (was THF01SHT)
+    WRITE_ASCII 0x260 ~~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    WRITE_BYTE 0x27b 19 // Alignment (was 34)
+    WRITE_ASCII 0x280 ~mugger3~ #32 // DeathVariable (was NONE)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mugger4.cre~ ~override~ //Ogre
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 45 // CurrHP (was 32)
+    WRITE_SHORT 0x26 45 // MaxHP (was 32)
+    WRITE_BYTE 0x52 15 // THAC0 (was 17)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~plass02.cre~ ~override~ //Assassin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpcpal2a~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (6)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~plass04.cre~ ~override~ //Assassin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    WRITE_BYTE 0x27b 18 // Alignment (was 17)
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~arled.cre~ ~override~ //Arledrian
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 40
+    WRITE_BYTE 0x68 50
+    WRITE_ASCII 0x248 ~bpthfsht~ #8
+    WRITE_ASCII 0x268 ~bpthief~ #8
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~bazpat01.cre~ ~override~ //Bondari
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpthief~ #8 //Default script
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~beeloo.cre~ ~override~ //Beeloo Jansen
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 50
+    WRITE_BYTE 0x65 60
+    WRITE_ASCII 0x248 ~bpthfsht~ #8
+    WRITE_ASCII 0x258 ~bpprist5~ #8
+    WRITE_ASCII 0x258 ~bpthief~ #8
+  END
+BUT_ONLY
+
+COPY_EXISTING ~roger.cre~ ~override~ //Roger the Fence
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 55 // CurrHP (was 50)
+    WRITE_SHORT 0x26 55 // MaxHP (was 50)
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 60 // Stealth (was 20)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was GPUSE)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~shthstor.cre~ ~override~ //Rattell
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin476~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~spmugg.cre~ ~override~ //Mugger
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x68 45 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~spmugg2.cre~ ~override~ //Ruffian Captain
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_BYTE 0x68 55 // Stealth (was 0)
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~spmugg3.cre~ ~override~ //Thug
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x68 45 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~thief1.cre~ ~override~ //Sidge
+              ~thief2.cre~ ~override~ //Shadow Thief
+              ~thief3.cre~ ~override~ //Shadow Thief
+              ~thief4.cre~ ~override~ //Shadow Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~thief6.cre~ ~override~ //Zyntris
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_BYTE 0x68 55 // Stealth (was 20)
+    WRITE_ASCII 0x250 ~gpshout~ #8 // Class (was GPUSE)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was GPSHOUT)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~thief7.cre~ ~override~ //Anishai
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x5d 30 // RstMagc (was 0)
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPUSE)
+    WRITE_ASCII 0x268 ~bpcmnk2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl815~ #0 ~innate~ (3)
+    REPLACE_CRE_ITEM ~MFIST4~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DAGG05~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~thief8.cre~ ~override~ //Shadow Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 48 // CurrHP (was 35)
+    WRITE_SHORT 0x26 48 // MaxHP (was 35)
+    WRITE_BYTE 0x68 50 // Stealth (was 20)
+    WRITE_BYTE 0x234 8 // HighestLevelPrimary (was 6)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~travin.cre~ ~override~ //Travin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x68 68 // Stealth (was 98)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~waylane.cre~ ~override~ //Waylane
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x68 30 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~vakthf01.cre~ ~override~ //Thug
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTARSGT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~viekang.cre~ ~override~ //Viekang
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 25 // DtectIll (was 10)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~vakg03.cre~ ~override~ //Thief
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x64 50 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 20)
+    WRITE_ASCII 0x250 ~~ #8 // Class (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~kaysmg01.cre~ ~override~ //Rindus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~kaysmg02.cre~ ~override~ //Smuggler
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x68 35 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~jayes.cre~ ~override~ //Jayes
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_BYTE 0x68 40 // Stealth (was 20)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~jaylos.cre~ ~override~ //Jaylos
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 30 // DtectIll (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~crothf01.cre~ ~override~ //Tiiro
+              ~mugger2.cre~ ~override~ //Shady Character
+              ~vvshad12.cre~ ~override~ //Shadow Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x68 20 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~crothf02.cre~ ~override~ //Aulava
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x68 25 // Stealth (was 0)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~udtrap05.cre~ ~override~ //Gont of Riatavin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 70 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 20)
+    WRITE_BYTE 0x238 17 // Str (was 12)
+    WRITE_ASCII 0x268 ~bpbounty~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin487~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+
+
+END
+
+
+/////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION knights_saints BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF knight_scripts END
+
+COPY_EXISTING ~wasleep.cre~ ~override~ //Watcher
+              ~watch2.cre~ ~override~ //Watcher
+              ~watch6.cre~ ~override~ //Watcher
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~william.cre~ ~override~ //Sir Branet Al-Thon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bppald16~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr323~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr313~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr406~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr412~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (9)
+    REPLACE_CRE_ITEM ~AX1H04~ #6 #0 #0 ~NONE~ ~WEAPON2~
+    ADD_CRE_ITEM ~POTN52~ #4 #0 #0 ~NONE~ ~QITEM2~
+    ADD_CRE_ITEM ~POTN14~ #2 #0 #0 ~NONE~ ~QITEM3~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~vakg04.cre~ ~override~ //Goon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    // WRITE_BYTE 0x74 2 // Unu6(Axe prof) (was 0)
+    WRITE_ASCII 0x268 ~bppald10~ #8 // Default (was NONE)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    REPLACE_CRE_ITEM ~HELM10~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~AX1H04~ #6 #0 #0 ~NONE~ ~WEAPON2~
+    SET_BG2_PROFICIENCY ~PROFICIENCYAXE~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sguard2.cre~ ~override~ //Guard
+              ~acolyte1.cre~ ~override~ //Talon Zogas
+              ~acolyte2.cre~ ~override~ //Dawnbringer Alvanna
+              ~acolyte3.cre~ ~override~ //Watchknight Aabir
+              ~doghma.cre~ ~override~ //Priest of Oghma
+              ~heartg1.cre~ ~override~ //Knight of the Order
+              ~heartg2.cre~ ~override~ //Knight of the Order
+              ~proptal.cre~ ~override~ //Storm Knight
+              ~talkni01.cre~ ~override~ //Storm Knight
+              ~talkni02.cre~ ~override~ //Storm Knight
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~shthoff1.cre~ ~override~ //Sir Greshal
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~~ #8 // Race (was USEITEM)
+    WRITE_ASCII 0x260 ~bppri12a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~wbasight~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~shugmg01.cre~ ~override~ //Vigil Knight
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpcmag2a~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DART04~ #40 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~shupol01.cre~ ~override~ //Brother Pol
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~SLNG04~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~BULL03~ #40 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~rengaa.cre~ ~override~ //Rengaard
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x250 ~bpprt12b~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    REMOVE_MEMORIZED_SPELL ~sppr608~
+    REMOVE_MEMORIZED_SPELL ~sppr603~
+    REMOVE_MEMORIZED_SPELL ~sppr698~
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr699~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr698~ #5 ~priest~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~plgran01.cre~ ~override~ //Illon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bppald16~ #8 // Default (was NONE)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr323~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr313~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr412~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (9)
+    REPLACE_CRE_ITEM ~HELM08~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BOW04~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~AROW10~ #20 #0 #0 ~NONE~ ~QUIVER1~
+    ADD_CRE_ITEM ~POTN52~ #4 #0 #0 ~NONE~ ~QITEM1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~plmetg01.cre~ ~override~ //Metrich Footman
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpcpal2a~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~plmetg02.cre~ ~override~ //Metrich Yeoman
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpcpal2a~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~plshkn01.cre~ ~override~ //Knight of the Order
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (6)
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~AX1H04~ #6 #0 #0 ~NONE~ ~WEAPON2~
+    ADD_CRE_ITEM ~POTN52~ #2 #0 #0 ~NONE~ ~QITEM1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYAXE~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~plshkn02.cre~ ~override~ //Knight of the Order
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (6)
+    ADD_CRE_ITEM ~POTN52~ #2 #0 #0 ~NONE~ ~QITEM1~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~AX1H04~ #6 #0 #0 ~NONE~ ~WEAPON2~
+    SET_BG2_PROFICIENCY ~PROFICIENCYHALBERD~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYAXE~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~poghm9.cre~ ~override~ //Priest of Oghma
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~priest1~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~prophelm.cre~ ~override~ //Shield Knight
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~bpprie6a~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~proplat.cre~ ~override~ //Morning Knight
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bpprie6a~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~nalla.cre~ ~override~ //Stormherald Nallabir
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bp!bard~ #8 // Race (was NONE)
+    WRITE_ASCII 0x260 ~bpmage6~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~SW1H04~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~BOW03~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~AROW01~ #40 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~oisig.cre~ ~override~ //High Watcher Oisig
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bp!plot~ #8 // Race (was NONE)
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~latkni01.cre~ ~override~ //Morning Knight
+              ~latkni02.cre~ ~override~ //Morning Knight
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bpprist6~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~kayl1.cre~ ~override~ //Sir Ryan Trawl
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (8)
+    REMOVE_CRE_ITEM ~PLAT01~
+    REPLACE_CRE_ITEM ~PLAT04~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~HELM10~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BOW04~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~AROW08~ #30 #0 #0 ~NONE~ ~QUIVER1~
+    REPLACE_CRE_ITEM ~POTN52~ #3 #0 #0 ~NONE~ ~QITEM3~
+    ADD_CRE_ITEM ~POTN14~ #2 #0 #0 ~NONE~ ~QITEM2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~kayl2.cre~ ~override~ //Sir Ryan Trawl
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (6)
+    REMOVE_CRE_ITEM ~PLAT01~
+    REPLACE_CRE_ITEM ~PLAT04~ #0 #0 #0 ~UNSTEALABLE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~AX1H04~ #6 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~POTN52~ #3 #0 #0 ~NONE~ ~QITEM2~
+    ADD_CRE_ITEM ~POTN14~ #2 #0 #0 ~NONE~ ~QITEM3~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~jolus.cre~ ~override~ //Sir Jolus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 96 // CurrHP (was 86)
+    WRITE_SHORT 0x26 96 // MaxHP (was 86)
+    WRITE_ASCII 0x268 ~bppald16~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr323~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr313~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr406~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr412~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (9)
+    REPLACE_CRE_ITEM ~BOW04~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~AROW10~ #20 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hprelate.cre~ ~override~ //Prelate Wessalen
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpcpal2a~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr323~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr313~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr406~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr412~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (9)
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    REPLACE_CRE_ITEM ~HELMNOAN~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BOW04~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~AROW08~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    ADD_CRE_ITEM ~POTN14~ #2 #0 #0 ~NONE~ ~QITEM2~
+    ADD_CRE_ITEM ~POTN52~ #5 #0 #0 ~NONE~ ~QITEM3~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hurgisf.cre~ ~override~ //Hurgis Baltezan
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (6)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hurgisr.cre~ ~override~ //Hurgis Baltezan
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x52 10 // THAC0 (was 11)
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_BYTE 0x235 0 // HighestLevelSecond (was 1)
+    WRITE_BYTE 0x236 0 // HighestLevelTertiary (was 1)
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 51 // Alignment (was 17)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (6)
+    REMOVE_CRE_ITEM ~POTN05~
+    ADD_CRE_ITEM ~POTN06~ #1 #0 #0 ~NONE~ ~QITEM~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~franco.cre~ ~override~ //Franco
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    REMOVE_CRE_ITEM ~PLAT01~
+    REPLACE_CRE_ITEM ~HELM12~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~NPPLAT~ #0 #0 #0 ~UNSTEALABLE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~BOW03~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~AROW02~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    ADD_CRE_ITEM ~POTN52~ #3 #0 #0 ~NONE~ ~QITEM1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~cscleric.cre~ ~override~ //Dawnmaster Kreel
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 64 // CurrHP (was 35)
+    WRITE_SHORT 0x26 64 // MaxHP (was 35)
+    WRITE_BYTE 0x234 10 // HighestLevelPrimary (was 4)
+    WRITE_ASCII 0x258 ~bppri10a~ #8 // Race (was NONE)
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~crolus.cre~ ~override~ //Crolus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    // WRITE_BYTE 0x70 2 // Unu2(Bows prof) (was 1)
+    WRITE_ASCII 0x268 ~bppald10~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_KNOWN_SPELL ~spin121~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin121~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (9)
+    REPLACE_CRE_ITEM ~HELM08~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BOW03~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~AROW02~ #40 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~cadril.cre~ ~override~ //Sir Cadril
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    ADD_MEMORIZED_SPELL ~spin109~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~demson.cre~ ~override~ //Sir William Reirrac
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_ASCII 0x258 ~bppald10~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spin111~
+    REMOVE_KNOWN_SPELL ~spin113~
+    REMOVE_KNOWN_SPELL ~spin109~
+    REMOVE_KNOWN_SPELL ~spin120~
+    REMOVE_MEMORIZED_SPELL ~spin111~
+    REMOVE_MEMORIZED_SPELL ~spin113~
+    REMOVE_MEMORIZED_SPELL ~spin109~
+    REMOVE_MEMORIZED_SPELL ~spin120~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (2)
+    REMOVE_CRE_ITEM ~PLAT01~
+    REPLACE_CRE_ITEM ~NPPLAT~ #0 #0 #0 ~UNSTEALABLE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~BOW04~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~AROW08~ #20 #0 #0 ~NONE~ ~QUIVER1~
+    REPLACE_CRE_ITEM ~POTN52~ #3 #0 #0 ~NONE~ ~QITEM1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~helmbyr.cre~ ~override~ //Acolyte Byron
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~initp110~ #8 // Class (was INITPC)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~helmkni1.cre~ ~override~ //Shield Knight
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpprist6~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+
+END

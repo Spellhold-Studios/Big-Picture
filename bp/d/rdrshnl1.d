@@ -1,0 +1,14 @@
+REPLACE ~DRSHNL01~
+
+IF ~True()~ THEN BEGIN 0
+  SAY #49052
+  IF ~~ THEN GOTO 1
+END
+
+IF ~~ THEN BEGIN 1
+  SAY #49053
+  IF ~~ THEN DO ~Shout(79)
+Enemy()~ EXIT
+END
+
+END

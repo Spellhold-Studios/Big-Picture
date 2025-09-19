@@ -1,0 +1,82 @@
+IF
+  Global("Init","LOCALS",0)
+THEN
+  RESPONSE #100
+    StartDialogNoSet(Player1)
+    DialogueInterrupt(FALSE)
+    SetGlobal("Init","LOCALS",1)
+    DisplayString(Myself,@100)
+    SetGlobalTimer("RitualIsNowOver","GLOBAL",61)
+    DestroyItem("minhp1")  // <Invalid Strref -1>
+    SpellNoDecRES("ritual",Myself)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  OR(5)
+    AttackedBy([ANYTHING],DEFAULT)
+    SpellCast([GOODCUTOFF],0)
+    SpellCastPriest([GOODCUTOFF],0)
+    SpellCastInnate([GOODCUTOFF],0)
+    Heard([ANYTHING],99)
+THEN
+  RESPONSE #100
+    Enemy()
+    Shout(99)
+    Continue()
+END
+
+IF
+  GlobalTimerExpired("RitualIsNowOver","GLOBAL")
+  Global("OutOfTime","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("OutOfTime","LOCALS",1)
+    DisplayString(Myself,42213)  // ~Damn... damn you...~ [JAHEIRC6]
+    DisplayStringHead(Myself,@101)  // @1
+    DestroyAllEquipment()
+    CreateVisualEffectObject("SPPORTAL",Myself)
+    Wait(2)
+    Polymorph(SLIME_MUSTARD)
+    Wait(3)
+    Kill(Myself)
+END
+
+IF
+  ActionListEmpty()
+  Global("Init","LOCALS",1)
+  CheckStatLT(Myself,20,WIS)
+  !GlobalTimerExpired("RitualIsNowOver","GLOBAL")
+  Global("OutOfTime","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("OutOfTime","LOCALS",1)
+    DisplayString(Myself,42213)  // ~Damn... damn you...~ [JAHEIRC6]
+    SetGlobalTimer("RitualIsNowOver","GLOBAL",30)
+    Wait(1)
+    DisplayStringHead(Myself,@101)
+    DestroyAllEquipment()
+    CreateVisualEffectObject("SPPORTAL",Myself)
+    Wait(1)
+    Polymorph(SLIME_MUSTARD)
+    Wait(1)
+    Kill(Myself)
+END
+
+IF
+  ActionListEmpty()
+  Global("Init","LOCALS",1)
+  !CheckStatLT(Myself,20,WIS)
+  !GlobalTimerExpired("RitualIsNowOver","GLOBAL")
+  Global("OutOfTime","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("OutOfTime","LOCALS",1)
+    DisplayString(Myself,@102)
+    SetGlobalTimer("RitualIsNowOver","GLOBAL",0)
+    Wait(3)
+    DestroyAllEquipment()
+    CreateVisualEffectObject("SPPORTAL",Myself)
+    ReallyForceSpell(Myself,DRYAD_TELEPORT)
+END
+

@@ -1,0 +1,79 @@
+IF
+  Global("BP_MoreStooges","AR2101",0)
+  DifficultyGT(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR2101",1)
+    ActionOverride("UDELDER",DestroySelf())
+    SmallWait(10)
+    CreateCreature("UDELDER",[3156.1485],3)
+    CreateCreature("BEHOLD01",[2989.1449],4)
+    CreateCreature("BEHOLD01",[3169.1552],4)
+    CreateCreature("BEHOLD01",[1871.2021],0)
+    CreateCreature("BEHOLD01",[2044.638],0)
+    CreateCreature("BEHOLD01",[1403.610],0)
+    CreateCreature("BEHOLD01",[3038.1597],4)
+    CreateCreature("BEHGAU01",[2969.1582],4)
+    CreateCreature("BEHGAU01",[1123.1395],0)
+END
+
+IF
+  Global("BP_MoreStooges","AR2101",1)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR2101",2)
+    CreateCreature("BEHUND01",[1886.234],12)
+    CreateCreature("BEHELD01",[1408.2351],4)
+    CreateCreature("BEHDIR01",[1436.2251],4)
+    CreateCreature("BEHGAU01",[1212.2258],4)
+    CreateCreature("BEHGAU01",[1034.2220],4)
+    CreateCreature("BEHDIR01",[1963.2011],4)
+    CreateCreature("BEHOLD01",[1431.678],4)
+    CreateCreature("BEHGAU01",[2911.1823],4)
+    CreateCreature("BEHGAU01",[2705.1950],4)
+    CreateCreature("BEHGAU01",[2065.414],12)
+    CreateCreature("BEHGAU01",[2141.343],12)
+    CreateCreature("BEHGAU01",[1673.1267],4)
+    CreateCreature("BEHGAU01",[1810.1258],4)
+END
+
+IF
+  Global("BP_MoreStooges","AR2101",2)
+  DifficultyGT(EASY)
+  XPGT(Player1,1800000)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR2101",3)
+    CreateCreature("BEHUND01",[1854.324],12)
+    CreateCreature("BEHHIV01",[3102.1431],4)
+    CreateCreature("BEHGAU01",[2192.679],4)
+    CreateCreature("BEHGAU01",[2280.912],4)
+    CreateCreature("BEHGAU01",[1446.834],4)
+    CreateCreature("BEHGAU01",[1196.656],4)
+    CreateCreature("BEHGAU01",[1099.1726],4)
+    CreateCreature("BEHGAU01",[2073.1920],4)
+    CreateCreature("BEHGAU01",[1548.1999],4)
+    CreateCreature("BEHGAU01",[1285.2180],4)
+END
+
+IF
+  OR(2)
+    Global("BP_MoreStooges","AR2101",2)
+    Global("BP_MoreStooges","AR2101",3)
+  DifficultyGT(NORMAL)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR2101",4)
+    CreateCreature("BEHUND01",[2096.220],12)
+    CreateCreature("BEHOLD01",[1645.1358],12)
+    CreateCreature("BEHOLD01",[1099.1726],4)
+    CreateCreature("BEHGAU01",[1238.1776],4)
+    CreateCreature("BEHGAU01",[1340.1404],4)
+    CreateCreature("BEHGAU01",[1212.2258],4)
+    CreateCreature("BEHSPE01",[1204.2357],4)
+    CreateCreature("BEHSPY01",[975.1720],4)
+    CreateCreature("BEHSPY02",[2965.1575],4)
+    CreateCreature("BEHSPY03",[1761.1357],12)
+END
+

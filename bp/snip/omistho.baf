@@ -1,0 +1,29 @@
+IF
+  OR(2)
+    StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+    StateCheck(NearestEnemyOf(Myself),STATE_CONFUSED)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_PANIC)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_CONFUSED)
+  See(SecondNearestEnemyOf(Myself))
+THEN
+  RESPONSE #50
+    AttackReevaluate(SecondNearestEnemyOf(Myself),30)
+  RESPONSE #100
+    AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #50
+    AttackReevaluate(WeakestOf(Myself),30)
+  RESPONSE #25
+    AttackReevaluate(MostDamagedOf(Myself),30)
+  RESPONSE #25
+    AttackReevaluate(NearestEnemyOf(Myself),30)
+  RESPONSE #25
+    RunAwayFrom(NearestEnemyOf(Myself),10)
+  RESPONSE #100
+    AttackReevaluate(WorstAC(Myself),30)
+END
+

@@ -1,0 +1,49 @@
+IF
+  Global("CursedMortals","LOCALS",3)
+  OR(2)
+    HPLT(Myself,12)
+    Die()
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    ActionOverride(Myself,StartDialogue("OrcDead",Player1))
+    SetGlobal("OrcusGone","GLOBAL",5)
+    ActionOverride(Player1,CreateItem("WandOrc",3,1,1))  // ~Wand of Orcus~
+    SetGlobal("CursedMortals","LOCALS",1)
+    ActionOverride(Myself,Kill(Myself))
+END
+
+IF
+  OR(2)
+    HPLT(Myself,12)
+    Die()
+  !Global("CursedMortals","LOCALS",3)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    ActionOverride(Myself,StartDialogue("OrcDead",Player1))
+    SetGlobal("OrcusGone","GLOBAL",5)
+    ActionOverride(Myself,Kill(Myself))
+END
+
+IF
+  Global("OrcusGone","GLOBAL",5)
+  HPGT(Myself,11)
+THEN
+  RESPONSE #100
+    ActionOverride(Myself,StartDialogue("OrcGone",Player1))
+    ActionOverride(Myself,Wait(1))
+    ActionOverride(Myself,DestroySelf())
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  PartyHasItem("WandOrc")  // ~Wand of Orcus~
+  !Global("CursedMortals","LOCALS",3)
+THEN
+  RESPONSE #100
+    StartDialogue("orcurse",Player1)
+    SetGlobal("CursedMortals","LOCALS",3)
+    TakePartyItem("WandOrc")
+    AttackReevaluate(Player1,30)
+END

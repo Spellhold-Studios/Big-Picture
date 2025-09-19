@@ -1,0 +1,9 @@
+IF
+  Difficulty(EASIEST)
+  Global("WIMP","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("WIMP","LOCALS",1)
+    ChangeAIScript("",CLASS)
+END
+

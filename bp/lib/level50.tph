@@ -1,0 +1,940 @@
+
+
+/////////////////////////////LEVEL 50 FUNCTIONS////////////////////////////
+
+
+//prepare the file so that it's big enough
+DEFINE_ACTION_FUNCTION prepare INT_VAR shorter=0 rows=0 toadd=0 i=0 level=50 STR_VAR file=~~ patch = ~$ $ $~ RET fix BEGIN
+  SILENT  // otherwise, it writes some hundreds of 'appending column-wise'
+  OUTER_SET fix=0
+  ACTION_IF FILE_EXISTS_IN_GAME ~%file%.2da~ BEGIN
+    COPY_EXISTING - ~%file%.2da~ ~...patch50.2da~
+      SPRINT levels ~  ###~
+      FOR (i=%level% ; i>0 ; i -= 1) BEGIN
+        SPRINT levels ~%i%   %levels%~  //writes 1 2 ... 49 50
+      END
+      REMOVE_2DA_ROW 0 3          //remove level row
+      INSERT_2DA_ROW 0 3 ~%levels%~   //rewrite it till level 50. Don't use number 50 for unless use
+      COUNT_2DA_ROWS 3 rows
+      COUNT_2DA_ROWS 1 rw
+      shorter = rows
+      FOR (i=3 ; (i<=%level% AND shorter=rows) ; i+=1) BEGIN
+        COUNT_2DA_ROWS i shorter
+      END                       //stops when it reaches the first too short line
+      toadd = %level%+ 4 - i
+      FOR (i=3 ; i<rw ; i += 1) BEGIN
+        SPRINT patch ~%patch% ###~        //prepares columns to add, with the right number of rows
+      END
+      fix=1
+    UNLESS ~^\ *L?E?V?E?L?S?[0-9\|\ ]*%level%~                  // already has rules up to level 50; the space is to ignore the names of GA_s and AP_s
+    OUTER_FOR (i=0 ; fix AND i<toadd ; i += 1) BEGIN
+      APPEND_COL_OUTER - ~...patch50.2da~ ~%patch%~ //appends enough cols to have all lines longer than 50
+    END
+  END
+  VERBOSE
+END
+
+//complete the file after adding class abilities
+DEFINE_PATCH_FUNCTION fill INT_VAR rows = 6 lvl = 50 BEGIN
+  // replace what's not set in first 50 cols with ****
+  FOR (i=1; i< rows ; i+=1) BEGIN
+    FOR (j=0 ; j<=lvl ; j += 1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+        SET_2DA_ENTRY i j 3 ~****~
+      END
+    END
+  END
+  //removes other 
+//  REPLACE_TEXTUALLY ~#%lvl%~ ~%lvl%~    //no more unless 50 who can create problems
+  REPLACE_TEXTUALLY ~\ *###\ *~ ~~  //extra columns
+  PRETTY_PRINT_2DA
+END
+
+DEFINE_PATCH_FUNCTION addrow INT_VAR lvl=50 STR_VAR var=~~ BEGIN
+  SPRINT var ~ABILITY%rw%~
+  FOR (i=0 ; i<=lvl ; i += 1) BEGIN
+    SPRINT var ~%var% ###~
+  END
+  INSERT_2DA_ROW rw 3 ~%var%~
+END
+
+////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION level_50_rules BEGIN
+//kits and classes
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+//first: change XP limit
+
+COPY_EXISTING ~XPCAP.2DA~ ~override~
+  REPLACE_TEXTUALLY ~[1-9][0-9]+~ ~20000000~  //numbers >10 only, otherwise, it changes 2DA as well!
+BUT_ONLY_IF_IT_CHANGES
+
+
+//Bad cheater bad
+
+COPY ~bp/rule/xplevel.2da~ ~override~
+
+
+OUTER_SPRINT file ~clabba02~  //blade
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rw
+  FOR (j=25 ; j<=50 ; j += 4) BEGIN
+    toset=1
+    justset=2
+    FOR (i=1 ; (i<rw AND toset<=justset) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+        SET_2DA_ENTRY i j 3 ~GA_SPCL52%toset%~
+        toset += 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL521" BEGIN
+        toset += 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL522" BEGIN
+        justset -= 1
+      END
+    END
+    WHILE toset<=justset BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL52%toset%~
+      toset += 1
+    END
+  END
+  LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+END
+
+OUTER_SPRINT file ~clabdr02~  //totemic druid
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rw
+  FOR (j=26 ; j<=50 ; j += 5) BEGIN
+    toset=1
+    FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+        SET_2DA_ENTRY i j 3 ~GA_SPCL621~
+        toset -= 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL621" BEGIN
+        toset -= 1
+      END
+    END
+    PATCH_IF toset=1 BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL621~
+    END
+  END
+  LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+END
+
+
+OUTER_SPRINT file ~clabfi02~  //berserker
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rw
+  FOR (j=25 ; j<=50 ; j += 4) BEGIN
+    toset=1
+    FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND i>=2 BEGIN //it's on the second line
+        SET_2DA_ENTRY i j 3 ~GA_SPCL321~
+        toset -= 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL321" BEGIN
+        toset -= 1
+      END
+    END
+    PATCH_IF toset=1 BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL321~
+    END
+  END
+  LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+END
+
+
+OUTER_SPRINT file ~clabfi03~  //wizard slayer
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rw
+  FOR (j=26 ; j<=50 ; j += 2) BEGIN
+    toset=1
+    FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND i>=2 BEGIN //it's on the second line
+        SET_2DA_ENTRY i j 3 ~AP_SPCL131~
+        toset -= 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "AP_SPCL131" BEGIN
+        toset -= 1
+      END
+    END
+    PATCH_IF toset=1 BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      SET_2DA_ENTRY (%rw%-1) j 3 ~AP_SPCL131~
+    END
+  END
+  FOR (j=25 ; j<=50 ; j +=2) BEGIN
+    toset=3
+    justset=0
+    FOR (i=1 ; (i<rw AND toset>justset) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+        PATCH_IF toset!=3 THEN BEGIN
+          SET_2DA_ENTRY i j 3 ~AP_SPCL131~
+          justset +=1
+        END ELSE BEGIN
+          SET_2DA_ENTRY i j 3 ~AP_SPCL819~
+          toset -=1
+        END
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "AP_SPCL819" BEGIN
+        toset -=1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "AP_SPCL131" BEGIN
+        justset +=1
+      END
+    END
+    WHILE toset>justset BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      PATCH_IF toset=3 THEN BEGIN
+        SET_2DA_ENTRY (%rw%-1) j 3 ~AP_SPCL819~
+      END ELSE BEGIN
+        SET_2DA_ENTRY (%rw%-1) j 3 ~AP_SPCL131~
+      END
+      toset -= 1
+    END
+  END
+  LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+END
+
+ACTION_FOR_EACH file IN ~clabfi04~ ~yrkensai~ BEGIN   //kensai and Chloe
+  ACTION_IF FILE_EXISTS_IN_GAME ~%file%.2da~ BEGIN
+    LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+    ACTION_IF fix BEGIN
+      COPY ~...patch50.2da~ ~override/%file%.2da~
+      COUNT_2DA_ROWS 3 rw
+      //single ability every 3 levs: 141
+      FOR (j=26 ; j<=50 ; j += 3) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+            SET_2DA_ENTRY i j 3 ~AP_SPCL141~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "AP_SPCL141" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~AP_SPCL141~
+        END
+      END
+      FOR (j=24 ; j<=50 ; j += 4) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND i>1 BEGIN
+            SET_2DA_ENTRY i j 3 ~AP_SPCL143~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "AP_SPCL143" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~AP_SPCL143~
+        END
+      END
+      FOR (j=25 ; j<=50 ; j += 4) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND i>1 BEGIN
+            SET_2DA_ENTRY i j 3 ~GA_SPCL144~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL144" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL144~
+        END
+      END
+      LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+    END
+  END
+END
+
+OUTER_SPRINT file ~clabfi05~  //barbarian
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rw
+  FOR (j=25 ; j<=50 ; j += 4) BEGIN
+    toset=1
+    FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+        SET_2DA_ENTRY i j 3 ~GA_SPCL152~
+        toset -= 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL152" BEGIN
+        toset -= 1
+      END
+    END
+    PATCH_IF toset=1 BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL152~
+    END
+  END
+  LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+END
+
+OUTER_SPRINT file ~clabmo01~  //monk
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rw
+  FOR (j=25 ; j<=50 ; j += 4) BEGIN
+    toset=1
+    FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+        SET_2DA_ENTRY i j 3 ~GA_SPCL811~
+        toset -= 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL811" BEGIN
+        toset -= 1
+      END
+    END
+    PATCH_IF toset=1 BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL811~
+    END
+  END
+  FOR (j=25 ; j<=50 ; j += 5) BEGIN
+    toset=1
+    FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND i>=2 BEGIN
+        SET_2DA_ENTRY i j 3 ~AP_SPCL813~
+        toset -= 1
+      END
+      PATCH_IF "%test%" STRING_EQUAL_CASE "AP_SPCL813" BEGIN
+        toset -= 1
+      END
+    END
+    PATCH_IF toset=1 BEGIN
+      LAUNCH_PATCH_FUNCTION addrow END
+      COUNT_2DA_ROWS 3 rw
+      SET_2DA_ENTRY (%rw%-1) j 3 ~AP_SPCL813~
+    END
+  END
+  LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+END
+
+OUTER_FOR (k=1 ; k<=4 ; k += 1) BEGIN
+  OUTER_SPRINT file ~clabpa0%k%~  //all paladins
+  LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+  ACTION_IF fix BEGIN
+    COPY ~...patch50.2da~ ~override/%file%.2da~
+    COUNT_2DA_ROWS 3 rw
+    FOR (j=25 ; j<=50 ; j += 1) BEGIN
+      toset=2
+      justset=3
+      FOR (i=1 ; (i<rw AND toset<=justset) ; i+=1) BEGIN
+        READ_2DA_ENTRY i j 3 test
+        PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+          SET_2DA_ENTRY i j 3 ~GA_SPCL21%toset%~
+          toset += 1
+        END
+        PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL212" BEGIN
+          toset += 1
+        END
+        PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL213" BEGIN
+          justset -= 1
+        END
+      END
+      WHILE toset<=justset BEGIN
+        LAUNCH_PATCH_FUNCTION addrow END
+        COUNT_2DA_ROWS 3 rw
+        SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL21%toset%~
+        toset += 1
+      END
+    END
+    PATCH_IF k=2 BEGIN  //knight (?), has three instead of two
+      FOR (j=25 ; j<=50 ; j += 1) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+            SET_2DA_ENTRY i j 3 ~GA_SPCL222~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL222" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL222~
+        END
+      END
+    END
+    LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+  END
+END
+
+
+
+OUTER_FOR (k=2 ; k<=4 ; k += 1) BEGIN
+  OUTER_SPRINT file ~clabpr0%k%~  //clerics of specific deities
+  LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+  ACTION_IF fix BEGIN
+    COPY ~...patch50.2da~ ~override/%file%.2da~
+    COUNT_2DA_ROWS 3 rw
+    FOR (j=31 ; j<=50 ; j += 10) BEGIN
+      toset=1
+      FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+        READ_2DA_ENTRY i j 3 test
+        PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+          SET_2DA_ENTRY i j 3 ~GA_SPCL7%k%1~
+          toset -= 1
+        END
+        PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL7%k%1" BEGIN
+          toset -= 1
+        END
+      END
+      PATCH_IF toset=1 BEGIN
+        LAUNCH_PATCH_FUNCTION addrow END
+        COUNT_2DA_ROWS 3 rw
+        SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL7%k%1~
+      END
+    END
+    FOR (j=26 ; j<=50 ; j += 5) BEGIN
+      toset=1
+      FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+        READ_2DA_ENTRY i j 3 test
+        PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+          SET_2DA_ENTRY i j 3 ~GA_SPCL7%k%2~
+          toset -= 1
+        END
+        PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL7%k%2" BEGIN
+          toset -= 1
+        END
+      END
+      PATCH_IF toset=1 BEGIN
+        LAUNCH_PATCH_FUNCTION addrow END
+        COUNT_2DA_ROWS 3 rw
+        SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL7%k%2~
+      END
+    END
+    LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+  END
+END
+
+
+OUTER_FOR (k=1 ; k<=4 ; k += 1) BEGIN
+  OUTER_SPRINT file ~clabrn0%k%~  //all rangers
+  LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+  ACTION_IF fix BEGIN
+    COPY ~...patch50.2da~ ~override/%file%.2da~
+    COUNT_2DA_ROWS 3 rw
+    PATCH_IF k!=2 BEGIN
+      FOR (j=25 ; j<=50 ; j += 2) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+            SET_2DA_ENTRY i j 3 ~GA_SPCL311~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL311" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL311~
+        END
+      END
+    END ELSE BEGIN      //beastmaster (?)
+      FOR (j=28 ; j<=50 ; j += 5) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+            SET_2DA_ENTRY i j 3 ~AP_SPCL122~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "AP_SPCL122" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~AP_SPCL122~
+        END
+      END
+      FOR (j=28 ; j<=50 ; j += 4) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND i>=2 BEGIN
+            SET_2DA_ENTRY i j 3 ~GA_SPCL121~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL121" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL121~
+        END
+      END
+    END
+    LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+  END
+END
+
+
+OUTER_FOR (k=1 ; k<=4 ; k += 1) BEGIN
+  OUTER_SPRINT file ~clabth0%k%~  //all thieves
+  LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+  ACTION_IF fix BEGIN
+    COPY ~...patch50.2da~ ~override/%file%.2da~
+    COUNT_2DA_ROWS 3 rw
+    //traps for everyone!!
+    FOR (j=26 ; j<=50 ; j += 5) BEGIN
+      toset=1
+      FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+        READ_2DA_ENTRY i j 3 test
+        PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND (i>1 OR k=1) BEGIN
+          SET_2DA_ENTRY i j 3 ~GA_SPCL412~
+          toset -= 1
+        END
+        PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL412" BEGIN
+          toset -= 1
+        END
+      END
+      PATCH_IF toset=1 BEGIN
+        LAUNCH_PATCH_FUNCTION addrow END
+        COUNT_2DA_ROWS 3 rw
+        SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL412~
+      END
+    END
+    
+    //kits special abilities
+    PATCH_IF k=2 BEGIN
+      FOR (j=25 ; j<=50 ; j += 4) BEGIN
+        toset=1
+        FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND (i>1 OR k=1) BEGIN
+            SET_2DA_ENTRY i j 3 ~GA_SPCL423~
+            toset -= 1
+          END
+          PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL423" BEGIN
+            toset -= 1
+          END
+        END
+        PATCH_IF toset=1 BEGIN
+          LAUNCH_PATCH_FUNCTION addrow END
+          COUNT_2DA_ROWS 3 rw
+          SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL423~
+        END
+      END
+    END ELSE BEGIN
+      PATCH_IF k=3 BEGIN
+        FOR (j=26 ; j<=50 ; j += 5) BEGIN
+          toset=1
+          FOR (i=1 ; (i<rw AND toset=1) ; i+=1) BEGIN
+            READ_2DA_ENTRY i j 3 test
+            PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") AND (i>1 OR k=1) BEGIN
+              SET_2DA_ENTRY i j 3 ~GA_SPCL414~
+              toset -= 1
+            END
+            PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL414" BEGIN
+              toset -= 1
+            END
+          END
+          PATCH_IF toset=1 BEGIN
+            LAUNCH_PATCH_FUNCTION addrow END
+            COUNT_2DA_ROWS 3 rw
+            SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL414~
+          END
+        END
+      END ELSE BEGIN
+        FOR (j=25 ; j<=50 ; j += 5) BEGIN
+          toset=1
+          justset=4
+          FOR (i=1 ; (i<rw AND toset<=justset) ; i+=1) BEGIN
+            READ_2DA_ENTRY i j 3 test
+            PATCH_IF ("%test%" STRING_EQUAL "###" OR "%test%" STRING_EQUAL "****") BEGIN
+              SET_2DA_ENTRY i j 3 ~GA_SPCL%toset%41~
+              toset += 3
+            END
+            PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL141" BEGIN
+              toset += 3
+            END
+            PATCH_IF "%test%" STRING_EQUAL_CASE "GA_SPCL441" BEGIN
+              justset -= 3
+            END
+          END
+          WHILE toset<=justset BEGIN
+            LAUNCH_PATCH_FUNCTION addrow END
+            COUNT_2DA_ROWS 3 rw
+            SET_2DA_ENTRY (%rw%-1) j 3 ~GA_SPCL%toset%41~
+            toset += 3
+          END
+        END
+      END
+    END
+    LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+  END
+END
+
+
+//Any other kit, without extra abilities
+COPY_EXISTING + ~kitlist.2da~ ~override~
+  COUNT_2DA_ROWS 3 kitnum
+  FOR (k=2 ; k<kitnum ; k += 1) BEGIN
+    READ_2DA_ENTRY k 5 3 $clablist("%k%") //clabname
+  END
+BUT_ONLY
+
+OUTER_FOR (k=2 ; k<kitnum ; k += 1) BEGIN
+  OUTER_SPRINT file $clablist("%k%")
+  ACTION_IF FILE_EXISTS_IN_GAME ~%file%.2da~ BEGIN
+    LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+    ACTION_IF fix BEGIN
+      COPY ~...patch50.2da~ ~override/%file%.2da~
+      COUNT_2DA_ROWS 3 rw
+      LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+    END
+  END
+END
+
+//Pure classes and fallen classes
+ACTION_FOR_EACH file IN ~clabba01~ ~clabdr01~ ~clabfi01~ ~clabrn05~ ~clabpa05~ ~clabpr01~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%file%.2da~ BEGIN
+    LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+    ACTION_IF fix BEGIN
+      COPY ~...patch50.2da~ ~override/%file%.2da~
+      COUNT_2DA_ROWS 3 rw
+      LAUNCH_PATCH_FUNCTION ~fill~ INT_VAR rows = rw END
+    END
+  END
+END
+
+//basic abilities
+
+//HP per level ans saves
+ACTION_FOR_EACH class IN ~MONK~ ~PRS~ ~ROG~ ~WAR~ ~WIZ~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~HP%class%.2DA~ BEGIN
+    COPY_EXISTING ~HP%class%.2DA~ ~override~
+      COUNT_2DA_ROWS 4 rows
+      SPRINT hpgain ~~
+      FOR (i=1 ; i<4 ; i += 1) BEGIN
+        READ_2DA_ENTRY (%rows%-1) i 4 test
+        SPRINT hpgain ~%hpgain%    %test%~
+      END
+      FOR (cnt=%rows%+1; cnt<=50; cnt=cnt+1) BEGIN  //up to 50th level
+        INSERT_2DA_ROW (%cnt%-1) 4 ~%cnt% %hpgain%~
+      END
+      PRETTY_PRINT_2DA
+    BUT_ONLY
+    UNLESS ~^\ *50~
+  END
+  ACTION_IF FILE_EXISTS_IN_GAME ~SAVE%class%.2DA~ BEGIN
+    OUTER_SPRINT file ~SAVE%class%~
+    LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+    ACTION_IF fix BEGIN
+      COPY ~...patch50.2da~ ~override/%file%.2da~
+      COUNT_2DA_ROWS 3 rows
+      FOR (i=1; i< rows ; i+=1) BEGIN
+        FOR (j=10 ; j<=50 ; j += 1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF "%test%" STRING_EQUAL "###" BEGIN
+            SET_2DA_ENTRY i j 3 ~%save%~
+          END
+          PATCH_IF IS_AN_INT test BEGIN
+            SPRINT save ~%test%~
+          END
+        END
+      END
+//      REPLACE_TEXTUALLY ~#50~ ~50~    //no more unless 50 who can create problems
+      REPLACE_TEXTUALLY ~\ *###\ *~ ~~  //extra columns
+      PRETTY_PRINT_2DA
+    END
+  END
+END
+
+//class abilities
+
+OUTER_SPRINT file ~backstab~
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rows
+  FOR (i=1; i< rows ; i+=1) BEGIN
+    FOR (j=0 ; j<=50 ; j += 1) BEGIN
+      PATCH_IF IS_AN_INT test BEGIN
+        bonus = test        //update the bonus to highest level
+      END
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF "%test%" STRING_EQUAL "###" BEGIN
+        SET_2DA_ENTRY i j 3 ~%bonus%~
+      END
+    END
+  END
+//  REPLACE_TEXTUALLY ~#50~ ~50~    //no more unless 50 who can create problems
+  REPLACE_TEXTUALLY ~\ *###\ *~ ~~  //extra columns
+  PRETTY_PRINT_2DA
+END
+
+
+
+OUTER_SPRINT file ~layhands~
+LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/%file%.2da~
+  COUNT_2DA_ROWS 3 rows
+  FOR (i=1; i< rows ; i+=1) BEGIN
+    FOR (j=10 ; j<=50 ; j += 1) BEGIN
+      READ_2DA_ENTRY i j 3 test
+      PATCH_IF "%test%" STRING_EQUAL "###" BEGIN
+        bonus = j * 2
+        SET_2DA_ENTRY i j 3 ~%bonus%~
+      END
+    END
+  END
+//  REPLACE_TEXTUALLY ~#50~ ~50~    //no more unless 50 who can create problems
+  REPLACE_TEXTUALLY ~\ *###\ *~ ~~  //extra columns
+  PRETTY_PRINT_2DA
+END
+
+OUTER_SET fix=0
+COPY_EXISTING - ~LVLMODWM.2DA~ ~...patch50.2da~
+  COUNT_2DA_COLS cols
+  COUNT_2DA_ROWS cols test1
+  COUNT_2DA_ROWS %cols%-1 test2
+  fix=1
+UNLESS ~^\ *50~
+ACTION_IF fix AND (%test1%!=%test2%-1) BEGIN
+  LAUNCH_ACTION_FUNCTION ~prepare~ INT_VAR level=(%cols%) STR_VAR file=~LVLMODWM~ RET test=fix END
+END
+ACTION_IF fix BEGIN
+  COPY ~...patch50.2da~ ~override/LVLMODWM.2DA~
+  COUNT_2DA_ROWS 5 rows
+  SPRINT lvlmod ~~
+  FOR (i=1 ; i<cols ; i += 1) BEGIN
+    READ_2DA_ENTRY (%rows%-1) i 5 test
+    SPRINT lvlmod ~%lvlmod%    %test%~
+  END
+  FOR(cnt=%rows%; cnt<=50; cnt=cnt+1) BEGIN  //up to 50th level
+    INSERT_2DA_ROW cnt 5 ~%cnt% %lvlmod%~
+//    REPLACE_TEXTUALLY ~#%cols%~ ~~    //no more unless 50 who can create problems
+    REPLACE_TEXTUALLY ~\ *###\ *~ ~~  //extra columns
+    PRETTY_PRINT_2DA
+  END
+END
+
+
+COPY_EXISTING ~RAISDEAD.2DA~ ~override~
+  COUNT_2DA_ROWS 2 rows
+  READ_2DA_ENTRY (%rows%-1) 0 2 level
+  level += 1
+  bias = rows - level
+  FOR(i=%level%; i<=50; i += 1) BEGIN  //up to 50th level
+    j = (%i% * 500) - 2000
+    INSERT_2DA_ROW %i%+%bias% 2 ~%i% %j%~
+  END
+  PRETTY_PRINT_2DA
+BUT_ONLY
+UNLESS ~^\ *50~
+
+
+//copy last row
+ACTION_FOR_EACH file IN ~skillbrd~ ~skillrng~ BEGIN
+  COPY_EXISTING ~%file%.2DA~ ~override~
+    COUNT_2DA_COLS cols
+    COUNT_2DA_ROWS 2 rows
+    READ_2DA_ENTRY %rows% - 1 0 2 level
+    level += 1
+    bias=rows - level
+    SPRINT row ~~
+    FOR (i=1 ; i<cols ; i+=1) BEGIN
+      READ_2DA_ENTRY (%rows% - 1) i 2 test
+      SPRINT row ~%row% %test%~
+    END
+    FOR(i=%level%; i<=50; i += 1) BEGIN  //up to 50th level
+      INSERT_2DA_ROW (%i% + %bias%) 2 ~%i% %row%~
+    END
+  BUT_ONLY
+  UNLESS ~^\ *50~
+END
+
+
+//copy last column
+ACTION_FOR_EACH file IN ~xpbonus~ ~THAC0~ ~WSPATCK~ BEGIN
+  LAUNCH_ACTION_FUNCTION ~prepare~ STR_VAR file= EVAL ~%file%~ RET fix=fix END
+  ACTION_IF fix BEGIN
+    COPY ~...patch50.2da~ ~override/%file%.2da~
+    COUNT_2DA_ROWS 3 rows
+    FOR (i=1; i< rows ; i+=1) BEGIN
+      FOR (j=25 ; j<=50 ; j += 1) BEGIN
+        PATCH_IF IS_AN_INT test BEGIN
+          bonus = test        //update the bonus to highest level
+        END
+        READ_2DA_ENTRY i j 3 test
+        PATCH_IF "%test%" STRING_EQUAL "###" BEGIN
+          SET_2DA_ENTRY i j 3 ~%bonus%~
+        END
+      END
+    END
+//    REPLACE_TEXTUALLY ~#50~ ~50~    //no more unless 50 who can create problems
+    REPLACE_TEXTUALLY ~\ *###\ *~ ~~  //extra columns
+    PRETTY_PRINT_2DA
+  END
+END
+
+
+COPY_EXISTING ~WSPATCK.2da~ ~override~
+  PRETTY_PRINT_2DA
+BUT_ONLY
+
+
+        //--------- SPELLS ---------//
+
+
+ACTION_FOR_EACH spell IN ~mxsplbrd~ ~mxsplpal~ ~mxsplprs~ ~mxsplran~ ~mxsplsrc~ ~mxsplwiz~ ~mxspldru~ ~splsrckn~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%spell%.2da~ BEGIN
+    OUTER_SET fix=0
+    SILENT
+    COPY_EXISTING - ~%spell%.2da~ ~...patch50.2da~
+      COUNT_2DA_COLS cols
+      cols -= 1
+      COUNT_2DA_ROWS %cols% short
+      COUNT_2DA_ROWS 3 levels
+      shorter = levels
+      FOR (i=3 ; (i<=%cols% AND shorter=levels) ; i+=1) BEGIN
+        COUNT_2DA_ROWS i shorter
+      END                       //stops when it reaches the first too short line
+      toadd = %cols%+ 4 - i
+      old=0
+      FOR (i=1 ; i<levels ; i+=1) BEGIN
+        READ_2DA_ENTRY i 0 3 start
+        PATCH_IF start=old BEGIN
+          REMOVE_2DA_ROW i 3      //duplicated row
+          --levels
+        END ELSE BEGIN
+          old=start
+        END
+      END
+      COUNT_2DA_ROWS 1 rw
+      SPRINT patch ~$ $ $~
+      FOR (i=3 ; i<rw ; i += 1) BEGIN
+        SPRINT patch ~%patch% ###~        //prepares columns to add, with the right number of rows
+      END
+      fix=1
+    UNLESS ~^\ *50~
+    //some extra cols, to be able to patch the last one
+    OUTER_FOR (i=0 ; fix AND (i<toadd) ; i += 1) BEGIN
+      APPEND_COL_OUTER - ~...patch50.2da~ ~%patch%~ //appends enough cols to have all lines longer than 50
+    END
+    VERBOSE
+    //need 50 long lines
+    ACTION_IF fix BEGIN
+      COPY ~...patch50.2da~ ~override/%spell%.2da~
+      SPRINT row ~~
+      FOR (i=0 ; i<=cols ; i +=1) BEGIN
+        SPRINT row ~%row% ###~
+      END
+      FOR (i=levels ; i<=50 ; i+=1)  BEGIN
+        INSERT_2DA_ROW i 3 ~%i% %row%~
+      END
+      FOR (j=1 ; j<=cols ; j+=1) BEGIN
+        FOR (i=1 ; i<=50 ; i += 1) BEGIN
+          READ_2DA_ENTRY i j 3 test
+          PATCH_IF IS_AN_INT test BEGIN
+            max=test
+          END
+          PATCH_IF "%test%" STRING_EQUAL "###" BEGIN
+            SET_2DA_ENTRY i j 3 max
+          END
+        END
+      END
+//      REPLACE_TEXTUALLY ~#50~ ~50~    //no more unless 50 who can create problems
+      REPLACE_TEXTUALLY ~\ *###\ *~ ~~  //extra columns
+      PRETTY_PRINT_2DA
+    END
+  END
+END
+
+
+//spcl211 adds support for up to level 50 lay-on-hands
+//it needs to be byte-written (done -Miloch)
+
+COPY_EXISTING ~spcl211.spl~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_SHORT (0x38 * w + abil_off + 0x10) rlv //Required level
+      PATCH_IF (rlv > 34) AND NOT (VARIABLE_IS_SET $rql(EVALUATE_BUFFER ~%rlv%~)) BEGIN
+        SET $rql(EVALUATE_BUFFER ~%rlv%~) = rlv
+      END
+    END
+    PATCH_FOR_EACH shd IN 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 BEGIN //Extend headers to L50
+      PATCH_IF NOT (VARIABLE_IS_SET $rql(EVALUATE_BUFFER ~%shd%~)) BEGIN
+        LAUNCH_PATCH_FUNCTION t-add_spl_itm_header
+          INT_VAR t-level = shd
+        END
+      END
+    END
+    READ_SHORT 0x68 new_abil
+    READ_LONG 0x6a eff_tbl
+    FOR (x = num_abil; x < new_abil; x += 1) BEGIN //Cycle through new headers
+      READ_SHORT (0x28 * x + abil_off + 0x1e) eff_cnt
+      READ_SHORT (0x28 * x + abil_off + 0x20) eff_off
+      FOR (y = eff_off; y < (eff_off + eff_cnt); y += 1) BEGIN //Cycle through ability effects
+        READ_SHORT (y * 0x30 + eff_tbl) pc //Opcode
+        PATCH_IF pc = 17 BEGIN
+          WRITE_LONG (y * 0x30 + eff_tbl + 4) ((x + 1) * 2) //Parameter1
+        END
+      END
+    END
+  END
+BUT_ONLY
+
+
+END

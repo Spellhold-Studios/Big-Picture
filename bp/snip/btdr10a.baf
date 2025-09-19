@@ -1,0 +1,8 @@
+IF
+  Allegiance(Myself,ENEMY)
+  See([NEUTRAL.0.0.DRUID_ALL])
+THEN
+  RESPONSE #100
+    Shout(0)
+END
+

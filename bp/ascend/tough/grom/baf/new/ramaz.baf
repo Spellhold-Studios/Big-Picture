@@ -1,0 +1,137 @@
+IF
+  Allegiance("gromnir",ENEMY)  // ~Gromnir Il-Khan~
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  ActionListEmpty()
+  See("gromnir")  // ~Gromnir Il-Khan~
+  !Dead("gromnir")  // ~Gromnir Il-Khan~
+  !Range("gromnir",10)  // ~Gromnir Il-Khan~
+THEN
+  RESPONSE #100
+    MoveToObjectFollow("gromnir")
+END
+
+IF
+  Dead("gromnir")  // ~Gromnir Il-Khan~
+  Global("enraged","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("enraged","LOCALS",1)
+    ForceSpellRES("SPCL321",Myself)  // ~Enrage~
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  HPGT(LastSeenBy(Myself),0)
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  AttackedBy([ANYONE],DEFAULT)
+  See(LastAttackerOf(Myself))
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Range(NearestEnemyOf(Myself),4)
+  See(NearestEnemyOf(Myself))
+  HPGT(LastSeenBy(Myself),0)
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  !StateCheck(LastAttackerOf("gromnir"),STATE_INVISIBLE)  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_IMPROVEDINVISIBILITY)  // ~Gromnir Il-Khan~
+  Range(LastAttackerOf("gromnir"),15)
+  HPGT(LastAttackerOf("gromnir"),0)
+  See(LastAttackerOf("gromnir"))  // ~Gromnir Il-Khan~
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Heard("gromnir",124)  // ~Gromnir Il-Khan~
+  !Dead("gromnir")  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_INVISIBLE)  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_IMPROVEDINVISIBILITY)  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_CHARMED)  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_HELPLESS)  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_SLEEPING)  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_STUNNED)  // ~Gromnir Il-Khan~
+  !StateCheck(LastAttackerOf("gromnir"),STATE_CONFUSED)  // ~Gromnir Il-Khan~
+  See(LastAttackerOf("gromnir"))  // ~Gromnir Il-Khan~
+  HPGT(LastSeenBy(Myself),0)
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+  See([GOODCUTOFF])
+  !See("gromnir")  // ~Gromnir Il-Khan~
+THEN
+  RESPONSE #100
+    MoveToObject([GOODCUTOFF])
+END
+
+IF
+  OR(2)
+    !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+    !See([GOODCUTOFF])
+  !See("gromnir")  // ~Gromnir Il-Khan~
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  OR(2)
+    !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+    !See([GOODCUTOFF])
+  See("gromnir")  // ~Gromnir Il-Khan~
+THEN
+  RESPONSE #100
+    MoveToObjectFollow("gromnir")
+END
+
+IF
+  Dead("gromnir")  // ~Gromnir Il-Khan~
+  HPGT(LastAttackerOf("gromnir"),0)  // ~Gromnir Il-Khan~
+THEN
+  RESPONSE #100
+    Attack(LastAttackerOf("gromnir"))
+END
+
+IF
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #100
+    AttackOneRound(SecondNearestEnemyOf(Myself))
+  RESPONSE #100
+    AttackOneRound(LastAttackerOf("gromnir"))
+  RESPONSE #100
+    AttackOneRound(LastAttackerOf(Myself))
+END
+

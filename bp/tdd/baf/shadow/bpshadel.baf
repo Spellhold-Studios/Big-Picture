@@ -1,0 +1,131 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  Killed([ANYONE])
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    ReallyForceSpell([ANYONE],MAKE_SHADOW)
+    SetInterrupt(TRUE)
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("BPSD","LOCALS")
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPSD","LOCALS",TWO_ROUNDS)
+    ReallyForceSpell(NearestEnemyOf(Myself),SHADOW_DRAIN)
+END
+
+IF
+  ActionListEmpty()
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("CHE","LOCALS",FIVE_ROUNDS)
+    ApplySpell(Myself,COM_AURA_OF_FOCUS)
+    ApplySpell(Myself,WIZARD_SPELL_TURNING)
+END
+
+IF
+  ActionListEmpty()
+  Global("pwstun","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+  !Name("Mazzy",NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobal("pwstun","LOCALS",1)
+    SpellNoDec(NearestEnemyOf(Myself),WIZARD_SYMBOL_STUN)
+END
+
+IF
+  ActionListEmpty()
+  GlobalLT("spellstrike","LOCALS",2)
+  OR(2)
+    See([GOODCUTOFF.0.0.LONG_BOW])
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+  OR(8)
+    CheckStatGT(LastSeenBy(Myself),0,WIZARD_SPELL_TRAP)
+    CheckStatGT(LastSeenBy(Myself),0,WIZARD_SPELL_IMMUNITY)
+    CheckStatGT(LastSeenBy(Myself),0,WIZARD_PROTECTION_FROM_MAGIC_ENERGY)
+    CheckStatGT(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+    CheckStatGT(LastSeenBy(Myself),0,WIZARD_SPELL_DEFLECTION)
+    CheckStatGT(LastSeenBy(Myself),0,WIZARD_SPELL_SHIELD)
+    CheckStatGT(LastSeenBy(Myself),0,MINORGLOBE)
+    CheckStatGT(LastSeenBy(Myself),0,SHIELDGLOBE)
+THEN
+  RESPONSE #100
+    ForceSpell(LastSeenBy(Myself),WIZARD_SPELL_STRIKE)
+    IncrementGlobal("spellstrike","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  Global("silence","LOCALS",0)
+  OR(2)
+    See([GOODCUTOFF.0.0.LONG_BOW])
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+  !Range(LastSeenBy(Myself),15)
+  !StateCheck(LastSeenBy(Myself),STATE_SILENCED)
+THEN
+  RESPONSE #100
+    SetGlobal("silence","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_SILENCE_15_FOOT)
+END
+
+IF
+  ActionListEmpty()
+  CheckStatLT(Myself,1,STONESKINS)
+  HitBy([ANYONE],CRUSHING)
+  HPPercentLT(Myself,50)
+  HPGT(Myself,0)
+  Global("Prep2","LOCALS",0)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,40199)
+    ApplySpell(Myself,WIZARD_MIRROR_IMAGE)
+    DisplayString(Myself,3302)
+    ApplySpell(Myself,WIZARD_SPELL_TURNING)
+    ApplySpell(Myself,NPC_BLADE_BARRIER)
+    SetGlobal("Prep2","LOCALS",1)
+    SetGlobalTimer("CHE","LOCALS",FIVE_ROUNDS)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  Global("finger","LOCALS",0)
+THEN
+  RESPONSE #100
+    SpellNoDec(NearestEnemyOf(Myself),WIZARD_CHROMATIC_ORB)
+    SetGlobal("finger","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  CheckStat(LastSeenBy(Myself),0,WIZARD_SPELL_TURNING)
+  Global("finger","LOCALS",1)
+THEN
+  RESPONSE #100
+    SpellNoDec(NearestEnemyOf(Myself),WIZARD_FINGER_OF_DEATH)
+    SetGlobal("finger","LOCALS",2)
+    SetGlobalTimer("snap","LOCALS",24)
+END
+
+IF
+  Global("finger","LOCALS",2)
+  GlobalTimerExpired("snap","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("finger","LOCALS",0)
+END
+    

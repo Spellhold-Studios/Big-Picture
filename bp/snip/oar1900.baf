@@ -1,0 +1,12 @@
+IF
+  Global("DruidQuest1","GLOBAL",1)
+  Global("DruidStronghold","GLOBAL",1)
+  Global("Nilthspawn","AR1900",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Nilthspawn","AR1900",1)
+    CreateCreature("Drshnl01",[2320.2648],N)
+    CreateCreature("Troll01",[2135.2509],NW)
+    CreateCreature("Troll01",[2528.2511],NE)
+    CreateCreature("Troll01",[2283.2541],16)
+END

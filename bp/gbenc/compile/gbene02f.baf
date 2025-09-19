@@ -1,0 +1,821 @@
+IF
+  Global("GB_DoOnce","LOCALS",0)
+  !GlobalTimerNotExpired("GB_SpellPrep","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_SpellPrep","LOCALS",2880)
+    SetGlobal("GB_DoOnce","LOCALS",1)
+END
+
+IF
+  Global("GB_DoOnce","LOCALS",1)
+  !GlobalTimerNotExpired("GB_SpellPrep","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_SpellPrep","LOCALS",2880)
+    SetGlobal("GB_Contingency","LOCALS",0)
+    SetGlobal("GB_SpellSeq","LOCALS",0)
+    Rest()
+END
+
+IF
+  GlobalTimerNotExpired("GB_Busy","LOCALS")
+THEN
+  RESPONSE #100
+END
+
+IF
+  TookDamage()
+  !See([PC])
+  HPPercentLT(Myself,25)
+  !StateCheck(Myself,STATE_BLIND)
+  RandomNum(3,1)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,22589)  // ~Bah!  This is what I get for dealing with rabble!~
+    AddexperienceParty(500)
+    ApplySpell(Myself,SWOOSH_GONE)
+    EscapeArea()
+END
+
+IF
+  HasItem("POTN55",Myself)
+  !GlobalTimerNotExpired("GB_Cast","LOCALS")
+  OR(2)
+    HPPercentLT(Myself,50)
+    DamageTakenGT(39)
+  OR(3)
+    !Detect([PC])
+    StateCheck(Myself,STATE_INVISIBLE)
+    HPPercentLT(Myself,35)
+THEN
+  RESPONSE #100
+    ActionOverride(Myself,UseItem("POTN55",Myself))  // ~Potion of Extra Healing~
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  Global("GB_Attacked","LOCALS",0)
+  OR(6)
+    Heard([EVILCUTOFF],10000)
+    Heard([EVILCUTOFF],10001)
+    SpellCastOnMe([GOODCUTOFF],0)
+    See(NearestEnemyOf(Myself))
+    TookDamage()
+    Allegiance(Myself,EVILCUTOFF)
+THEN
+  RESPONSE #100
+    GlobalShout(10000)
+    SetGlobal("GB_Attacked","LOCALS",1)
+END
+
+IF
+  Heard([EVILCUTOFF],10000)
+  !See([PC])
+  !Range(LastHeardBy(Myself),0)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_OnMyWay","LOCALS",24)
+    MoveToObject(LastHeardBy(Myself))
+    MoveToObject(LastSeenBy(LastHeardBy(Myself)))
+END
+
+IF
+  Heard([EVILCUTOFF],10001)
+  !See([PC])
+  !Range(LastHeardBy(Myself),0)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_OnMyWay","LOCALS",24)
+    MoveToObject(LastHeardBy(Myself))
+    MoveToObject(LastSeenBy(LastHeardBy(Myself)))
+END
+
+IF
+  StateCheck(Myself,STATE_BLIND)
+  !See([PC])
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  Global("GB_Attacked","LOCALS",0)
+THEN
+  RESPONSE #100
+END
+
+IF
+  !See([PC])
+  !StateCheck(Player1,STATE_INVISIBLE)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+  OR(4)
+    See([GOODCUTOFF])
+    SpellCastOnMe([GOODCUTOFF],0)
+    TookDamage()
+    Exists(Player1)
+THEN
+  RESPONSE #100
+    GlobalShout(10000)
+    MoveToObject(Player1)
+END
+
+IF
+  Delay(18)
+  !See([PC])
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  Delay(18)
+  See([PC])
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+END
+
+IF
+  GlobalTimerNotExpired("GB_Cast","LOCALS")
+  See([PC])
+  Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  GlobalTimerNotExpired("GB_Cast","LOCALS")
+  See(TenthNearest([PC]))
+  HasItemSlot(Myself,SLOT_WEAPON1)
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  GlobalTimerNotExpired("GB_Cast","LOCALS")
+  See(TenthNearest([PC]))
+  !HasItemSlot(Myself,SLOT_WEAPON1)
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See([GOODCUTOFF])
+  Global("GB_Contingency","LOCALS",0)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,36936)  // ~A contingency spell has been triggered~
+    SetGlobal("GB_Contingency","LOCALS",1)
+    ApplySpell(Myself,WIZARD_IMPROVED_INVISIBILITY)
+END
+
+IF
+  Global("GB_SpellSeq","LOCALS",0)
+  See(SecondNearest([PC]))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),25,RESISTFIRE)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39969)  // ~Spell Sequencer - Fired~
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_FLAME_ARROW)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_FLAME_ARROW)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_FLAME_ARROW)
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetGlobal("GB_SpellSeq","LOCALS",1)
+END
+
+IF
+  HPPercentLT(Myself,75)
+  HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+  HasItem("scrl2h",Myself)  // ~Shadow Door~
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("GB_Busy","LOCALS",6)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    ForceSpell(Myself,WIZARD_SHADOW_DOOR)
+    DestroyItem("scrl2h")  // ~Shadow Door~
+    SetInterrupt(TRUE)
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  HPPercentLT(Myself,75)
+  HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+  HaveSpell(WIZARD_INVISIBILITY)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    Spell(Myself,WIZARD_INVISIBILITY)
+    SetInterrupt(TRUE)
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  HPPercentLT(Myself,75)
+  HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+THEN
+  RESPONSE #100
+    ActionOverride(Myself,UseItem("POTN55",Myself))  // ~Potion of Superior Healing~
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  RandomNum(4,1)
+  HasItem("POTN14",Myself)  // ~Oil of Speed~
+  HasItem("BOOT01",Myself)  // ~Boots of Speed~
+  !HPPercentLT(Myself,75)
+  !GlobalTimerNotExpired("GB_OilofSpeed","LOCALS")
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("POTN14",Myself)  // ~Oil of Speed~
+    SetGlobalTimer("GB_OilofSpeed","LOCALS",180)
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  RandomNum(4,1)
+  HasItem("POTN14",Myself)  // ~Oil of Speed~
+  !StateCheck(Myself,STATE_HASTED)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("POTN14",Myself)  // ~Oil of Speed~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+END
+
+IF
+  CheckStatLT(Myself,3,STONESKINS)
+  See([PC])
+  HaveSpell(WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+  !GlobalTimerNotExpired("GB_WizProtWeap","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetGlobalTimer("GB_WizProtWeap","LOCALS",24)
+    Spell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+END
+
+IF
+  CheckStatLT(Myself,1,STONESKINS)
+  HasItem("scrl2b",Myself)  // ~Stoneskin~
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("GB_Busy","LOCALS",3)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    ForceSpell(Myself,WIZARD_STONE_SKIN)
+    DestroyItem("scrl2b")  // ~Stoneskin~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStatLT(Myself,1,STONESKINS)
+  HaveSpell(WIZARD_STONE_SKIN)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_STONE_SKIN)
+END
+
+IF
+  StateCheck("gbene02a",STATE_PANIC)  // ~Fighter~
+  HaveSpell(WIZARD_RESIST_FEAR)
+  See("GBene02a")  // ~Fighter~
+  !StateCheck("gbene02a",STATE_DEAD)  // ~Fighter~
+  !StateCheck("gbene02a",STATE_INVISIBLE)  // ~Fighter~
+  !StateCheck("gbene02a",STATE_IMPROVEDINVISIBILITY)  // ~Fighter~
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("gbene02a",WIZARD_RESIST_FEAR)
+END
+
+IF
+  StateCheck("gbene02b",STATE_PANIC)  // ~Berserker~
+  HaveSpell(WIZARD_RESIST_FEAR)
+  See("GBene02b")  // ~Berserker~
+  !StateCheck("gbene02b",STATE_DEAD)  // ~Berserker~
+  !StateCheck("gbene02b",STATE_INVISIBLE)  // ~Berserker~
+  !StateCheck("gbene02b",STATE_IMPROVEDINVISIBILITY)  // ~Berserker~
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("gbene02b",WIZARD_RESIST_FEAR)
+END
+
+IF
+  StateCheck("gbene02c",STATE_PANIC)  // ~Wizard Slayer~
+  HaveSpell(WIZARD_RESIST_FEAR)
+  See("GBene02c")  // ~Wizard Slayer~
+  !StateCheck("gbene02c",STATE_DEAD)  // ~Wizard Slayer~
+  !StateCheck("gbene02c",STATE_INVISIBLE)  // ~Wizard Slayer~
+  !StateCheck("gbene02c",STATE_IMPROVEDINVISIBILITY)  // ~Wizard Slayer~
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("gbene01c",WIZARD_RESIST_FEAR)
+END
+
+IF
+  StateCheck("gbene02d",STATE_PANIC)  // ~Shadow Druid~
+  HaveSpell(WIZARD_RESIST_FEAR)
+  See("GBene02d")  // ~Shadow Druid~
+  !StateCheck("gbene02d",STATE_DEAD)  // ~Shadow Druid~
+  !StateCheck("gbene02d",STATE_INVISIBLE)  // ~Shadow Druid~
+  !StateCheck("gbene02d",STATE_IMPROVEDINVISIBILITY)  // ~Shadow Druid~
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("gbene02d",WIZARD_RESIST_FEAR)
+END
+
+IF
+  StateCheck("gbene02e",STATE_PANIC)  // ~Bounty Hunter~
+  HaveSpell(WIZARD_RESIST_FEAR)
+  See("GBene02e")  // ~Bounty Hunter~
+  !StateCheck("gbene02e",STATE_DEAD)  // ~Bounty Hunter~
+  !StateCheck("gbene02e",STATE_INVISIBLE)  // ~Bounty Hunter~
+  !StateCheck("gbene02e",STATE_IMPROVEDINVISIBILITY)  // ~Bounty Hunter~
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("gbene02e",WIZARD_RESIST_FEAR)
+END
+
+IF
+  StateCheck(Myself,STATE_PANIC)
+  HaveSpell(WIZARD_RESIST_FEAR)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("gbene02f",WIZARD_RESIST_FEAR)
+END
+
+IF
+  HaveSpell(WIZARD_DEATH_SPELL)
+  See(NearestEnemyOf(Myself))
+  Gender(LastSeenBy(Myself),SUMMONED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_DEATH_SPELL)
+END
+
+IF
+  HasItem("scrl6u",Myself)  // ~Breach~
+  !GlobalTimerNotExpired("GB_Breach","LOCALS")
+  OR(6)
+    See([PC])
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+  CheckStat(LastSeenBy(Myself),0,164)
+  CheckStat(LastSeenBy(Myself),0,177)
+  OR(13)
+    CheckStatGT(LastSeenBy(Myself),0,178)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICFIRE)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICCOLD)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTACID)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTELECTRICITY)
+    CheckStatGT(LastSeenBy(Myself),0,126)
+    CheckStatGT(LastSeenBy(Myself),0,130)
+    CheckStatGT(LastSeenBy(Myself),0,163)
+    CheckStatGT(LastSeenBy(Myself),0,179)
+    CheckStatGT(LastSeenBy(Myself),0,181)
+    CheckStatGT(LastSeenBy(Myself),0,128)
+    CheckStatGT(LastSeenBy(Myself),3,STONESKINS)
+    CheckStatGT(LastSeenBy(Myself),0,SCRIPTINGSTATE5)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("GB_Busy","LOCALS",3)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    ForceSpell(LastSeenBy(Myself),WIZARD_BREACH)
+    DestroyItem("scrl6u")  // ~Breach~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetGlobalTimer("GB_Breach","LOCALS",18)
+    SetInterrupt(TRUE)
+END
+
+IF
+  HaveSpell(WIZARD_BREACH)
+  !GlobalTimerNotExpired("GB_Breach","LOCALS")
+  OR(6)
+    See([PC])
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+  CheckStat(LastSeenBy(Myself),0,164)
+  CheckStat(LastSeenBy(Myself),0,177)
+  OR(13)
+    CheckStatGT(LastSeenBy(Myself),0,178)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICFIRE)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICCOLD)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTACID)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTELECTRICITY)
+    CheckStatGT(LastSeenBy(Myself),0,126)
+    CheckStatGT(LastSeenBy(Myself),0,130)
+    CheckStatGT(LastSeenBy(Myself),0,163)
+    CheckStatGT(LastSeenBy(Myself),0,179)
+    CheckStatGT(LastSeenBy(Myself),0,181)
+    CheckStatGT(LastSeenBy(Myself),0,128)
+    CheckStatGT(LastSeenBy(Myself),3,STONESKINS)
+    CheckStatGT(LastSeenBy(Myself),0,SCRIPTINGSTATE5)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_BREACH)
+END
+
+IF
+  RandomNum(4,1)
+  HaveSpell(2302)
+  See([PC])
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),2302)
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(8,3)
+  HaveSpell(WIZARD_IMPROVED_HASTE)
+  See("GBene02c")  // ~Wizard Slayer~
+  !StateCheck("gbene02c",STATE_DEAD)  // ~Wizard Slayer~
+  !StateCheck("gbene02c",STATE_INVISIBLE)  // ~Wizard Slayer~
+  !StateCheck("GBene02c",STATE_IMPROVEDINVISIBILITY)  // ~Wizard Slayer~
+  !StateCheck("gbene02c",STATE_HASTED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("GBene02c",WIZARD_IMPROVED_HASTE)
+END
+
+IF
+  RandomNumLT(12,4)
+  HaveSpell(WIZARD_IMPROVED_HASTE)
+  See("GBene02a")  // ~Fighter~
+  !StateCheck("gbene02a",STATE_DEAD)  // ~Fighter~
+  !StateCheck("gbene02a",STATE_INVISIBLE)  // ~Fighter~
+  !StateCheck("GBene02a",STATE_IMPROVEDINVISIBILITY)  // ~Fighter~
+  !StateCheck("gbene02a",STATE_HASTED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("GBene02a",WIZARD_IMPROVED_HASTE)
+END
+
+IF
+  RandomNumLT(12,4)
+  HaveSpell(WIZARD_IMPROVED_HASTE)
+  See("GBene02b")  // ~Berserker~
+  !StateCheck("gbene02b",STATE_DEAD)  // ~Berserker~
+  !StateCheck("gbene02b",STATE_INVISIBLE)  // ~Berserker~
+  !StateCheck("GBene02b",STATE_IMPROVEDINVISIBILITY)  // ~Berserker~
+  !StateCheck("gbene02b",STATE_HASTED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell("GBene02b",WIZARD_IMPROVED_HASTE)
+END
+
+IF
+  RandomNumLT(16,5)
+  HaveSpell(WIZARD_MASS_INVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_MASS_INVISIBILITY)
+END
+
+IF
+  RandomNumLT(20,6)
+  HaveSpell(WIZARD_MIRROR_IMAGE)
+  !CheckStatGT(LastAttackerOf(Myself),10,THAC0)
+  !StateCheck(Myself,STATE_MIRRORIMAGE)
+  !GlobalTimerNotExpired("GB_MirrorImage","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetGlobalTimer("GB_MirrorImage","LOCALS",18)
+    Spell(Myself,WIZARD_MIRROR_IMAGE)
+END
+
+IF
+  RandomNumLT(24,7)
+  HaveSpell(WIZARD_BLUR)
+  !CheckStatGT(LastAttackerOf(Myself),10,THAC0)
+  !StateCheck(Myself,STATE_BLUR)
+  !GlobalTimerNotExpired("GB_Blur","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetGlobalTimer("GB_Blur","LOCALS",18)
+    Spell(Myself,WIZARD_BLUR)
+END
+
+IF
+  RandomNumLT(28,8)
+  HaveSpell(WIZARD_SPELL_DEFLECTION)
+  OR(4)
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.LONG_BOW])
+  !HasBounceEffects(Myself)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_SPELL_DEFLECTION)
+END
+
+IF
+  RandomNumLT(32,9)
+  HasItem("scrl1t",Myself)  // ~Ghost Armor~
+  !CheckStat(Myself,-2,ARMORCLASS)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("GB_Busy","LOCALS",3)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    ForceSpell(Myself,WIZARD_GHOST_ARMOR)
+    DestroyItem("scrl1t")  // ~Ghost Armor~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  RandomNumLT(32,9)
+  HaveSpell(WIZARD_GHOST_ARMOR)
+  !CheckStat(Myself,-2,ARMORCLASS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_GHOST_ARMOR)
+END
+
+IF
+  RandomNumLT(36,10)
+  HasItem("scrl1h",Myself)  // ~Haste~
+  !StateCheck(Myself,STATE_HASTED)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("GB_Busy","LOCALS",3)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    ForceSpell(Myself,WIZARD_HASTE)
+    DestroyItem("scrl1h")  // ~Haste~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  HaveSpell(WIZARD_POWER_WORD_BLIND)
+  See(ThirdNearest([PC]))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_POWER_WORD_BLIND)
+END
+
+IF
+  HaveSpell(WIZARD_MAZE)
+  See([PC])
+  Range(LastSeenBy(Myself),7)
+  HPPercentGT(LastSeenBy(Myself),75)
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_MAZE)
+END
+
+IF
+  HaveSpell(WIZARD_GREATER_MALISON)
+  See(FourthNearest([PC]))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_GREATER_MALISON)
+END
+
+IF
+  HaveSpell(WIZARD_PRISMATIC_SPRAY)
+  See([PC])
+  Range(LastSeenBy(Myself),7)
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_PRISMATIC_SPRAY)
+END
+
+IF
+  HaveSpell(WIZARD_CHAOS)
+  See(ThirdNearest([PC]))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_CONFUSED)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_CHAOS)
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  HaveSpell(WIZARD_ANIMATE_DEAD)
+  See([PC])
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_ANIMATE_DEAD)
+END
+
+IF
+  HaveSpell(WIZARD_ANIMATE_DEAD)
+  See([PC])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_ANIMATE_DEAD)
+END
+
+IF
+  HaveSpell(WIZARD_SPIDER_SPAWN)
+  See([PC])
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_SPIDER_SPAWN)
+END
+
+IF
+  HaveSpell(WIZARD_SPIDER_SPAWN)
+  See([PC])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(Myself,WIZARD_SPIDER_SPAWN)
+END
+
+IF
+  HaveSpell(WIZARD_LIGHTNING_BOLT)
+  See(FourthNearest([PC]))
+  !Range(LastSeenBy(Myself),7)
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),25,RESISTELECTRICITY)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_LIGHTNING_BOLT)
+END
+
+IF
+  HaveSpell(WIZARD_MAGIC_MISSILE)
+  See([PC])
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),25,MAGICDAMAGERESISTANCE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+END
+
+IF
+  HasItem("scrl7s",Myself)  // ~Chain Lightning~
+  See(ThirdNearestEnemyOf(Myself))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),25,RESISTELECTRICITY)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("GB_Busy","LOCALS",3)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    ForceSpell(LastSeenBy(Myself),WIZARD_CHAIN_LIGHTNING)
+    DestroyItem("scrl7s")  // ~Chain Lightning~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  HasItem("scrl1f",Myself)  // ~Flame Arrow~
+  See(ThirdNearestEnemyOf(Myself))
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),25,RESISTFIRE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("GB_Busy","LOCALS",3)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    ForceSpell(LastSeenBy(Myself),WIZARD_FLAME_ARROW)
+    DestroyItem("scrl1f")  // ~Flame Arrow~
+    SetGlobalTimer("GB_Cast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  See([PC])
+  Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See(TenthNearest([PC]))
+  HasItemSlot(Myself,SLOT_WEAPON1)
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See(TenthNearest([PC]))
+  !HasItemSlot(Myself,SLOT_WEAPON1)
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See([GOODCUTOFF])
+  Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See(TenthNearest([GOODCUTOFF]))
+  HasItemSlot(Myself,SLOT_WEAPON1)
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #100
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See(TenthNearest([GOODCUTOFF]))
+  !HasItemSlot(Myself,SLOT_WEAPON1)
+  !Range(LastSeenBy(Myself),7)
+THEN
+  RESPONSE #75
+    GlobalShout(10001)
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+

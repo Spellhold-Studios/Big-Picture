@@ -1,0 +1,210 @@
+IF
+  Global("BPRatSpawn","AR8050",0)
+  Difficulty(EASIEST)
+  !Disarmed("PiedPipersDelight")  // PiedPipersDelight
+  OR(3)
+    TrapTriggered([ANYONE])
+    Clicked([ANYONE])
+    Opened([ANYONE])
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("BPRAT",[2630.1685],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2680.1720],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2730.1860],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2775.1795],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2820.1820],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2865.1845],5)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2615.1700],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2665.1735],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2715.1875],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2760.1810],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2805.1835],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2850.1860],5)  // ~Sumatran Rat~
+    SetGlobal("BPRatSpawn","AR8050",1)
+    SetGlobalTimer("BPMoreRats","AR8050",9)
+    SetGlobalTimer("BPDoorStopper","AR8050",279)
+    CloseDoor("DOOR01")
+    Lock("DOOR01")
+    EndCutSceneMode()
+END
+
+IF
+  Global("BPRatSpawn","AR8050",0)
+  OR(2)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+  !Disarmed("PiedPipersDelight")  // PiedPipersDelight
+  OR(3)
+    TrapTriggered([ANYONE])
+    Clicked([ANYONE])
+    Opened([ANYONE])
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("BPRAT",[2630.1685],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2680.1720],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2730.1860],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2775.1795],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2820.1820],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2865.1845],5)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2615.1700],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2665.1735],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2715.1875],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2760.1810],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2805.1835],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2850.1860],5)  // ~Sumatran Rat~
+    SetGlobal("BPRatSpawn","AR8050",1)
+    SetGlobalTimer("BPMoreRats","AR8050",9)
+    SetGlobalTimer("BPDoorStopper","AR8050",369)
+    CloseDoor("DOOR01")
+    Lock("DOOR01")
+    EndCutSceneMode()
+END
+
+IF
+  Global("BPRatSpawn","AR8050",0)
+  DifficultyGT(NORMAL)
+  !Disarmed("PiedPipersDelight")  // PiedPipersDelight
+  OR(3)
+    TrapTriggered([ANYONE])
+    Clicked([ANYONE])
+    Opened([ANYONE])
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("BPRAT",[2630.1685],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2680.1720],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2730.1860],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2775.1795],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2820.1820],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2865.1845],5)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2615.1700],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2665.1735],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2715.1875],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2760.1810],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2805.1835],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2850.1860],5)  // ~Sumatran Rat~
+    SetGlobal("BPRatSpawn","AR8050",1)
+    SetGlobalTimer("BPMoreRats","AR8050",9)
+    SetGlobalTimer("BPDoorStopper","AR8050",459)
+    CloseDoor("DOOR01")
+    Lock("DOOR01")
+    EndCutSceneMode()
+END
+
+IF
+  NumCreatureGT("BPRAT",0)  // ~Sumatran Rat~
+  GlobalTimerNotExpired("BPDoorStopper","AR8050")
+  OpenState("DOOR01",TRUE)  // DOOR01
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR01")
+    Lock("DOOR01")
+END
+
+IF
+  PickLockFailed([ANYONE])
+  Detect(LastTrigger)
+THEN
+  RESPONSE #100
+    DisplayStringHead(LastTrigger,@0)
+END
+
+IF
+  NumCreatureGT("BPRAT",0)  // ~Sumatran Rat~
+  GlobalTimerNotExpired("BPDoorStopper","AR8050")
+  OpenState("DOOR01",TRUE)  // DOOR01
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR01")
+    Lock("DOOR01")
+END
+
+IF
+  OR(2)
+    NumCreatureLT("BPRAT",1)  // ~Sumatran Rat~
+    GlobalTimerExpired("BPDoorStopper","AR8050")
+THEN
+  RESPONSE #100
+    SetGlobal("BPNoMoreRats","AR8050",45)
+    Unlock("DOOR01")
+    OpenDoor("DOOR01")
+END
+
+IF
+  GlobalTimerExpired("BPMoreRats","AR8050")
+  Difficulty(EASIEST)
+  GlobalLT("BPNoMoreRats","AR8050",45)
+THEN
+  RESPONSE #100
+    CreateCreature("BPRAT",[2630.1685],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2680.1720],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2730.1860],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2775.1795],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2820.1820],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2865.1845],5)  // ~Sumatran Rat~
+    IncrementGlobal("BPNoMoreRats","AR8050",1)
+    SetGlobalTimer("BPMoreRats","AR8050",ONE_ROUND)
+END
+
+IF
+  GlobalTimerExpired("BPMoreRats","AR8050")
+  DIFFICULTY(EASY)
+  GlobalLT("BPNoMoreRats","AR8050",60)
+THEN
+  RESPONSE #100
+    CreateCreature("BPRAT",[2630.1685],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2680.1720],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2730.1860],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2775.1795],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2820.1820],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2865.1845],5)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2615.1700],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2665.1735],2)  // ~Sumatran Rat~
+    IncrementGlobal("BPNoMoreRats","AR8050",1)
+    SetGlobalTimer("BPMoreRats","AR8050",ONE_ROUND)
+END
+
+IF
+  GlobalTimerExpired("BPMoreRats","AR8050")
+  DIFFICULTY(NORMAL)
+  GlobalLT("BPNoMoreRats","AR8050",60)
+THEN
+  RESPONSE #100
+    CreateCreature("BPRAT",[2630.1685],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2680.1720],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2730.1860],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2775.1795],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2820.1820],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2865.1845],5)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2615.1700],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2665.1735],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2715.1875],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2760.1810],4)  // ~Sumatran Rat~
+    IncrementGlobal("BPNoMoreRats","AR8050",1)
+    SetGlobalTimer("BPMoreRats","AR8050",ONE_ROUND)
+END
+
+IF
+  GlobalTimerExpired("BPMoreRats","AR8050")
+  DIFFICULTYGT(NORMAL)
+  GlobalLT("BPNoMoreRats","AR8050",75)
+THEN
+  RESPONSE #100
+    CreateCreature("BPRAT",[2630.1685],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2680.1720],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2730.1860],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2775.1795],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2820.1820],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2865.1845],5)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2615.1700],15)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2665.1735],2)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2715.1875],3)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2760.1810],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2805.1835],4)  // ~Sumatran Rat~
+    CreateCreature("BPRAT",[2850.1860],5)  // ~Sumatran Rat~
+    IncrementGlobal("BPNoMoreRats","AR8050",1)
+    SetGlobalTimer("BPMoreRats","AR8050",ONE_ROUND)
+END
+

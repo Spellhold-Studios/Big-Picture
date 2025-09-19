@@ -1,0 +1,415 @@
+
+
+DEFINE_ACTION_FUNCTION bp_scripts_round2 BEGIN
+
+//Last-round check on CRE's for WTASIGHT-->BPWTSIGT, 
+// now that most others have been moved away from it.
+// Also, WDASIGHT --> BPWDASGT and WTARSGT --> BPWTRSGT
+
+/// BPv181---bpwtsigt removed from generic component. 
+//  Already split up most specific creatures to custom scripts
+
+
+COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x2d3 AND (~%SOURCE_FILE%~ STRING_MATCHES_REGEXP ~HAER[0-9]*\.cre~)!=0) BEGIN // protects against invalid files
+    READ_ASCII 0x248 "Override"
+    READ_ASCII 0x250 "Class"
+    READ_ASCII 0x258 "Race"
+    READ_ASCII 0x260 "General"
+    READ_ASCII 0x268 "Default"
+
+    PATCH_IF (("%Override%" STRING_EQUAL_CASE "WTASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x248 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Override%" STRING_EQUAL_CASE "WDASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x248 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Override%" STRING_EQUAL_CASE "WTARSGT") = 1) BEGIN
+      WRITE_ASCII 0x248 ~bpwtrsgt~ #8
+    END
+    PATCH_IF (("%Class%" STRING_EQUAL_CASE "WTASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x250 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Class%" STRING_EQUAL_CASE "WDASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x250 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Class%" STRING_EQUAL_CASE "WTARSGT") = 1) BEGIN
+      WRITE_ASCII 0x250 ~bpwtrsgt~ #8
+    END
+    PATCH_IF (("%Race%" STRING_EQUAL_CASE "WTASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x258 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Race%" STRING_EQUAL_CASE "WDASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x258 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Race%" STRING_EQUAL_CASE "WTARSGT") = 1) BEGIN
+      WRITE_ASCII 0x258 ~bpwtrsgt~ #8
+    END
+    PATCH_IF (("%General%" STRING_EQUAL_CASE "WTASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x260 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%General%" STRING_EQUAL_CASE "WDASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x260 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%General%" STRING_EQUAL_CASE "WTARSGT") = 1) BEGIN
+      WRITE_ASCII 0x260 ~bpwtrsgt~ #8
+    END
+    PATCH_IF (("%Default%" STRING_EQUAL_CASE "WTASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Default%" STRING_EQUAL_CASE "WDASIGHT") = 1) BEGIN
+      WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    END ELSE
+    PATCH_IF (("%Default%" STRING_EQUAL_CASE "WTARSGT") = 1) BEGIN
+      WRITE_ASCII 0x268 ~bpwtrsgt~ #8
+    END
+  END
+BUT_ONLY
+
+
+// *********************************************************************
+// *
+// *        Some creatures work better with stupid scripts!
+// *
+// *********************************************************************
+
+// But these won't work with them, so they need to be yanked like bad teeth!
+ACTION_FOR_EACH bpcre IN ~haer10~ ~haer11~ ~haer13~ ~haer15~ ~haer19~ ~shoal~ ~tenya~ ~tenya2~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%bpcre%.cre~ BEGIN
+    COPY_EXISTING ~%bpcre%.cre~ ~override~
+      WRITE_ASCII 0x268 ~wtasight~ #8
+    BUT_ONLY
+  END
+END
+
+// Azazello - pro5 Fix: http://www.shsforums.net/index.php?showtopic=22774
+ACTION_IF FILE_EXISTS_IN_GAME ~droth.cre~ BEGIN
+  COPY_EXISTING ~droth.cre~ ~override~
+    READ_ASCII 0x250 "Class"
+    PATCH_IF (("%Class%" STRING_EQUAL_CASE "INITDLG") = 1) BEGIN
+      WRITE_ASCII 0x250 ~bpmage3~ #8
+    END
+  BUT_ONLY
+END
+
+END
+
+///////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION bp_scripts BEGIN
+
+
+// Let the Big Conversion Commence!  Thanks for code revision, KD
+
+PRINT @371 //Converting creatures to the BP script system. This will take some time...
+
+OUTER_SET count=0
+OUTER_SPRINT "#_script_table" ""
+
+COPY + ~bp/BPSCRIPT.2da~ ~bp~
+  COUNT_2DA_ROWS 3 count
+  READ_2DA_ENTRIES_NOW ~#_script_table~ 3
+BUT_ONLY
+
+COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x2d3) BEGIN // protects against invalid files
+    READ_ASCII 0x248 "Override"
+    READ_ASCII 0x250 "Class"
+    READ_ASCII 0x258 "Race"
+    READ_ASCII 0x260 "General"
+    READ_ASCII 0x268 "Default"
+    SET patched = 0
+    PATCH_IF (("%Override%" STRING_COMPARE "") = 0) OR (("%Override%" STRING_COMPARE_CASE "NONE") = 0) BEGIN
+      SET patched = %patched% + 1 //seeing how many blank slots we have, to speed up processing
+    END
+    PATCH_IF (("%Class%" STRING_COMPARE "") = 0) OR (("%Class%" STRING_COMPARE_CASE "NONE") = 0) BEGIN
+      SET patched = %patched% + 1 //any which way we can
+    END
+    PATCH_IF (("%Race%" STRING_COMPARE "") = 0) OR (("%Race%" STRING_COMPARE_CASE "NONE") = 0) BEGIN
+      SET patched = %patched% + 1
+    END
+    PATCH_IF (("%General%" STRING_COMPARE "") = 0) OR (("%General%" STRING_COMPARE_CASE "NONE") = 0) BEGIN
+      SET patched = %patched% + 1
+    END
+    PATCH_IF (("%Default%" STRING_COMPARE "") = 0) OR (("%Default%" STRING_COMPARE_CASE "NONE") = 0) BEGIN
+      SET patched = %patched% + 1
+    END
+    PATCH_IF (%patched% < 5) BEGIN
+// Azazello - pro5 Fix: http://www.shsforums.net/index.php?showtopic=22774
+//    FOR(x=0; x<%count% - 1; x=x+1) BEGIN
+      FOR(x=0; x<%count%; x=x+1) BEGIN
+        READ_2DA_ENTRY_FORMER ~#_script_table~ x 1 "old_script"
+        READ_2DA_ENTRY_FORMER ~#_script_table~ x 2 "new_script"
+        PATCH_IF (("%Override%" STRING_COMPARE_CASE "%old_script%") = 0) BEGIN
+          SET patched = %patched% + 1
+          SPRINT "Override" "%new_script%"
+        END
+        PATCH_IF (("%Class%" STRING_COMPARE_CASE "%old_script%") = 0) BEGIN
+          SET patched = %patched% + 1
+          SPRINT "Class" "%new_script%"
+        END
+        PATCH_IF (("%Race%" STRING_COMPARE_CASE "%old_script%") = 0) BEGIN
+          SET patched = %patched% + 1
+          SPRINT "Race" "%new_script%"
+        END
+        PATCH_IF (("%General%" STRING_COMPARE_CASE "%old_script%") = 0) BEGIN
+          SET patched = %patched% + 1
+          SPRINT "General" "%new_script%"
+        END
+        PATCH_IF (("%Default%" STRING_COMPARE_CASE "%old_script%") = 0) BEGIN
+          SET patched = %patched% + 1
+          SPRINT "Default" "%new_script%"
+        END
+        PATCH_IF (%patched% > 4) BEGIN
+          SET x = %count% - 1 //if all slots accounted for, stop checks and move on to next CRE file
+        END
+      END
+    END
+    WRITE_EVALUATED_ASCII 0x248 "%Override%" #8
+    WRITE_EVALUATED_ASCII 0x250 "%Class%" #8
+    WRITE_EVALUATED_ASCII 0x258 "%Race%" #8
+    WRITE_EVALUATED_ASCII 0x260 "%General%" #8
+    WRITE_EVALUATED_ASCII 0x268 "%Default%" #8
+
+    //Converting the shouts to the BP Set
+    SET shout_patch = 0
+    PATCH_IF (("%Override%" STRING_COMPARE_CASE "GENSHT01") = 0) OR (("%Override%" STRING_COMPARE_CASE "GPSHOUT") = 0) OR (("%Override%" STRING_COMPARE_CASE "GRPSHT01") = 0) OR (("%Override%" STRING_COMPARE_CASE "SHOUT") = 0) BEGIN
+      READ_BYTE 0x271 General_IDS
+      PATCH_IF ( General_IDS = 1) OR (General_IDS = 5) BEGIN
+        READ_BYTE 0x272 Race_IDS
+        READ_BYTE 0x273 Class_IDS
+        PATCH_IF (Race_IDS = 144) BEGIN  // accounts for golems
+          SET shout_patch = 1
+          WRITE_ASCII 0x248 ~creshout~ #8 
+        END ELSE
+          PATCH_IF (Class_IDS = 7) OR (Class_IDS = 17) OR (Class_IDS = 10) OR (Class_IDS = 14) OR (Class_IDS = 1) OR (Class_IDS = 13) OR (Class_IDS = 19) OR (Class_IDS = 202) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x248 ~humsht01~ #8 //Mages have special blocks in their cre file for some of the activities in humansht, so they get this script instead
+        END
+        PATCH_IF (Class_IDS = 3) OR (Class_IDS = 8) OR (Class_IDS = 11) OR (Class_IDS = 14) OR (Class_IDS = 15) OR (Class_IDS = 16) OR (Class_IDS = 17) OR (Class_IDS = 18) OR (Class_IDS = 204) OR (Class_IDS = 208) BEGIN
+          SET shout_patch = 1
+          WRITE_ASCII 0x248 ~humsht01~ #8 //So do clerics and druids
+        END
+        PATCH_IF (Class_IDS = 4) OR (Class_IDS = 9) OR (Class_IDS = 15) OR (Class_IDS = 205) BEGIN
+          SET shout_patch = 1
+          WRITE_ASCII 0x248 ~bpthfsht~ #8 //Rogues have their own special shout
+        END ELSE BEGIN
+          SET shout_patch = 1
+          WRITE_ASCII 0x248 ~humansht~ #8 //All other humanoids & giants get this script
+        END
+      END ELSE BEGIN
+        READ_BYTE 0x272 Race_IDS
+        PATCH_IF (Race_IDS = 123) OR (Race_IDS = 121) OR (Race_IDS = 125) OR (Race_IDS = 126) BEGIN
+          SET shout_patch =1
+          WRITE_ASCII 0x248 ~cresht01~ #8 //Beholders, vampires and demons have special code
+        END ELSE BEGIN
+          SET shout_patch = 1
+          WRITE_ASCII 0x248 ~creshout~ #8 //The rest do not
+        END
+      END
+    END
+
+    PATCH_IF (shout_patch = 0) BEGIN
+      PATCH_IF (("%Class%" STRING_COMPARE_CASE "GENSHT01") = 0) OR (("%Class%" STRING_COMPARE_CASE "GPSHOUT") = 0) OR (("%Class%" STRING_COMPARE_CASE "GRPSHT01") = 0) OR (("%Class%" STRING_COMPARE_CASE "SHOUT") = 0) BEGIN
+        READ_BYTE 0x271 General_IDS
+        PATCH_IF ( General_IDS = 1) OR (General_IDS = 5) BEGIN
+          READ_BYTE 0x273 Class_IDS
+          PATCH_IF (Class_IDS = 7) OR (Class_IDS = 17) OR (Class_IDS = 10) OR (Class_IDS = 14) OR (Class_IDS = 1) OR (Class_IDS = 13) OR (Class_IDS = 19) OR (Class_IDS = 202) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x250 ~humsht01~ #8 //Mages have special blocks in their cre file for some of the activities in humansht, so they get this script instead
+          END
+          PATCH_IF (Class_IDS = 3) OR (Class_IDS = 8) OR (Class_IDS = 11) OR (Class_IDS = 14) OR (Class_IDS = 15) OR (Class_IDS = 16) OR (Class_IDS = 17) OR (Class_IDS = 18) OR (Class_IDS = 204) OR (Class_IDS = 208) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x250 ~humsht01~ #8 //So do clerics and druids
+          END
+          PATCH_IF (Class_IDS = 4) OR (Class_IDS = 9) OR (Class_IDS = 15) OR (Class_IDS = 205) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x250 ~bpthfsht~ #8 //Rogues have their own special shout
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x250 ~humansht~ #8 //All other humanoids & giants get this script
+          END
+        END ELSE BEGIN
+          READ_BYTE 0x272 Race_IDS
+          PATCH_IF (Race_IDS = 123) OR (Race_IDS = 121) BEGIN
+            SET shout_patch =1
+            WRITE_ASCII 0x250 ~cresht01~ #8 //Beholders and demons have special code
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x250 ~creshout~ #8 //The rest do not
+          END
+        END
+      END
+    END
+
+    PATCH_IF (shout_patch = 0) BEGIN
+      PATCH_IF (("%Race%" STRING_COMPARE_CASE "GENSHT01") = 0) OR (("%Race%" STRING_COMPARE_CASE "GPSHOUT") = 0) OR (("%Race%" STRING_COMPARE_CASE "GRPSHT01") = 0) OR (("%Race%" STRING_COMPARE_CASE "SHOUT") = 0) BEGIN
+        READ_BYTE 0x271 General_IDS
+        PATCH_IF ( General_IDS = 1) OR (General_IDS = 5) BEGIN
+          READ_BYTE 0x273 Class_IDS
+          PATCH_IF (Class_IDS = 7) OR (Class_IDS = 17) OR (Class_IDS = 10) OR (Class_IDS = 14) OR (Class_IDS = 1) OR (Class_IDS = 13) OR (Class_IDS = 19) OR (Class_IDS = 202) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x258 ~humsht01~ #8 //Mages have special blocks in their cre file for some of the activities in humansht, so they get this script instead
+          END
+          PATCH_IF (Class_IDS = 3) OR (Class_IDS = 8) OR (Class_IDS = 11) OR (Class_IDS = 14) OR (Class_IDS = 15) OR (Class_IDS = 16) OR (Class_IDS = 17) OR (Class_IDS = 18) OR (Class_IDS = 204) OR (Class_IDS = 208) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x258 ~humsht01~ #8 //So do clerics and druids
+          END
+          PATCH_IF (Class_IDS = 4) OR (Class_IDS = 9) OR (Class_IDS = 15) OR (Class_IDS = 205) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x258 ~bpthfsht~ #8 //Rogues have their own special shout
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x258 ~humansht~ #8 //All other humanoids & giants get this script
+          END
+        END ELSE BEGIN
+          READ_BYTE 0x272 Race_IDS
+          PATCH_IF (Race_IDS = 123) OR (Race_IDS = 121) BEGIN
+            SET shout_patch =1
+            WRITE_ASCII 0x258 ~cresht01~ #8 //Beholders and demons have special code
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x258 ~creshout~ #8 //The rest do not
+          END
+        END
+      END
+    END
+
+    PATCH_IF (shout_patch = 0) BEGIN
+      PATCH_IF (("%General%" STRING_COMPARE_CASE "GENSHT01") = 0) OR (("%General%" STRING_COMPARE_CASE "GPSHOUT") = 0) OR (("%General%" STRING_COMPARE_CASE "GRPSHT01") = 0) OR (("%General%" STRING_COMPARE_CASE "SHOUT") = 0) BEGIN
+        READ_BYTE 0x271 General_IDS
+        PATCH_IF ( General_IDS = 1) OR (General_IDS = 5) BEGIN
+          READ_BYTE 0x273 Class_IDS
+          PATCH_IF (Class_IDS = 7) OR (Class_IDS = 17) OR (Class_IDS = 10) OR (Class_IDS = 14) OR (Class_IDS = 1) OR (Class_IDS = 13) OR (Class_IDS = 19) OR (Class_IDS = 202) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x260 ~humsht01~ #8 //Mages have special blocks in their cre file for some of the activities in humansht, so they get this script instead
+          END
+          PATCH_IF (Class_IDS = 3) OR (Class_IDS = 8) OR (Class_IDS = 11) OR (Class_IDS = 14) OR (Class_IDS = 15) OR (Class_IDS = 16) OR (Class_IDS = 17) OR (Class_IDS = 18) OR (Class_IDS = 204) OR (Class_IDS = 208) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x260 ~humsht01~ #8 //So do clerics and druids
+          END
+          PATCH_IF (Class_IDS = 4) OR (Class_IDS = 9) OR (Class_IDS = 15) OR (Class_IDS = 205) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x260 ~bpthfsht~ #8 //Rogues have their own special shout
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x260 ~humansht~ #8 //All other humanoids & giants get this script
+          END
+        END ELSE BEGIN
+          READ_BYTE 0x272 Race_IDS
+          PATCH_IF (Race_IDS = 123) OR (Race_IDS = 121) BEGIN
+            SET shout_patch =1
+            WRITE_ASCII 0x260 ~cresht01~ #8 //Beholders and demons have special code
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x260 ~creshout~ #8 //The rest do not
+          END
+        END
+      END
+    END
+
+    PATCH_IF (shout_patch = 0) BEGIN
+      PATCH_IF (("%Default%" STRING_COMPARE_CASE "GENSHT01") = 0) OR (("%Default%" STRING_COMPARE_CASE "GPSHOUT") = 0) OR (("%Default%" STRING_COMPARE_CASE "GRPSHT01") = 0) OR (("%Default%" STRING_COMPARE_CASE "SHOUT") = 0) BEGIN
+        READ_BYTE 0x271 General_IDS
+        PATCH_IF ( General_IDS = 1) OR (General_IDS = 5) BEGIN
+          READ_BYTE 0x273 Class_IDS
+          PATCH_IF (Class_IDS = 7) OR (Class_IDS = 17) OR (Class_IDS = 10) OR (Class_IDS = 14) OR (Class_IDS = 1) OR (Class_IDS = 13) OR (Class_IDS = 19) OR (Class_IDS = 202) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x268 ~humsht01~ #8 //Mages have special blocks in their cre file for some of the activities in humansht, so they get this script instead
+          END
+          PATCH_IF (Class_IDS = 3) OR (Class_IDS = 8) OR (Class_IDS = 11) OR (Class_IDS = 14) OR (Class_IDS = 15) OR (Class_IDS = 16) OR (Class_IDS = 17) OR (Class_IDS = 18) OR (Class_IDS = 204) OR (Class_IDS = 208) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x268 ~humsht01~ #8 //So do clerics and druids
+          END
+          PATCH_IF (Class_IDS = 4) OR (Class_IDS = 9) OR (Class_IDS = 15) OR (Class_IDS = 205) BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x268 ~bpthfsht~ #8 //Rogues have their own special shout
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x268 ~humansht~ #8 //All other humanoids & giants get this script
+          END
+        END ELSE BEGIN
+          READ_BYTE 0x272 Race_IDS
+          PATCH_IF (Race_IDS = 123) OR (Race_IDS = 121) BEGIN
+            SET shout_patch =1
+            WRITE_ASCII 0x268 ~cresht01~ #8 //Beholders and demons have special code
+          END ELSE BEGIN
+            SET shout_patch = 1
+            WRITE_ASCII 0x268 ~creshout~ #8 //The rest do not
+          END
+        END
+      END
+    END
+  END
+BUT_ONLY
+
+END
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION bp_scripts_init BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+
+
+COMPILE ~BP/BAF/NEW_BAF/CORE~
+COMPILE ~BP/BAF/NEW_BAF/MISC~
+COMPILE ~BP/BAF/RE-BAF/CORE~
+COMPILE ~BP/BAF/RE-BAF/MISC~
+
+ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+  COMPILE ~BP/TDD/BAF/CORE~
+  COMPILE ~BP/TDD/BAF/MISC~
+END ELSE BEGIN
+  COMPILE ~BP/BAF/NO_TDD/CORE~
+END
+
+COPY_EXISTING ~announce.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    PATCH_IF (INDEX_BUFFER (CASE_INSENSITIVE ~DifficultyGT(EASIEST)~) = `0) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~Global("DestroyAnnouncer","AR0406",1)~ ~Global("DestroyAnnouncer","AR0406",1) DifficultyGT(EASIEST)~
+    END
+    PATCH_IF (INDEX_BUFFER (CASE_INSENSITIVE ~CreateCreature("WOLFWI01",\[2850\.1350\],4)~) = `0) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("WOLFWI01",[2924.1372],12)~ ~CreateCreature("WOLFWI01",[2850.1300],4) CreateCreature("WOLFWI01",[2850.1350],4) CreateCreature("WOLFWI01",[2924.1372],4)~
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("DSBODY01",[2831.1361],8)~ ~CreateCreature("DSBODY01",[2831.1361],8) CreateCreature("OGRE01",[2625.1125],4) CreateCreature("OGRE01",[2700.1150],4) CreateCreature("OGRE01",[2775.1125],4) CreateCreature("OGRMAG01",[2800.1200],4)~
+    END
+  END
+BUT_ONLY
+
+
+END
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION shout_string_check BEGIN
+
+
+//This installs the on-screen shout scripts by default, if you didn't choose the "no strings" option
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  PRINT @16
+  COMPILE ~bp/baf/shouts/strings~
+END
+
+
+
+
+END
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION bp_no_strings BEGIN
+
+  COMPILE ~bp/baf/shouts/no_strings~
+  
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/no_strings~ 
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2~
+  END
+  
+
+END
+
+

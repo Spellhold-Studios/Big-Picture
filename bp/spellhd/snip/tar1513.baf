@@ -1,0 +1,30 @@
+IF
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Opened("SECRET01")
+  Global("BP_DoorCheck1","AR1513",0)
+THEN
+  RESPONSE #100
+    CreateCreature("BPKOBWIT",[1900.1300],8)
+    SetGlobal("BP_DoorCheck1","AR1513",1)
+END
+
+IF
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Opened("DOOR03")
+  Global("BP_DoorCheck2","AR1513",0)
+THEN
+  RESPONSE #100
+    CreateCreature("BPSFGTMG",[2400.1600],12)
+    CreateCreature("BPSDWFGT",[2360.1625],12)
+    CreateCreature("BPSDWFTH",[2330.1650],12)
+    SetGlobal("BP_DoorCheck2","AR1513",1)
+END
+

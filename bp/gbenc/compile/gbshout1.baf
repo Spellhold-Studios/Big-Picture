@@ -1,0 +1,85 @@
+IF
+  Global("GB_Attacked","LOCALS",0)
+  OR(6)
+    Heard([EVILCUTOFF],10000)
+    Heard([EVILCUTOFF],10001)
+    SpellCastOnMe([GOODCUTOFF],0)
+    See(NearestEnemyOf(Myself))
+    TookDamage()
+    Allegiance(Myself,EVILCUTOFF)
+THEN
+  RESPONSE #100
+    GlobalShout(10000)
+    SetGlobal("GB_Attacked","LOCALS",1)
+END
+
+IF
+  Heard([EVILCUTOFF],10000)
+  !See([PC])
+  !Range(LastHeardBy(Myself),0)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_OnMyWay","LOCALS",24)
+    MoveToObject(LastHeardBy(Myself))
+    MoveToObject(LastSeenBy(LastHeardBy(Myself)))
+END
+
+IF
+  Heard([EVILCUTOFF],10001)
+  !See([PC])
+  !Range(LastHeardBy(Myself),0)
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GB_OnMyWay","LOCALS",24)
+    MoveToObject(LastHeardBy(Myself))
+    MoveToObject(LastSeenBy(LastHeardBy(Myself)))
+END
+
+IF
+  StateCheck(Myself,STATE_BLIND)
+  !See([PC])
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  Global("GB_Attacked","LOCALS",0)
+THEN
+  RESPONSE #100
+END
+
+IF
+  !See([PC])
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+  OR(4)
+    See([GOODCUTOFF])
+    SpellCastOnMe([GOODCUTOFF],0)
+    TookDamage()
+    Exists(Player1)
+THEN
+  RESPONSE #100
+    GlobalShout(10000)
+    MoveToObject(Player1)
+END
+
+IF
+  Delay(18)
+  !See([PC])
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  Delay(18)
+  See([PC])
+  !GlobalTimerNotExpired("GB_OnMyWay","LOCALS")
+THEN
+  RESPONSE #100
+    GlobalShout(10001)
+END
+

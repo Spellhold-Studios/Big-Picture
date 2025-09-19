@@ -1,0 +1,25 @@
+IF
+  Global("freethem","AR1515",0)
+  Global("BP_HardRoad","GLOBAL",2)
+  Global("AsylumPlot","GLOBAL",53)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,48691)
+    SetGlobal("freethem","AR1515",1)
+    SetGlobal("AsylumPlot","GLOBAL",54)
+    StartCutSceneMode()
+    StartCutScene("Cut41m")
+END
+
+IF
+  Dead("ppworker")
+  Global("playerTalk","AR1515",0)
+  Global("speakWhenLonkDead","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("playerTalk","AR1515",1)
+    SetGlobal("speakWhenLonkDead","GLOBAL",1)
+    Wait(1)
+    ActionOverride(Player1,StartDialogue("player1",Player1))
+END
+

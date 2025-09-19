@@ -1,0 +1,38 @@
+IF
+  CheckStat(Myself,1,127)
+  See([ENEMY.HUMANOID.RAKSHASA.0.0.ILLUSIONARY])
+THEN
+  RESPONSE #100
+    ChangeSpecifics(LastSeenBy(Myself),NEEDS_BREACH)
+    ChangeGender(LastSeenBy(Myself),EXTRA10)
+    ActionOverride(LastSeenBy(Myself),ChangeAIScript("BPMISLED",OVERRIDE))
+    SpellNoDecRES("SPMISLED",Myself)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  Allegiance(Myself,ENEMY)
+  Global("RakshasaChange","LOCALS",0)
+THEN
+  RESPONSE #30
+    Polymorph(RAKSHASA)
+    SetGlobal("RakshasaChange","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("RakCloud","LOCALS",0)
+THEN
+  RESPONSE #30
+    ForceSpell(NearestEnemyOf(Myself),WIZARD_CLOUDKILL)
+    SetGlobal("RakCloud","LOCALS",1)
+  RESPONSE #30
+    ForceSpell(NearestEnemyOf(Myself),WIZARD_DEATH_FOG)
+    SetGlobal("RakCloud","LOCALS",1)
+  RESPONSE #40
+    AttackReevaluate(NearestEnemyOf(Myself),10)
+    SetGlobal("RakCloud","LOCALS",1)
+END
+

@@ -1,0 +1,26 @@
+@0     = ~Interpones tu mano en el remolino de energía del estanque, pero su poder es demasiado para tí.  No interrumpes su flujo y, además, la energía te salpica y te daña.~
+@1     = ~Sitúas la mano dentro de las energías del estanque y fuerzas a la esencia a entrar en tu interior, desviándola de Melissan. Un poder sin límites te llena brevemente y aunque la mayor parte se disipa, una parte alimenta tus energías interiores. Ahora eres inmune a los hechizos de muerte y los efectos vorpal, y también has ganado la habilidad de desatar tu poder interior mediante un corto estallido de poder destructivo. Las energías también restauran los poderes de todos los presentes.~
+@2     = ~Nuevo poder adquirido: "Desatar"
+
+La habilidad de "Desatar" libera tu poder interior sobre un blanco que esté dentro del alcance de la lucha cuerpo a cuerpo, golpeándole con un daño mágico de 10D12 (la mitad si la víctima realiza con éxito un tiro de salvación contra Muerte) y lanzándole hacia atrás e incluso dejándole inconsciente durante un corto período de tiempo. Esta habilidad sólo puede usarse una vez cada treinta segundos... y, después de usarla, el Engendro de Bhaal estará increíblemente cansado y tendrá un 25% de posibilidades de fallar sus lanzamientos de conjuros durante 2 asaltos. Además, debido a la cantidad de esencia divina usada, la forma de Asesino no estará disponible durante treinta segundos. h~
+@3     = ~Nuevo poder adquirido: "Desatar"
+
+La habilidad de "Desatar" libera tu poder interior sobre un blanco que esté dentro del alcance de la lucha cuerpo a cuerpo, golpeándole con un daño mágico de 10D12 (la mitad si la víctima realiza con éxito un tiro de salvación contra Muerte) y lanzándole hacia atrás e incluso dejándole inconsciente durante un corto período de tiempo. Esta habilidad sólo puede usarse una vez cada treinta segundos... y, después de usarla, el Engendro de Bhaal estará increíblemente cansado y tendrá un 25% de posibilidades de fallar sus lanzamientos de conjuros durante 2 asaltos. Además, debido a la cantidad de esencia divina usada, la forma de Asesino no estará disponible durante treinta segundos.~
+@4     = ~Sitúas la mano dentro de las energías del estanque y fuerzas a la esencia a entrar en tu interior, desviándola de Melissan. Un poder sin límites te llena y aunque la mayor parte se disipa, te quedas con mucha de la esencia de Bhaal. Por el momento, has adquirido la habilidad de teleportarte libremente a través del espacio, y también de luchar por el control de los demonios abisales que están bajo el control de Melissan. Parte de tu nueva habilidad de teleportación también implica que ahora eres completamente inmune a los hechizos de Laberinto y Cautiverio. Las energías también restauran los poderes de todos los presentes.~
+@5     = ~Nuevo poder adquirido: "Controlar Demonio"
+
+Esta habilidad permite al Hijo de Bhaal intentar arrebatar el control de un demonio a Melissan y convertirle en un aliado. El Hijo de Bhaal entablará un combate mental con el demonio durante 1 asalto, al final de la cual existe una posibilidad de que el demonio se convierta en un aliado. El demonio, sin embargo, no está bajo el control directo del Hijo de Bhaal. Esta habilidad puede usarse una vez cada 3 asaltos.
+
+Nuevo poder adquirido: "Puerta Dimensional"
+
+El Hijo de Bhaal puede ahora moverse libremente a través del espacio y los Planos. Este poder de teleportación puede usarse una vez por asalto.      ~
+@6     = ~Sitúas la mano dentro de las energías del estanque y fuerzas a la esencia a entrar en tu interior, desviándola de Melissan. Durante un momento, te llenas de un poder sin límites... y, aunque la mayor parte te deja y se disipa en el Cosmos, una parte permanece en tí. Has adquirido la habilidad de concentrar las energías de tu interior para protegerte de hechizos como Para el Tiempo, Desintegrar y Petrificación durante un corto período de tiempo. Las energías también restauran los poderes de todos los presentes.~
+@7     = ~Nuevo poder adquirido: "Enfocar"
+
+Esta habilidad permite al Hijo de Bhaal concentrar su energía interior para resistir los efectos de hechizos externos. Durante 30 segundos, el Hijo de Bhaal se hace inmune a los hechizos de Carne a Piedra, Desintegración y Parar el Tiempo. Todos los hechizos de los niveles 1 al 3 tampoco le afectarán.  Esta habilidad puede usarse una vez por minuto.  ~
+@8     = ~Nuevo poder adquirido: "Enfocar"
+
+Esta habilidad permite al Hijo de Bhaal concentrar su energía interior para resistir los efectos de hechizos externos. Durante 30 segundos, el Hijo de Bhaal se hace inmune a los hechizos de Carne a Piedra, Desintegración y Parar el Tiempo. Todos los hechizos de los niveles 1 al 3 tampoco le afectarán.  Esta habilidad puede usarse una vez por minuto.  ~
+@9     = ~El último estaque ha sido vaciado. La luz de la columna de energía ha empezado a menguar. Sólo tienes unos momentos para prepararte para lo que, seguramente, sea la batalla final...~
+@10    = ~Melissan ya comienza a removerse dentro del chorro de energía divina. Una vez detenido el flujo desde el último estanque, queda muy poco tiempo antes de que reaccione.~
+

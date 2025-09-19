@@ -1,0 +1,94 @@
+IF
+  Global("BPSkullySpeaks","LOCALS",3)
+  !Dead("HORRED")  // ~Horred~
+  OR(2)
+    HPLT(Myself,50)
+    Die()
+THEN
+  RESPONSE #100
+    StartDialogNoSet("HORRED")
+END
+
+IF
+  Global("BPSkullySpeaks","LOCALS",2)
+  HPPercentLT(Myself,35)
+  See(LastAttackerOf(Myself))
+THEN
+  RESPONSE #100
+    ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+    StartDialogNoSet(LastAttackerOf(Myself))
+END
+
+IF
+  Dead("HORRED")  // ~Horred~
+  Global("BPSkullyPist","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BPSkullyPist","LOCALS",1)
+    StartDialogNoSet(Player1)
+END
+
+IF
+  Global("BPSkullyBlast","LOCALS",0)
+  See(SixthNearestEnemyOf(Myself))
+  !Range(LastSeenBy(Myself),15)
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastSeenBy(Myself),0)
+THEN
+  RESPONSE #100
+    SetGlobal("BPSkullyBlast","LOCALS",1)
+    ReallyForceSpell(LastSeenBy(Myself),ULITHARID_PSIONIC_BLAST)
+END
+
+IF
+  RandomNum(2,1)
+  !GlobalTimerNotExpired("BPSkullyMage","LOCALS")
+  GlobalLT("BPSkullyFear","LOCALS",2)
+  See(NearestEnemyOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastSeenBy(Myself),0)
+  !StateCheck(LastSeenBy(Myself),STATE_PANIC)
+THEN
+  RESPONSE #100
+    IncrementGlobal("BPSkullyFear","LOCALS",1)
+    SetGlobalTimer("BPSkullyMage","LOCALS",9)
+    ForceSpell(NearestEnemyOf(Myself),VAMPIRE_FEAR)
+END
+
+IF
+  RandomNumLT(4,3)
+  GlobalLT("BPSkullyCharm","LOCALS",2)
+  !GlobalTimerNotExpired("BPSkullyMage","LOCALS")
+  OR(4)
+    See(NearestEnemyOf(Myself))
+    See([PC.0.0.RANGER_ALL])
+    See([PC.0.0.FIGHTER_ALL])
+    See([PC.0.0.PALADIN_ALL])
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(LastSeenBy(Myself),STATE_CONFUSED)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  !StateCheck(LastSeenBy(Myself),STATE_STUNNED)
+THEN
+  RESPONSE #100
+    IncrementGlobal("BPSkullyCharm","LOCALS",1)
+    SetGlobalTimer("BPSkullyMage","LOCALS",9)
+    ForceSpell(LastSeenBy(Myself),VAMPIRE_DOMINATION)
+END
+
+IF
+  RandomNumLT(6,4)
+  !GlobalTimerNotExpired("BPSkullyMage","LOCALS")
+  GlobalLT("BPSkullConfuse","LOCALS",2)
+  See(NearestEnemyOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+  !StateCheck(LastSeenBy(Myself),STATE_CONFUSED)
+THEN
+  RESPONSE #100
+    IncrementGlobal("BPSkullyConfuse","LOCALS",1)
+    SetGlobalTimer("BPSkullyMage","LOCALS",TWO_ROUNDS)
+    ForceSpell(LastSeenBy(Myself),NYMPH_CONFUSION)
+END
+

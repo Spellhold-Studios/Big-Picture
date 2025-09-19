@@ -1,0 +1,48 @@
+IF
+  Global("ILYC","GLOBAL",2)
+THEN
+  RESPONSE #100
+    CreateCreature("DUECLA02",[3450.685],5)
+    SetGlobal("ILYC","GLOBAL",3)
+END
+
+IF
+  Global("BP_Slick","GLOBAL",0)
+  DifficultyGT(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("DUEPRE01",[3595.765],4)
+    SetGlobal("BP_Slick","GLOBAL",1)
+END
+
+
+IF
+  Global("BP_Slick","GLOBAL",1)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    CreateCreature("DUEARC03",[3275.845],5)
+    CreateCreature("DUEARC04",[3140.945],5)
+    SetGlobal("BP_Slick","GLOBAL",2)
+END
+
+IF
+  InMyArea("dungettn")
+  Global("TDDGoods","AR0603",0)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("TDDGoods","AR0603",1)
+    CreateCreature("dungettn",[2958.2101],4)
+END
+
+IF
+  InMyArea("dungettn")
+  Global("TDDGoods","AR0603",1)
+  DifficultyGT(NORMAL)
+THEN
+  RESPONSE #100
+    SetGlobal("TDDGoods","AR0603",2)
+    CreateCreature("wraith01",[647.1347],4)
+END
+

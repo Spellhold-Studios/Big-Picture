@@ -1,0 +1,40 @@
+IF
+  Global("AsylumPlot","GLOBAL",20)
+  Global("BP_HardRoad","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    StartCutSceneMode()
+    StartCutScene("cut41gbp")
+END
+
+IF
+  Global("AsylumPlot","GLOBAL",20)
+THEN
+  RESPONSE #0
+    ClearAllActions()
+    StartCutSceneMode()
+    StartCutScene("Cut41g")
+END
+
+IF
+  AreaCheck("ar1515")
+  Global("HostileIn","AR1515",1)
+THEN
+  RESPONSE #0
+    ClearAllActions()
+    StartCutSceneMode()
+    StartCutScene("Cut41g")
+END
+
+IF
+  OR(2)
+    Allegiance(Myself,ENEMY)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+  !Global("AsylumPlot","GLOBAL",20)
+  GlobalLT("AsylumPlot","GLOBAL",30)
+THEN
+  RESPONSE #100
+    SetGlobal("AsylumPlot","GLOBAL",20)
+END
+

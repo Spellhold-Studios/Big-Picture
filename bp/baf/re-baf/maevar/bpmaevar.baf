@@ -1,0 +1,37 @@
+IF
+  Allegiance(Myself,ENEMY)
+  Global("PREP","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("PREP","LOCALS",1)
+    SetGlobalTimer("CHE","LOCALS",FIVE_ROUNDS)
+    ReallyForceSpell(Myself,WIZARD_HASTE)
+    ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_INVOCATION)
+    ReallyForceSpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(Myself,WIZARD_MANTLE)
+END
+
+IF
+  Global("MaeVarExposed","GLOBAL",1)
+  See([PC])
+  Global("IssuesLastThreat","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("IssuesLastThreat","LOCALS",1)
+    StartDialogNoSet([PC])
+END
+
+IF
+  OR(2)
+    Dead("Edwin")  // ~Edwin~
+    Global("EdwinTold","GLOBAL",1)
+  !GlobalGT("MaeVarWork","GLOBAL",5)
+  Global("MaeVarExposed","GLOBAL",0)
+  See([PC])
+  Global("MaeVarAngry","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("MaeVarAngry","LOCALS",1)
+    StartDialogNoSet([PC])
+END
+

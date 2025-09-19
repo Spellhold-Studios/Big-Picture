@@ -1,0 +1,88 @@
+IF
+  RandomNum(7,1)
+  See(NearestEnemyOf(Myself))
+  See(SecondNearestEnemyOf(Myself))
+  See(ThirdNearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPOtyughSalute","LOCALS")
+  GlobalLT("BPPyro-Tyugh","LOCALS",6)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(SecondNearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(ThirdNearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    IncrementGlobal("BPPyro-Tyugh","LOCALS",1)
+    SetGlobalTimer("BPOtyughSalute","LOCALS",ONE_ROUND)
+END
+
+IF
+  RandomNum(7,2)
+  See(NearestEnemyOf(Myself))
+  See(SecondNearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPOtyughSalute","LOCALS")
+  GlobalLT("BPPyro-Tyugh","LOCALS",6)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(SecondNearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(SecondNearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    IncrementGlobal("BPPyro-Tyugh","LOCALS",1)
+    SetGlobalTimer("BPOtyughSalute","LOCALS",ONE_ROUND)
+END
+
+IF
+  RandomNum(7,3)
+  See(NearestEnemyOf(Myself))
+  See(SecondNearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPOtyughSalute","LOCALS")
+  GlobalLT("BPPyro-Tyugh","LOCALS",6)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(NearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(SecondNearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    IncrementGlobal("BPPyro-Tyugh","LOCALS",1)
+    SetGlobalTimer("BPOtyughSalute","LOCALS",ONE_ROUND)
+END
+
+IF
+  RandomNum(7,4)
+  See(NearestEnemyOf(Myself))
+  See(SecondNearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPOtyughSalute","LOCALS")
+  GlobalLT("BPPyro-Tyugh","LOCALS",6)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(NearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    ForceSpell(NearestEnemyOf(Myself),SALAMANDER_BREATHE_FIREBALL)
+    IncrementGlobal("BPPyro-Tyugh","LOCALS",1)
+    SetGlobalTimer("BPOtyughSalute","LOCALS",ONE_ROUND)
+END
+
+IF
+  RandomNum(7,5)
+  See(ThirdNearestEnemyOf(Myself))
+  Range(ThirdNearestEnemyOf(Myself),30)
+  GlobalLT("BPPyro-Mania","LOCALS",2)
+THEN
+  RESPONSE #100
+    ForceSpell(Myself,WIZARD_SUN_FIRE)
+    IncrementGlobal("BPPyro-Mania","LOCALS",1)
+    SetGlobalTimer("BPOtyughSalute","LOCALS",20)
+END
+
+IF
+  RandomNumGT(7,5)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+END
+

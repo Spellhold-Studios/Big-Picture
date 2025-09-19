@@ -1,0 +1,18 @@
+IF
+  IsOverMe([ANYONE])
+  XPGT(Player1,1699999)
+  Global("LevelTwoTanner","AR0503",1)
+  Global("LevelThreeTanner","AR0503",1)
+  Global("LevelFourTanner","AR0503",0)
+  !Exists("tanwiz1")
+THEN
+  RESPONSE #100
+    SetGlobal("LevelFourTanner","AR0503",1)
+    CreateVisualEffect("SPGFLSH1",[137.461])
+    CreateCreature("TANWIZ02",[137.461],2)
+    CreateVisualEffect("SPGFLSH1",[615.548])
+    CreateCreature("TANWIZ03",[615.548],2)
+    CreateVisualEffect("SPFLESHS",[502.485])
+    CreateCreature("TANTUGn1",[502.485],2)
+END
+

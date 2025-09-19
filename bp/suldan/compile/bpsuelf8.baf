@@ -1,0 +1,56 @@
+IF
+    AttackedBy([PC],DEFAULT)
+    Allegiance(Myself,NEUTRAL)
+THEN
+    RESPONSE #100
+        Enemy()
+END
+
+IF
+    Heard([0.0.ELF.0.SULDANESSALLAR],199)
+    Allegiance(Myself,NEUTRAL)
+THEN
+    RESPONSE #100
+        Enemy()
+END
+
+IF
+    Allegiance(Myself,ENEMY)
+THEN
+    RESPONSE #100
+        Shout(199)
+        EscapeArea()
+END
+
+IF
+    Dead("sudemon2")
+    Dead("suelfw7")
+    Global("Scene4","AR2800",2)
+THEN
+    RESPONSE #100
+        SetInterrupt(FALSE)
+        SetGlobal("Scene4","AR2800",3)
+        DisplayStringHead(Myself,4220) // For the Queen! Let us find what survivors we can!
+        Wait(1)
+        EscapeArea()
+END
+
+IF
+    Dead("sudemon2")
+    Global("Scene4","AR2800",3)
+THEN
+    RESPONSE #100
+        SetInterrupt(FALSE)
+        Wait(1)
+        EscapeArea()
+END
+
+IF
+    See([ENEMY])
+    Global("Scene4","AR2800",2)
+THEN
+    RESPONSE #100
+        AttackReevaluate([ENEMY],45)
+END
+
+

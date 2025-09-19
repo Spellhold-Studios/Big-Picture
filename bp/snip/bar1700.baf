@@ -1,0 +1,44 @@
+IF
+  Global("KR_Dragons","AR1700",0)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_Dragons","AR1700",1)
+    CreateCreature("DRAGRED",[1154.2639],12)
+END
+
+IF
+  Global("KR_Dragons","AR1700",1)
+  DifficultyGT(EASY)
+  XPGT(Player1,1500000)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_Dragons","AR1700",2)
+    CreateCreature("DRAGREDD",[1308.2450],12)
+    CreateCreature("DRAGPURP",[3097.397],0)
+END
+
+IF
+  Global("KR_Dragons","AR1700",2)
+  DifficultyGT(NORMAL)
+  XPGT(Player1,2000000)
+  NumInPartyGT(3)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_Dragons","AR1700",3)
+    CreateCreature("BPDRAGTP",[3200.298],0)
+    CreateCreature("BPDRGBRN",[2201.1964],0)
+END
+
+IF
+  Global("KR_Dragons","AR1700",2)
+  Difficulty(HARDEST)
+  XPGT(Player1,2500000)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_Dragons","AR1700",3)
+    CreateCreature("BPDRAGTP",[3200.298],0)
+    CreateCreature("BPDRGBRN",[2201.1964],0)
+    CreateCreature("DRAGYELL",[2101.1864],0)
+END
+

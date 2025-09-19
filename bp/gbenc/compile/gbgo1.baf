@@ -1,0 +1,16 @@
+IF
+  Global("GBGoAway","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("GBGoAway","LOCALS",1)
+    SetGlobalTimer("GBGoAwayTimer","LOCALS",720)
+END
+
+IF
+  Global("GBGoAway","LOCALS",1)
+  GlobalTimerExpired("GBGoAwayTimer","LOCALS")
+THEN
+  RESPONSE #100
+    DestroySelf()
+END
+

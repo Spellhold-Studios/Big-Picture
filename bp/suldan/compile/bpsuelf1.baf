@@ -1,0 +1,55 @@
+IF
+    AttackedBy([PC],DEFAULT)
+    Allegiance(Myself,NEUTRAL)
+THEN
+    RESPONSE #100
+        Enemy()
+END
+
+IF
+    Heard([0.0.ELF.0.SULDANESSALLAR],199)
+    Allegiance(Myself,NEUTRAL)
+THEN
+    RESPONSE #100
+        Enemy()
+END
+
+IF
+    Allegiance(Myself,ENEMY)
+THEN
+    RESPONSE #100
+        Shout(199)
+        EscapeArea()
+END
+
+IF
+    Detect([PC])
+    See([ENEMY])
+    Global("Scene1","AR2800",0)
+THEN
+    RESPONSE #100
+        SetGlobal("Scene1","AR2800",1)
+        DisplayStringHead(Myself,18539) // <CHARNAME>! We are overwhelmed!
+END
+
+IF
+    NumDead("suundead",3)
+    Global("Scene1","AR2800",1)
+THEN
+    RESPONSE #100
+        SetInterrupt(FALSE)
+        SetGlobal("Scene1","AR2800",2)
+        DisplayStringHead(Myself,23956) // Move out men! The enemy is everywhere!
+        Wait(1)
+        EscapeArea()
+END
+
+IF
+    See([ENEMY])
+    Global("Scene1","AR2800",1)
+THEN
+    RESPONSE #100
+        AttackReevaluate([ENEMY],45)
+END
+
+

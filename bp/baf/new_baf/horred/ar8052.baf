@@ -1,0 +1,17 @@
+IF
+  !CombatCounter(0)
+  Global("BPStopThisMess","AR8052",0)
+THEN
+  RESPONSE #100
+    TriggerActivation("TRAN8050",FALSE)
+END
+
+IF
+  CombatCounter(0)
+  Dead("BPOTYUGH")  // ~Pyro-Tyugh~
+THEN
+  RESPONSE #100
+    SetGlobal("BPStopThisMess","AR8052",1)
+    TriggerActivation("TRAN8050",TRUE)
+END
+

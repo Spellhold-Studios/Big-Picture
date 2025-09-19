@@ -1,0 +1,63 @@
+FILE           OPCODE  PAR_1 PAR_2 CLONE  TICK  PATCH_WHAT //  DESCRIPTION
+// Blackguard Kit Ability
+SPCL105.SPL    282     1     2     142     N     A         //  IMMUNITY_TO_LEVEL_DRAIN
+SPCL104.SPL    282     2     22    142     n     A         //  RESIST_FEAR
+SPCL103.SPL    233     2     133   278     n     A         //  AURA_OF_DESPAIR (DEFENSIVE_HARMONY Value 2)
+
+
+// Sun Soul Greater Sun
+SPCL237.SPL    233     1     125   142    n     A          //  SUN SOUL GREATER SUN
+
+// Dwarven Defender Defensive Stance 
+SPDWD02.SPL    282     2     3     142    n     A          //  DWARVEN DEFENDER DEFENSIVE STANCE
+
+
+// Cloud-like "Tick" Effects
+SPDR201.SPL    282     14    24    157     n     A         //  AVENGER WEB
+SPIN688.SPL    282     12    24    154     n     A         //  
+SPIN719.SPL    282     18    24    12      6     A         //
+SPIN723.SPL    282     15    24    12      6     A
+SPIN897.SPL    282     16    24    12      6     A
+SPIN917.SPL    282     17    24    12      6     A
+SPIN940.SPL    282     11    24    39      n     A
+SPIN979.SPL    282     17    24    25      6     A
+SPPR105.SPL    282     12    24    154     n     A
+SPPR705.SPL    282     18    24    12      6     A
+SPWI004.SPL    282     11    24    39      n     A
+SPWI101.SPL    282     13    24    158     n     A
+SPWI213.SPL    282     11    24    39      n     A
+SPWI215.SPL    282     14    24    157     n     A
+SPWI404.SPL    282     15    24    12      6     A
+SPWI502.SPL    282     16    24    12      6     A
+SPWI614.SPL    282     17    24    12      6     A
+SPWI810.SPL    282     18    24    12      6     A
+SPWI911.SPL    282     18    24    12      6     A
+SPWM187.SPL    282     11    24    39      n     A
+
+SPDR201.SPL    177     2     0     157     n     A         //  AVENGER WEB
+SPIN688.SPL    177     2     0     154     n     A         //  
+SPIN719.SPL    177     2     0     12      6     A         //
+SPIN723.SPL    177     2     0     12      6     A
+SPIN897.SPL    177     2     0     12      6     A
+SPIN917.SPL    177     2     0     12      6     A
+SPIN940.SPL    177     2     0     39      n     A
+SPIN979.SPL    177     2     0     25      6     A
+SPPR105.SPL    177     2     0     154     n     A
+SPPR705.SPL    177     2     0     12      6     A
+SPWI004.SPL    177     2     0     39      n     A
+SPWI101.SPL    177     2     0     158     n     A
+SPWI213.SPL    177     2     0     39      n     A
+SPWI215.SPL    177     2     0     157     n     A
+SPWI404.SPL    177     2     0     12      6     A
+SPWI502.SPL    177     2     0     12      6     A
+SPWI614.SPL    177     2     0     12      6     A
+SPWI810.SPL    177     2     0     12      6     A
+SPWI911.SPL    177     2     0     12      6     A
+SPWM187.SPL    177     2     0     39      n     A
+
+
+//Items
+
+WAND13.ITM     282     16    24    12      6     A
+RING09.ITM     233     1     131   142     n     G
+SW2H06.ITM     233     1     131   142     n     G

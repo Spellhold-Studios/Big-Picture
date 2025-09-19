@@ -1,0 +1,98 @@
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPEdwin1512","AR1512",0)
+  InParty("Edwin")
+  HasItem("MISC89","Edwin")
+THEN
+  RESPONSE #100
+    SetGlobal("BPEdwin1512","AR1512",1)
+    ActionOverride("Edwin",DestroyItem("MISC89"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPValyg1512","AR1512",0)
+  InParty("Valygar")
+  HasItem("VALNECK1","Valygar")
+THEN
+  RESPONSE #100
+    SetGlobal("BPValyg1512","AR1512",1)
+    ActionOverride("Valygar",DestroyItem("VALNECK1"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPNalia1512","AR1512",0)
+  InParty("Nalia")
+  HasItem("NPRING01","Nalia")
+THEN
+  RESPONSE #100
+    SetGlobal("BPNalia1512","AR1512",1)
+    ActionOverride("Nalia",DestroyItem("NPRING01"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPRobil1512","AR1512",0)
+  InParty("Robilard")
+  HasItem("RINGROB","Robilard")
+THEN
+  RESPONSE #100
+    SetGlobal("BPRobil1512","AR1512",1)
+    ActionOverride("Robilard",DestroyItem("RINGROB"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPSharT1512","AR1512",0)
+  InParty("Shartedd")
+  HasItem("SHAR20","Shartedd")
+THEN
+  RESPONSE #100
+    SetGlobal("BPSharT1512","AR1512",1)
+    ActionOverride("Shartedd",DestroyItem("SHAR20"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPKachi1512","AR1512",0)
+  InParty("Kachiko")
+  HasItem("NPRING02","Kachiko")
+THEN
+  RESPONSE #100
+    SetGlobal("BPKachi1512","AR1512",1)
+    ActionOverride("Kachiko",DestroyItem("NPRING02"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPSime11512","AR1512",0)
+  InParty("Sime")
+  HasItem("HELMSUN","Sime")
+THEN
+  RESPONSE #100
+    SetGlobal("BPSime11512","AR1512",1)
+    ActionOverride("Sime",DestroyItem("HELMSUN"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPSime21512","AR1512",0)
+  InParty("Sime")
+  HasItem("SIAMUL","Sime")
+THEN
+  RESPONSE #100
+    SetGlobal("BPSime21512","AR1512",1)
+    ActionOverride("Sime",DestroyItem("SIAMUL"))
+END
+
+IF
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPSelen1512","AR1512",0)
+  InParty("Selence")
+  HasItem("CBSLENCE","Selence")
+THEN
+  RESPONSE #100
+    SetGlobal("BPSelen1512","AR1512",1)
+    ActionOverride("Selence",DestroyItem("CBSLENCE"))
+END

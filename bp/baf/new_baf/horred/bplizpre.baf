@@ -1,0 +1,76 @@
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_DEFENSIVE_HARMONY)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  CheckStat(Myself,0,133)
+  RandomNumLT(140,71)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_DEFENSIVE_HARMONY)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_CHAMPIONS_STRENGTH)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  CheckStatLT(Myself,2,SCRIPTINGSTATE6)
+  RandomNumLT(141,51)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_CHAMPIONS_STRENGTH)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_ANIMAL_SUMMONING_1)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  NumCreatureLT([EVILCUTOFF.0.0.0.0.SUMMONED],7)
+  RandomNumLT(142,51)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_ANIMAL_SUMMONING_1)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_SUMMON_INSECTS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(5)
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(LastSeenBy(Myself),0,120)
+  RandomNumLT(143,71)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),CLERIC_SUMMON_INSECTS)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_COMMAND)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  CheckStat(LastSeenBy(Myself),0,HELD)
+  RandomNumLT(144,36)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_COMMAND)
+END
+

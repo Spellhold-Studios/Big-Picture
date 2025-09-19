@@ -1,0 +1,13 @@
+IF
+  Entered([ANYONE])
+  OR(3)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+THEN
+  RESPONSE #100
+    CreateCreature("DEMGLA01",[625.2600],0)  // ~Glabrezu~
+    CreateCreature("DEMPIT01",[525.2525],0)  // ~Pit Fiend~
+    CreateCreature("DEMBAL02",[425.2450],0)  // ~Balor~
+END
+

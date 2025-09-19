@@ -1,0 +1,1165 @@
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION beholder_cult_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+LAF beholder_rules END
+LAF enemy_bard END
+
+LAF undead_rules END
+LAF drow_rules END
+LAF bp_boulder END
+
+
+COPY_EXISTING ~bhshout.bcs~ ~override~
+  EXTEND_TOP ~bhshout.bcs~ ~bp/snip/tbhsht.baf~
+
+//Isaya fix from www.shsforums.net/topic/32134-trouble-with-baurian-tdd-bug/
+COPY_EXISTING ~ar0904.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    PATCH_IF (INDEX_BUFFER (CASE_INSENSITIVE ~Exists("talmiss2")~) = `0) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~Dead("talmiss")~ ~StateCheck("talmiss",STATE_REALLY_DEAD) Exists("talmiss2")~
+    END
+    PATCH_IF (INDEX_BUFFER (CASE_INSENSITIVE ~Exists("talmiss")~) = `0) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~Dead("talmiss2")~ ~StateCheck("talmiss2",STATE_REALLY_DEAD) Exists("talmiss")~
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprist6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprist6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!bard.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!bard.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtsigt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtsigt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtsigt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpbehold.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/beholder/bpbehold.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpbehspe.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/beholder/bpbehspe.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpbeheld.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/beholder/bpbeheld.baf~
+END
+
+
+END
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION bodhi_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+LAF vampire_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpvamp01.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/bodhi~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/bodhi~
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+  EXTEND_BOTTOM ~c6paladn.bcs~ ~bp/tdd/snip/bc6palad.baf~
+END ELSE BEGIN
+  EXTEND_BOTTOM ~c6paladn.bcs~ ~bp/snip/bc6palad.baf~
+END
+
+EXTEND_BOTTOM ~bodhi2.bcs~ ~bp/snip/bbodhi2.baf~
+
+COPY_EXISTING ~vampir01.bcs~ ~override~
+  REPLACE_TEXTUALLY   ~bp/SNIP/oVAMPIR1.baf~ ~bp/SNIP/nVAMPIR1.baf~
+BUT_ONLY
+
+COPY_EXISTING ~vvdel.bcs~ ~override~
+  REPLACE_TEXTUALLY   ~bp/SNIP/oVVDEL.baf~ ~bp/SNIP/nVVDEL.baf~
+BUT_ONLY
+
+COPY_EXISTING ~vvhareis.bcs~ ~override~
+  REPLACE_TEXTUALLY   ~bp/SNIP/oVVHARIS.baf~ ~bp/SNIP/nVVHARIS.baf~
+BUT_ONLY
+
+COPY_EXISTING ~vvparis.bcs~ ~override~
+  REPLACE_TEXTUALLY   ~bp/SNIP/oVVPARIS.baf~ ~bp/SNIP/nVVPARIS.baf~
+BUT_ONLY
+
+COPY_EXISTING ~vvsalia.bcs~ ~override~
+  REPLACE_TEXTUALLY   ~bp/SNIP/oVVSALIA.baf~ ~bp/SNIP/nVVSALIA.baf~
+BUT_ONLY
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppald16.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bppald16.bcs~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bppald16.bcs~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpseenmy.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpseenmy.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprist5.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprist5.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppald10.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppald10.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcthi2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcthi2a.baf~
+END
+
+
+END
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION coronet_slavers_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+LAF enemy_bard END
+
+//Copper Coronet-Slaver Additions
+EXTEND_BOTTOM ~ar0404.bcs~ ~bp/snip/bar0404.baf~
+ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+  EXTEND_BOTTOM ~ar0404.bcs~ ~bp/snip/bar0404t.baf~
+END
+
+EXTEND_TOP    ~ar0405.bcs~ ~bp/snip/tar0405.baf~
+EXTEND_BOTTOM ~ar0405.bcs~ ~bp/snip/bar0405.baf~
+
+EXTEND_BOTTOM ~ar0406.bcs~ ~bp/snip/bar0406.baf~
+
+COPY_EXISTING ~beast.bcs~  ~override~
+  REPLACE_TEXTUALLY ~OpenDoor("DOOR24")~  
+  ~OpenDoor("DOOR24")
+    Shout(68)~
+BUT_ONLY
+
+EXTEND_BOTTOM ~bernard.bcs~ ~bp/snip/bbernard.baf~
+
+EXTEND_TOP ~swkobold.bcs~ ~bp/snip/tswkobld.baf~
+
+COPY_EXISTING ~rufpal.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~Global("itFight","R0406P",3)~ ~Global("PitFight","AR0406",3)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtrsgt.baf~
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!bard.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!bard.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcthi2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcthi2a.baf~
+END
+
+
+END
+
+///////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION drizzt_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+
+COPY_EXISTING ~ar2601.bcs~ ~override~
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~IF
+  OnCreation()
+  Global("DrizztEncounter","AR2601",0)
+THEN
+  RESPONSE #100
+    Explore()
+    SetGlobal("DrizztEncounter","AR2601",1)
+    CreateCreature("C6DRIZZ",[692.332],2)
+    CreateCreature("C6WULF",[673.256],2)
+    CreateCreature("C6CATTI",[752.294],2)
+    CreateCreature("C6BRUEN",[790.337],2)
+    CreateCreature("C6REGIS",[741.225],2)
+END~  ~IF
+  OnCreation()
+  Global("DrizztEncounter","AR2601",0)
+  Global("MetDrizztInForest","GLOBAL",0)
+THEN
+  RESPONSE #100
+    Explore()
+    SetEncounterProbability("AR2500","AR0020",0)
+    SetEncounterProbability("AR2500","AR1300",0)
+    SetEncounterProbability("AR2500","AR1304",0)
+    SetEncounterProbability("AR2500","AR1700",0)
+    SetGlobal("DrizztEncounter","AR2601",1)
+    SetGlobal("MetDrizztInForest","GLOBAL",1)
+    CreateCreature("C6DRIZZ",[692.332],2)
+    CreateCreature("C6WULF",[673.256],2)
+    CreateCreature("C6CATTI",[752.294],2)
+    CreateCreature("C6BRUEN",[790.337],2)
+    CreateCreature("C6REGIS",[741.225],2)
+END
+
+IF
+  OnCreation()
+  Global("MetDrizztInForest","GLOBAL",1)
+THEN
+  RESPONSE #100
+    CreateCreature("RERAK01",[488.558],10)
+    CreateCreature("RERAK02",[500.454],10)
+    CreateCreature("RERAK03",[552.476],10)
+    CreateCreature("RERAK04",[427.548],10)
+    CreateCreature("RERAK05",[525.591],10)
+    CreateCreature("RERAK06",[585.542],10)
+END~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpally.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpally.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsasight.baf~
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+
+END
+
+///////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION hell_trial_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF shadow_rules END
+LAF demon_rules  END
+LAF telekinesis END
+LAF trap_projectiles END
+LAF drow_rules END
+LAF beholder_rules END
+LAF bp_boulder END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemon.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/demon~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/demon~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpvamp01.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/bodhi/bpvamp01.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/bodhi/bpvamp01.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtsigt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtsigt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtsigt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdrow.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/drow/bpdrow.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/drow/bpdrow.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpccle2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpccle2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcfig2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcfig2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcpal2a.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bpcpal2a.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bpcpal2a.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpmag1.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgpmag1.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage3.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage3.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12a.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtrsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~cresht01.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/cresht01.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/cresht01.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpbeheld.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/beholder/bpbeheld.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgauth1.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/beholder/bpgauth1.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wgarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wgarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wgarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+
+
+END
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION maevar_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+
+EXTEND_BOTTOM ~mvally.bcs~ ~bp/snip/bmvally.baf~
+
+EXTEND_TOP ~ar0301.bcs~ ~bp/snip/tar0301.baf~
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+
+END
+
+///////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION nalia_quest_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+LAF undead_rules END
+LAF drow_rules END
+LAF bp_boulder END
+
+
+
+EXTEND_BOTTOM ~ar1300.bcs~ ~bp/snip/bar1300.baf~
+EXTEND_BOTTOM ~ar1301.bcs~ ~bp/snip/bar1301.baf~
+EXTEND_BOTTOM ~ar1302.bcs~ ~bp/snip/bar1302.baf~
+EXTEND_BOTTOM ~ar1303.bcs~ ~bp/snip/bar1303.baf~
+EXTEND_BOTTOM ~kpgol04.bcs~ ~bp/snip/bkpgol04.baf~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtsigt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtsigt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtsigt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpglac.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/misc/bpglac.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpseemny.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpseenmy.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~creshout.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/creshout.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/creshout.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtrsgt.baf~
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgoliro.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/golem/bpgoliro.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgolsto.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/golem/bpgolsto.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprt12b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprt12b.baf~
+END
+
+
+END
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION planar_prison_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+LAF enemy_bard END
+LAF telekinesis END
+LAF demon_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin473.spl~ BEGIN
+  COPY ~bp/spl/spin473.spl~ ~override~
+END
+
+//Had to change to spin407 from spin401, for NeJ2
+//It's only ForceSpell() cast from scripts, so it's fine
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin407.spl~ BEGIN
+  COPY ~bp/spl/spin407.spl~ ~override~
+    SAY NAME1 @142 //Improved Globe of Darkness
+    SAY UNIDENTIFIED_DESC @143
+END
+
+APPEND ~spell.ids~ ~3473 SPECTATOR_SUGGESTION~ UNLESS ~SPECTATOR_SUGGESTION~
+APPEND ~spell.ids~ ~3407 INNATE_IMPROVED_GLOBE_OF_DARKNESS~ UNLESS ~INNATE_IMPROVED_GLOBE_OF_DARKNESS~
+
+
+
+COPY_EXISTING ~ptagget.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oPTAGGET.baf~ ~bp/SNIP/nPTAGGET.baf~
+BUT_ONLY
+
+COPY_EXISTING ~pwarden.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oPWARDEN.baf~ ~bp/SNIP/nPWARDEN.baf~
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemon.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/demon~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/demon~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!bard.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!bard.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wgarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wgarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wgarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtrsgt.baf~
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgparch.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgparch.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprt12b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprt12b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprst12.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprst12.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bptanari.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/demon/bptanari.baf~
+END
+
+
+END
+//////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION shade_lord_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF shadow_scripts END
+LAF demon_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpshadel.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/shadow~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/shadow~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemon.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/demon~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/demon~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~creshout.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/creshout.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/creshout.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~cresht01.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/cresht01.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/cresht01.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtrsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bptanari.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/demon/bptanari.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8b.baf~
+END
+
+
+END
+
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION tavern_brawl_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+
+END
+
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION tanner_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+EXTEND_BOTTOM ~ar0500.bcs~ ~bp/snip/bar0500.baf~
+
+EXTEND_TOP ~ar0502.bcs~ ~bp/snip/tar0502.baf~
+
+COPY_EXISTING ~ar0501.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oAR0501.baf~  ~bp/SNIP/nAR0501.baf~
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+
+END
+
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION trademeet_scripts BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdjinni.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/misc/bpdjinni.baf~
+END
+
+
+END
+

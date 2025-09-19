@@ -1,0 +1,11 @@
+IF
+  Allegiance(Myself,ENEMY)
+  See([GOODCUTOFF])
+  Global("BP_stall","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_stall","LOCALS",1)
+    ClearActions(Myself)
+    Continue()
+END
+

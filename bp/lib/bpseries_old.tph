@@ -1,0 +1,2352 @@
+
+
+DEFINE_ACTION_FUNCTION bpseries_old BEGIN
+
+
+MKDIR ~script compiler~
+MKDIR ~script compiler/compiled~
+
+COPY ~bp/bp_series/baf~ ~override~
+
+
+// Script Support for TB#Tweaks petrification
+COPY_EXISTING ~msectype.2da~ ~override~
+  COUNT_2DA_ROWS 2 school
+  SET school = %school% - 1 // Subtract 1 line for the header
+  SET found = 0
+  FOR (x=1; x<school; x=x+1) BEGIN
+    READ_2DA_ENTRY x 1 2 type
+    PATCH_IF (type STRING_EQUAL "TB#PETRI") BEGIN
+      SET found = 1
+    END
+  END
+  ACTION_IF (found=0) BEGIN
+    ADD_SECTYPE ~TB#PETRI~ @2000
+  END
+  
+COPY ~bp/spl/bp#petri.spl~ ~override~
+  WRITE_BYTE 0x27  ~TB#PETRI~
+
+
+COPY ~bp/spl/bp#depet.spl~ ~override~ 
+  WRITE_SHORT 0xa2 ~TB#PETRI~
+
+
+
+
+
+// Replaces a few TDD spells that were being overwritten by Lost Crossroads and/or Spell Revisions
+// This is a cludgy workaround until TDD can be updated to use ADD_SPELL patching
+// But note, in several cases the spells were overwritten by accessory sub-spells that did
+// NOT use the neat-patching conventions!!!
+SET curemoderate=0
+//Must have both TDD installed AND the file pack in your game folder
+ACTION_IF FILE_EXISTS_IN_GAME ~dd6000.are~ AND FILE_EXISTS ~tdd/spl/spshad2.spl~ BEGIN
+//clear out the stale tdd entries from spell.ids, try and let ADD_SPELL replace them properly
+COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1114 COM_DRUID_MAGIC_FANG~ ~~ // this number also has a vanilla ids entry, bad news
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1115 COM_DRUID_PASS_WITHOUT_TRACE~ ~~ // this number also has a vanilla ids entry, bad news
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1116 COM_DRUID_FEARIE_FIRE~ ~~ // clear in vanilla, but added by spell rev as well (sppr114)
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1215 COM_DRUID_DELAY_POISEN~ ~~ // this number also has a vanilla ids entry, bad news
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1216 COM_DRUID_HEAT_METAL~ ~~ // clear in vanilla, but added by spell rev as well (sppr114)
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1320 COM_DRUID_GREATER_MAGIC_FANG~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1321 COM_PRIEST_BESTOW_CURSE~ ~~ 
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1322 COM_PRIEST_MAGIC_VESTMENT~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1322 COM_PRIEST_MAGIC_VESTMENT~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1418 COM_DRUID_TEMPERATURE_COLD~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1422 COM_PRIEST_DIVINE_POWER~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1520 COM_DRUID_ICE_STORM~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1521 COM_DRUID_SUMMON_NATURES_ALLY5~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1522 COM_PRIEST_HALLOW~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1523 COM_PRIEST_SCRYING~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1615 COM_DRUID_ANIMATE_ROCKS~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1620 COM_PRIEST_POSSESSION~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1621 COM_PRIEST_MOON_BEAM~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1622 COM_DRUID_VITALITY_DRAIN~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1623 COM_PRIEST_VISIONS_OF_PAIN~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~2971 COM_LIFE_WARP~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~2972 COM_SHATTER_BONES~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~2973 COM_SACRAFICIAL_TRANSFER~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~2974 COM_ARCANE_RUNES~ ~~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~2975 COM_RARYS_MNEMONIC_ENCHANCER~ ~~
+
+
+
+
+  // Some of these tricks only work if done before LC installs
+  // Otherwise we have duplicates in the spell list
+  // But I also made code for "after-LC"
+
+SET spellnum =  (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STATIC_CHARGE~))
+SET spellnum2 = (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STORM_SHELL~))
+SET spellnum3 = (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ENTROPY_SHIELD~))
+SET spellnum4 = (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUD_OF_PESTILENCE~))
+SET spellnum5 = (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_BLADE~))
+SET spellnum6 = (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRAYER~))
+SET spellnum7 = (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SUNSCORCH~))
+SET sunscorch = 0 // special measures for Sun Scorch
+
+ACTION_IF (spellnum > 0 ) AND FILE_EXISTS_IN_GAME ~sppr426.spl~ BEGIN
+  //SpellPack already added it, make our spell inert
+  COPY_EXISTING ~sppr426.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20660
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+  COPY_EXISTING ~spell.ids~ ~override~ //regardless, delete our spell.ids entry
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1426 COM_PRIEST_STATIC_CHARGE~ ~~
+END ELSE BEGIN// Spellpack not in, change our IDS entry to match SpellPack's
+  COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~COM_PRIEST_STATIC_CHARGE~ ~CLERIC_STATIC_CHARGE~
+END
+
+ACTION_IF (spellnum2 > 0 ) BEGIN
+  //SpellPack already added it, make our spell inert
+  COPY_EXISTING ~sppr331.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20637
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+  COPY_EXISTING ~spell.ids~ ~override~ //regardless, delete our spell.ids entry
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1331 COM_PRIEST_STORM_SHELL~ ~~
+END ELSE BEGIN // Spellpack not in, change our IDS entry to match SpellPack's
+  COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~COM_PRIEST_STORM_SHELL~ ~CLERIC_STORM_SHELL~
+END
+
+ACTION_IF (spellnum3 > 0 ) BEGIN
+  //SpellPack already added it, make our spell inert
+  COPY_EXISTING ~sppr630.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20731
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+  COPY_EXISTING ~spell.ids~ ~override~ //regardless, delete our spell.ids entry
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1630 COM_PRIEST_ENTROPY_SHIELD~ ~~
+END ELSE BEGIN // Spellpack not in, change our IDS entry to match SpellPack's
+  COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~COM_PRIEST_ENTROPY_SHIELD~ ~CLERIC_ENTROPY_SHIELD~
+END
+
+ACTION_IF (spellnum4 > 0 ) BEGIN
+  //SpellPack already added it, make our spell inert
+  COPY_EXISTING ~sppr427.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20662
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+  COPY_EXISTING ~spell.ids~ ~override~ //regardless, delete our spell.ids entry
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1427 COM_PRIEST_CLOUD_OF_PESTILENCE~ ~~
+END ELSE BEGIN // Spellpack not in, change our IDS entry to match SpellPack's
+  COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~COM_PRIEST_CLOUD_OF_PESTILENCE~ ~CLERIC_CLOUD_OF_PESTILENCE~
+END
+
+ACTION_IF (spellnum5 > 0 ) BEGIN
+  //SpellPack already added it, make our spell inert
+  COPY_EXISTING ~sppr330.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20635
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+END ELSE BEGIN
+  // There wasn't an ids entry for this so add it now if needed
+  APPEND ~spell.ids~ ~1330 CLERIC_MOON_BLADE~ UNLESS ~CLERIC_MOON_BLADE~
+END
+
+ACTION_IF (spellnum6 > 0 ) BEGIN
+  //SpellPack already added it, make our spell inert
+  COPY_EXISTING ~sppr323.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20575
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+  COPY_EXISTING ~spell.ids~ ~override~ //regardless, delete our spell.ids entry
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~1323 COM_PRIEST_PRAYER~ ~~
+END ELSE BEGIN // Spellpack not in, change our IDS entry to match SpellPack's
+  COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~COM_PRIEST_PRAYER~ ~CLERIC_PRAYER~
+END
+
+
+
+// sppr116 will be trickier, because it's faerie fire
+// and spell rev already added that-- as sppr114
+// whereas they add sppr116 as sun scorch and TDD adds it as sppr124
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr116.spl~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr114.spl~ BEGIN
+    COPY_EXISTING ~sppr114.spl~ ~override~ //check to see if 114 is faerie fire
+    READ_STRREF 0x8 name
+    SPRINT string @20580 // hopefully it translates the same between mods..... (???)
+    //now, we see if there's a spell_rev faerie fire
+    ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") != 0)  AND (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_FAERIE_FIRE~) < 1) BEGIN
+      //no? so we can add in ours
+      ADD_SPELL ~tdd/spl/sppr116.spl~ ~1~ ~1~ ~CLERIC_FAERIE_FIRE~ // make it consistent with spellpack, just in case
+        SAY NAME1 @20580
+        SAY UNIDENTIFIED_DESC @20581
+    END
+  END
+  COPY_EXISTING ~sppr116.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string  @20597
+  SPRINT string2 @30029 // From Spell rev, it's Sunscorch not Sun Scorch
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) OR (( "%name%" STRING_COMPARE_CASE "%string2%") = 0) BEGIN // see if it's sun scorch or not
+    SET sunscorch = 1
+  END
+END
+
+ACTION_IF (spellnum7 > 0 ) AND (sunscorch = 0) AND FILE_EXISTS_IN_GAME ~sppr124.spl~ BEGIN
+  COPY_EXISTING ~sppr124.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20597
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+END ELSE
+ACTION_IF (spellnum7 = 0) AND (sunscorch = 1) BEGIN
+  // give sunscorch same identifier since LC is not yet installed regardless of TDD
+  APPEND ~spell.ids~ ~1116 CLERIC_SUNSCORCH~ UNLESS ~CLERIC_SUNSCORCH~
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr124.spl~ BEGIN // If TDD spell is still there, make it "inert"
+    COPY_EXISTING ~sppr124.spl~ ~override~
+    READ_SHORT 0x1c spelltype
+    READ_LONG  0x34 level
+    READ_STRREF 0x8 name
+    SPRINT string @20597
+    PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+    END
+  END
+END ELSE
+ACTION_IF (spellnum7 > 0) AND (sunscorch = 1) BEGIN //both LC and spell rev add it
+  // We give SpellRev SPPR116 a different identifier than LC unless SPPR116 IS LC's spell
+  APPEND ~spell.ids~ ~1116 SPELLREV_SUNSCORCH~ UNLESS ~1116 CLERIC_SUNSCORCH~ 
+END ELSE
+ACTION_IF (spellnum7 = 0) AND (sunscorch = 0) AND (FILE_EXISTS_IN_GAME ~sppr124.spl~) BEGIN
+  COPY_EXISTING ~sppr124.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20597
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's sun scorch or not
+    APPEND ~spell.ids~ ~1124 CLERIC_SUNSCORCH~ UNLESS ~CLERIC_SUNSCORCH~ // sun scorch TDD never had a spell.ids entry
+  END ELSE BEGIN
+    // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr124.spl~ ~1~ ~1~ ~CLERIC_SUNSCORCH~ // make it consistent w/ LC just in case you install it after
+      SAY NAME1 @20597 
+      SAY UNIDENTIFIED_DESC @20598 
+  END
+END 
+
+
+
+// Handling overwrites
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr114.spl~ BEGIN
+  COPY_EXISTING ~sppr114.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20575
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, magic fang
+  // Just give it an ids entry
+    APPEND ~spell.ids~ ~1114 COM_DRUID_MAGIC_FANG~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN //some sort of spell is there already, not ours--probably faerie fire
+ // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr114.spl~ ~1~ ~1~ ~COM_DRUID_MAGIC_FANG~ // make it consistent
+      SAY NAME1 @20575
+      SAY UNIDENTIFIED_DESC @20576
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr115.spl~ BEGIN
+  COPY_EXISTING ~sppr115.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20575
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1115 COM_DRUID_PASS_WITHOUT_TRACE~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr115.spl~ ~1~ ~1~ ~COM_DRUID_PASS_WITHOUT_TRACE~ // make it consistent
+      SAY NAME1 @20577
+      SAY UNIDENTIFIED_DESC @20578
+      SAY 0x12e @20579
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr124.spl~ AND (sunscorch = 1) BEGIN
+  COPY_EXISTING ~sppr124.spl~ ~override~
+  READ_SHORT 0x1c spelltype
+  READ_LONG  0x34 level
+  READ_STRREF 0x8 name
+  SPRINT string @20597
+  PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN //yes? make sure it's still a lvl 1 cleric spell
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+  END
+END
+
+
+
+
+
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr215.spl~ BEGIN
+  COPY_EXISTING ~sppr215.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20599
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1215 COM_DRUID_DELAY_POISEN~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr215.spl~ ~1~ ~2~ ~COM_DRUID_DELAY_POISEN~ // make it consistent
+      SAY NAME1 @20599 
+      SAY UNIDENTIFIED_DESC @20600
+  END
+END
+
+//sorry TDD, this is an illlegal file according to weidu (tries to read offset 302, size 298)
+/*ACTION_IF FILE_EXISTS_IN_GAME ~sppr216.spl~ BEGIN
+  COPY_EXISTING ~sppr216.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20575
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, heat metal
+  // It's ours, just give it an ids entry back
+    APPEND ~spell.ids~ ~1216 COM_DRUID_HEAT_METAL~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN //some sort of spell is there already, not ours--probably faerie fire
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr216.spl~ ~1~ ~2~ ~COM_DRUID_HEAT_METAL~ // keep consistent w/ tdd, won't break scripts this way
+      SAY NAME1 @20577
+      SAY UNIDENTIFIED_DESC @20578
+      SAY 0x12e @20579
+  END
+END*/
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr320.spl~ BEGIN
+  COPY_EXISTING ~sppr320.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20605
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1320 COM_DRUID_GREATER_MAGIC_FANG~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr320.spl~ ~1~ ~3~ ~COM_DRUID_GREATER_MAGIC_FANG~ // make it consistent
+      SAY NAME1 @20605 
+      SAY UNIDENTIFIED_DESC @20606
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr321.spl~ BEGIN
+  COPY_EXISTING ~sppr321.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20605
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1321 COM_PRIEST_BESTOW_CURSE~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr321.spl~ ~1~ ~3~ ~COM_PRIEST_BESTOW_CURSE~ // make it consistent
+      SAY NAME1 @20607
+      SAY UNIDENTIFIED_DESC @20608 
+      SAY 0x2de @20609
+      SAY 0x30e @20610 
+      SAY 0x33e @20611 
+      SAY 0x36e @20612
+      SAY 0x39e @20613
+      SAY 0x3ce @20614
+      SAY 0x3fe @20615
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr322.spl~ BEGIN
+  COPY_EXISTING ~sppr322.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20616
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1322 COM_PRIEST_MAGIC_VESTMENT~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr322.spl~ ~1~ ~3~ ~COM_PRIEST_MAGIC_VESTMENT~ // make it consistent
+  SAY NAME1 @20616 
+  SAY UNIDENTIFIED_DESC @20617
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr422.spl~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr412.spl~ BEGIN
+    COPY_EXISTING ~sppr412.spl~ ~override~
+    READ_STRREF 0x8 name
+    SPRINT string @30133
+    ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if the spell rev divine power is in
+      COPY_EXISTING ~sppr422.spl~ ~override~
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+    END
+  END ELSE BEGIN 
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1422 COM_PRIEST_DIVINE_POWER~ // If it's still the TDD spell, just re-add the IDS entry    
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr523.spl~ BEGIN
+  COPY_EXISTING ~sppr523.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20684
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1523 COM_PRIEST_SCRYING~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr523.spl~ ~1~ ~5~ ~COM_PRIEST_SCRYING~ // make it consistent
+  SAY NAME1 @20684
+  SAY UNIDENTIFIED_DESC @20685 
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr620.spl~ BEGIN
+  COPY_EXISTING ~sppr620.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20709
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1620 COM_PRIEST_POSSESSION~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr620.spl~ ~1~ ~6~ ~COM_PRIEST_POSSESSION~ // make it consistent
+  SAY NAME1 @20709 
+  SAY UNIDENTIFIED_DESC @20710
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr621.spl~ BEGIN
+  COPY_EXISTING ~sppr621.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20711
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1621 COM_PRIEST_MOON_BEAM~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+  ADD_SPELL ~tdd/spl/sppr621.spl~ ~1~ ~6~ ~COM_PRIEST_MOON_BEAM~
+    SAY NAME1 @20711
+    SAY UNIDENTIFIED_DESC @20712
+    SAY 0x24e @20713
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr622.spl~ BEGIN
+  COPY_EXISTING ~sppr622.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20714
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1622 COM_DRUID_VITALITY_DRAIN~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+  ADD_SPELL ~tdd/spl/sppr622.spl~ ~1~ ~6~ ~COM_DRUID_VITALITY_DRAIN~
+    SAY NAME1 @20714
+    SAY UNIDENTIFIED_DESC @20715 
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr623.spl~ BEGIN
+  COPY_EXISTING ~sppr623.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20716
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1623 COM_PRIEST_VISIONS_OF_PAIN~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // So just put our spell into another place
+  ADD_SPELL ~tdd/spl/sppr623.spl~ ~1~ ~6~ ~COM_PRIEST_VISIONS_OF_PAIN~
+    SAY NAME1 @20716
+    SAY UNIDENTIFIED_DESC @20717 
+  END
+END
+
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr418.spl~ BEGIN
+  COPY_EXISTING ~sppr418.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string  @20678
+  SPRINT string2 @20643
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN //see if it's SpellRev's Ice Storm
+  // Leave this one out, spell_rev added it at 4th level overwriting yet another spell
+  // Just give it an ids entry
+    APPEND ~spell.ids~ ~1418 COM_DRUID_ICE_STORM~ // There wasn't an ids entry add by spell-rev so add ours instead      
+  END ELSE BEGIN //it's not SpellRev's Ice Storm
+ // Spell Revisions not installed,put Ice Storm back into a new fifth level spot 
+ // as spell_rev overwrote that slot too. Somebody send that author a tutorial on ADD_SPELL please!!
+    ADD_SPELL ~tdd/spl/sppr520.spl~ ~1~ ~5~ ~COM_DRUID_ICE_STORM~ // make it consistent
+      SAY NAME1 @20678
+      SAY UNIDENTIFIED_DESC @20679
+  END
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string2%") = 0) BEGIN //see if it's still our Chill Metal Spell
+    APPEND ~spell.ids~ ~1418 COM_DRUID_TEMPERATURE_COLD~
+  END ELSE BEGIN // it's not our chilling spell either, so add our chiller in again
+    ADD_SPELL ~tdd/spl/sppr418.spl~ ~1~ ~4~ ~COM_DRUID_TEMPERATURE_COLD~
+      SAY NAME1 @20643 
+      SAY UNIDENTIFIED_DESC @20644
+  END
+END
+    
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr521.spl~ BEGIN
+  COPY_EXISTING ~sppr521.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20680
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1521 COM_DRUID_SUMMON_NATURES_ALLY5~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr521.spl~ ~1~ ~5~ ~COM_DRUID_SUMMON_NATURES_ALLY5~
+      SAY NAME1 @20680 
+      SAY UNIDENTIFIED_DESC @20681
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr522.spl~ BEGIN
+  COPY_EXISTING ~sppr522.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20682
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1522 COM_PRIEST_HALLOW~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+  // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr522.spl~ ~1~ ~5~ ~COM_PRIEST_HALLOW~
+      SAY NAME1 @20682
+      SAY UNIDENTIFIED_DESC @20683
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr615.spl~ BEGIN
+  COPY_EXISTING ~sppr615.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20700
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~1615 COM_DRUID_ANIMATE_ROCKS~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+    // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/sppr615.spl~ ~1~ ~6~ ~COM_DRUID_ANIMATE_ROCKS~
+      SAY NAME1 @20700
+      SAY UNIDENTIFIED_DESC @20701
+  END
+END
+
+
+ACTION_IF FILE_EXISTS_IN_GAME ~spwi975.spl~ BEGIN
+  COPY_EXISTING ~spwi975.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20935
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~2975 COM_RARYS_MNEMONIC_ENCHANCER~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+    // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/spwi975.spl~ ~2~ ~9~ ~COM_RARYS_MNEMONIC_ENCHANCER~
+      SAY NAME1 @20935
+      SAY UNIDENTIFIED_DESC @20936
+      SAY 0x12e @20937
+      SAY 0x1ee @20938
+      SAY 0x24e @20939
+      SAY 0x2ae @20940
+      SAY 0x33e @20941
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~spwi972.spl~ BEGIN
+  COPY_EXISTING ~spwi972.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20909
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~2972 COM_SHATTER_BONES~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+    // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/spwi972.spl~ ~2~ ~9~ ~COM_SHATTER_BONES~
+      SAY NAME1 @20909
+      SAY UNIDENTIFIED_DESC @20910 
+      SAY 0xce @20911 
+      SAY 0x12e @20912 
+      SAY 0x18e @20913 
+      SAY 0x1ee @20914 
+      SAY 0x24e @20915
+      SAY 0x2ae @20916 
+      SAY 0x30e @20913 
+      SAY 0x36e @20917 
+      SAY 0x3ce @20918
+      SAY 0x42e @20919 
+      SAY 0x48e @20920 
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~spwi971.spl~ BEGIN
+  COPY_EXISTING ~spwi971.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20907
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~2971 COM_LIFE_WARP~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+    // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/spwi971.spl~ ~2~ ~9~ ~COM_LIFE_WARP~
+      SAY NAME1 @20907
+      SAY UNIDENTIFIED_DESC @20908
+  END
+END
+
+
+
+
+
+// Some bug in ADD_SPELL tells weidu there isn't a slot open even if there is
+// Probably thinking too much for us, not acknowledging ToB-Ex abilities, something like that
+// It happened w/ Animate tree (CLER-LV7) when there was slots 1753 - 1799 wide open
+// So don't be surprised when these last two aren't added in
+// Which is why I shoved the ones BP Series uses, up top :)
+
+
+ACTION_IF FILE_EXISTS_IN_GAME ~spwi973.spl~ BEGIN
+  COPY_EXISTING ~spwi973.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20921
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~2973 COM_SACRAFICIAL_TRANSFER~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+    // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/spwi973.spl~ ~2~ ~9~ ~COM_SACRAFICIAL_TRANSFER~
+      SAY NAME1 @20921
+      SAY UNIDENTIFIED_DESC @20922 
+  END
+END
+
+//Hackjob workaround, spwi990 and 991 are used by zero in-game resources  
+ACTION_IF ((1 + IDS_OF_SYMBOL (~spell~ ~COM_SACRAFICIAL_TRANSFER~)) < 1) BEGIN
+  PRINT ~Hack job addition of Sacrificial Transfer, ADD_SPELL suxxx~
+  COPY ~tdd/spl/spwi973.spl~ ~override/spwi990.spl~
+  SAY NAME1 @20921
+  SAY UNIDENTIFIED_DESC @20922 
+  COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY ~DOPPLEGANGER_CHANGE3~ ~COM_SACRAFICIAL_TRANSFER~
+END ELSE BEGIN
+  PRINT ~Sacrificial Transfer already added, no hackjob required~
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~spwi974.spl~ BEGIN
+  COPY_EXISTING ~spwi974.spl~ ~override~
+  READ_STRREF 0x8 name
+  SPRINT string @20921
+  ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+  // Just give it an ids entry again
+    APPEND ~spell.ids~ ~2974 COM_ARCANE_RUNES~ // If it's still the TDD spell, just re-add the IDS entry    
+  END ELSE BEGIN 
+    // Not ours...So just put our spell into another place
+    ADD_SPELL ~tdd/spl/spwi974.spl~ ~2~ ~9~ ~COM_ARCANE_RUNES~
+      SAY NAME1 @20923
+      SAY UNIDENTIFIED_DESC @20924
+      SAY 0x27e @20925
+      SAY 0x2ae @20926
+      SAY 0x2de @20927
+      SAY 0x30e @20928
+      SAY 0x33e @20929
+      SAY 0x36e @20930
+      SAY 0x39e @20931
+      SAY 0x3ce @20932
+      SAY 0x3fe @20933
+      SAY 0x42e @20934
+  END
+END
+
+  
+ACTION_IF ((1 + IDS_OF_SYMBOL (~spell~ ~COM_ARCANE_RUNES~)) < 1) BEGIN
+  PRINT ~Hack job addition of Arcane Runes, ADD_SPELL suxxx~
+  COPY ~tdd/spl/spwi974.spl~ ~override/spwi991.spl~
+  SAY NAME1 @20923
+  SAY UNIDENTIFIED_DESC @20924
+  SAY 0x27e @20925
+  SAY 0x2ae @20926
+  SAY 0x2de @20927
+  SAY 0x30e @20928
+  SAY 0x33e @20929
+  SAY 0x36e @20930
+  SAY 0x39e @20931
+  SAY 0x3ce @20932
+  SAY 0x3fe @20933
+  SAY 0x42e @20934
+  COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY ~DOPPLEGANGER_RASHAD~ ~COM_ARCANE_RUNES~
+END ELSE BEGIN
+  PRINT ~Arcane Runes already added, no hackjob required~
+END
+
+// Copy it in once more, make sure weidu parses the information before compiling the scripts
+COPY_EXISTING ~spell.ids~ ~override~
+
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~dsc001.are~ AND FILE_EXISTS ~DSotSC/area/DSC010.are~ BEGIN 
+//DSotSC installed, files in game folder still
+
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr738.spl~ BEGIN
+    COPY_EXISTING ~sppr738.spl~ ~override~
+    READ_STRREF 0x8 name
+    SPRINT string #12051
+    ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+    // Just give it an ids entry again
+      APPEND ~spell.ids~ ~1738 CLERIC_CONFUSION~ // Was never added to spell.ids    
+    END ELSE BEGIN 
+    // So just put our spell into another place
+    ADD_SPELL ~dsotsc/spl/sppr738.spl~ ~1~ ~7~ ~CLERIC_CONFUSION~
+      SAY NAME1 #12051
+      SAY UNIDENTIFIED_DESC @30041
+    END
+  END
+
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr739.spl~ BEGIN
+    COPY_EXISTING ~sppr739.spl~ ~override~
+    READ_STRREF 0x8 name
+    SPRINT string @30043
+    ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+    // Just give it an ids entry again
+      APPEND ~spell.ids~ ~1739 CLERIC_AURA_OF_PROTECTION~ //Was never added to IDS 
+    END ELSE BEGIN 
+    // So just put our spell into another place
+    ADD_SPELL ~dsotsc/spl/sppr739.spl~ ~1~ ~7~ ~CLERIC_AURA_OF_PROTECTION~
+      SAY NAME1 @30043
+      SAY UNIDENTIFIED_DESC @30044
+    END
+  END
+
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr740.spl~ BEGIN
+    COPY_EXISTING ~sppr740.spl~ ~override~
+    READ_STRREF 0x8 name
+    SPRINT string @30045
+    ACTION_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell, pass w/o trace
+    // Just give it an ids entry again
+      APPEND ~spell.ids~ ~1740 CLERIC_DARK_RITUAL~ // If it's still the TDD spell, just re-add the IDS entry    
+    END ELSE BEGIN 
+    // So just put our spell into another place
+    ADD_SPELL ~dsotsc/spl/sppr740.spl~ ~1~ ~7~ ~CLERIC_DARK_RITUAL~
+      SAY NAME1 @30045
+      SAY UNIDENTIFIED_DESC @30046
+    END
+  END
+
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr215.spl~ BEGIN
+    COPY_EXISTING ~sppr215.spl~ ~override~
+    READ_STRREF 0x8 name
+    SPRINT string @30059
+    PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) BEGIN // see if it's our spell
+      SET curemoderate = 1
+    END
+  END
+
+   // Spell Rev installed cure moderate, remove DSotSC duplicate (SpellRev's is better anyways)
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr245.spl~ AND (curemoderate = 1) BEGIN
+    COPY_EXISTING ~sppr245.spl~ ~override~
+    READ_SHORT 0x1c spelltype
+    READ_LONG  0x34 level
+    READ_STRREF 0x8 name
+    SPRINT string @30059
+    PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2) BEGIN
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+    END
+  END
+
+  ACTION_IF FILE_EXISTS_IN_GAME ~sppr347.spl~ BEGIN //DSotSC Stoneskin, unbalancing at 3rd level w/ Ironskins
+    COPY_EXISTING ~sppr347.spl~ ~override~
+    READ_STRREF 0x8 name
+    READ_SHORT 0x1c spelltype
+    READ_LONG  0x34 level
+    READ_STRREF 0x8 name
+    SPRINT string #8300
+    PATCH_IF (("%name%" STRING_COMPARE_CASE "%string%") = 0) AND (spelltype = 2)  BEGIN // see if it's our spell
+      WRITE_SHORT 0x1e ~0x003f~ //exclude all alignments
+    END
+  END
+
+END    
+
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BPFT-CL.baf~
+  COPY_EXISTING ~override\BPFT-CL.bcs~ ~scripts\BPFT-CL.bs~
+  
+
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ AND NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_FAERIE_FIRE)~ ~HaveSpellRES("SPPR114")~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~Spell(Myself,CLERIC_FAERIE_FIRE)~ ~SpellRES("SPPR114",Myself)~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_SUNSCORCH)~ ~HaveSpellRES("SPPR116")~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),CLERIC_SUNSCORCH)~ ~SpellRES("SPPR116",LastSeenBy(Myself))~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN // No TDD
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~COM_RARYS_MNEMONIC_ENHANCER~ ~CLERIC_WONDROUS_RECALL~
+      REPLACE_TEXTUALLY ~COM_SHATTER_BONES~ ~WIZARD_ENERGY_DRAIN~     
+      REPLACE_TEXTUALLY ~COM_DRUID_SUMMON_NATURES_ALLY5~ ~CLERIC_ANIMAL_SUMMONING_3~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ANIMATE_ROCKS~ ~CLERIC_CONJURE_ANIMALS~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_HALLOW~ ~CLERIC_MAGIC_RESISTANCE~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_VISIONS_OF_PAIN~ ~CLERIC_FINGER_OF_DEATH~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_MOON_BEAM~ ~CLERIC_SUNRAY~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ICE_STORM~ ~WIZARD_ICE_STORM~     
+      REPLACE_TEXTUALLY ~COM_DRUID_HEAT_METAL~ ~CLERIC_FLAME_STRIKE~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dsc001.are~ BEGIN // no DSotSC
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~CLERIC_CONFUSION~ ~CLERIC_RIGID_THINKING~     
+      REPLACE_TEXTUALLY ~CLERIC_AURA_OF_PROTECTION~ ~CLERIC_PROTECTION_FROM_EVIL_10_FOOT~     
+      REPLACE_TEXTUALLY ~CLERIC_DARK_RITUAL~ ~CLERIC_UNHOLY_WORD~     
+    END
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_BLADE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRAYER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUD_OF_PESTILENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STATIC_CHARGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BATTLEFATE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BATTLEFATE~ ~CLERIC_BLESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CALL_UPON_FAITH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CALL_UPON_FAITH~ ~CLERIC_ARMOR_OF_FAITH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ALICORN_LANCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ALICORN_LANCE~ ~WIZARD_MELF_ACID_ARROW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BEAST_CLAW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BEAST_CLAW~ ~CLERIC_SHILLELAGH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_MOTES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_MOTES~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FLAME~ ~WIZARD_MELF_METEOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SEEKING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SEEKING~ ~WIZARD_ENCHANTED_WEAPON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUDBURST~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUDBURST~ ~CLERIC_ZONE_OF_SWEET_AIR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ELYSIUMS_TEARS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ELYSIUMS_TEARS~ ~CLERIC_HOLY_SMITE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOLD_TOUCH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOLD_TOUCH~ ~CLERIC_POISON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_RANDOM_CASUALTY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_RANDOM_CASUALTY~ ~CLERIC_CONFUSION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STORM_SHELL~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STORM_SHELL~ ~CLERIC_RESIST_FIRE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHEEL_OF_BONES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHEEL_OF_BONES~ ~CLERIC_BLADE_BARRIER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ADAMANTITE_MACE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ADAMANTITE_MACE~ ~WIZARD_PHANTOM_BLADE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BLOOD_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BLOOD_RAGE~ ~WIZARD_TENSERS_TRANSFORMATION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_DIMENSIONAL_FOLDING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_DIMENSIONAL_FOLDING~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FIRE~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_THORN_SPRAY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_THORN_SPRAY~ ~CLERIC_INSECT_PLAGUE~
+    END      
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ANIMAL_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ANIMAL_RAGE~ ~CLERIC_RIGHTEOUS_MAGIC~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_ICE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_ICE~ ~WIZARD_ICE_STORM~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SHIELD_OF_LATHANDER~ ~CLERIC_PHYSICAL_MIRROR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WALL_OF_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WALL_OF_FIRE~ ~WIZARD_FIRE_SHIELD_RED~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ENTROPY_SHIELD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ENTROPY_SHIELD~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_HAMMER_OF_RETRIBUTION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_HAMMER_OF_RETRIBUTION~ ~CLERIC_SPIRITUAL_HAMMER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SECLUSION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SECLUSION~ ~PSIONIC_MIND_BLAST~ // A total negation, I hope
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SOLS_SEARING_ORB~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SOLS_SEARING_ORB~ ~CLERIC_BOLT_OF_GLORY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHIRLWIND~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHIRLWIND~ ~CLERIC_EARTHQUAKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_GREATER_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_GREATER_SHIELD_OF_LATHANDER~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MIST_OF_ELDATH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MIST_OF_ELDATH~ ~CLERIC_MASS_CURE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_REINCARNATION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_REINCARNATION~ ~CLERIC_RESURRECTION~ // A total negation, I hope
+    END
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BPFT-TH.baf~
+  COPY_EXISTING ~BPFT-TH.bcs~ ~scripts\BPFT-TH.bs~
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+   
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BP-Mage.baf~
+  COPY_EXISTING ~BP-Mage.bcs~ ~scripts\BP-Mage.bs~
+  
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~COM_RARYS_MNEMONIC_ENHANCER~ ~CLERIC_WONDROUS_RECALL~
+      REPLACE_TEXTUALLY ~COM_SHATTER_BONES~ ~WIZARD_ENERGY_DRAIN~     
+    END
+
+    // These two already exist in spells.ids but are dead entries w/o LC
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+      REPLACE_TEXTUALLY ~WIZARD_OTTOS_IRRESISTIBLE_DANCE~ ~WIZARD_BIGBYS_CRUSHING_HAND~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_FOG_CLOUD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_FOG_CLOUD~ ~WIZARD_STINKING_CLOUD~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GEDLEES_ELECTRIC_LOOP~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GEDLEES_ELECTRIC_LOOP~ ~WIZARD_LIGHTNING_BOLT~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_HYPNOTIC_PATTERN~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_HYPNOTIC_PATTERN~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_BLINK~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_BLINK~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_MORDENKAINENS_FORCE_MISSILES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHOUT~ ~WIZARD_EMOTION_HOPELESSNESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHROUD_OF_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHROUD_OF_FLAME~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_IMPROVED_SLOW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_IMPROVED_SLOW~ ~WIZARD_SLOW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_CHARM_PLANTS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_CHARM_PLANTS~ ~CLERIC_ENTANGLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GUARDIAN_MANTLE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GUARDIAN_MANTLE~ ~WIZARD_MANTLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PERSISTENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PERSISTENCE~ ~WIZARD_MINOR_SEQUENCER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_DEATHBOLT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_DEATHBOLT~ ~WIZARD_FINGER_OF_DEATH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GREAT_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GREAT_SHOUT~ ~WIZARD_POWER_WORD_STUN~
+    END
+
+
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BPFT-MGT.baf~
+  COPY_EXISTING ~BPFT-MGT.bcs~ ~scripts\BPFT-MGT.bs~
+  
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~COM_RARYS_MNEMONIC_ENHANCER~ ~CLERIC_WONDROUS_RECALL~
+      REPLACE_TEXTUALLY ~COM_SHATTER_BONES~ ~WIZARD_ENERGY_DRAIN~     
+    END
+
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+      REPLACE_TEXTUALLY ~WIZARD_OTTOS_IRRESISTIBLE_DANCE~ ~WIZARD_BIGBYS_CRUSHING_HAND~     
+    END
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_FOG_CLOUD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_FOG_CLOUD~ ~WIZARD_STINKING_CLOUD~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GEDLEES_ELECTRIC_LOOP~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GEDLEES_ELECTRIC_LOOP~ ~WIZARD_LIGHTNING_BOLT~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_HYPNOTIC_PATTERN~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_HYPNOTIC_PATTERN~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_BLINK~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_BLINK~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_MORDENKAINENS_FORCE_MISSILES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHOUT~ ~WIZARD_EMOTION_HOPELESSNESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHROUD_OF_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHROUD_OF_FLAME~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_IMPROVED_SLOW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_IMPROVED_SLOW~ ~WIZARD_SLOW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_CHARM_PLANTS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_CHARM_PLANTS~ ~CLERIC_ENTANGLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GUARDIAN_MANTLE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GUARDIAN_MANTLE~ ~WIZARD_MANTLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PERSISTENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PERSISTENCE~ ~WIZARD_MINOR_SEQUENCER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_DEATHBOLT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_DEATHBOLT~ ~WIZARD_FINGER_OF_DEATH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GREAT_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GREAT_SHOUT~ ~WIZARD_POWER_WORD_STUN~
+    END
+
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BP-Multi.baf~
+  COPY_EXISTING ~BP-Multi.bcs~ ~scripts\BP-Multi.bs~
+
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ AND NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_FAERIE_FIRE)~ ~HaveSpellRES("SPPR114")~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~Spell(Myself,CLERIC_FAERIE_FIRE)~ ~SpellRES("SPPR114",Myself)~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_SUNSCORCH)~ ~HaveSpellRES("SPPR116")~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),CLERIC_SUNSCORCH)~ ~SpellRES("SPPR116",LastSeenBy(Myself))~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+      REPLACE_TEXTUALLY ~WIZARD_OTTOS_IRRESISTIBLE_DANCE~ ~WIZARD_BIGBYS_CRUSHING_HAND~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN // No TDD
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~COM_RARYS_MNEMONIC_ENHANCER~ ~CLERIC_WONDROUS_RECALL~
+      REPLACE_TEXTUALLY ~COM_SHATTER_BONES~ ~WIZARD_ENERGY_DRAIN~     
+      REPLACE_TEXTUALLY ~COM_DRUID_SUMMON_NATURES_ALLY5~ ~CLERIC_ANIMAL_SUMMONING_3~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ANIMATE_ROCKS~ ~CLERIC_CONJURE_ANIMALS~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_HALLOW~ ~CLERIC_MAGIC_RESISTANCE~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_VISIONS_OF_PAIN~ ~CLERIC_FINGER_OF_DEATH~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_MOON_BEAM~ ~CLERIC_SUNRAY~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ICE_STORM~ ~WIZARD_ICE_STORM~     
+      REPLACE_TEXTUALLY ~COM_DRUID_HEAT_METAL~ ~CLERIC_FLAME_STRIKE~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dsc001.are~ BEGIN // no DSotSC
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~CLERIC_CONFUSION~ ~CLERIC_RIGID_THINKING~     
+      REPLACE_TEXTUALLY ~CLERIC_AURA_OF_PROTECTION~ ~CLERIC_PROTECTION_FROM_EVIL_10_FOOT~     
+      REPLACE_TEXTUALLY ~CLERIC_DARK_RITUAL~ ~CLERIC_UNHOLY_WORD~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_BLADE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRAYER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUD_OF_PESTILENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STATIC_CHARGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BATTLEFATE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BATTLEFATE~ ~CLERIC_BLESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CALL_UPON_FAITH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CALL_UPON_FAITH~ ~CLERIC_ARMOR_OF_FAITH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ALICORN_LANCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ALICORN_LANCE~ ~WIZARD_MELF_ACID_ARROW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BEAST_CLAW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BEAST_CLAW~ ~CLERIC_SHILLELAGH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_MOTES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_MOTES~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FLAME~ ~WIZARD_MELF_METEOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SEEKING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SEEKING~ ~WIZARD_ENCHANTED_WEAPON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUDBURST~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUDBURST~ ~CLERIC_ZONE_OF_SWEET_AIR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ELYSIUMS_TEARS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ELYSIUMS_TEARS~ ~CLERIC_HOLY_SMITE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOLD_TOUCH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOLD_TOUCH~ ~CLERIC_POISON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_RANDOM_CASUALTY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_RANDOM_CASUALTY~ ~CLERIC_CONFUSION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STORM_SHELL~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STORM_SHELL~ ~CLERIC_RESIST_FIRE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHEEL_OF_BONES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHEEL_OF_BONES~ ~CLERIC_BLADE_BARRIER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ADAMANTITE_MACE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ADAMANTITE_MACE~ ~WIZARD_PHANTOM_BLADE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BLOOD_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BLOOD_RAGE~ ~WIZARD_TENSERS_TRANSFORMATION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_DIMENSIONAL_FOLDING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_DIMENSIONAL_FOLDING~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FIRE~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_THORN_SPRAY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_THORN_SPRAY~ ~CLERIC_INSECT_PLAGUE~
+    END      
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ANIMAL_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ANIMAL_RAGE~ ~CLERIC_RIGHTEOUS_MAGIC~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_ICE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_ICE~ ~WIZARD_ICE_STORM~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SHIELD_OF_LATHANDER~ ~CLERIC_PHYSICAL_MIRROR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WALL_OF_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WALL_OF_FIRE~ ~WIZARD_FIRE_SHIELD_RED~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ENTROPY_SHIELD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ENTROPY_SHIELD~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_HAMMER_OF_RETRIBUTION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_HAMMER_OF_RETRIBUTION~ ~CLERIC_SPIRITUAL_HAMMER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SECLUSION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SECLUSION~ ~PSIONIC_MIND_BLAST~ // A total negation, I hope
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SOLS_SEARING_ORB~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SOLS_SEARING_ORB~ ~CLERIC_BOLT_OF_GLORY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHIRLWIND~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHIRLWIND~ ~CLERIC_EARTHQUAKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_GREATER_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_GREATER_SHIELD_OF_LATHANDER~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MIST_OF_ELDATH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MIST_OF_ELDATH~ ~CLERIC_MASS_CURE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_REINCARNATION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_REINCARNATION~ ~CLERIC_RESURRECTION~ // A total negation, I hope
+    END
+
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_FOG_CLOUD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_FOG_CLOUD~ ~WIZARD_STINKING_CLOUD~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GEDLEES_ELECTRIC_LOOP~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GEDLEES_ELECTRIC_LOOP~ ~WIZARD_LIGHTNING_BOLT~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_HYPNOTIC_PATTERN~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_HYPNOTIC_PATTERN~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_BLINK~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_BLINK~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_WRAITH_FORM~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_MORDENKAINENS_FORCE_MISSILES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHOUT~ ~WIZARD_EMOTION_HOPELESSNESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHROUD_OF_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHROUD_OF_FLAME~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_IMPROVED_SLOW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_IMPROVED_SLOW~ ~WIZARD_SLOW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_CHARM_PLANTS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_CHARM_PLANTS~ ~CLERIC_ENTANGLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GUARDIAN_MANTLE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GUARDIAN_MANTLE~ ~WIZARD_MANTLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PERSISTENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PERSISTENCE~ ~WIZARD_MINOR_SEQUENCER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_DEATHBOLT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_DEATHBOLT~ ~WIZARD_FINGER_OF_DEATH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GREAT_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GREAT_SHOUT~ ~WIZARD_POWER_WORD_STUN~
+    END
+      
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BP-PureF.baf~
+  COPY_EXISTING ~BP-PureF.bcs~ ~scripts\BP-PureF.bs~
+
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ AND NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_FAERIE_FIRE)~ ~HaveSpellRES("SPPR114")~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~Spell(Myself,CLERIC_FAERIE_FIRE)~ ~SpellRES("SPPR114",Myself)~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_SUNSCORCH)~ ~HaveSpellRES("SPPR116")~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),CLERIC_SUNSCORCH)~ ~SpellRES("SPPR116",LastSeenBy(Myself))~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+      REPLACE_TEXTUALLY ~WIZARD_OTTOS_IRRESISTIBLE_DANCE~ ~WIZARD_BIGBYS_CRUSHING_HAND~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN // No TDD
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~COM_RARYS_MNEMONIC_ENHANCER~ ~CLERIC_WONDROUS_RECALL~
+      REPLACE_TEXTUALLY ~COM_SHATTER_BONES~ ~WIZARD_ENERGY_DRAIN~     
+      REPLACE_TEXTUALLY ~COM_DRUID_SUMMON_NATURES_ALLY5~ ~CLERIC_ANIMAL_SUMMONING_3~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ANIMATE_ROCKS~ ~CLERIC_CONJURE_ANIMALS~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_HALLOW~ ~CLERIC_MAGIC_RESISTANCE~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_VISIONS_OF_PAIN~ ~CLERIC_FINGER_OF_DEATH~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_MOON_BEAM~ ~CLERIC_SUNRAY~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ICE_STORM~ ~WIZARD_ICE_STORM~     
+      REPLACE_TEXTUALLY ~COM_DRUID_HEAT_METAL~ ~CLERIC_FLAME_STRIKE~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dsc001.are~ BEGIN // no DSotSC
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~CLERIC_CONFUSION~ ~CLERIC_RIGID_THINKING~     
+      REPLACE_TEXTUALLY ~CLERIC_AURA_OF_PROTECTION~ ~CLERIC_PROTECTION_FROM_EVIL_10_FOOT~     
+      REPLACE_TEXTUALLY ~CLERIC_DARK_RITUAL~ ~CLERIC_UNHOLY_WORD~     
+    END
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_BLADE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRAYER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUD_OF_PESTILENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STATIC_CHARGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BATTLEFATE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BATTLEFATE~ ~CLERIC_BLESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CALL_UPON_FAITH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CALL_UPON_FAITH~ ~CLERIC_ARMOR_OF_FAITH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ALICORN_LANCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ALICORN_LANCE~ ~WIZARD_MELF_ACID_ARROW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BEAST_CLAW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BEAST_CLAW~ ~CLERIC_SHILLELAGH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_MOTES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_MOTES~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FLAME~ ~WIZARD_MELF_METEOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SEEKING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SEEKING~ ~WIZARD_ENCHANTED_WEAPON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUDBURST~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUDBURST~ ~CLERIC_ZONE_OF_SWEET_AIR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ELYSIUMS_TEARS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ELYSIUMS_TEARS~ ~CLERIC_HOLY_SMITE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOLD_TOUCH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOLD_TOUCH~ ~CLERIC_POISON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_RANDOM_CASUALTY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_RANDOM_CASUALTY~ ~CLERIC_CONFUSION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STORM_SHELL~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STORM_SHELL~ ~CLERIC_RESIST_FIRE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHEEL_OF_BONES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHEEL_OF_BONES~ ~CLERIC_BLADE_BARRIER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ADAMANTITE_MACE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ADAMANTITE_MACE~ ~WIZARD_PHANTOM_BLADE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BLOOD_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BLOOD_RAGE~ ~WIZARD_TENSERS_TRANSFORMATION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_DIMENSIONAL_FOLDING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_DIMENSIONAL_FOLDING~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FIRE~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_THORN_SPRAY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_THORN_SPRAY~ ~CLERIC_INSECT_PLAGUE~
+    END      
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ANIMAL_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ANIMAL_RAGE~ ~CLERIC_RIGHTEOUS_MAGIC~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_ICE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_ICE~ ~WIZARD_ICE_STORM~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SHIELD_OF_LATHANDER~ ~CLERIC_PHYSICAL_MIRROR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WALL_OF_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WALL_OF_FIRE~ ~WIZARD_FIRE_SHIELD_RED~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ENTROPY_SHIELD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ENTROPY_SHIELD~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_HAMMER_OF_RETRIBUTION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_HAMMER_OF_RETRIBUTION~ ~CLERIC_SPIRITUAL_HAMMER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SECLUSION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SECLUSION~ ~PSIONIC_MIND_BLAST~ // A total negation, I hope
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SOLS_SEARING_ORB~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SOLS_SEARING_ORB~ ~CLERIC_BOLT_OF_GLORY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHIRLWIND~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHIRLWIND~ ~CLERIC_EARTHQUAKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_GREATER_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_GREATER_SHIELD_OF_LATHANDER~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MIST_OF_ELDATH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MIST_OF_ELDATH~ ~CLERIC_MASS_CURE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_REINCARNATION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_REINCARNATION~ ~CLERIC_RESURRECTION~ // A total negation, I hope
+    END
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BP-Range.baf~
+  COPY_EXISTING ~BP-Range.bcs~ ~scripts\BP-Range.bs~
+  
+
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ AND NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_FAERIE_FIRE)~ ~HaveSpellRES("SPPR114")~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~Spell(Myself,CLERIC_FAERIE_FIRE)~ ~SpellRES("SPPR114",Myself)~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_SUNSCORCH)~ ~HaveSpellRES("SPPR116")~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),CLERIC_SUNSCORCH)~ ~SpellRES("SPPR116",LastSeenBy(Myself))~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+      REPLACE_TEXTUALLY ~WIZARD_OTTOS_IRRESISTIBLE_DANCE~ ~WIZARD_BIGBYS_CRUSHING_HAND~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN // No TDD
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~COM_RARYS_MNEMONIC_ENHANCER~ ~CLERIC_WONDROUS_RECALL~
+      REPLACE_TEXTUALLY ~COM_SHATTER_BONES~ ~WIZARD_ENERGY_DRAIN~     
+      REPLACE_TEXTUALLY ~COM_DRUID_SUMMON_NATURES_ALLY5~ ~CLERIC_ANIMAL_SUMMONING_3~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ANIMATE_ROCKS~ ~CLERIC_CONJURE_ANIMALS~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_HALLOW~ ~CLERIC_MAGIC_RESISTANCE~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_VISIONS_OF_PAIN~ ~CLERIC_FINGER_OF_DEATH~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_MOON_BEAM~ ~CLERIC_SUNRAY~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ICE_STORM~ ~WIZARD_ICE_STORM~     
+      REPLACE_TEXTUALLY ~COM_DRUID_HEAT_METAL~ ~CLERIC_FLAME_STRIKE~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dsc001.are~ BEGIN // no DSotSC
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~CLERIC_CONFUSION~ ~CLERIC_RIGID_THINKING~     
+      REPLACE_TEXTUALLY ~CLERIC_AURA_OF_PROTECTION~ ~CLERIC_PROTECTION_FROM_EVIL_10_FOOT~     
+      REPLACE_TEXTUALLY ~CLERIC_DARK_RITUAL~ ~CLERIC_UNHOLY_WORD~     
+    END
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_BLADE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRAYER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUD_OF_PESTILENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STATIC_CHARGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BATTLEFATE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BATTLEFATE~ ~CLERIC_BLESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CALL_UPON_FAITH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CALL_UPON_FAITH~ ~CLERIC_ARMOR_OF_FAITH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ALICORN_LANCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ALICORN_LANCE~ ~WIZARD_MELF_ACID_ARROW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BEAST_CLAW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BEAST_CLAW~ ~CLERIC_SHILLELAGH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_MOTES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_MOTES~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FLAME~ ~WIZARD_MELF_METEOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SEEKING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SEEKING~ ~WIZARD_ENCHANTED_WEAPON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUDBURST~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUDBURST~ ~CLERIC_ZONE_OF_SWEET_AIR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ELYSIUMS_TEARS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ELYSIUMS_TEARS~ ~CLERIC_HOLY_SMITE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOLD_TOUCH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOLD_TOUCH~ ~CLERIC_POISON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_RANDOM_CASUALTY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_RANDOM_CASUALTY~ ~CLERIC_CONFUSION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STORM_SHELL~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STORM_SHELL~ ~CLERIC_RESIST_FIRE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHEEL_OF_BONES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHEEL_OF_BONES~ ~CLERIC_BLADE_BARRIER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ADAMANTITE_MACE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ADAMANTITE_MACE~ ~WIZARD_PHANTOM_BLADE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BLOOD_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BLOOD_RAGE~ ~WIZARD_TENSERS_TRANSFORMATION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_DIMENSIONAL_FOLDING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_DIMENSIONAL_FOLDING~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FIRE~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_THORN_SPRAY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_THORN_SPRAY~ ~CLERIC_INSECT_PLAGUE~
+    END      
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ANIMAL_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ANIMAL_RAGE~ ~CLERIC_RIGHTEOUS_MAGIC~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_ICE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_ICE~ ~WIZARD_ICE_STORM~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SHIELD_OF_LATHANDER~ ~CLERIC_PHYSICAL_MIRROR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WALL_OF_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WALL_OF_FIRE~ ~WIZARD_FIRE_SHIELD_RED~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ENTROPY_SHIELD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ENTROPY_SHIELD~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_HAMMER_OF_RETRIBUTION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_HAMMER_OF_RETRIBUTION~ ~CLERIC_SPIRITUAL_HAMMER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SECLUSION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SECLUSION~ ~PSIONIC_MIND_BLAST~ // A total negation, I hope
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SOLS_SEARING_ORB~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SOLS_SEARING_ORB~ ~CLERIC_BOLT_OF_GLORY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHIRLWIND~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHIRLWIND~ ~CLERIC_EARTHQUAKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_GREATER_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_GREATER_SHIELD_OF_LATHANDER~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MIST_OF_ELDATH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MIST_OF_ELDATH~ ~CLERIC_MASS_CURE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_REINCARNATION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_REINCARNATION~ ~CLERIC_RESURRECTION~ // A total negation, I hope
+    END
+
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_FOG_CLOUD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_FOG_CLOUD~ ~WIZARD_STINKING_CLOUD~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GEDLEES_ELECTRIC_LOOP~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GEDLEES_ELECTRIC_LOOP~ ~WIZARD_LIGHTNING_BOLT~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_HYPNOTIC_PATTERN~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_HYPNOTIC_PATTERN~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_BLINK~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_BLINK~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_WRAITH_FORM~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_MORDENKAINENS_FORCE_MISSILES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHOUT~ ~WIZARD_EMOTION_HOPELESSNESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHROUD_OF_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHROUD_OF_FLAME~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_IMPROVED_SLOW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_IMPROVED_SLOW~ ~WIZARD_SLOW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_CHARM_PLANTS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_CHARM_PLANTS~ ~CLERIC_ENTANGLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GUARDIAN_MANTLE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GUARDIAN_MANTLE~ ~WIZARD_MANTLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PERSISTENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PERSISTENCE~ ~WIZARD_MINOR_SEQUENCER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_DEATHBOLT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_DEATHBOLT~ ~WIZARD_FINGER_OF_DEATH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GREAT_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GREAT_SHOUT~ ~WIZARD_POWER_WORD_STUN~
+    END
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BPFT-RNG.baf~
+  COPY_EXISTING ~BPFT-RNG.bcs~ ~scripts\BPFT-RNG.bs~
+
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ AND NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_FAERIE_FIRE)~ ~HaveSpellRES("SPPR114")~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~Spell(Myself,CLERIC_FAERIE_FIRE)~ ~SpellRES("SPPR114",Myself)~ // either SpellRev FF, or broke
+      REPLACE_TEXTUALLY ~HaveSpell(CLERIC_SUNSCORCH)~ ~HaveSpellRES("SPPR116")~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),CLERIC_SUNSCORCH)~ ~SpellRES("SPPR116",LastSeenBy(Myself))~ // either SpellRev SS, or broke
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~ // the outdoor check might get broken here, will use flame strike if it gets ugly
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+      REPLACE_TEXTUALLY ~WIZARD_OTTOS_IRRESISTIBLE_DANCE~ ~WIZARD_BIGBYS_CRUSHING_HAND~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN // No TDD
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~COM_RARYS_MNEMONIC_ENHANCER~ ~CLERIC_WONDROUS_RECALL~
+      REPLACE_TEXTUALLY ~COM_SHATTER_BONES~ ~WIZARD_ENERGY_DRAIN~     
+      REPLACE_TEXTUALLY ~COM_DRUID_SUMMON_NATURES_ALLY5~ ~CLERIC_ANIMAL_SUMMONING_3~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ANIMATE_ROCKS~ ~CLERIC_CONJURE_ANIMALS~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_HALLOW~ ~CLERIC_MAGIC_RESISTANCE~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_VISIONS_OF_PAIN~ ~CLERIC_FINGER_OF_DEATH~     
+      REPLACE_TEXTUALLY ~COM_PRIEST_MOON_BEAM~ ~CLERIC_SUNRAY~     
+      REPLACE_TEXTUALLY ~COM_DRUID_ICE_STORM~ ~WIZARD_ICE_STORM~     
+      REPLACE_TEXTUALLY ~COM_DRUID_HEAT_METAL~ ~CLERIC_FLAME_STRIKE~     
+    END
+    PATCH_IF NOT FILE_EXISTS_IN_GAME ~dsc001.are~ BEGIN // no DSotSC
+      //To prevent more serious parsing errors:
+      REPLACE_TEXTUALLY ~CLERIC_CONFUSION~ ~CLERIC_RIGID_THINKING~     
+      REPLACE_TEXTUALLY ~CLERIC_AURA_OF_PROTECTION~ ~CLERIC_PROTECTION_FROM_EVIL_10_FOOT~     
+      REPLACE_TEXTUALLY ~CLERIC_DARK_RITUAL~ ~CLERIC_UNHOLY_WORD~     
+    END
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_BLADE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_BLADE~ ~CLERIC_FLAME_BLADE~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRAYER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRAYER~ ~CLERIC_CHANT~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUD_OF_PESTILENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUD_OF_PESTILENCE~ ~WIZARD_CLOUDKILL~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STATIC_CHARGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STATIC_CHARGE~ ~CLERIC_CALL_LIGHTNING~     
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BATTLEFATE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BATTLEFATE~ ~CLERIC_BLESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CALL_UPON_FAITH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CALL_UPON_FAITH~ ~CLERIC_ARMOR_OF_FAITH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ALICORN_LANCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ALICORN_LANCE~ ~WIZARD_MELF_ACID_ARROW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BEAST_CLAW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BEAST_CLAW~ ~CLERIC_SHILLELAGH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOON_MOTES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOON_MOTES~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FLAME~ ~WIZARD_MELF_METEOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SEEKING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SEEKING~ ~WIZARD_ENCHANTED_WEAPON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_CLOUDBURST~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_CLOUDBURST~ ~CLERIC_ZONE_OF_SWEET_AIR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ELYSIUMS_TEARS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ELYSIUMS_TEARS~ ~CLERIC_HOLY_SMITE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MOLD_TOUCH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MOLD_TOUCH~ ~CLERIC_POISON~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_RANDOM_CASUALTY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_RANDOM_CASUALTY~ ~CLERIC_CONFUSION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_STORM_SHELL~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_STORM_SHELL~ ~CLERIC_RESIST_FIRE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHEEL_OF_BONES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHEEL_OF_BONES~ ~CLERIC_BLADE_BARRIER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ADAMANTITE_MACE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ADAMANTITE_MACE~ ~WIZARD_PHANTOM_BLADE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_BLOOD_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_BLOOD_RAGE~ ~WIZARD_TENSERS_TRANSFORMATION~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_DIMENSIONAL_FOLDING~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_DIMENSIONAL_FOLDING~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_FIRE~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_THORN_SPRAY~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_THORN_SPRAY~ ~CLERIC_INSECT_PLAGUE~
+    END      
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ANIMAL_RAGE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ANIMAL_RAGE~ ~CLERIC_RIGHTEOUS_MAGIC~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SPIKE_GROWTH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SPIKE_GROWTH~ ~CLERIC_INSECT_PLAGUE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_PRODUCE_ICE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_PRODUCE_ICE~ ~WIZARD_ICE_STORM~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SHIELD_OF_LATHANDER~ ~CLERIC_PHYSICAL_MIRROR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WALL_OF_FIRE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WALL_OF_FIRE~ ~WIZARD_FIRE_SHIELD_RED~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_ENTROPY_SHIELD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_ENTROPY_SHIELD~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_HAMMER_OF_RETRIBUTION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_HAMMER_OF_RETRIBUTION~ ~CLERIC_SPIRITUAL_HAMMER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SECLUSION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SECLUSION~ ~PSIONIC_MIND_BLAST~ // A total negation, I hope
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_SOLS_SEARING_ORB~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_SOLS_SEARING_ORB~ ~CLERIC_BOLT_OF_GLORY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_WHIRLWIND~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_WHIRLWIND~ ~CLERIC_EARTHQUAKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_GREATER_SHIELD_OF_LATHANDER~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_GREATER_SHIELD_OF_LATHANDER~ ~CLERIC_SHIELD_OF_THE_ARCHONS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_MIST_OF_ELDATH~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_MIST_OF_ELDATH~ ~CLERIC_MASS_CURE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~CLERIC_REINCARNATION~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~CLERIC_REINCARNATION~ ~CLERIC_RESURRECTION~ // A total negation, I hope
+    END
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+
+  COMPILE EVALUATE_BUFFER ~bp\BP_SERIES\baf\BP-Bard.baf~
+  COPY_EXISTING ~BP-Bard.bcs~ ~scripts\BP-Bard.bs~
+
+    PATCH_IF NOT FILE_EXISTS ~override/LCLIST_SPELLS.2da~ BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+      REPLACE_TEXTUALLY ~WIZARD_OTTOS_IRRESISTIBLE_DANCE~ ~WIZARD_BIGBYS_CRUSHING_HAND~     
+    END
+
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_FOG_CLOUD~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_FOG_CLOUD~ ~WIZARD_STINKING_CLOUD~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PYROTECHNICS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PYROTECHNICS~ ~WIZARD_BURNING_HANDS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GEDLEES_ELECTRIC_LOOP~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GEDLEES_ELECTRIC_LOOP~ ~WIZARD_LIGHTNING_BOLT~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_HYPNOTIC_PATTERN~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_HYPNOTIC_PATTERN~ ~WIZARD_COLOR_SPRAY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_BLINK~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_BLINK~ ~WIZARD_DIMENSION_DOOR~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_WRAITH_FORM~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_WRAITH_FORM~ ~WIZARD_IMPROVED_INVISIBILITY~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_MORDENKAINENS_FORCE_MISSILES~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_MORDENKAINENS_FORCE_MISSILES~ ~WIZARD_MAGIC_MISSILE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHOUT~ ~WIZARD_EMOTION_HOPELESSNESS~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_SHROUD_OF_FLAME~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_SHROUD_OF_FLAME~ ~CLERIC_FLAME_STRIKE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_IMPROVED_SLOW~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_IMPROVED_SLOW~ ~WIZARD_SLOW~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_CHARM_PLANTS~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_CHARM_PLANTS~ ~CLERIC_ENTANGLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GUARDIAN_MANTLE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GUARDIAN_MANTLE~ ~WIZARD_MANTLE~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_PERSISTENCE~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_PERSISTENCE~ ~WIZARD_MINOR_SEQUENCER~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_DEATHBOLT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_DEATHBOLT~ ~WIZARD_FINGER_OF_DEATH~
+    END
+    PATCH_IF (1 + IDS_OF_SYMBOL (~spell~ ~WIZARD_GREAT_SHOUT~) < 1) BEGIN
+      REPLACE_TEXTUALLY ~WIZARD_GREAT_SHOUT~ ~WIZARD_POWER_WORD_STUN~
+    END
+
+
+    REPLACE~999973~ @3002
+    REPLACE~999977~ @3003
+    REPLACE~999978~ @3004
+    REPLACE~999979~ @3005
+    REPLACE~999980~ @3006
+    REPLACE~999981~ @3007
+    REPLACE~999982~ @3008
+    REPLACE~999983~ @3009
+    REPLACE~999984~ @3010
+    REPLACE~999985~ @3011
+    REPLACE~999986~ @3012
+    REPLACE~999987~ @3013
+    REPLACE~999988~ @3014
+    REPLACE~999989~ @3015
+    REPLACE~999990~ @3016
+    REPLACE~999991~ @3017
+    REPLACE~999992~ @3018
+    REPLACE~999993~ @3019
+    REPLACE~999994~ @3020
+    REPLACE~999995~ @3021
+    REPLACE~999996~ @3022
+    REPLACE~999997~ @3023
+    REPLACE~999998~ @3024
+    REPLACE~999999~ @3025
+    REPLACE~969999~ @3038
+    REPLACE~969998~ @3039
+    REPLACE~969997~ @3040
+    REPLACE~969996~ @3041
+    REPLACE~969995~ @3042
+    REPLACE~969994~ @3043
+    REPLACE~969993~ @3044
+    REPLACE~969992~ @3045
+    REPLACE~969991~ @3046
+    REPLACE~969990~ @3047
+    REPLACE~969989~ @3048
+    REPLACE~969988~ @3049
+    REPLACE~969987~ @3050
+    REPLACE~969986~ @3051
+    REPLACE~969985~ @3052
+    REPLACE~969984~ @3053
+    REPLACE~969983~ @3054
+    REPLACE~969982~ @3055
+    REPLACE~969981~ @3056
+    REPLACE~969980~ @3057
+    REPLACE~969979~ @3058
+    REPLACE~969978~ @3059
+    REPLACE~969977~ @3060
+    REPLACE~969976~ @3061
+    REPLACE~969975~ @3062
+    REPLACE~969974~ @3063
+    REPLACE~969973~ @3064
+    REPLACE~969972~ @3065
+    REPLACE~969971~ @3066
+    REPLACE~969970~ @3067
+    REPLACE~969969~ @3068
+
+
+
+// Scripts
+APPEND ~scrpdesc.2DA~
+~BPFT-CL     999970      999969~
+APPEND ~scrpdesc.2DA~
+~BPFT-TH     999968      999967~
+APPEND ~scrpdesc.2DA~
+~BPFT-RNG    999958      999957~
+APPEND ~scrpdesc.2DA~
+~BPFT-MGT    999954      999953~
+APPEND ~scrpdesc.2DA~
+~BP-MAGE     999966      999965~
+APPEND ~scrpdesc.2DA~
+~BP-BARD     999956      999955~
+APPEND ~scrpdesc.2DA~
+~BP-MULTI    999964      999963~
+APPEND ~scrpdesc.2DA~
+~BP-PUREF    999962      999961~
+APPEND ~scrpdesc.2DA~
+~BP-RANGE    999960      999959~
+
+COPY_EXISTING ~scrpdesc.2da~ ~override/scrpdesc.2da~
+REPLACE ~999970~ @3026
+REPLACE ~999969~ @3027
+REPLACE ~999968~ @3028
+REPLACE ~999967~ @3029
+REPLACE ~999966~ @3030
+REPLACE ~999965~ @3031
+REPLACE ~999964~ @3032
+REPLACE ~999963~ @3033
+REPLACE ~999962~ @3034
+REPLACE ~999961~ @3035
+REPLACE ~999960~ @3036
+REPLACE ~999959~ @3037
+REPLACE ~999958~ @3101
+REPLACE ~999957~ @3102
+REPLACE ~999956~ @3103
+REPLACE ~999955~ @3104
+REPLACE ~999954~ @3105
+REPLACE ~999953~ @3106
+
+
+
+END

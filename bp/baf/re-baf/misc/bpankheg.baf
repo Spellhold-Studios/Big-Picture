@@ -1,0 +1,40 @@
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  Range(NearestEnemyOf(Myself),5)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+THEN
+  RESPONSE #60
+    SetGlobalTimer("BPT","LOCALS",6)
+    SelectWeaponAbility(SLOT_WEAPON0,0)
+    RunAwayFrom(NearestEnemyOf(Myself),15)
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+  RESPONSE #40
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPT","LOCALS")
+THEN
+  RESPONSE #80
+    SetGlobalTimer("BPT","LOCALS",6)
+    SelectWeaponAbility(SLOT_WEAPON0,0)
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+  RESPONSE #20
+    SetGlobalTimer("BPT","LOCALS",6)
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    SelectWeaponAbility(SLOT_WEAPON0,0)
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+END
+

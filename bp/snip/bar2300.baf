@@ -1,0 +1,18 @@
+IF
+  Global("BP_MoreStooges","AR2300",0)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR2300",1)
+    CreateCreature("SAHSPY01",[2450.275],1)
+    CreateCreature("SAHSPY02",[3725.550],0)
+    CreateCreature("SAHSPY03",[1350.3150],8)
+    CreateCreature("SAHSPY04",[2150.1100],0)
+    CreateCreature("SAHAMB04",[2290.1800],8)
+    CreateCreature("SAHAMB04",[2300.1810],8)
+    CreateCreature("SAHAMB04",[2310.1800],8)
+    CreateCreature("SAHPRI02",[2140.1120],0)
+    CreateCreature("SAHPRI02",[2160.1110],0)
+    CreateCreature("SAHAMB06",[2120.1120],8)
+    CreateCreature("SAHAMB06",[2180.1140],8)
+END

@@ -1,0 +1,59 @@
+IF
+  Global("BP_Wimpout","LOCALS",0)
+  DifficultyLT(NORMAL)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Wimpout","LOCALS",1)
+    SetGlobal("BP_Stooges2300","LOCALS",3)
+    DestroyItem("MINHP1")
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",0)
+  Detect([PC])
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",1)
+    SetGlobalTimer("BP_Stooges1","LOCALS",10)
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",1)
+  GlobalTimerExpired("BP_Stooges1","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",2)
+    CreateCreature("SAHAMB01",[2030.800],9)
+    CreateCreature("SAHAMB02",[2040.790],9)
+    CreateCreature("SAHAMB03",[2020.810],9)
+    CreateCreature("SAHAMB01",[2735.600],5)
+    CreateCreature("SAHAMB02",[2740.610],5)
+    CreateCreature("SAHAMB03",[2750.620],5)
+    DestroyItem("MINHP1")
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",2)
+  DifficultyGT(NORMAL)
+  LevelGT(Player1,11)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",3)
+    CreateCreature("SAHPRIES",[2050.780],9)
+    CreateCreature("SAHAMB02",[2030.810],9)
+    CreateCreature("SAHAMB03",[2040.800],9)
+    CreateCreature("SAHPRIES",[2760.610],5)
+    CreateCreature("SAHAMB02",[2730.590],5)
+    CreateCreature("SAHAMB03",[2740.600],5)
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",2)
+  OR(2)
+    DifficultyLT(HARD)
+    LevelLT(Player1,12)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",3)
+END

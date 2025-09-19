@@ -1,0 +1,21 @@
+IF
+  Global("BP_HardRoad","GLOBAL",0)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_HardRoad","GLOBAL",1)
+    Continue()
+END
+
+IF
+  Global("BP_HardRoad","GLOBAL",0)
+  OR(2)
+    Difficulty(EASY)
+    Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_HardRoad","GLOBAL",2)
+    Continue()
+END
+
+

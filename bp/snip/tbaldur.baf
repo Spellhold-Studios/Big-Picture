@@ -1,0 +1,13 @@
+IF
+  Dead("Horred")
+  Global("BPHorredDeadCheck","GLOBAL",0)
+  !Global("BPHorredChanged","GLOBAL",2)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobal("BPHorredDeadCheck","GLOBAL",1)
+    SetGlobal("BPHorredLastSpeech","GLOBAL",1)
+    StartDialogue("HORRED",Player1)
+    SetInterrupt(TRUE)
+END
+

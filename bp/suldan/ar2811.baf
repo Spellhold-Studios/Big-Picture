@@ -1,0 +1,23 @@
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR2811",0)
+  DifficultyGT(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("DEMGLA01",[380.390],0)  // ~Glabrezu~
+    CreateCreature("DEMGLA01",[480.375],0)  // ~Glabrezu~
+    CreateCreature("DEMPIT01",[185.325],0)  // ~Pit Fiend~
+    SetGlobal("BP_MoreStooges","AR2811",1)
+END
+
+IF
+  Global("ElvenAvatar","GLOBAL",1)
+  Global("killdemon","AR2811",0)
+THEN
+  RESPONSE #100
+    SetGlobal("killdemon","AR2811",1)
+    ActionOverride("DEMPIT01",DestroySelf())
+    ActionOverride("DEMGLA01",DestroySelf())
+    ActionOverride("DEMGLA01",DestroySelf())
+END
+

@@ -1,0 +1,43 @@
+@0 = ~Ihr wollt, dass ich gehe? Seid Ihr sicher? Ich... ein Teil von mir findet, dass ich bei Euch sein muss, dass etwas Wichtiges geschieht. Aber wenn Ihr sicher seid... ~ [IMOE2528]
+@1 = ~Vielleicht nicht. Bleibt dann bei mir. ~
+@2 = ~Ich bin sicherer. Wartet hier nur eine Weile. ~
+@3 = ~Ich werde Euch zu dem Einsprengsel zurück senden. Wartet dort auf mich . ~
+@4 = ~In.. in Ordnung. Nur verlasst mich nicht hier... bitte. Ich denke nicht, dass ich es ertragen könnte, nur herumzustehen, während alles weitergeht. ~
+@5 = ~Es wurde Zeit, dass Ihr zurückkommt. Ich wurde ganz nervös. ~ [IMOE2529]
+@6 = ~Schließt Euch dann wieder der Gruppe an. ~
+@7 = ~Wartet hier noch eine Weile länger. ~
+@8 = ~Also gut, wenn Ihr es sagt. ~
+@9 = ~Neein! Aaah, es tut weh! <CHARNAME>, stoppt sie... es... es tut so weh!! ~ [IMOEN18]
+@10 = ~Was macht Ihr mit ihr?! Hört damit auf, ich befehle es!! ~
+@11 = ~Ich bin derjenige, hinter dem Ihr her seid, Melissan! Lasst sie in Ruhe!!~ ~Ich bin diejenige, hinter der Ihr her seid, Melissan! Lasst sie in Ruhe!!~
+@12 = ~Reist Euch zusammen, Imoen! Greift an!! ~
+@13 = ~Was geht mich Imoen an? Tötet sie, Melissan. ~
+@14 = ~Wwwas... wo bin ich? Was passiert hier? <CHARNAME>? ~
+@15 = ~Ich gehe nirgendwo mit Euch hin! Und niemand greift nach meiner Seele! Nicht wieder!! ~
+@16 = ~Es... es ist vorbei. Ich bin wieder menschlich. Ohhh, jetzt weiß ich, was Ihr durchgemacht habt, <CHARNAME>! Ich bezweifle, dass ich das noch einmal erleben möchte! ~
+@17 = ~Und ich kann nicht glauben, was Ihr gesagt habt! "Macht nur, tötet sie"? Nach allem, was wir durchgestanden haben, sagt Ihr das zu meiner Verteidigung? ~
+@18 = ~Ich versuchte, Melissan zu überzeugen, Euch in Ruhe zu lassen, Imoen! ~
+@19 = ~Kriegt Euch wieder ein, Kleine. Ich hab Euch nie darum gebeten, mitzukommen. ~
+@20 = ~Wir haben keine Zeit zum Plaudern, Imoen! Wir sind hier mitten in einem Kampf! ~
+@21 = ~Nun... mag sein. Ihr habt mich offensichtlich mehr überzeugt als sie. Ich... ich bin nur froh, dass ich als Schlächter nicht mehr Schaden angerichtet habe. Ich weiß nicht, wie Ihr damit fertig geworden seid. Danke, dass Ihr mich nicht... nicht getötet habt. ~
+@22 = ~Ich... ich kann jedoch nicht hier bleiben. Hier wird in einer höheren Liga gespielt. Ich wünsche Euch alles Gute, <CHARNAME>, und ich hoffe, ich sehe Euch wieder. Vielleicht in Kerzenburg, hmm? Auf jeden Fall... viel Glück... ~
+@23 = ~Braucht Ihr mich wieder, damit ich mich Euch anschließe? Ich könnte... den Thron verlassen, denke ich... Ich denke, ich habe die jetzt Macht, dieselbe wie Ihr. Aber ich kämpfe wieder an Eurer Seite, wenn Ihr das wollt. ~
+@24 = ~Klar. Lasst uns gemeinsam weitermachen. ~
+@25 = ~Imoen hat überlebt
+
+Imoen hat es geschafft, zu überleben, als Melissan versuchte, sie in die Gestalt des Berserkerschlächters zu zwingen. Es scheint, als sei Imoen dadurch in ihrem Makel ein großes Stück vorangeschritten. Sie kann sich nicht nur in dieselbe Schlächtergestalt verwandeln, die bei mir damals in der Zauberfeste erschien... sondern sie erhielt auch die Fähigkeit, für kurze Zeit ätherisch zu werden.
+
+Ätherisch
+-------------
+Imoen ist es nun möglich, für kurze Zeit die Ätherische Ebene zu betreten. Diese Fähigkeit kann einmal pro Minute benutzt werden, und sie wird dadurch ebenfalls für eine Minute daran gehindert, die Gestalt des Schlächters anzunehmen. Imoen kann für eine Runde völlig ätherisch und unerreichbar für Kräfte dieser Ebene werden. In dieser Zeit ist sie unsichtbar und vollständig immun gegenüber schädlichen Einflüssen; sie kann aber auch keine Zauber sprechen oder andere Fähigkeiten einsetzen.
+Für zwei weitere Runden danach kann Imoen "halbzerteilt" sein: sie ist teilweise ätherisch und teilweise auf dieser Ebene. Sie ist immer noch unsichtbar, erleidet aber halben Schaden von allen Angriffen. In diesem Zustand besteht eine geringe Chance (10%), dass ein von ihr gesprochener Zauber versagt. In allen drei Runden kann sie alle unsichtbaren Ziele sehen. ~
+@26 = ~Nein... verschwindet von hier, solange Ihr könnt, Imoen. ~
+@27 = ~Ich wünsche Euch alles Gute, <CHARNAME>, und ich hoffe, ich sehe Euch wieder. Vielleicht in Kerzenburg, hmm? Auf jeden Fall... viel Glück...~
+@28 = ~Ja, richtig. Ihr tut, was Ihr tun müsst, <CHARNAME>. Ich... ich verschwinde so weit wie möglich von hier. Lebt wohl! ~
+@29 = ~Nee! Klar habt Ihr nicht. Danke für nichts, nehme ich an. Ihr tut, was Ihr tun müsst, <CHARNAME>. Ich... ich verschwinde so weit wie möglich von hier. Lebt wohl! ~
+@30 = ~Ich bin... einfach froh, dass ich nichts Schlimmeres getan habe, während ich... als ich... oh, ich weiß einfach nicht, wie Ihr damals in der Zauberfeste damit umgegangen seid. Danke, dass Ihr... mich nicht getötet habt, okay? ~
+@31 = ~Oh, so ist das! Braucht Ihr mich wieder in der Gruppe? Ich könnte... den Thron verlassen, denke ich... Ich denke, ich habe jetzt die Macht, dieselbe wie Ihr. Aber ich kämpfe wieder an Eurer Seite, wenn Ihr das wollt. ~
+@32 = ~Ich sehe, dass der Kampf noch nicht zu Ende ist. Braucht Ihr mich wieder in der Gruppe? Ich könnte... den Thron verlassen, denke ich... Ich denke, ich habe jetzt die Macht, dieselbe wie Ihr. Aber ich kämpfe wieder an Eurer Seite, wenn Ihr das wollt. ~
+@33 = ~Hört schon auf, mich mitten im Kampf abzulenken! Geht zurück zur Gruppe! ~
+@34 = ~Jawohl, <PRO_SIRMAAM>! (kichert) Zeit, jemandem in den Hintern zu treten, ja? ~
+

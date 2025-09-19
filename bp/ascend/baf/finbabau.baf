@@ -1,0 +1,295 @@
+IF
+  OnCreation()
+  !GlobalTimerNotExpired("StartingHide","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("StartingHide","LOCALS",1000)
+    ApplySpell(Myself,WIZARD_INVISIBILITY)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  AttackedBy([ANYONE],DEFAULT)
+  Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+  Global("LetItGoOnce","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("LetItGoOnce","LOCALS",1)
+    SetGlobalTimer("GetMadNow","LOCALS",6)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  AttackedBy([ANYONE],DEFAULT)
+  Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+  Global("LetItGoOnce","LOCALS",1)
+  GlobalTimerExpired("GetMadNow","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("LetItGoOnce","LOCALS",0)
+    Enemy()
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !See([ENEMY])
+  CombatCounter(0)
+  !Range(Player1,20)
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !See([ENEMY])
+  CombatCounter(0)
+  Range(Player1,20)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  ActionListEmpty()
+  Allegiance(Myself,ENEMY)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  OR(2)
+    NumCreatureLT([ENEMY.0.DEMONIC],3)
+    NumCreatureVsPartyLT([ENEMY.0.DEMONIC],0)
+  HaveSpellRES("GATE6")
+  !Range(NearestEnemyOf(Myself),10)
+  OR(2)
+    NumInPartyAliveGT(2)
+    DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Spell","LOCALS",6)
+    SpellRES("GATE6",Myself)  // ~Gate~
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  OR(2)
+    See(SecondNearestEnemyOf(Myself))
+    RandomNum(2,1)
+  !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !CheckStatGT(NearestEnemyOf(Myself),0,178)
+  !GlobalTimerNotExpired("BalorFear","LOCALS")
+  !GlobalTimerNotExpired("Running","LOCALS")
+THEN
+  RESPONSE #50
+    SetGlobalTimer("BalorFear","LOCALS",6)
+    PlaySound("GORBAT02")
+    ReallyForceSpell(NearestEnemyOf(Myself),DEMON_FEAR)
+END
+
+IF
+  ActionListEmpty()
+  Range(NearestEnemyOf(Myself),20)
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !GlobalTimerNotExpired("Gaze","LOCALS")
+  !GlobalTimerNotExpired("Running","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Gaze","LOCALS",6)
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_RAY_OF_ENFEEBLEMENT)
+END
+
+IF
+  ActionListEmpty()
+  Delay(6)
+  Global("gb_BackStabbing","LOCALS",1)
+  !See(NearestEnemyOf(Myself))
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobal("gb_BackStabbing","LOCALS",0)
+    Hide()
+END
+
+IF
+  ActionListEmpty()
+  Global("gb_BackStabbing","LOCALS",0)
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobal("gb_BackStabbing","LOCALS",1)
+    IncrementGlobal("Tried","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  Global("Tried","LOCALS",5)
+  Global("gb_BackStabbing","LOCALS",1)
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobal("Tried","LOCALS",0)
+    SetGlobal("gb_BackStabbing","LOCALS",0)
+    ApplySpell(Myself,WIZARD_INVISIBILITY)
+END
+
+IF
+  OR(2)
+    !Allegiance(Myself,EVILCUTOFF)
+    !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(31,21)
+  OR(6)
+    See(NearestEnemyOf(Myself))
+    See(WeakestOf)
+    See(WorstAC)
+    See(MostDamagedOf)
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+  RandomNumLT(28,22)
+  OR(4)
+    See([GOODCUTOFF.0.0.0.0.SUMMONED_DEMON])
+    See([GOODCUTOFF.0.0.0.0.SUMMONED])
+    See([GOODCUTOFF.0.0.0.207])
+    See([GOODCUTOFF.0.0.0.0.ILLUSIONARY])
+  RandomNumLT(29,23)
+  OR(7)
+    See([PC.0.0.RANGER_ALL])
+    See([PC.0.0.PALADIN_ALL])
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+  RandomNumLT(30,21)
+  See(Protagonist)
+  RandomNumLT(26,10)
+  OR(4)
+    See([GOODCUTOFF.0.0.RANGER_ALL])
+    See([GOODCUTOFF.0.0.DRUID_ALL])
+    See([GOODCUTOFF.0.0.PALADIN_ALL])
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+  RandomNumLT(27,10)
+  OR(3)
+    See([GOODCUTOFF.0.0.MONK])
+    See([GOODCUTOFF.0.0.BARD_ALL])
+    See([GOODCUTOFF.0.0.THIEF_ALL])
+  RandomNumLT(24,9)
+  OR(3)
+    See(StrongestOf)
+    See(BestAC)
+    See(LeastDamagedOf)
+  RandomNumLT(25,9)
+  See(WeakestOf)
+  RandomNumLT(23,8)
+  See(WorstAC)
+  RandomNumLT(21,8)
+  See(MostDamagedOf)
+  RandomNumLT(32,11)
+  OR(2)
+    See(TenthNearest([GOODCUTOFF.0.0.LONG_BOW]))
+    See(TenthNearest([GOODCUTOFF.0.0.SORCERER]))
+  RandomNumLT(20,8)
+  See(TenthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  OR(4)
+    Allegiance(LastSeenBy(Myself),ENEMY)
+    Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+    Allegiance(LastSeenBy(Myself),GOODBUTRED)
+    StateCheck(LastSeenBy(Myself),STATE_DEAD)
+THEN
+  RESPONSE #100
+END
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+THEN
+  RESPONSE #80
+    Continue()
+  RESPONSE #20
+END
+
+IF
+  ActionListEmpty()
+  Global("gb_BackStabbing","LOCALS",1)
+  !StateCheck(Myself,STATE_INVISIBLE)
+  OR(2)
+    !Range(NearestEnemyOf(Myself),10)
+    HPPercentLT(Myself,40)
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("Running","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Running","LOCALS",5)
+    RunAwayFrom(NearestEnemyOf(Myself),75)
+END
+
+IF
+  ActionListEmpty()
+  Global("gb_BackStabbing","LOCALS",1)
+  !StateCheck(Myself,STATE_INVISIBLE)
+  Range(NearestEnemyOf(Myself),10)
+  !GlobalTimerNotExpired("Running","LOCALS")
+  !GlobalTimerNotExpired("Attacking","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Running","LOCALS",5)
+    RunAwayFrom(NearestEnemyOf(Myself),75)
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  Global("gb_BackStabbing","LOCALS",1)
+  !StateCheck(Myself,STATE_INVISIBLE)
+  Range(SecondNearestEnemyOf(Myself),10)
+  Range(NearestEnemyOf(Myself),10)
+  !GlobalTimerNotExpired("Running","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Running","LOCALS",5)
+    RunAwayFrom(NearestEnemyOf(Myself),75)
+END
+
+IF
+  ActionListEmpty()
+  StateCheck(Myself,STATE_INVISIBLE)
+  Global("gb_BackStabbing","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("gb_BackStabbing","LOCALS",1)
+    SetGlobal("Tried","LOCALS",0)
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  !StateCheck(Myself,STATE_INVISIBLE)
+  Range(LastSeenBy(Myself),10)
+  !GlobalTimerNotExpired("Running","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Attacking","LOCALS",3)
+    AttackOneRound(LastSeenBy(Myself))
+END
+

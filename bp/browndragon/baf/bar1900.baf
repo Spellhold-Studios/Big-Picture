@@ -1,0 +1,11 @@
+
+IF
+    Dead("cefaldor") // Faldorn
+    GlobalGT("Chapter","GLOBAL",2)
+    Global("KR_BrownDragon","GLOBAL",0)
+THEN
+    RESPONSE #100
+        CreateCreatureDoor("KRDRGBRN",[600.700],0)
+        SetGlobal("KR_BrownDragon","GLOBAL",1)
+        Continue()
+END

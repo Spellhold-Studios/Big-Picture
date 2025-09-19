@@ -1,0 +1,5330 @@
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+DEFINE_PATCH_FUNCTION t-add_spl_itm_header
+  INT_VAR
+  t-headers   = 1
+  t-copy      = 1
+  //Header variables
+  t-atk_type  = 0
+  t-id_req    = 0
+  t-use_loc   = 1
+  t-adie_size = 0
+  t-hdr_targ  = 1
+  t-targ_num  = 0
+  t-range     = 30
+  t-level     = 0
+  t-adice     = 0
+  t-speed     = 0
+  t-adm_bonus = 0
+  t-hit_bonus = 0
+  t-hdie_size = 0
+  t-pri_type  = 0
+  t-hdice     = 0
+  t-sec_type  = 0
+  t-dmg_bonus = 0
+  t-dmg_type  = 4
+  t-charges   = 0
+  t-deplete   = 0
+  t-flags     = 0b0000000000000001
+  t-projectl  = 1
+  t-melee1    = 100
+  t-melee2    = 0
+  t-melee3    = 0
+  t-bow       = 0
+  t-xbow      = 0
+  t-sling     = 0
+  //Effect variables
+  t-opcode    = 0
+  t-eff_targ  = 2
+  t-power     = 0
+  t-param1    = 0
+  t-param2    = 0
+  t-timing    = 1
+  t-dispel    = 2
+  t-duration  = 0
+  t-prob1     = 100
+  t-prob2     = 0
+  t-fdie_size = 0
+  t-fdice     = 0
+  t-sav_throw = 0
+  t-sav_bonus = 0
+  t-tool_1    = ` 0
+  t-tool_2    = ` 0
+  t-tool_3    = ` 0
+  STR_VAR
+  t-bam       = ~~
+  t-resref    = ~~
+  RET
+  t-tool_1
+  t-tool_2
+  t-tool_3
+BEGIN
+  READ_LONG 0x64  t-hdr_off
+  READ_SHORT 0x68 t-hdr_num
+  READ_LONG 0x6a  t-eq_off
+  PATCH_IF (~%SOURCE_EXT%~ STRING_EQUAL_CASE ~spl~ = 1) BEGIN
+    t-hdr_size = 0x28
+    t-proj_off = 0x26
+    WRITE_LONG 0xc (0 - 1)
+    WRITE_LONG 0x54 (0 - 1)
+    PATCH_FOR_EACH t-junk IN 0x44 0x48 0x58 0x5c BEGIN
+      WRITE_LONG t-junk 0
+    END
+  END ELSE BEGIN
+    t-hdr_size = 0x38
+    t-proj_off = 0x2a
+    PATCH_IF t-copy = 1 BEGIN
+      t-hdr_read = t-hdr_size * (t-hdr_num - 1) + t-hdr_off
+      READ_SHORT (t-hdr_read + 0x26) t-flags
+      READ_SHORT (t-hdr_read + 0x2c) t-melee1
+      READ_SHORT (t-hdr_read + 0x2e) t-melee2
+      READ_SHORT (t-hdr_read + 0x30) t-melee3
+      READ_SHORT (t-hdr_read + 0x32) t-bow
+      READ_SHORT (t-hdr_read + 0x34) t-xbow
+      READ_SHORT (t-hdr_read + 0x36) t-sling
+    END
+  END
+  PATCH_IF ((t-copy = 1) AND (t-hdr_num > 0)) BEGIN
+    t-hdr_read = t-hdr_size * (t-hdr_num - 1) + t-hdr_off
+    PATCH_IF t-atk_type = 0 BEGIN
+      READ_BYTE t-hdr_off t-atk_type
+    END
+    READ_BYTE (t-hdr_read + 1) t-id_req
+    READ_BYTE (t-hdr_read + 2) t-use_loc
+    READ_BYTE (t-hdr_read + 3) t-adie_size
+    READ_ASCII (t-hdr_read + 4) t-bam
+    READ_BYTE (t-hdr_read + 0xc) t-hdr_targ
+    READ_BYTE (t-hdr_read + 0xd) t-targ_num
+    READ_SHORT (t-hdr_read + 0xe) t-range
+    PATCH_IF t-level = 0 BEGIN
+      READ_BYTE (t-hdr_read + 0x10) t-level
+    END
+    READ_BYTE (t-hdr_read + 0x11) t-adice
+    READ_BYTE (t-hdr_read + 0x12) t-speed
+    READ_BYTE (t-hdr_read + 0x13) t-adm_bonus
+    READ_SHORT (t-hdr_read + 0x14) t-hit_bonus
+    READ_BYTE (t-hdr_read + 0x16) t-hdie_size
+    READ_BYTE (t-hdr_read + 0x17) t-pri_type
+    READ_BYTE (t-hdr_read + 0x18) t-hdice
+    READ_BYTE (t-hdr_read + 0x19) t-sec_type
+    READ_SHORT (t-hdr_read + 0x1a) t-dmg_bonus
+    READ_SHORT (t-hdr_read + 0x1c) t-dmg_type
+    READ_SHORT (t-hdr_read + 0x1e) t-eff_num
+    READ_SHORT (t-hdr_read + 0x20) t-eff_off
+    READ_SHORT (t-hdr_read + 0x22) t-charges
+    READ_SHORT (t-hdr_read + 0x24) t-deplete
+    READ_SHORT (t-hdr_read + t-proj_off) t-projectl
+    INSERT_BYTES (t-eq_off + 0x30 * (t-eff_num + t-eff_off)) (t-headers * t-eff_num * 0x30) //New effects
+  END ELSE BEGIN
+    READ_SHORT 0x70 t-eff_num
+    t-eff_off = t-eq_off
+  END
+  INSERT_BYTES (t-hdr_off + (t-hdr_size * t-hdr_num)) (t-headers * t-hdr_size) //New headers
+  WRITE_SHORT 0x68 (t-hdr_num + t-headers) //Update header count
+  t-eq_off = t-hdr_off + (t-hdr_num + t-headers) * t-hdr_size
+  WRITE_LONG 0x6a t-eq_off //Update equipping effect offset
+  FOR (t-hdr_cycle = t-hdr_num; t-hdr_cycle < (t-hdr_num + t-headers); t-hdr_cycle += 1) BEGIN
+    t-hdr_write = t-hdr_size * t-hdr_cycle + t-hdr_off
+    WRITE_BYTE t-hdr_write t-atk_type //Attack type
+    PATCH_IF t-atk_type = 2 BEGIN
+      SET $t-tool(~%t-hdr_cycle%~) = 15527 //Thrown
+    END ELSE BEGIN
+      PATCH_IF t-atk_type = 1 BEGIN
+        SET $t-tool(~%t-hdr_cycle%~) = 15529 //Melee
+      END
+    END
+    WRITE_BYTE (t-hdr_write + 1) t-id_req
+    WRITE_BYTE (t-hdr_write + 2) t-use_loc
+    WRITE_BYTE (t-hdr_write + 3) t-adie_size
+    WRITE_ASCIIE (t-hdr_write + 4) ~%t-bam%~ #8
+    WRITE_BYTE (t-hdr_write + 0xc) t-hdr_targ
+    WRITE_BYTE (t-hdr_write + 0xd) t-targ_num
+    WRITE_SHORT (t-hdr_write + 0xe) t-range
+    WRITE_BYTE (t-hdr_write + 0x10) t-level
+    WRITE_BYTE (t-hdr_write + 0x11) t-adice
+    WRITE_BYTE (t-hdr_write + 0x12) t-speed
+    WRITE_BYTE (t-hdr_write + 0x13) t-adm_bonus
+    WRITE_SHORT (t-hdr_write + 0x14) t-hit_bonus
+    WRITE_BYTE (t-hdr_write + 0x16) t-hdie_size
+    WRITE_BYTE (t-hdr_write + 0x17) t-pri_type
+    WRITE_BYTE (t-hdr_write + 0x18) t-hdice
+    WRITE_BYTE (t-hdr_write + 0x19) t-sec_type
+    WRITE_SHORT (t-hdr_write + 0x1a) t-dmg_bonus
+    WRITE_SHORT (t-hdr_write + 0x1c) t-dmg_type
+    WRITE_SHORT (t-hdr_write + 0x1e) t-eff_num
+    WRITE_SHORT (t-hdr_write + 0x20) (t-eff_off + t-eff_num * t-headers)
+    WRITE_SHORT (t-hdr_write + 0x22) t-charges
+    WRITE_SHORT (t-hdr_write + 0x24) t-deplete
+    WRITE_SHORT (t-hdr_write + t-proj_off) t-projectl
+    PATCH_IF (~%SOURCE_EXT%~ STRING_EQUAL_CASE ~itm~ = 1) BEGIN
+      WRITE_SHORT (t-hdr_write + 0x26) t-flags
+      WRITE_SHORT (t-hdr_write + 0x2c) t-melee1
+      WRITE_SHORT (t-hdr_write + 0x2e) t-melee2
+      WRITE_SHORT (t-hdr_write + 0x30) t-melee3
+      WRITE_SHORT (t-hdr_write + 0x32) t-bow
+      WRITE_SHORT (t-hdr_write + 0x34) t-xbow
+      WRITE_SHORT (t-hdr_write + 0x36) t-sling
+    END
+    PATCH_IF t-copy = 1 BEGIN
+      FOR (t-eff_cycle = t-eff_off; t-eff_cycle < (t-eff_off + t-eff_num); t-eff_cycle += 1) BEGIN
+        t-eff_read = t-eq_off + t-eff_cycle * 0x30
+        READ_SHORT t-eff_read t-opcode
+        READ_BYTE (t-eff_read + 2) t-eff_targ
+        READ_BYTE (t-eff_read + 3) t-power
+        READ_LONG (t-eff_read + 4) t-param1
+        READ_LONG (t-eff_read + 8) t-param2
+        READ_BYTE (t-eff_read + 0xc) t-timing
+        READ_BYTE (t-eff_read + 0xd) t-dispel
+        READ_LONG (t-eff_read + 0xe) t-duration
+        PATCH_IF (t-duration = 0) AND (t-timing = 0) BEGIN //If bogus duration
+          t-timing = 1 //Make it instantaneous
+          WRITE_BYTE (t-eff_read + 0xc) t-timing
+        END
+        READ_BYTE (t-eff_read + 0x12) t-prob1
+        READ_BYTE (t-eff_read + 0x13) t-prob2
+        READ_ASCII (t-eff_read + 0x14) t-resref
+        READ_LONG (t-eff_read + 0x1c) t-fdice
+        READ_LONG (t-eff_read + 0x20) t-fdie_size
+        READ_LONG (t-eff_read + 0x24) t-sav_throw
+        READ_LONG (t-eff_read + 0x28) t-sav_bonus
+        t-eff_write = t-eq_off + (t-eff_cycle + t-eff_num) * 0x30
+        WRITE_SHORT t-eff_write t-opcode
+        WRITE_BYTE (t-eff_write + 2) t-eff_targ
+        WRITE_BYTE (t-eff_write + 3) t-power
+        WRITE_LONG (t-eff_write + 4) t-param1
+        WRITE_LONG (t-eff_write + 8) t-param2
+        WRITE_BYTE (t-eff_write + 0xc) t-timing
+        WRITE_BYTE (t-eff_write + 0xd) t-dispel
+        WRITE_LONG (t-eff_write + 0xe) t-duration
+        WRITE_BYTE (t-eff_write + 0x12) t-prob1
+        WRITE_BYTE (t-eff_write + 0x13) t-prob2
+        WRITE_ASCIIE (t-eff_write + 0x14) ~%t-resref%~ #8
+        WRITE_LONG (t-eff_write + 0x1c) t-fdice
+        WRITE_LONG (t-eff_write + 0x20) t-fdie_size
+        WRITE_LONG (t-eff_write + 0x24) t-sav_throw
+        WRITE_LONG (t-eff_write + 0x28) t-sav_bonus
+      END
+    END
+  END
+END
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION 2da_spawngrp_bp BEGIN
+
+////////////////SPAWNGRP.2da/////////////////////////////
+APPEND_COL ~spawngrp.2da~ ~9999 9999 ---RDBugb+++++ +++++45++++++--- Bugbear!!!! Bugbear!!!! Bugbear!!!! Bugarch!!!! Bugarch!!!! *=======--- =======*=======--- =======*=======--- ~
+UNLESS ~RDBugb~
+APPEND_COL ~spawngrp.2da~ ~9999 9999 RDBpthf!!!! 60++++++--- bpthief2--- bpthief2--- bpthief3--- bpthief2--- genthf01--- bpthmag2--- *=======--- *=======--- ~
+UNLESS ~RDBpthf~
+APPEND_COL ~spawngrp.2da~ ~9999 9999 RDTroll3--- 75++++++--- troll01!!!! trolic01--- troll01!!!! trolic01--- *=======--- *=======--- *=======--- *=======--- ~
+UNLESS ~RDTroll3~
+APPEND_COL ~spawngrp.2da~ ~9999 9999 RDEtter1--- 100+++++--- etter01!!!! etter01!!!! etter01!!!! etter01!!!! *=======--- *=======--- *=======--- *=======--- ~
+UNLESS ~RDEtter1~
+APPEND_COL ~spawngrp.2da~ ~9999 9999 RDDead+++++ 100+++++--- ghogr01!!!! ghogr01!!!! ghast01!!!! ghast01!!!! mummy01!!!! mummy01!!!! skelar01--- zombju01--- ~
+UNLESS ~RDDead~
+
+COPY_EXISTING ~spawngrp.2da~ ~override~
+ REPLACE_TEXTUALLY ~9999~    ~~
+ REPLACE_TEXTUALLY ~---~     ~   ~
+ REPLACE_TEXTUALLY ~!!!!~    ~    ~
+ REPLACE_TEXTUALLY ~++++++~  ~      ~
+ REPLACE_TEXTUALLY ~+++++~   ~     ~
+ REPLACE_TEXTUALLY ~=======~ ~       ~
+ REPLACE_TEXTUALLY ~++~ ~  ~
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION 2da_grandmastery_bp BEGIN
+
+
+COPY_EXISTING ~wspatck.2da~ ~override~
+ SET rows=2
+ SET col_cnt=0
+ WHILE "%rows%">1 BEGIN
+   col_cnt = col_cnt + 1
+   COUNT_2DA_ROWS col_cnt rows
+ END
+ SET col_cnt = col_cnt - 1
+ FOR(cnt=1; cnt<=6; cnt=cnt+1) BEGIN 
+   SET_2DA_ENTRY 0 cnt col_cnt ~0~
+   SET_2DA_ENTRY 1 cnt col_cnt ~0~
+   SET_2DA_ENTRY 2 cnt col_cnt ~-1~
+   SET_2DA_ENTRY 3 cnt col_cnt ~1~
+   SET_2DA_ENTRY 4 cnt col_cnt ~-2~
+   SET_2DA_ENTRY 5 cnt col_cnt ~2~
+ END
+ FOR(cnt=7; cnt<=12; cnt=cnt+1) BEGIN
+   SET_2DA_ENTRY 0 cnt col_cnt ~-1~
+   SET_2DA_ENTRY 1 cnt col_cnt ~-1~
+   SET_2DA_ENTRY 2 cnt col_cnt ~1~
+   SET_2DA_ENTRY 3 cnt col_cnt ~-2~
+   SET_2DA_ENTRY 4 cnt col_cnt ~2~
+   SET_2DA_ENTRY 5 cnt col_cnt ~-3~
+ END
+ FOR(cnt=13; cnt<"%col_cnt%"; cnt=cnt+1) BEGIN
+   SET_2DA_ENTRY 0 cnt col_cnt ~1~
+   SET_2DA_ENTRY 1 cnt col_cnt ~1~
+   SET_2DA_ENTRY 2 cnt col_cnt ~-2~
+   SET_2DA_ENTRY 3 cnt col_cnt ~2~
+   SET_2DA_ENTRY 4 cnt col_cnt ~-3~
+   SET_2DA_ENTRY 5 cnt col_cnt ~3~
+ END
+BUT_ONLY
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION 2da_additions_bp BEGIN
+
+
+LAF 2da_spawngrp_bp END
+
+END
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_action_bp BEGIN
+
+
+// adding all ToB actions to action.ids unless already present
+APPEND ~action.ids~ ~31 SpellRES(S:RES*,O:Target*)~
+             UNLESS ~SpellRES(S:RES\*,O:Target\*)~
+APPEND ~action.ids~ ~95 SpellPointRES(S:RES*,P:Target*)~
+             UNLESS ~SpellPointRES(S:RES\*,P:Target\*)~
+APPEND ~action.ids~ ~113 ForceSpellRES(S:RES*,O:Target)~
+             UNLESS ~ForceSpellRES(S:RES\*,O:Target)~
+APPEND ~action.ids~ ~114 ForceSpellPointRES(S:RES*,P:Target)~
+             UNLESS ~ForceSpellPointRES(S:RES\*,P:Target)~
+APPEND ~action.ids~ ~147 RemoveSpellRES(S:Spell*)~
+             UNLESS ~RemoveSpellRES(S:Spell\*)~
+APPEND ~action.ids~ ~160 ApplySpellRES(S:RES*,O:Target)~
+             UNLESS ~ApplySpellRES(S:RES\*,O:Target)~
+APPEND ~action.ids~ ~181 ReallyForceSpellRES(S:RES*,O:Target)~
+             UNLESS ~ReallyForceSpellRES(S:RES\*,O:Target)~
+APPEND ~action.ids~ ~191 SpellNoDecRES(S:RES*,O:Target*)~
+             UNLESS ~SpellNoDecRES(S:RES\*,O:Target\*)~
+APPEND ~action.ids~ ~192 SpellPointNoDecRES(S:RES*,P:Target*)~
+             UNLESS ~SpellPointNoDecRES(S:RES\*,P:Target\*)~
+APPEND ~action.ids~ ~240 ReallyForceSpellDeadRES(S:RES*,O:Target*)~
+             UNLESS ~ReallyForceSpellDeadRES(S:RES\*,O:Target\*)~
+APPEND ~action.ids~ ~318 ForceSpellRangeRES(S:RES*,O:Target*)~
+             UNLESS ~ForceSpellRangeRES(S:RES\*,O:Target\*)~
+APPEND ~action.ids~ ~319 ForceSpellPointRangeRES(S:RES*,P:Target*)~
+             UNLESS ~ForceSpellPointRangeRES(S:RES\*,P:Target\*)~
+APPEND ~action.ids~ ~325 GoToStartScreen()~
+             UNLESS ~GoToStartScreen()~
+APPEND ~action.ids~ ~326 ExitPocketPlane()~
+             UNLESS ~ExitPocketPlane()~
+APPEND ~action.ids~ ~327 AddXP2DA(S:Column*)~
+             UNLESS ~AddXP2DA(S:Column\*)~
+APPEND ~action.ids~ ~328 RemoveMapNote(P:Position*,I:STRREF*)~
+             UNLESS ~RemoveMapNote(P:Position\*,I:STRREF\*)~
+APPEND ~action.ids~ ~329 TriggerWalkTo(O:Object*)~
+             UNLESS ~TriggerWalkTo(O:Object\*)~
+APPEND ~action.ids~ ~330 AddAreaType(I:Type*AREATYPE)~
+             UNLESS ~AddAreaType(I:Type\*AREATYPE)~
+APPEND ~action.ids~ ~331 RemoveAreaType(I:Type*AREATYPE)~
+             UNLESS ~RemoveAreaType(I:Type\*AREATYPE)~
+APPEND ~action.ids~ ~332 AddAreaFlags(I:Type*AREAFLAG)~
+             UNLESS ~AddAreaFlags(I:Type\*AREAFLAG)~
+APPEND ~action.ids~ ~333 RemoveAreaFlags(I:Type*AREAFLAG)~
+             UNLESS ~RemoveAreaFlags(I:Type\*AREAFLAG)~
+APPEND ~action.ids~ ~334 StartDialogNoName(S:DialogFile*,O:Target*)~
+             UNLESS ~StartDialogNoName(S:DialogFile\*,O:Target\*)~
+APPEND ~action.ids~ ~335 SetTokenGlobal(S:GLOBAL*,S:Area*,S:Token*)~
+             UNLESS ~SetTokenGlobal(S:GLOBAL\*,S:Area\*,S:Token\*)~
+APPEND ~action.ids~ ~336 MakeGlobal()~
+             UNLESS ~MakeGlobal()~
+APPEND ~action.ids~ ~337 ReallyForceSpellPointRES(S:RES*,P:Target*)~
+             UNLESS ~ReallyForceSpellPointRES(S:RES\*,P:Target\*)~
+APPEND ~action.ids~ ~338 SetCutSceneLite(I:BOOL*BOOLEAN)~
+             UNLESS ~SetCutSceneLite(I:BOOL\*BOOLEAN)~
+APPEND ~action.ids~ ~338 CutAllowScripts(I:BOOL*BOOLEAN)~
+             UNLESS ~CutAllowScripts(I:BOOL\*BOOLEAN)~
+APPEND ~action.ids~ ~338 SetCursorState(I:BOOL*BOOLEAN)~
+             UNLESS ~SetCursorState(I:BOOL\*BOOLEAN)~
+APPEND ~action.ids~ ~339 SwingOnce()~
+             UNLESS ~SwingOnce()~
+APPEND ~action.ids~ ~340 StaticSequence(O:Object*,I:Sequence*)~
+             UNLESS ~StaticSequence(O:Object\*,I:Sequence\*)~
+APPEND ~action.ids~ ~341 StaticPalette(S:Palette\*,O:Object*)~
+             UNLESS ~StaticPalette(S:Palette\*,O:Object\*)~
+APPEND ~action.ids~ ~342 DisplayStringHeadDead(O:Object*,I:StrRef*)~
+             UNLESS ~DisplayStringHeadDead(O:Object\*,I:StrRef\*)~
+APPEND ~action.ids~ ~343 MoveToExpansion()~
+             UNLESS ~MoveToExpansion()~
+APPEND ~action.ids~ ~344 StartRainNow()~
+             UNLESS ~StartRainNow()~
+APPEND ~action.ids~ ~345 SetSequence(I:Sequence*SEQ)~
+             UNLESS ~SetSequence(I:Sequence\*SEQ)~
+APPEND ~action.ids~ ~346 DisplayStringNoNameHead(O:Object*,I:StrRef*)~
+             UNLESS ~DisplayStringNoNameHead(O:Object\*,I:StrRef\*)~
+APPEND ~action.ids~ ~347 SetEncounterProbability(S:FromArea*,S:ToArea*,I:Probability*)~
+             UNLESS ~SetEncounterProbability(S:FromArea\*,S:ToArea\*,I:Probability\*)~
+APPEND ~action.ids~ ~348 SetupWish(I:Column*,I:Count*)~
+             UNLESS ~SetupWish(I:Column\*,I:Count\*)~
+APPEND ~action.ids~ ~349 SetupWishObject(O:Creature*,I:Count*)~
+             UNLESS ~SetupWishObject(O:Creature\*,I:Count\*)~
+APPEND ~action.ids~ ~350 LeaveAreaLUAEntry(S:Area*,S:Entry*,P:Point*,I:Face*)~
+             UNLESS ~LeaveAreaLUAEntry(S:Area\*,S:Entry\*,P:Point\*,I:Face\*)~
+APPEND ~action.ids~ ~351 LeaveAreaLUAPanicEntry(S:Area*,S:Entry*,P:Point*,I:Face*)~
+             UNLESS ~LeaveAreaLUAPanicEntry(S:Area\*,S:Entry\*,P:Point\*,I:Face\*)~
+
+END
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_trigger_bp BEGIN
+
+// additional ToB triggers for SoA
+APPEND ~trigger.ids~ ~0x00A1 SpellCastOnMeRES(S:Spell*,O:Caster*)~
+              UNLESS ~SpellCastOnMeRES(S:Spell\*,O:Caster\*)~
+APPEND ~trigger.ids~ ~0x0091 SpellCastRES(S:Spell*,O:Object*)~
+              UNLESS ~SpellCastRES(S:Spell\*,O:Object\*)~
+APPEND ~trigger.ids~ ~0x00A6 SpellCastPriestRES(S:Spell*,O:Object*)~
+              UNLESS ~SpellCastPriestRES(S:Spell\*,O:Object\*)~
+APPEND ~trigger.ids~ ~0x00A7 SpellCastInnateRES(S:Spell*,O:Object*)~
+              UNLESS ~SpellCastInnateRES(S:Spell\*,O:Object\*)~
+APPEND ~trigger.ids~ ~0x4031 HaveSpellRES(S:Spell*)~
+              UNLESS ~HaveSpellRES(S:Spell\*)~
+APPEND ~trigger.ids~ ~0x40D5 ActuallyInCombat()~
+              UNLESS ~ActuallyInCombat()~
+APPEND ~trigger.ids~ ~0x40D7 LevelParty(I:Num*)~
+              UNLESS ~LevelParty(I:Num\*)~
+APPEND ~trigger.ids~ ~0x40D8 LevelPartyGT(I:Num*)~
+              UNLESS ~LevelPartyGT(I:Num\*)~
+APPEND ~trigger.ids~ ~0x40D9 LevelPartyLT(I:Num*)~
+              UNLESS ~LevelPartyLT(I:Num\*)~
+APPEND ~trigger.ids~ ~0x40DB InWatchersKeep()~
+              UNLESS ~InWatchersKeep()~
+
+END
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_animate_bp BEGIN
+
+
+/////////////////animate.ids////////////////////////////
+APPEND ~animate.ids~ ~0xE010 IC_ETTIN~ UNLESS ~0xE010~
+APPEND ~animate.ids~ ~0xE040 IC_HISTACHII~ UNLESS ~0xE040~
+APPEND ~animate.ids~ ~0xE060 IC_LICH~ UNLESS ~0xE060~
+APPEND ~animate.ids~ ~0xE090 IC_MERILITH~ UNLESS ~0xE090~
+APPEND ~animate.ids~ ~0xE0A0 IC_ICE_TROLL~ UNLESS ~0xE0A0~
+APPEND ~animate.ids~ ~0xE0C0 IC_SNOW_TROLL~ UNLESS ~0xE0C0~
+APPEND ~animate.ids~ ~0xE0D0 IC_UMBERHULK~ UNLESS ~0xE0D0~
+APPEND ~animate.ids~ ~0xE0E0 IC_CORNUGONSKI~ UNLESS ~0xE0E0~
+APPEND ~animate.ids~ ~0xE0F0 IC_ICE_GOLEM~ UNLESS ~0xE0F0~
+APPEND ~animate.ids~ ~0xE0F1 IC_GLAB~ UNLESS ~0xE0F1~
+APPEND ~animate.ids~ ~0xE0F2 IC_WAILING_VIRGIN~ UNLESS ~0xE0F2~
+APPEND ~animate.ids~ ~0xE200 IC_BEETLE_COPPER~ UNLESS ~0xE200~
+APPEND ~animate.ids~ ~0xE210 IC_BEETLE_FIRE~ UNLESS ~0xE210~
+APPEND ~animate.ids~ ~0xE220 IC_BEETLE_BLACK~ UNLESS ~0xE220~
+APPEND ~animate.ids~ ~0xE230 IC_BEETLE_RHINOCEROS~ UNLESS ~0xE230~
+APPEND ~animate.ids~ ~0xE300 IC_GHOST~ UNLESS ~0xE300~
+APPEND ~animate.ids~ ~0xE310 IC_GHOUL~ UNLESS ~0xE310~
+APPEND ~animate.ids~ ~0xE320 IC_GHAST~ UNLESS ~0xE320~
+APPEND ~animate.ids~ ~0xE510 IC_LIZARDMAN2~ UNLESS ~0xE510~
+APPEND ~animate.ids~ ~0xEA10 IC_SHADE~ UNLESS ~0xEA10~
+APPEND ~animate.ids~ ~0xEA20 IC_SHADE2~ UNLESS ~0xEA20~
+APPEND ~animate.ids~ ~0xEE00 IC_ZOMBIE~ UNLESS ~0xEE00~
+APPEND ~animate.ids~ ~0xEE10 IC_ZOMBIE2~ UNLESS ~0xEE10~
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_anisnd_bp BEGIN
+
+//////////////////anisnd.ids/////////////////////////////
+APPEND ~anisnd.ids~  ~0xE000 MCYC     CGAMEANIMATIONTYPE_CYCLOP~ UNLESS ~0xE000~
+APPEND ~anisnd.ids~  ~0xE040 MHIS     CGAMEANIMATIONTYPE_HISTACHII~ UNLESS ~0xE040~
+APPEND ~anisnd.ids~  ~0xE060 MLIC     CGAMEANIMATIONTYPE_IC_LICH~ UNLESS ~0xE060~
+APPEND ~anisnd.ids~  ~0xE0A0 MTIC     CGAMEANIMATIONTYPE_IC_ICE_TROLL~ UNLESS ~0xE0A0~
+APPEND ~anisnd.ids~  ~0xE0C0 MTSN     CGAMEANIMATIONTYPE_IC_SNOW_TROLL~ UNLESS ~0xE0C0~
+APPEND ~anisnd.ids~  ~0xE0D0 MUM2     CGAMEANIMATIONTYPE_IC_UMBERHULK~ UNLESS ~0xE0D0~
+APPEND ~anisnd.ids~  ~0xE0E0 MCOR     CGAMEANIMATIONTYPE_IC_CORNUGONSKI~ UNLESS ~0xE0E0~
+APPEND ~anisnd.ids~  ~0xE0F0 MGIC     CGAMEANIMATIONTYPE_IC_ICE_GOLEM~ UNLESS ~0xE0F0~
+APPEND ~anisnd.ids~  ~0xE0F1 MGLA     CGAMEANIMATIONTYPE_IC_GLAB~ UNLESS ~0xE0F1~
+APPEND ~anisnd.ids~  ~0xE0F2 MWAV     CGAMEANIMATIONTYPE_WAILING_VIRGIN~ UNLESS ~0xE0F2~
+APPEND ~anisnd.ids~  ~0xE200 MBET     CGAMEANIMATIONTYPE_IC_BEETLE_COPPER~ UNLESS ~0xE200~
+APPEND ~anisnd.ids~  ~0xE210 MBFI     CGAMEANIMATIONTYPE_IC_BEETLE_FIRE~ UNLESS ~0xE210~
+APPEND ~anisnd.ids~  ~0xE220 MBBM     CGAMEANIMATIONTYPE_IC_BEETLE_BLACK~ UNLESS ~0xE220~
+APPEND ~anisnd.ids~  ~0xE230 MBRH     CGAMEANIMATIONTYPE_IC_BEETLE_RHINOCEROS~ UNLESS ~0xE230~
+APPEND ~anisnd.ids~  ~0xE300 MGHO     CGAMEANIMATIONTYPE_IC_GHOST~ UNLESS ~0xE300~
+APPEND ~anisnd.ids~  ~0xE310 MGH2     CGAMEANIMATIONTYPE_IC_GHOUL~ UNLESS ~0xE310~
+APPEND ~anisnd.ids~  ~0xE320 MGH3     CGAMEANIMATIONTYPE_IC_GHAST~ UNLESS ~0xE320~
+APPEND ~anisnd.ids~  ~0xE510 MLI2     CGAMEANIMATIONTYPE_IC_LIZARDMAN2~ UNLESS ~0xE510~
+APPEND ~anisnd.ids~  ~0xEA10 MSH1     CGAMEANIMATIONTYPE_IC_SHADE~ UNLESS ~0xEA10~
+APPEND ~anisnd.ids~  ~0xEA20 MSH2     CGAMEANIMATIONTYPE_IC_SHADE2~ UNLESS ~0xEA20~
+APPEND ~anisnd.ids~  ~0xEE00 MZO2     CGAMEANIMATIONTYPE_IC_ZOMBIE~ UNLESS ~0xEE00~
+APPEND ~anisnd.ids~  ~0xEE10 MZO3     CGAMEANIMATIONTYPE_IC_ZOMBIE2~ UNLESS ~0xEE10~
+///////////////////////////////////////////////////////
+
+
+END
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_gender_bp BEGIN
+
+APPEND ~gender.ids~ ~10 EXTRA2~ UNLESS ~EXTRA2~
+APPEND ~gender.ids~ ~11 EXTRA3~ UNLESS ~EXTRA3~
+APPEND ~gender.ids~ ~12 EXTRA4~ UNLESS ~EXTRA4~
+APPEND ~gender.ids~ ~13 EXTRA5~ UNLESS ~EXTRA5~
+APPEND ~gender.ids~ ~14 EXTRA6~ UNLESS ~EXTRA6~
+APPEND ~gender.ids~ ~15 EXTRA7~ UNLESS ~EXTRA7~
+APPEND ~gender.ids~ ~16 EXTRA8~ UNLESS ~EXTRA8~
+APPEND ~gender.ids~ ~17 EXTRA9~ UNLESS ~EXTRA9~
+APPEND ~gender.ids~ ~18 EXTRA10~ UNLESS ~EXTRA10~
+
+END
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_kit_bp BEGIN
+
+COPY_EXISTING ~kit.ids~ ~override~
+  REPLACE_TEXTUALLY ~0x00004000~ ~0x4000~ // TRUECLASS/MAGESCHOOL_GENERALIST
+  REPLACE_TEXTUALLY ~0x00000040~ ~0x0040~ // MAGESCHOOL_ABJURER
+  REPLACE_TEXTUALLY ~0x00000080~ ~0x0080~ // MAGESCHOOL_CONJURER
+  REPLACE_TEXTUALLY ~0x00000100~ ~0x0100~ // MAGESCHOOL_DIVINER
+  REPLACE_TEXTUALLY ~0x00000200~ ~0x0200~ // MAGESCHOOL_ENCHANTER
+  REPLACE_TEXTUALLY ~0x00000400~ ~0x0400~ // MAGESCHOOL_ILLUSIONIST
+  REPLACE_TEXTUALLY ~0x00000800~ ~0x0800~ // MAGESCHOOL_INVOKER
+  REPLACE_TEXTUALLY ~0x00001000~ ~0x1000~ // MAGESCHOOL_NECROMANCER
+  REPLACE_TEXTUALLY ~0x00002000~ ~0x2000~ // MAGESCHOOL_TRANSMUTER
+  REPLACE_TEXTUALLY ~0x00000001~ ~0x4001~ // BERSERKER
+  REPLACE_TEXTUALLY ~0x00000002~ ~0x4002~ // WIZARDSLAYER
+  REPLACE_TEXTUALLY ~0x00000004~ ~0x4003~ // KENSAI
+  REPLACE_TEXTUALLY ~0x00000008~ ~0x4004~ // CAVALIER
+  REPLACE_TEXTUALLY ~0x00000010~ ~0x4005~ // INQUISITOR
+  REPLACE_TEXTUALLY ~0x00000020~ ~0x4006~ // UNDEADHUNTER
+  REPLACE_TEXTUALLY ~0x00008000~ ~0x4007~ // FERALAN
+  REPLACE_TEXTUALLY ~0x00010000~ ~0x4008~ // STALKER
+  REPLACE_TEXTUALLY ~0x00020000~ ~0x4009~ // BEASTMASTER
+  REPLACE_TEXTUALLY ~0x00040000~ ~0x400A~ // ASSASIN
+  REPLACE_TEXTUALLY ~0x00080000~ ~0x400B~ // BOUNTYHUNTER
+  REPLACE_TEXTUALLY ~0x00100000~ ~0x400C~ // SWASHBUCKLER
+  REPLACE_TEXTUALLY ~0x00200000~ ~0x400D~ // BLADE
+  REPLACE_TEXTUALLY ~0x00400000~ ~0x400E~ // JESTER
+  REPLACE_TEXTUALLY ~0x00800000~ ~0x400F~ // SKALD
+  REPLACE_TEXTUALLY ~0x01000000~ ~0x4013~ // GODTALOS
+  REPLACE_TEXTUALLY ~0x02000000~ ~0x4014~ // GODHELM
+  REPLACE_TEXTUALLY ~0x04000000~ ~0x4015~ // GODLATHANDER
+  REPLACE_TEXTUALLY ~0x08000000~ ~0x4010~ // TOTEMIC
+  REPLACE_TEXTUALLY ~0x10000000~ ~0x4011~ // SHAPESHIFTER
+  REPLACE_TEXTUALLY ~0x20000000~ ~0x4012~ // BEASTFRIEND
+  REPLACE_TEXTUALLY ~0x40000000~ ~0x401F~ // BARBARIAN
+  REPLACE_TEXTUALLY ~0x00000000 BARBARIAN~ ~0x401F BARBARIAN~ //Some mods install this incorrectly
+BUT_ONLY
+
+APPEND ~kit.ids~ ~0x80000000 WILDMAGE~ UNLESS ~0x80000000 WILDMAGE~
+
+END
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_shoutids_bp BEGIN
+
+
+APPEND ~shoutids.ids~ ~2 LEAVE2~ UNLESS ~LEAVE2~
+APPEND ~SHOUTIDS.IDS~ ~66 DEAD_MEAT~ UNLESS ~DEAD_MEAT~
+APPEND ~SHOUTIDS.IDS~ ~68 ALERT_68~ UNLESS ~ALERT_68~
+APPEND ~SHOUTIDS.IDS~ ~69 ALERT_69~ UNLESS ~ALERT_69~
+APPEND ~shoutids.ids~ ~79 HELP79~ UNLESS ~^HELP79~
+APPEND ~SHOUTIDS.IDS~ ~80 RETREAT_80~ UNLESS ~RETREAT_80~
+APPEND ~SHOUTIDS.IDS~ ~82 RALLY_TO_ME_82~ UNLESS ~RALLY_TO_ME_82~
+APPEND ~SHOUTIDS.IDS~ ~83 HEALME_83~ UNLESS ~HEALME_83~
+APPEND ~SHOUTIDS.IDS~ ~84 IM_BLIND~ UNLESS ~IM_BLIND~
+APPEND ~SHOUTIDS.IDS~ ~89 ALERT_89~ UNLESS ~ALERT_89~
+APPEND ~SHOUTIDS.IDS~ ~99 ALERT_99~ UNLESS ~ALERT_99~
+APPEND ~SHOUTIDS.IDS~ ~100 ALERT_100~ UNLESS ~ALERT_100~
+APPEND ~SHOUTIDS.IDS~ ~101 ALERT_101~  UNLESS ~ALERT_101~
+APPEND ~SHOUTIDS.IDS~ ~111 INCOMING_111~ UNLESS ~INCOMING_111~
+APPEND ~SHOUTIDS.IDS~ ~115 ALERT_115~ UNLESS ~ALERT_115~
+APPEND ~SHOUTIDS.IDS~ ~116 ALERT_116~ UNLESS ~ALERT_116~
+APPEND ~SHOUTIDS.IDS~ ~121 MDK_SHOUT_121~ UNLESS ~MDK_SHOUT_121~
+APPEND ~SHOUTIDS.IDS~ ~122 MDK_SHOUT_122~ UNLESS ~MDK_SHOUT_122~
+APPEND ~SHOUTIDS.IDS~ ~151 ALERT_151~ UNLESS ~ALERT_151~
+APPEND ~SHOUTIDS.IDS~ ~152 ALERT_152~ UNLESS ~ALERT_152~
+APPEND ~SHOUTIDS.IDS~ ~153 HP_LT_20_ASSIST~ UNLESS ~HP_LT_20_ASSIST~
+APPEND ~SHOUTIDS.IDS~ ~154 INCOMING_154~ UNLESS ~INCOMING_154~
+APPEND ~SHOUTIDS.IDS~ ~155 INCOMING_155~ UNLESS ~INCOMING_155~
+APPEND ~SHOUTIDS.IDS~ ~156 UNDER_ATTACK~ UNLESS ~UNDER_ATTACK~
+APPEND ~SHOUTIDS.IDS~ ~199 ALERT_199~ UNLESS ~ALERT_199~
+APPEND ~SHOUTIDS.IDS~ ~200 POISONED_200~ UNLESS ~POISONED_200~
+
+
+END
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_specific_bp BEGIN
+
+
+APPEND ~specific.ids~ ~5 UNDERDARK~ UNLESS ~UNDERDARK~
+APPEND ~specific.ids~ ~103 PERSON_1~ UNLESS ~PERSON_1~
+APPEND ~specific.ids~ ~104 PERSON_2~ UNLESS ~PERSON_2~
+APPEND ~specific.ids~ ~105 PERSON_3~ UNLESS ~PERSON_3~
+APPEND ~specific.ids~ ~106 PERSON_4~ UNLESS ~PERSON_4~
+APPEND ~specific.ids~ ~107 PERSON_5~ UNLESS ~PERSON_5~
+APPEND ~specific.ids~ ~108 PERSON_6~ UNLESS ~PERSON_6~
+APPEND ~specific.ids~ ~109 PERSON_7~ UNLESS ~PERSON_7~
+APPEND ~specific.ids~ ~110 PERSON_8~ UNLESS ~PERSON_8~
+APPEND ~specific.ids~ ~111 PERSON_9~ UNLESS ~PERSON_9~
+APPEND ~specific.ids~ ~112 PERSON_10~ UNLESS ~PERSON_10~
+APPEND ~specific.ids~ ~113 SQUIRREL~ UNLESS ~SQUIRREL~
+APPEND ~specific.ids~ ~114 P1Target~ UNLESS ~P1Target~
+APPEND ~specific.ids~ ~115 P2Target~ UNLESS ~P2Target~
+APPEND ~specific.ids~ ~116 P3Target~ UNLESS ~P3Target~
+APPEND ~specific.ids~ ~117 P4Target~ UNLESS ~P4Target~
+APPEND ~specific.ids~ ~118 P5Target~ UNLESS ~P5Target~
+APPEND ~specific.ids~ ~119 P6Target~ UNLESS ~P6Target~
+APPEND ~specific.ids~ ~123 Charmed~ UNLESS ~Charmed~
+APPEND ~specific.ids~ ~124 NOTCHARMED~ UNLESS ~NOTCHARMED~
+APPEND ~specific.ids~ ~235 BHOSTILE_CREW~ UNLESS ~BHOSTILE_CREW~
+APPEND ~specific.ids~ ~245 CALLED_FOR_BOULDER~ UNLESS ~CALLED_FOR_BOULDER~
+
+END
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_spell_bp BEGIN
+
+APPEND ~spell.ids~ ~1721 CLERIC_ENERGY_BLADES~ UNLESS ~CLERIC_ENERGY_BLADES~
+APPEND ~spell.ids~ ~1722 CLERIC_STORM_OF_VENGEANCE~ UNLESS ~CLERIC_STORM_OF_VENGEANCE~
+APPEND ~spell.ids~ ~1723 CLERIC_ELEMENTAL_SWARM~ UNLESS ~CLERIC_ELEMENTAL_SWARM~
+APPEND ~spell.ids~ ~1724 CLERIC_GREATER_ELEMENTAL_SWARM~ UNLESS ~CLERIC_GREATER_ELEMENTAL_SWARM~
+APPEND ~spell.ids~ ~1725 CLERIC_GLOBE_OF_BLADES~ UNLESS ~CLERIC_GLOBE_OF_BLADES~
+APPEND ~spell.ids~ ~1726 CLERIC_SUMMON_DEVA~ UNLESS ~CLERIC_SUMMON_DEVA~
+APPEND ~spell.ids~ ~1727 CLERIC_SUMMON_FALLEN_DEVA~ UNLESS ~CLERIC_SUMMON_FALLEN_DEVA~
+APPEND ~spell.ids~ ~1728 CLERIC_IMPLOSION~ UNLESS ~CLERIC_IMPLOSION~
+APPEND ~spell.ids~ ~1729 CLERIC_MASS_RAISE_DEAD~ UNLESS ~CLERIC_MASS_RAISE_DEAD~
+APPEND ~spell.ids~ ~1730 CLERIC_AURA_OF_FLAMING_DEATH~ UNLESS ~CLERIC_AURA_OF_FLAMING_DEATH~
+APPEND ~spell.ids~ ~1731 CLERIC_ELEMENTAL_TRANSFORMATION_FIRE~ UNLESS ~CLERIC_ELEMENTAL_TRANSFORMATION_FIRE~
+APPEND ~spell.ids~ ~1732 CLERIC_ELEMENTAL_TRANSFORMATION_EARTH~ UNLESS ~CLERIC_ELEMENTAL_TRANSFORMATION_EARTH~
+APPEND ~spell.ids~ ~2302 WIZARD_REMOVE_MAGIC~ UNLESS ~WIZARD_REMOVE_MAGIC~
+APPEND ~spell.ids~ ~2818 WIZARD_BIGBYS_CLENCHED_FIST~ UNLESS ~WIZARD_BIGBYS_CLENCHED_FIST~
+APPEND ~spell.ids~ ~2918 WIZARD_BIGBYS_CRUSHING_HAND~ UNLESS ~WIZARD_BIGBYS_CRUSHING_HAND~
+APPEND ~spell.ids~ ~2919 WIZARD_WISH~ UNLESS ~WIZARD_WISH~
+APPEND ~spell.ids~ ~2920 WIZARD_ENERGY_BLADES~ UNLESS ~WIZARD_ENERGY_BLADES~
+APPEND ~spell.ids~ ~2921 WIZARD_IMPROVED_ALUCRITY~ UNLESS ~WIZARD_IMPROVED_ALUCRITY~
+APPEND ~spell.ids~ ~2922 WIZARD_DRAGONS_BREATH~ UNLESS ~WIZARD_DRAGONS_BREATH~
+APPEND ~spell.ids~ ~2923 WIZARD_SUMMON_PLANATAR_GOOD~ UNLESS ~WIZARD_SUMMON_PLANATAR_GOOD~
+APPEND ~spell.ids~ ~2924 WIZARD_SUMMON_PLANATAR_EVIL~ UNLESS ~WIZARD_SUMMON_PLANATAR_EVIL~
+APPEND ~spell.ids~ ~2925 WIZARD_COMET~ UNLESS ~WIZARD_COMET~
+APPEND ~spell.ids~ ~3503 NPC_THIEF_ILLUSIONS~ UNLESS ~NPC_THIEF_ILLUSIONS~
+APPEND ~spell.ids~ ~3529 END_SLAYER_CHANGE~ UNLESS ~END_SLAYER_CHANGE~
+APPEND ~spell.ids~ ~3530 LOWER_POISON_RESISTANCE~ UNLESS ~LOWER_POISON_RESISTANCE~
+APPEND ~spell.ids~ ~3531 ABAZIGAL_SHOCKWAVE~ UNLESS ~ABAZIGAL_SHOCKWAVE~
+APPEND ~spell.ids~ ~3532 DRAGON_LOWER_ELECTRICAL~ UNLESS ~DRAGON_LOWER_ELECTRICAL~
+APPEND ~spell.ids~ ~3533 SENDAI_CHANGE~ UNLESS ~SENDAI_CHANGE~
+APPEND ~spell.ids~ ~3534 SUMMON_DEVIL_SHADE~ UNLESS ~SUMMON_DEVIL_SHADE~
+APPEND ~spell.ids~ ~3535 GREEN_DRAGON_BREATH~ UNLESS ~GREEN_DRAGON_BREATH~
+APPEND ~spell.ids~ ~3536 LICH_FEAR~ UNLESS ~LICH_FEAR~
+APPEND ~spell.ids~ ~3537 TROLL_FIRE_CHANGE~ UNLESS ~TROLL_FIRE_CHANGE~
+APPEND ~spell.ids~ ~3542 PSIONIC_DISINTEGRATE~ UNLESS ~PSIONIC_DISINTEGRATE~
+APPEND ~spell.ids~ ~3543 PSIONIC_INFLICT_PAIN~ UNLESS ~PSIONIC_INFLICT_PAIN~
+APPEND ~spell.ids~ ~3544 PSIONIC_SUPERIOR_INVISIBILITY~ UNLESS ~PSIONIC_SUPERIOR_INVISIBILITY~
+APPEND ~spell.ids~ ~3545 PSIONIC_LIFE_DRAIN~ UNLESS ~PSIONIC_LIFE_DRAIN~
+APPEND ~spell.ids~ ~3546 PSIONIC_INERTIAL_BARRIER~ UNLESS ~PSIONIC_INERTIAL_BARRIER~
+APPEND ~spell.ids~ ~3547 PSIONIC_PROJECT_FORCE~ UNLESS ~PSIONIC_PROJECT_FORCE~
+APPEND ~spell.ids~ ~3548 DEMOGORGON_GATE~ UNLESS ~DEMOGORGON_GATE~
+APPEND ~spell.ids~ ~3549 SUMMON_INFERNAL_HOST~ UNLESS ~SUMMON_INFERNAL_HOST~
+APPEND ~spell.ids~ ~3553 NALMISSRA_CHARM~ UNLESS ~NALMISSRA_CHARM~
+APPEND ~spell.ids~ ~3554 GAIN_ONE_CHA_PERMANENT~ UNLESS ~GAIN_ONE_CHA_PERMANENT~
+APPEND ~spell.ids~ ~3555 GAIN_ONE_WIS_PERMANENT~ UNLESS ~GAIN_ONE_WIS_PERMANENT~
+APPEND ~spell.ids~ ~3556 GAIN_ONE_INT_PERMANENT~ UNLESS ~GAIN_ONE_INT_PERMANENT~
+APPEND ~spell.ids~ ~3557 GAIN_ONE_DEX_PERMANENT~ UNLESS ~GAIN_ONE_DEX_PERMANENT~
+APPEND ~spell.ids~ ~3558 ERINYES_CHARM~ UNLESS ~ERINYES_CHARM~
+APPEND ~spell.ids~ ~3559 BURNING_MAN_KEENING~ UNLESS ~BURNING_MAN_KEENING~
+APPEND ~spell.ids~ ~3560 BURNING_MAN_CINDER_SHOWER~ UNLESS ~BURNING_MAN_CINDER_SHOWER~
+APPEND ~spell.ids~ ~3561 FIRE_GIANT_LAVA~ UNLESS ~FIRE_GIANT_LAVA~
+APPEND ~spell.ids~ ~3562 ICE_GOLEM_STEAM~ UNLESS ~ICE_GOLEM_STEAM~
+APPEND ~spell.ids~ ~3563 HOLY_PILLAR_VISUAL~ UNLESS ~HOLY_PILLAR_VISUAL~
+APPEND ~spell.ids~ ~3564 SKULL_EXPLODE~ UNLESS ~SKULL_EXPLODE~
+APPEND ~spell.ids~ ~3565 GAROCK_TELEPORT~ UNLESS ~GAROCK_TELEPORT~
+APPEND ~spell.ids~ ~3566 MIMIC_WEB~ UNLESS ~MIMIC_WEB~
+APPEND ~spell.ids~ ~3567 MIMIC_FIRE~ UNLESS ~MIMIC_FIRE~
+APPEND ~spell.ids~ ~3568 MIMIC_POISON~ UNLESS ~MIMIC_POISON~
+APPEND ~spell.ids~ ~3569 SUMMON_ICE_SALAMANDER~ UNLESS ~SUMMON_ICE_SALAMANDER~
+APPEND ~spell.ids~ ~3570 SUMMON_FIRE_ELEMENTAL~ UNLESS ~SUMMON_FIRE_ELEMENTAL~
+APPEND ~spell.ids~ ~3571 SUCCUBUS_KISS~ UNLESS ~SUCCUBUS_KISS~
+APPEND ~spell.ids~ ~3572 CUTSCENE_HASTE~ UNLESS ~CUTSCENE_HASTE~
+APPEND ~spell.ids~ ~3573 IMOEN_BHAAL2~ UNLESS ~IMOEN_BHAAL2~
+APPEND ~spell.ids~ ~3574 IMOEN_BHAAL1~ UNLESS ~IMOEN_BHAAL1~
+APPEND ~spell.ids~ ~3575 VORTEX_WEB~ UNLESS ~VORTEX_WEB~
+APPEND ~spell.ids~ ~3576 DENSE_PUDDING_SPLIT~ UNLESS ~DENSE_PUDDING_SPLIT~
+APPEND ~spell.ids~ ~3577 GAIN_ONE_THACO~ UNLESS ~GAIN_ONE_THACO~
+APPEND ~spell.ids~ ~3578 GAIN_ONE_AC~ UNLESS ~GAIN_ONE_AC~
+APPEND ~spell.ids~ ~3579 POWER_AMP~ UNLESS ~POWER_AMP~
+APPEND ~spell.ids~ ~3580 IMPRISONMENT_NO_SAVE~ UNLESS ~IMPRISONMENT_NO_SAVE~
+APPEND ~spell.ids~ ~3581 RESTORATION_IGNORE_RESIST~ UNLESS ~RESTORATION_IGNORE_RESIST~
+APPEND ~spell.ids~ ~3582 CONFUSION_NO_SAVE~ UNLESS ~CONFUSION_NO_SAVE~
+APPEND ~spell.ids~ ~3583 POISON_NO_SAVE~ UNLESS ~POISON_NO_SAVE~
+APPEND ~spell.ids~ ~3584 GAIN_HASTE_TEMPORARY~ UNLESS ~GAIN_HASTE_TEMPORARY~
+APPEND ~spell.ids~ ~3585 GAIN_MAGIC_RESIST_PERMANENT~ UNLESS ~GAIN_MAGIC_RESIST_PERMANENT~
+APPEND ~spell.ids~ ~3586 LOSE_FIFTEEN_LEVELS~ UNLESS ~LOSE_FIFTEEN_LEVELS~
+APPEND ~spell.ids~ ~3587 LOSE_FIVE_LEVELS~ UNLESS ~LOSE_FIVE_LEVELS~
+APPEND ~spell.ids~ ~3588 LOSE_ONE_DEX_PERMANENT~ UNLESS ~LOSE_ONE_DEX_PERMANENT~
+APPEND ~spell.ids~ ~3589 LOSE_ONE_INT_PERMANENT~ UNLESS ~LOSE_ONE_INT_PERMANENT~
+APPEND ~spell.ids~ ~3590 GAIN_ONE_CON_PERMANENT~ UNLESS ~GAIN_ONE_CON_PERMANENT~
+APPEND ~spell.ids~ ~3591 GAIN_ONE_STR_PERMANENT~ UNLESS ~GAIN_ONE_STR_PERMANENT~
+APPEND ~spell.ids~ ~3592 HELM_RITUAL_SCROLL~ UNLESS ~HELM_RITUAL_SCROLL~
+APPEND ~spell.ids~ ~3593 ODREN_RITUAL_SCROLL~ UNLESS ~ODREN_RITUAL_SCROLL~
+APPEND ~spell.ids~ ~3594 DEMOGORGON_CHANGE~ UNLESS ~DEMOGORGON_CHANGE~
+APPEND ~spell.ids~ ~3595 YELLOW_DRAGON_BREATH~ UNLESS ~YELLOW_DRAGON_BREATH~
+APPEND ~spell.ids~ ~3596 BROWN_DRAGON_BREATH~ UNLESS ~BROWN_DRAGON_BREATH~
+APPEND ~spell.ids~ ~3597 BLUE_DRAGON_BREATH~ UNLESS ~BLUE_DRAGON_BREATH~
+APPEND ~spell.ids~ ~3598 SAREVOK_FLASHY1~ UNLESS ~SAREVOK_FLASHY1~
+APPEND ~spell.ids~ ~3599 FIRE_HEALING~ UNLESS ~FIRE_HEALING~
+APPEND ~spell.ids~ ~3600 SAREVOK_SOULSTEAL~ UNLESS ~SAREVOK_SOULSTEAL~
+APPEND ~spell.ids~ ~3601 SPECIAL_SWEET_AIR~ UNLESS ~SPECIAL_SWEET_AIR~
+APPEND ~spell.ids~ ~3602 CHROMATIC_DEMON_RED~ UNLESS ~CHROMATIC_DEMON_RED~
+APPEND ~spell.ids~ ~3603 CHROMATIC_DEMON_WHITE~ UNLESS ~CHROMATIC_DEMON_WHITE~
+APPEND ~spell.ids~ ~3604 CHROMATIC_DEMON_GREEN~ UNLESS ~CHROMATIC_DEMON_GREEN~
+APPEND ~spell.ids~ ~3605 CHROMATIC_DEMON_YELLOW~ UNLESS ~CHROMATIC_DEMON_YELLOW~
+APPEND ~spell.ids~ ~3606 DECK_SUN~ UNLESS ~DECK_SUN~
+APPEND ~spell.ids~ ~3607 DECK_JESTER~ UNLESS ~DECK_JESTER~
+APPEND ~spell.ids~ ~3608 DECK_VIZIER~ UNLESS ~DECK_VIZIER~
+APPEND ~spell.ids~ ~3609 DECK_GEM~ UNLESS ~DECK_GEM~
+APPEND ~spell.ids~ ~3610 DECK_FATES~ UNLESS ~DECK_FATES~
+APPEND ~spell.ids~ ~3611 DECK_COMET~ UNLESS ~DECK_COMET~
+APPEND ~spell.ids~ ~3612 DECK_FOOL~ UNLESS ~DECK_FOOL~
+APPEND ~spell.ids~ ~3613 DECK_TALONS~ UNLESS ~DECK_TALONS~
+APPEND ~spell.ids~ ~3614 DECK_ROGUE~ UNLESS ~DECK_ROGUE~
+APPEND ~spell.ids~ ~3615 DECK_KNIGHT~ UNLESS ~DECK_KNIGHT~
+APPEND ~spell.ids~ ~3616 DECK_FLAMES~ UNLESS ~DECK_FLAMES~
+APPEND ~spell.ids~ ~3617 DECK_EURYALE~ UNLESS ~DECK_EURYALE~
+APPEND ~spell.ids~ ~3618 DECK_MOON~ UNLESS ~DECK_MOON~
+APPEND ~spell.ids~ ~3619 DECK_THRONE~ UNLESS ~DECK_THRONE~
+APPEND ~spell.ids~ ~3620 DECK_STAR~ UNLESS ~DECK_STAR~
+APPEND ~spell.ids~ ~3621 DECK_KEY~ UNLESS ~DECK_KEY~
+APPEND ~spell.ids~ ~3622 DECK_SKULL~ UNLESS ~DECK_SKULL~
+APPEND ~spell.ids~ ~3623 DECK_MAGICIAN~ UNLESS ~DECK_MAGICIAN~
+APPEND ~spell.ids~ ~3624 DECK_VOID~ UNLESS ~DECK_VOID~
+APPEND ~spell.ids~ ~3625 DECK_RUIN~ UNLESS ~DECK_RUIN~
+APPEND ~spell.ids~ ~3626 DECK_DONJON~ UNLESS ~DECK_DONJON~
+APPEND ~spell.ids~ ~3627 FROZEN_DEATH~ UNLESS ~FROZEN_DEATH~
+APPEND ~spell.ids~ ~3628 SLOW_FREEZE~ UNLESS ~SLOW_FREEZE~
+APPEND ~spell.ids~ ~3629 DECK_WHEEL~ UNLESS ~DECK_WHEEL~
+APPEND ~spell.ids~ ~3630 DECK_STRENGTH~ UNLESS ~DECK_STRENGTH~
+APPEND ~spell.ids~ ~3631 DECK_CONSTRUCT~ UNLESS ~DECK_CONSTRUCT~
+APPEND ~spell.ids~ ~3632 DECK_EMPEROR~ UNLESS ~DECK_EMPEROR~
+APPEND ~spell.ids~ ~3633 DECK_EMPRESS~ UNLESS ~DECK_EMPRESS~
+APPEND ~spell.ids~ ~3634 DECK_HIGH_PRIESTESS~ UNLESS ~DECK_HIGH_PRIESTESS~
+APPEND ~spell.ids~ ~3635 DECK_STRIFE~ UNLESS ~DECK_STRIFE~
+APPEND ~spell.ids~ ~3636 DECK_DEFIANCE~ UNLESS ~DECK_DEFIANCE~
+APPEND ~spell.ids~ ~3637 DECK_GUILE~ UNLESS ~DECK_GUILE~
+APPEND ~spell.ids~ ~3638 DECK_TRIUMPH~ UNLESS ~DECK_TRIUMPH~
+APPEND ~spell.ids~ ~3639 DECK_PLAGUE~ UNLESS ~DECK_PLAGUE~
+APPEND ~spell.ids~ ~3640 DECK_XP_DRAIN~ UNLESS ~DECK_XP_DRAIN~
+APPEND ~spell.ids~ ~3641 DECK_VITALITY_DRAIN~ UNLESS ~DECK_VITALITY_DRAIN~
+APPEND ~spell.ids~ ~3642 POISONOUS_CLOUD~ UNLESS ~POISONOUS_CLOUD~
+APPEND ~spell.ids~ ~3643 FAN_BLOW~ UNLESS ~FAN_BLOW~
+APPEND ~spell.ids~ ~3644 BALOR_FIRE_SHIELD~ UNLESS ~BALOR_FIRE_SHIELD~
+APPEND ~spell.ids~ ~3645 WILD_MAGIC_AREA~ UNLESS ~WILD_MAGIC_AREA~
+APPEND ~spell.ids~ ~3646 DEAD_MAGIC_AREA~ UNLESS ~DEAD_MAGIC_AREA~
+APPEND ~spell.ids~ ~3647 DISPEL_NO_SAVE~ UNLESS ~DISPEL_NO_SAVE~
+APPEND ~spell.ids~ ~3648 HOLD_PERSON_NO_SAVE~ UNLESS ~HOLD_PERSON_NO_SAVE~
+APPEND ~spell.ids~ ~3649 ENTER_POCKET_PLANE~ UNLESS ~ENTER_POCKET_PLANE~
+APPEND ~spell.ids~ ~3650 DM_SHIELD~ UNLESS ~DM_SHIELD~
+APPEND ~spell.ids~ ~3651 DM_SEE_INVISIBLE~ UNLESS ~DM_SEE_INVISIBLE~
+APPEND ~spell.ids~ ~3652 DM_MAGIC_PROTECTION~ UNLESS ~DM_MAGIC_PROTECTION~
+APPEND ~spell.ids~ ~3653 DM_COLD_PROTECTION~ UNLESS ~DM_COLD_PROTECTION~
+APPEND ~spell.ids~ ~3654 DM_FIRE_PROTECTION~ UNLESS ~DM_FIRE_PROTECTION~
+APPEND ~spell.ids~ ~3655 DM_IMPROVED_HASTE~ UNLESS ~DM_IMPROVED_HASTE~
+APPEND ~spell.ids~ ~3656 VIEKANG_LIGHTNING~ UNLESS ~VIEKANG_LIGHTNING~
+APPEND ~spell.ids~ ~3657 DO_SOME_EFFECTS~ UNLESS ~DO_SOME_EFFECTS~
+APPEND ~spell.ids~ ~3658 HELL_BUFFET~ UNLESS ~HELL_BUFFET~
+APPEND ~spell.ids~ ~3659 TROLL_CHANGE_NITHIRI~ UNLESS ~TROLL_CHANGE_NITHIRI~
+APPEND ~spell.ids~ ~3660 POOF_GONE~ UNLESS ~POOF_GONE~
+APPEND ~spell.ids~ ~3661 EDWINA_IN_HELL~ UNLESS ~EDWINA_IN_HELL~
+APPEND ~spell.ids~ ~3662 EDWIN_CHANGE_BACK~ UNLESS ~EDWIN_CHANGE_BACK~
+APPEND ~spell.ids~ ~3663 CREATE_YOSHIMO_BLADE~ UNLESS ~CREATE_YOSHIMO_BLADE~
+APPEND ~spell.ids~ ~3664 NETHER_SCROLL~ UNLESS ~NETHER_SCROLL~
+APPEND ~spell.ids~ ~3666 ZOMBIE_LEVEL_DRAIN~ UNLESS ~ZOMBIE_LEVEL_DRAIN~
+APPEND ~spell.ids~ ~3667 SLAYER_BACK_TO_HUMAN_NOVIS~ UNLESS ~SLAYER_BACK_TO_HUMAN_NOVIS~
+APPEND ~spell.ids~ ~3668 REMOVE_NON_PERMANENT_DEATH~ UNLESS ~REMOVE_NON_PERMANENT_DEATH~
+APPEND ~spell.ids~ ~3669 APPLY_NON_PERMANENT_DEATH~ UNLESS ~APPLY_NON_PERMANENT_DEATH~
+APPEND ~spell.ids~ ~3670 SEA_TROLL_CHANGE~ UNLESS ~SEA_TROLL_CHANGE~
+APPEND ~spell.ids~ ~3671 SWOOSH_GONE~ UNLESS ~SWOOSH_GONE~
+APPEND ~spell.ids~ ~3672 QUICK_INVISIBLE~ UNLESS ~QUICK_INVISIBLE~
+APPEND ~spell.ids~ ~3673 SPORE_DEATH~ UNLESS ~SPORE_DEATH~
+APPEND ~spell.ids~ ~3674 MIST_CHAOS~ UNLESS ~MIST_CHAOS~
+APPEND ~spell.ids~ ~3675 MIST_HORROR~ UNLESS ~MIST_HORROR~
+APPEND ~spell.ids~ ~3676 INVOKE_COURAGE~ UNLESS ~INVOKE_COURAGE~
+APPEND ~spell.ids~ ~3677 SUMMON_POISON~ UNLESS ~SUMMON_POISON~
+APPEND ~spell.ids~ ~3678 ANOMEN_TITLE~ UNLESS ~ANOMEN_TITLE~
+APPEND ~spell.ids~ ~3679 HEAL_NO_VISUAL~ UNLESS ~HEAL_NO_VISUAL~
+APPEND ~spell.ids~ ~3680 HARPER_DEATH_SONG~ UNLESS ~HARPER_DEATH_SONG~
+APPEND ~spell.ids~ ~3681 BANSHEE_WAIL~ UNLESS ~BANSHEE_WAIL~
+APPEND ~spell.ids~ ~3682 DRAGON_LOWER_FIRE~ UNLESS ~DRAGON_LOWER_FIRE~
+APPEND ~spell.ids~ ~3683 FIGURINE_SPIDER_WEB~ UNLESS ~FIGURINE_SPIDER_WEB~
+APPEND ~spell.ids~ ~3684 KOA_TRUE_SIGHT_NO_VIS~ UNLESS ~KOA_TRUE_SIGHT_NO_VIS~
+APPEND ~spell.ids~ ~3685 MAGIC_MISSILE_SURE_HIT~ UNLESS ~MAGIC_MISSILE_SURE_HIT~
+APPEND ~spell.ids~ ~3686 PROTECTION_MAGIC_WEAPON_NOEFF~ UNLESS ~PROTECTION_MAGIC_WEAPON_NOEFF~
+APPEND ~spell.ids~ ~3687 SHADOW_DRAGON_SHADOWS~ UNLESS ~SHADOW_DRAGON_SHADOWS~
+APPEND ~spell.ids~ ~3688 BLACK_DRAGON_PLANT~ UNLESS ~BLACK_DRAGON_PLANT~
+APPEND ~spell.ids~ ~3689 BLACK_DRAGON_INSECT~ UNLESS ~BLACK_DRAGON_INSECT~
+APPEND ~spell.ids~ ~3690 HOLY_LIGHT_FROM_ABOVE~ UNLESS ~HOLY_LIGHT_FROM_ABOVE~
+APPEND ~spell.ids~ ~4123 MOVEMENT_RATE~ UNLESS ~MOVEMENT_RATE~
+APPEND ~spell.ids~ ~4131 MAGIC_RESISTANCE2~ UNLESS ~MAGIC_RESISTANCE2~
+APPEND ~spell.ids~ ~4132 CASTINGFAILURE~ UNLESS ~CASTINGFAILURE~
+APPEND ~spell.ids~ ~4141 DAMAGEMOD~ UNLESS ~DAMAGEMOD~
+APPEND ~spell.ids~ ~4142 ACMOD~ UNLESS ~ACMOD~
+APPEND ~spell.ids~ ~4143 SPEEDFACTOR~ UNLESS ~SPEEDFACTOR~
+APPEND ~spell.ids~ ~4151 MOVEMENT_RATE2~ UNLESS ~MOVEMENT_RATE2~
+APPEND ~spell.ids~ ~4153 RESISTALLWEAPONS~ UNLESS ~RESISTALLWEAPONS~
+APPEND ~spell.ids~ ~4154 RESISTALLWEAPONS2~ UNLESS ~RESISTALLWEAPONS2~
+APPEND ~spell.ids~ ~4221 RESISTFIREACIDIMUNECHARMPOISONPANIC~ UNLESS ~RESISTFIREACIDIMUNECHARMPOISONPANIC~
+APPEND ~spell.ids~ ~4234 IMUNITY_CHARM_HOLD~ UNLESS ~IMUNITY_CHARM_HOLD~
+APPEND ~spell.ids~ ~4242 IMUNITY_CHARM_HOLD2~ UNLESS ~IMUNITY_CHARM_HOLD2~
+APPEND ~spell.ids~ ~4342 FIND_FAMILIAR~ UNLESS ~FIND_FAMILIAR~
+APPEND ~spell.ids~ ~4415 MISSLE_PLUS_SLOW~ UNLESS ~MISSLE_PLUS_SLOW~
+APPEND ~spell.ids~ ~4441 ACMOD2~ UNLESS ~ACMOD2~
+APPEND ~spell.ids~ ~4631 GIVE_INNATE_SPIDER_WYVERN_FIRESALAMANDER~ UNLESS ~GIVE_INNATE_SPIDER_WYVERN_FIRESALAMANDER~
+APPEND ~spell.ids~ ~4641 CHARM_PERSON_OR_MAMMAL~ UNLESS ~CHARM_PERSON_OR_MAMMAL~
+APPEND ~spell.ids~ ~4642 ADD_STR_CON~ UNLESS ~ADD_STR_CON~
+APPEND ~spell.ids~ ~4751 CONFUSION~ UNLESS ~CONFUSION~
+APPEND ~spell.ids~ ~4812 MOVEMENT_RATE3~ UNLESS ~MOVEMENT_RATE3~
+APPEND ~spell.ids~ ~4813 MOVEMENT_RATE4~ UNLESS ~MOVEMENT_RATE4~
+APPEND ~spell.ids~ ~4814 IMUNITY_TO_DISEASE_SLOW_HASTE~ UNLESS ~IMUNITY_TO_DISEASE_SLOW_HASTE~
+APPEND ~spell.ids~ ~4816 ATTACK_SPEED_FACTOR~ UNLESS ~ATTACK_SPEED_FACTOR~
+APPEND ~spell.ids~ ~4817 IMUNITY_TO_CHARM~ UNLESS ~IMUNITY_TO_CHARM~
+APPEND ~spell.ids~ ~4818 IMUNITY_TO_POISON~ UNLESS ~IMUNITY_TO_POISON~
+APPEND ~spell.ids~ ~4819 MAGIC_RESISTANCE3~ UNLESS ~MAGIC_RESISTANCE3~
+APPEND ~spell.ids~ ~4821 IMUNITY_TO_WEAPON~ UNLESS ~IMUNITY_TO_WEAPON~
+APPEND ~spell.ids~ ~4900 WARRIOR_WHIRLWIND~ UNLESS ~WARRIOR_WHIRLWIND~
+APPEND ~spell.ids~ ~4901 WARRIOR_GREATER_WHIRLWIND~ UNLESS ~WARRIOR_GREATER_WHIRLWIND~
+APPEND ~spell.ids~ ~4902 WARRIOR_DEATHBLOW~ UNLESS ~WARRIOR_DEATHBLOW~
+APPEND ~spell.ids~ ~4903 WARRIOR_GREATER_DEATHBLOW~ UNLESS ~WARRIOR_GREATER_DEATHBLOW~
+APPEND ~spell.ids~ ~4904 WARRIOR_RESIST_MAGIC~ UNLESS ~WARRIOR_RESIST_MAGIC~
+APPEND ~spell.ids~ ~4905 WARRIOR_CRITICAL_STRIKE~ UNLESS ~WARRIOR_CRITICAL_STRIKE~
+APPEND ~spell.ids~ ~4906 WARRIOR_POWER_ATTACK~ UNLESS ~WARRIOR_POWER_ATTACK~
+APPEND ~spell.ids~ ~4907 WARRIOR_HARDINESS~ UNLESS ~WARRIOR_HARDINESS~
+APPEND ~spell.ids~ ~4908 WARRIOR_WAR_CRY~ UNLESS ~WARRIOR_WAR_CRY~
+APPEND ~spell.ids~ ~4909 WARRIOR_SMITE~ UNLESS ~WARRIOR_SMITE~
+APPEND ~spell.ids~ ~4910 ROGUE_SET_SPIKE_TRAP~ UNLESS ~ROGUE_SET_SPIKE_TRAP~
+APPEND ~spell.ids~ ~4911 ROGUE_SET_EXPLODING_TRAP~ UNLESS ~ROGUE_SET_EXPLODING_TRAP~
+APPEND ~spell.ids~ ~4912 ROGUE_SET_TIME_TRAP~ UNLESS ~ROGUE_SET_TIME_TRAP~
+APPEND ~spell.ids~ ~4913 ROGUE_EVASION~ UNLESS ~ROGUE_EVASION~
+APPEND ~spell.ids~ ~4914 ROGUE_GREATER_EVASION~ UNLESS ~ROGUE_GREATER_EVASION~
+APPEND ~spell.ids~ ~4916 ROGUE_ASSASINATION~ UNLESS ~ROGUE_ASSASINATION~
+APPEND ~spell.ids~ ~4917 ROGUE_AVOID_DEATH~ UNLESS ~ROGUE_AVOID_DEATH~
+APPEND ~spell.ids~ ~4918 ROGUE_ALCHEMY~ UNLESS ~ROGUE_ALCHEMY~
+APPEND ~spell.ids~ ~4919 ROGUE_SCRIBE_SCROLLS~ UNLESS ~ROGUE_SCRIBE_SCROLLS~
+APPEND ~spell.ids~ ~4920 ENHANCED_BARD_SONG~ UNLESS ~ENHANCED_BARD_SONG~
+APPEND ~spell.ids~ ~4921 MAGIC_FLUTE~ UNLESS ~MAGIC_FLUTE~
+APPEND ~spell.ids~ ~4922 TRACKING~ UNLESS ~TRACKING~
+APPEND ~spell.ids~ ~4923 PALADIN_SUMMON_DEVA~ UNLESS ~PALADIN_SUMMON_DEVA~
+APPEND ~spell.ids~ ~4924 DRUID_IMMUNE_POISON~ UNLESS ~DRUID_IMMUNE_POISON~
+APPEND ~spell.ids~ ~4925 DRUID_RESISTS~ UNLESS ~DRUID_RESISTS~
+APPEND ~spell.ids~ ~4926 RESIST_ACID_COLD_ELECT_FIRE~ UNLESS ~RESIST_ACID_COLD_ELECT_FIRE~
+APPEND ~spell.ids~ ~4927 RESIST_ACID_COLD_ELECT_FIRE2~ UNLESS ~RESIST_ACID_COLD_ELECT_FIRE2~
+APPEND ~spell.ids~ ~4928 EXTRA_WIZARD_6TH_SPELL~ UNLESS ~EXTRA_WIZARD_6TH_SPELL~
+APPEND ~spell.ids~ ~4929 EXTRA_WIZARD_7TH_SPELL~ UNLESS ~EXTRA_WIZARD_7TH_SPELL~
+APPEND ~spell.ids~ ~4930 EXTRA_WIZARD_8TH_SPELL~ UNLESS ~EXTRA_WIZARD_8TH_SPELL~
+APPEND ~spell.ids~ ~4931 CREATE_HOLY_SYMBOL_OF_LATHANDER~ UNLESS ~CREATE_HOLY_SYMBOL_OF_LATHANDER~
+APPEND ~spell.ids~ ~4932 CREATE_HOLY_SYMBOL_OF_HELM~ UNLESS ~CREATE_HOLY_SYMBOL_OF_HELM~
+APPEND ~spell.ids~ ~4933 CREATE_HOLY_SYMBOL_OF_TALOS~ UNLESS ~CREATE_HOLY_SYMBOL_OF_TALOS~
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_additions_bp BEGIN
+
+APPEND ~RACE.IDS~ ~161 DRIDER~       UNLESS ~DRIDER~
+APPEND ~RACE.IDS~ ~162 MUMMY~        UNLESS ~MUMMY~
+
+  LAF ids_action_bp   END
+  LAF ids_trigger_bp  END
+  LAF ids_animate_bp  END
+  LAF ids_anisnd_bp   END
+  LAF ids_gender_bp   END
+  LAF ids_kit_bp      END
+  LAF ids_shoutids_bp END
+  LAF ids_specific_bp END
+  LAF ids_spell_bp    END
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION ids_horreds_lair BEGIN
+
+
+APPEND ~mastarea.2da~
+~AR8050 value
+AR8051 value
+AR8052 value~
+
+
+APPEND ~spell.ids~ ~3460 SKELETON_KAMIKAZE~ UNLESS ~SKELETON_KAMIKAZE~
+APPEND ~spell.ids~ ~3461 ENEMY_SUMMON_GHAST~ UNLESS ~ENEMY_SUMMON_GHAST~
+APPEND ~spell.ids~ ~3504 HORREDS_EVIL_CLONES~ UNLESS ~HORREDS_EVIL_CLONES~
+APPEND ~spell.ids~ ~3539 FLAMING_SKULL_BOLT~ UNLESS ~FLAMING_SKULL_BOLT~
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION tooltip_horreds_lair BEGIN
+
+
+ // Dealing with TOOLTIP.2da **********************************************
+ COPY_EXISTING - ~tooltip.2da~ ~inlined/tooltip.2da~
+  //determine required column number
+  COUNT_2DA_COLS col
+  --col
+  modreq = 3
+  req = (%col%>%modreq%) ?  %col% : %modreq%
+  SPRINT header ~  TU###~
+  FOR (i=%req% ; i>0 ; i -= 1) BEGIN
+    SPRINT header ~%i%   %header%~  //writes 1 2 ... %req% TU###
+  END
+      
+  //fix corrupted special characters
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~%WNL%~ ~%LNL%~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~%MNL%~ ~%LNL%~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~%TAB%~ ~ ~
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EVALUATE_REGEXP ~^ +~ ~~ //remove initial spaces
+  
+  //reset 3rd row
+  READ_2DA_ENTRY 2 0 1 test
+  PATCH_IF NOT (~%test%~ STRING_MATCHES_REGEXP ~[0-9 ]+~) BEGIN
+    REMOVE_2DA_ROW 2 1
+  END
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EVALUATE_REGEXP ~^0? *1 +2? *3? *[0-9 ]*%LNL%~ ~~ //kill misplaced header rows
+  INSERT_2DA_ROW 2 1 ~%header%~
+  
+  //determine number of columns to be appended (one more will be appended, to prevent S_2_E problems)
+  COUNT_2DA_ROWS 3 rw
+  shorter = rw
+  FOR (i=3 ; (i<= (%req% + 2) AND shorter=rw) ; ++i) BEGIN
+    COUNT_2DA_ROWS i shorter
+  END                       //stops when it reaches the first too short line
+  toadd = %req%+ 4 - i //why 4? 1 for column 0, which is not counted in req + 2 because i indicates (2+shortest row) + 1 because I need an extra column for S_2_E
+  SPRINT patch ~$ $ $~
+  COUNT_2DA_ROWS 1 rw
+  FOR (i=3 ; i<rw ; i += 1) BEGIN
+    SPRINT patch ~%patch% ###~        //prepares columns to add, with the right number of rows
+  END
+  patch_tooltip=1
+UNLESS ~SHADLNTH~
+
+ACTION_IF VARIABLE_IS_SET patch_tooltip BEGIN
+  //add missing columns
+  SILENT
+  OUTER_FOR (i=0 ; i<toadd ; i += 1) BEGIN
+    APPEND_COL_OUTER - ~inlined/tooltip.2da~ ~%patch%~ //appends enough cols to have all lines longer than 50
+  END
+  VERBOSE
+
+  //really append new lines and pad empty entries
+  COPY ~inlined/tooltip.2da~ ~override~
+    //adjust length of rows to append and append them
+    SPRINT patch ~~
+    FOR (i=modreq ; i<req ; i += 1) BEGIN
+      SPRINT patch ~%patch%   -1~       //prepares rows to add, with the right number of cols
+    END
+    COUNT_2DA_ROWS 3 rw //end of file
+    INSERT_2DA_ROW rw 3 ~HELMLIFE          k96738        k96740       25765 %patch%~
+    INSERT_2DA_ROW rw 3 ~SHADLNTH          k99780        -1          -1 %patch%~
+    INSERT_2DA_ROW rw 3 ~BUCK02            6347         12028       -1 %patch%~
+    
+    //turn extra entries in the first req columns into -1
+    FOR (i=1; i< rw ; i+=1) BEGIN //start from 1: don't touch header
+      FOR (j=0 ; j<=req ; j += 1) BEGIN
+        READ_2DA_ENTRY i j 3 test
+        PATCH_IF ("%test%" STRING_EQUAL "###") BEGIN
+          SET_2DA_ENTRY i j 3 ~-1~
+        END
+      END
+    END
+    //removes other extra entries and extra spaces; process STRREFS and indent properly
+    REPLACE_TEXTUALLY CASE_SENSITIVE EVALUATE_REGEXP ~ +TU### *~ ~~
+    REPLACE_TEXTUALLY CASE_SENSITIVE EVALUATE_REGEXP ~ *### *~ ~~ //extra columns
+    REPLACE ~k96738~ ~Life Protection~
+    REPLACE ~k96740~ ~Chaotic Commander~
+    REPLACE ~k99780~ ~Summon Shadows~
+
+  PRETTY_PRINT_2DA //VITAL: otherwise, NO tooltips will work in the whole game!
+END
+
+LAF ids_horreds_lair END
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION trap_projectiles BEGIN
+
+APPEND ~spell.ids~ ~3483 NPC_SET_SNARE~ UNLESS ~NPC_SET_SNARE~
+APPEND ~spell.ids~ ~3485 NPC_SNARE_BOOM~ UNLESS ~NPC_SNARE_BOOM~
+APPEND ~spell.ids~ ~3487 NPC_SET_SPECIAL_SNARE~ UNLESS ~NPC_SET_SPECIAL_SNARE~
+APPEND ~spell.ids~ ~3488 NPC_SPECIAL_BOOM~ UNLESS ~NPC_SPECIAL_BOOM~
+APPEND ~spell.ids~ ~3489 NPC_SET_SPIKE_TRAP~ UNLESS ~NPC_SET_SPIKE_TRAP~
+APPEND ~spell.ids~ ~3490 NPC_SPIKE_BOOM~ UNLESS ~NPC_SPIKE_BOOM~
+APPEND ~spell.ids~ ~3491 NPC_SET_BOMB_TRAP~ UNLESS ~NPC_SET_BOMB_TRAP~
+APPEND ~spell.ids~ ~3492 NPC_BOOM_BOOM~ UNLESS ~NPC_BOOM_BOOM~
+APPEND ~spell.ids~ ~3493 NPC_SET_TIME_TRAP~ UNLESS ~NPC_SET_TIME_TRAP~
+APPEND ~spell.ids~ ~3494 NPC_TIME_BOOM~ UNLESS ~NPC_TIME_BOOM~
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin483.spl~ BEGIN
+ COPY ~bp/spl/spin483.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin487.spl~ BEGIN
+  COPY ~bp/spl/spin487.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin489.spl~ BEGIN
+  COPY ~bp/spl/spin489.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin491.spl~ BEGIN
+  COPY ~bp/spl/spin491.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin493.spl~ BEGIN
+  COPY ~bp/spl/spin493.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare5.eff~ BEGIN
+  COPY ~bp/sfx/core/snare5.eff~ ~override~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~inareall.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/inareall.pro~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~trapboom.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/trapboom.pro~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~inareaen.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/inareaen.pro~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~npctrap.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/npctrap.pro~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~nptrspik.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/nptrspik.pro~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~nptrboom.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/nptrboom.pro~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~nptrtime.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/nptrtime.pro~
+END
+
+
+//! INAREAEN projectile ///////////////////////////////////
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin496.spl~ BEGIN
+  COPY ~bp/spl/spin496.spl~ ~override~
+       ~bp/spl/spin498.spl~ ~override~
+       ~bp/spl/spin505.spl~ ~override~
+       //had to change to spin505, from spin502, for NeJ2. It's chained to spin501 (enemy enhanced bard song)
+    READ_LONG  0x64   abil_offset
+    READ_SHORT 0x68   abil_num
+    SET pro = (1 + IDS_OF_SYMBOL(~PROJECTL~ ~INAREAEN~))
+    FOR(cnt=0; cnt<abil_num; cnt+=1) BEGIN
+      WRITE_SHORT  (abil_offset + cnt*0x28 + 0x26) pro
+    END
+  END
+
+//! NPCTRAP projectile ////////////////////////////////////
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin485.spl~ BEGIN
+  COPY ~bp/spl/snare1.spl~ ~override~
+       ~bp/spl/snare2.spl~ ~override~
+       ~bp/spl/spin485.spl~ ~override~
+       ~bp/spl/spin488.spl~ ~override~
+    READ_LONG  0x64   abil_offset
+    READ_SHORT 0x68   abil_num
+    SET pro = (1 + IDS_OF_SYMBOL(~PROJECTL~ ~NPCTRAP~))
+    FOR(cnt=0; cnt<abil_num; cnt+=1) BEGIN
+      WRITE_SHORT  (abil_offset + cnt*0x28 + 0x26) pro
+    END
+  END
+
+//! NPTRSPIK projectile ///////////////////////////////////
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin490.spl~ BEGIN
+  COPY ~bp/spl/snare3.spl~ ~override~
+       ~bp/spl/spin490.spl~ ~override~
+    READ_LONG  0x64   abil_offset
+    READ_SHORT 0x68   abil_num
+    SET pro = (1 + IDS_OF_SYMBOL(~PROJECTL~ ~NPTRSPIK~))
+    FOR(cnt=0; cnt<abil_num; cnt+=1) BEGIN
+      WRITE_SHORT  (abil_offset + cnt*0x28 + 0x26) pro
+    END
+  END
+
+//! NPTRBOOM projectile ///////////////////////////////////
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin492.spl~ BEGIN
+  COPY ~bp/spl/snare4.spl~ ~override~
+       ~bp/spl/spin492.spl~ ~override~
+    READ_LONG  0x64   abil_offset
+    READ_SHORT 0x68   abil_num
+    SET pro = (1 + IDS_OF_SYMBOL(~PROJECTL~ ~NPTRBOOM~))
+    FOR(cnt=0; cnt<abil_num; cnt+=1) BEGIN
+      WRITE_SHORT  (abil_offset + cnt*0x28 + 0x26) pro
+    END
+  END
+
+//! NPTRTIME projectile ///////////////////////////////////
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin494.spl~ BEGIN
+  COPY ~bp/spl/snare5.spl~ ~override~
+       ~bp/spl/spin494.spl~ ~override~
+    READ_LONG  0x64   abil_offset
+    READ_SHORT 0x68   abil_num
+    SET pro = (1 + IDS_OF_SYMBOL(~PROJECTL~ ~NPTRTIME~))
+    FOR(cnt=0; cnt<abil_num; cnt+=1) BEGIN
+      WRITE_SHORT  (abil_offset + cnt*0x28 + 0x26) pro
+    END
+  END
+
+//! INAREAEN projectile ///////////////////////////////////
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin503.spl~ BEGIN
+  COPY ~bp/spl/spin503.spl~ ~override~
+    READ_LONG  0x64   abil_offset
+    READ_SHORT 0x68   abil_num
+    SET pro = (1 + IDS_OF_SYMBOL(~PROJECTL~ ~INAREAEN~))
+    FOR(cnt=0; cnt<abil_num; cnt+=1) BEGIN
+      WRITE_SHORT  (abil_offset + cnt*0x28 + 0x26) pro
+    END
+  END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare1.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/snare~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare1.cre~ BEGIN
+COPY ~bp/cre/snare1.cre~ ~override~
+  SAY NAME1 @329 //Snare Trap
+  SAY NAME2 @329 //Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare1a.cre~ BEGIN
+COPY ~bp/cre/snare1a.cre~ ~override~
+  SAY NAME1 @329 //Snare Trap
+  SAY NAME2 @329 //Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare1b.cre~ BEGIN
+COPY ~bp/cre/snare1b.cre~ ~override~
+  SAY NAME1 @329 //Snare Trap
+  SAY NAME2 @329 //Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare1c.cre~ BEGIN
+COPY ~bp/cre/snare1c.cre~ ~override~
+  SAY NAME1 @329 //Snare Trap
+  SAY NAME2 @329 //Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare2.cre~ BEGIN
+COPY ~bp/cre/snare2.cre~ ~override~
+  SAY NAME1 @330 //Special Snare Trap
+  SAY NAME2 @330 //Special Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare2a.cre~ BEGIN
+COPY ~bp/cre/snare2a.cre~ ~override~
+  SAY NAME1 @330 //Special Snare Trap
+  SAY NAME2 @330 //Special Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare2b.cre~ BEGIN
+COPY ~bp/cre/snare2b.cre~ ~override~
+  SAY NAME1 @330 //Special Snare Trap
+  SAY NAME2 @330 //Special Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare2c.cre~ BEGIN
+COPY ~bp/cre/snare2c.cre~ ~override~
+  SAY NAME1 @330 //Special Snare Trap
+  SAY NAME2 @330 //Special Snare Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare3.cre~ BEGIN
+COPY ~bp/cre/snare3.cre~ ~override~
+  SAY NAME1 @331 //Spike Trap
+  SAY NAME2 @331 //Spike Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare4.cre~ BEGIN
+COPY ~bp/cre/snare4.cre~ ~override~
+  SAY NAME1 @332 //Exploding Trap
+  SAY NAME2 @332 //Exploding Trap
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare5.cre~ BEGIN
+COPY ~bp/cre/snare5.cre~ ~override~
+  SAY NAME1 @333 //Time Trap
+  SAY NAME2 @333 //Time Trap
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION bp_boulder BEGIN
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~boulder.pro~ BEGIN
+  ADD_PROJECTILE ~bp/pro/boulder.pro~
+END
+
+APPEND ~specific.ids~ ~244 CALLED_FOR_BOULDER~ UNLESS ~CALLED_FOR_BOULDER~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~giantstn.bam~ BEGIN
+  COPY ~bp/bam/core/giantstn.bam~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~iboulder.bam~ BEGIN
+  COPY ~bp/bam/core/iboulder.bam~ ~override~
+END
+
+//! BOULDER projectile ////////////////////////////////////
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~boulder.spl~ BEGIN
+  COPY ~bp/spl/boulder.spl~ ~override~
+    SAY NAME1 @30 //Telekinesis
+    SAY UNIDENTIFIED_DESC @30
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~boulder1.spl~ BEGIN
+COPY ~bp/spl/boulder1.spl~ ~override~
+  SAY NAME1 @31 //Hurl Boulder
+  SAY UNIDENTIFIED_DESC @31
+END
+
+COPY_EXISTING ~boulder.spl~ ~override~
+              ~boulder1.spl~ ~override~
+  READ_LONG  0x64   abil_offset
+  READ_SHORT 0x68   abil_num
+  SET pro = (1 + IDS_OF_SYMBOL(~PROJECTL~ ~BOULDER~))
+  FOR(cnt=0; cnt<abil_num; cnt+=1) BEGIN
+    READ_SHORT   (abil_offset + cnt*0x28 + 0x26) current
+    PATCH_IF ((current STRING_EQUAL pro) = 0) BEGIN
+      WRITE_SHORT  (abil_offset + cnt*0x28 + 0x26) pro
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~boulder.itm~ BEGIN
+  COPY ~bp/itm/boulder.itm~ ~override~
+    SAY NAME1 @32 //Boulder
+    SAY NAME2 @32 //Boulder
+    SAY UNIDENTIFIED_DESC @33
+    SAY DESC @34
+    WRITE_SHORT 0x9c (1 + IDS_OF_SYMBOL(~PROJECTL~ ~BOULDER~))
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION telekinesis BEGIN
+
+LAF bp_boulder END
+
+APPEND ~spell.ids~ ~3476 TELEKINESIS~ UNLESS ~TELEKINESIS~
+
+CLEAR_IDS_MAP
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin476.spl~ BEGIN
+  COPY ~bp/spl/spin476.spl~ ~override~
+    SAY NAME1 @30 //Telekinesis
+    SAY UNIDENTIFIED_DESC @30
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin480.spl~ BEGIN
+  COPY ~bp/spl/spin480.spl~ ~override~
+    SAY NAME1 @30 //Telekinesis
+    SAY NAME2 @30 //Telekinesis
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin482.spl~ BEGIN
+  COPY ~bp/spl/spin482.spl~ ~override~
+    SAY NAME1 @30 //Telekinesis
+    SAY NAME2 @30 //Telekinesis
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpinvisb.spl~ BEGIN
+  COPY ~bp/spl/bpinvisb.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpinvisb.eff~ BEGIN
+  COPY ~bp/sfx/core/bpinvisb.eff~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpinvisb.cre~ BEGIN
+  COPY ~bp/cre/bpinvisb.cre~ ~override~
+    SAY NAME2 @30 //Telekinesis
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpinviso.cre~ BEGIN
+  COPY ~bp/itm/bpinviso.itm~ ~override~
+  COPY ~bp/cre/bpinviso.cre~ ~override~
+  COPY ~bp/sfx/bpinviso.eff~ ~override~
+  COMPILE ~bp/baf/new_baf/core/bpinviso.baf~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION halberds_spears BEGIN
+
+
+OUTER_SET cg = 0
+ACTION_FOR_EACH hlb IN ~_halb01~ ~_halb02~ ~_halb03~ ~bw05hl1~ ~bw05ihl1~ ~cbmthalb~ ~cbmthlch~ ~cbsbmltn~ ~cbsbmlto~ ~cbtshb01~ ~contagon~ ~cultwep2~ ~cvgh05~ ~deitm042~ ~deitm043~ ~deitm057~ ~disrupt~ ~dvenhalb~ ~dw#lizwp~ ~dwhalb01~ ~fwhalb01~ ~fwhalb02~ ~fwhalb03~ ~gcmha01~ ~glowhalb~ ~gnollsu~ ~halb01~ ~halb02~ ~halb03~ ~halb04~ ~halb05~ ~halb06~ ~halb07~ ~halb08~ ~halb09~ ~halb10~ ~halb11~ ~halb12~ ~halbrd01~ ~halbsha~ ~jkvahl~ ~kinhalb~ ~mhalb01~ ~newhl01~ ~newhl02~ ~o!bom068~ ~o#dchalb~ ~perleg~ ~plyflind~ ~r#ashalb~ ~sghalb1~ ~sghalb2~ ~spwi461~ ~u#halb01~ ~u#halb95~ ~u#halb96~ ~u#halb97~ ~u#hfhbhl~ ~u#hfhbpb~ ~uhalb5a~ ~wa2halb~ ~zyhalbn1~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%hlb%.itm~ BEGIN //Halberds
+    COPY_EXISTING ~%hlb%.itm~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        READ_BYTE 0x31 prof //Proficiency
+        PATCH_IF ((prof != 0x5c) AND (prof != 0x63)) BEGIN //If not axe or halberd
+          WRITE_BYTE 0x31 0x63 //Halberd
+        END
+        READ_ASCII 0x58 dicon //Description icon
+        PATCH_IF ((~%dicon%~ STRING_EQUAL ~~ = 1) OR (~%dicon%~ STRING_EQUAL_CASE ~none~ = 1)) BEGIN
+          WRITE_ASCII 0x58 ~chalb01~ #8
+        END
+        READ_LONG 0x64 hf //Extended header offset
+        READ_SHORT 0x68 hc //Extended header count
+        READ_LONG 0x6a eq_off
+        READ_SHORT 0x70 eq_count
+        FOR (v = 0; v < eq_count; v += 1) BEGIN //Cycle through equipped effects
+          WRITE_BYTE (0x30 * v + eq_off + 2) 1 //Target (self)
+          WRITE_BYTE (0x30 * v + eq_off + 3) 0 //Power
+          WRITE_BYTE (0x30 * v + eq_off + 0xc) 2 //Timing mode (while equipped)
+          WRITE_BYTE (0x30 * v + eq_off + 0xd) 2 //Not dispel/bypass resistance
+          WRITE_LONG (0x30 * v + eq_off + 0xe) 0 //Duration
+        END
+        FOR (i1 = 0; i1 < hc; i1 += 1) BEGIN //Cycle through headers
+          READ_BYTE (0x38 * i1 + hf) pt //Attack type
+          PATCH_IF pt = 1 BEGIN //If melee
+            READ_SHORT (0x38 * i1 + hf + 0xe) rg
+            PATCH_IF rg < 3 BEGIN
+              WRITE_SHORT (0x38 * i1 + hf + 0xe) 3 //Range
+            END
+            READ_SHORT (0x38 * i1 + hf + 0x12) sd
+            PATCH_IF sd < 10 BEGIN
+              cg = 1
+              sd += 3
+              WRITE_SHORT (0x38 * i1 + hf + 0xe) sd //Speed
+            END
+            READ_SHORT (0x38 * i1 + hf + 0x2c) over
+            READ_SHORT (0x38 * i1 + hf + 0x2e) back
+            READ_SHORT (0x38 * i1 + hf + 0x30) thru
+            PATCH_IF (over + back + thru != 100) BEGIN //Animation fix
+              WRITE_SHORT (0x38 * i1 + hf + 0x2c) 0
+              WRITE_SHORT (0x38 * i1 + hf + 0x2e) 35
+              WRITE_SHORT (0x38 * i1 + hf + 0x30) 65
+            END
+          END
+        END
+        PATCH_IF cg = 1 BEGIN
+          READ_STRREF 0xc n1 //Identified name
+          READ_SLONG 0x54 d1 //Identified description
+          PATCH_IF d1 = ~-1~ BEGIN
+            READ_STRREF 0x50 dc //Unidentified description
+            READ_SLONG 0x50 d1
+          END ELSE BEGIN
+            READ_STRREF 0x54 dc
+          END
+          PATCH_IF (d1 > 0) AND NOT (VARIABLE_IS_SET $dx(EVALUATE_BUFFER ~%d1%~)) BEGIN
+            SET $dx(EVALUATE_BUFFER ~%d1%~) = 1
+            INNER_ACTION BEGIN
+              <<<<<<<< bp-inlined/bphalb.txt
+@500 = ~%dc%~
+>>>>>>>>
+              COPY ~bp-inlined/bphalb.txt~ ~bp/backup/bphalb.tra~
+                EVALUATE_BUFFER
+                REPLACE_TEXTUALLY EXACT_MATCH ~.  ~ ~. ~
+                REPLACE_TEXTUALLY EXACT_MATCH ~?  ~ ~? ~
+                REPLACE_TEXTUALLY EXACT_MATCH ~!  ~ ~! ~
+                REPLACE_TEXTUALLY EXACT_MATCH ~:  ~ ~: ~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Speed Factor: +[0-9]+~ ~Speed Factor: %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Facteur de vitesse *: +[0-9]+~ ~Facteur de vitesse : %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Geschwindigkeitsfaktor: +[0-9]+~ ~Geschwindigkeitsfaktor: %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Fattore-velocità: +[0-9]+~ ~Fattore-velocità: %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Factor de velocidad: +[0-9]+~ ~Factor de velocidad: %sd%~
+              STRING_SET_EVALUATE ~%d1%~ @500 USING ~bp/backup/bphalb.tra~
+            END
+          END
+          cg = 0
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+
+ACTION_FOR_EACH spr IN ~_asloiil~ ~_sper01~ ~_sper02~ ~berena~ ~bplksper~ ~bw05isp1~ ~c2sper01~ ~c2sper02~ ~c2sper03~ ~cbmtsper~ ~cbsbmltz~ ~cbsperrg~ ~cbtssp01~ ~cmspq01~ ~cmspq02~ ~cmspq03~ ~deitm062~ ~deitm073~ ~deitm074~ ~deitm075~ ~deitm076~ ~deitm124~ ~deitm125~ ~drawer~ ~dssperd~ ~dssperf~ ~dvensper~ ~dw#saspe~ ~dwsper01~ ~fwsper01~ ~hgsalf~ ~justsper~ ~li#plsal~ ~m#spear2~ ~masper01~ ~newspr01~ ~newspr02~ ~newspr03~ ~ntspear1~ ~o!bom043~ ~plysala~ ~rodspear~ ~salacold~ ~salaspe2~ ~salasper~ ~salgrfir~ ~salgrice~ ~salking~ ~sgspr1~ ~sgspr2~ ~sgspr3~ ~solasna4~ ~solasna5~ ~sper01~ ~sper02~ ~sper03~ ~sper05~ ~sper06~ ~sper07~ ~sper08~ ~sper09~ ~sper10~ ~sper11~ ~sper12~ ~spermel~ ~tasloiil~ ~tcsper01~ ~tcsper02~ ~tcsper03~ ~tzsper01~ ~tzsper02~ ~u#hfsrim~ ~u#hfsrnp~ ~u#sper89~ ~waspear~ ~x#ansper~ ~x#kispea~ ~zyspern1~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%spr%.itm~ BEGIN //Spears
+    COPY_EXISTING ~%spr%.itm~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x31 0x62 //Proficiency (Spear)
+        READ_LONG 0x64 hf //Extended header offset
+        READ_SHORT 0x68 hc //Extended header count
+        READ_LONG 0x6a eq_off
+        READ_SHORT 0x70 eq_count
+        PATCH_IF (~%spr%~ STRING_EQUAL ~solasna5~ = 1) BEGIN //Reindex hosed item
+          PATCH_IF (hf > eq_off) AND (hc > 1) BEGIN
+            READ_ASCII hf ~eh~ ELSE ~fail~ (hs * hc)
+            PATCH_IF (~%eh%~ STRING_EQUAL ~fail~) BEGIN
+              WHILE ((~%eh%~ STRING_EQUAL ~fail~) AND (hc > 0)) BEGIN
+                READ_ASCII hf ~eh~ ELSE ~fail~ (hs * hc)
+                hc -= 1
+              END
+            END
+            DELETE_BYTES hf (hs * hc)
+            hf = 0x72
+            WRITE_LONG 0x64 hf
+            WRITE_SHORT 0x68 hc
+            eq_off = (0x72 + (hs * hc))
+            WRITE_LONG 0x6a eq_off
+            PATCH_IF !(~%eh%~ STRING_EQUAL ~fail~) BEGIN
+              INSERT_BYTES hf (hs * hc)
+              WRITE_EVALUATED_ASCII hf ~%eh%~
+            END
+          END ELSE PATCH_IF ((hf != 0x72) AND (hc = 0)) BEGIN
+            hf = 0x72
+            WRITE_LONG 0x64 hf
+          END
+        END
+        FOR (v = 0; v < eq_count; v += 1) BEGIN //Cycle through equipped effects
+          WRITE_BYTE (0x30 * v + eq_off + 2) 1 //Target (self)
+          WRITE_BYTE (0x30 * v + eq_off + 3) 0 //Power
+          WRITE_BYTE (0x30 * v + eq_off + 0xc) 2 //Timing mode (while equipped)
+          WRITE_BYTE (0x30 * v + eq_off + 0xd) 2 //Not dispel/bypass resistance
+          WRITE_LONG (0x30 * v + eq_off + 0xe) 0 //Duration
+        END
+        FOR (i1 = 0; i1 < hc; i1 += 1) BEGIN //Cycle through headers
+          READ_BYTE (0x38 * i1 + hf) pt //Attack type
+          PATCH_IF pt = 1 BEGIN //If melee
+            READ_SHORT (0x38 * i1 + hf + 0xe) rg
+            PATCH_IF rg < 3 BEGIN
+              WRITE_SHORT (0x38 * i1 + hf + 0xe) 3 //Range
+            END
+            READ_SHORT (0x38 * i1 + hf + 0x12) sd
+            PATCH_IF sd < 10 BEGIN
+              cg = 1
+              sd += 3
+              WRITE_SHORT (0x38 * i1 + hf + 0xe) sd //Speed
+            END
+            READ_SHORT (0x38 * i1 + hf + 0x2c) over
+            READ_SHORT (0x38 * i1 + hf + 0x2e) back
+            READ_SHORT (0x38 * i1 + hf + 0x30) thru
+            PATCH_IF (over + back + thru != 100) OR (over > 30) BEGIN //Animation fix
+              WRITE_SHORT (0x38 * i1 + hf + 0x2c) 0
+              WRITE_SHORT (0x38 * i1 + hf + 0x2e) 0
+              WRITE_SHORT (0x38 * i1 + hf + 0x30) 100
+            END
+          END
+        END
+        PATCH_IF cg = 1 BEGIN
+          READ_STRREF 0xc n1 //Identified name
+          READ_SLONG 0x54 d1 //Identified description
+          PATCH_IF d1 = ~-1~ BEGIN
+            READ_STRREF 0x50 dc //Unidentified description
+            READ_SLONG 0x50 d1
+          END ELSE BEGIN
+            READ_STRREF 0x54 dc
+          END
+          PATCH_IF (d1 > 0) AND NOT (VARIABLE_IS_SET $dx(EVALUATE_BUFFER ~%d1%~)) BEGIN
+            SET $dx(EVALUATE_BUFFER ~%d1%~) = 1
+            INNER_ACTION BEGIN
+              <<<<<<<< bp-inlined/bpsper.txt
+@500 = ~%dc%~
+>>>>>>>>
+              COPY ~bp-inlined/bpsper.txt~ ~bp/backup/bpsper.tra~
+                EVALUATE_BUFFER
+                REPLACE_TEXTUALLY EXACT_MATCH ~.  ~ ~. ~
+                REPLACE_TEXTUALLY EXACT_MATCH ~?  ~ ~? ~
+                REPLACE_TEXTUALLY EXACT_MATCH ~!  ~ ~! ~
+                REPLACE_TEXTUALLY EXACT_MATCH ~:  ~ ~: ~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Speed Factor: +[0-9]+~ ~Speed Factor: %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Facteur de vitesse *: +[0-9]+~ ~Facteur de vitesse : %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Geschwindigkeitsfaktor: +[0-9]+~ ~Geschwindigkeitsfaktor: %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Fattore-velocità: +[0-9]+~ ~Fattore-velocità: %sd%~
+                REPLACE_TEXTUALLY CASE_INSENSITIVE ~Factor de velocidad: +[0-9]+~ ~Factor de velocidad: %sd%~
+              STRING_SET_EVALUATE ~%d1%~ @500 USING ~bp/backup/bpsper.tra~
+            END
+          END
+          cg = 0
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+
+ACTION_FOR_EACH spr IN ~salacold~ ~salaspe2~ ~salasper~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%spr%.itm~ BEGIN //Salamander Spears
+    COPY_EXISTING ~%spr%.itm~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        FOR (i1 = 0; i1 < hc; i1 += 1) BEGIN //Cycle through headers
+          READ_BYTE (0x38 * i1 + hf) pt //Attack type
+          PATCH_IF pt = 1 BEGIN //If melee
+            WRITE_SHORT (0x38 * i1 + hf + 0xe) 3 //Speed
+          END
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+
+COPY_EXISTING ~salgrfir.itm~ ~override~ //Greater Salamander Spears
+              ~salgrice.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    FOR (i1 = 0; i1 < hc; i1 += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * i1 + hf) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        WRITE_SHORT (0x38 * i1 + hf + 0xe) 1 //Speed
+      END
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~uhalb5a.itm~ BEGIN
+  COPY ~bp/itm/uhalb5a.itm~ ~override~
+    SAY NAME1 @59 //Halberd
+    SAY NAME2 @119 //Tundra Halberd +4
+    SAY UNIDENTIFIED_DESC @120
+    SAY DESC @121
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//                                CREATURES                                            //
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION irenicus_check_spawngrp BEGIN
+
+
+
+ACTION_IF FILE_EXISTS_IN_GAME ~bugarch.cre~ BEGIN
+  COPY_EXISTING ~bugarch.cre~ ~override~ //Bugbear
+    WRITE_BYTE 0x238 17 //Strength (was 15)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 //Default script (was wtasight)
+  BUT_ONLY
+END ELSE BEGIN
+  COPY ~bp/cre/bugarch.cre~ ~override~
+    SAY NAME1 @161 //Bugbear
+    SAY NAME2 @161 //Bugbear
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 //Default script (was wtasight)
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~bugbear.cre~ BEGIN
+  COPY_EXISTING ~bugbear.cre~ ~override~ //Bugbear
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 //Default script (was wtasight)
+  BUT_ONLY
+END ELSE BEGIN
+  COPY ~bp/cre/bugbear.cre~ ~override~
+    SAY NAME1 @161 //Bugbear
+    SAY NAME2 @161 //Bugbear
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 //Default script (was wtasight)
+END
+
+
+ACTION_FOR_EACH ~sketchy~ IN bpthief2 bpthief3 bpthmag2 BEGIN
+  ACTION_IF NOT FILE_EXISTS_IN_GAME ~%sketchy%.cre~ BEGIN
+    COPY ~bp/cre/%sketchy%.cre~ ~override~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdrsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtrsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION enemy_bard BEGIN
+
+APPEND ~spell.ids~ ~3495 NPC_BARDSONG~ UNLESS ~NPC_BARDSONG~
+APPEND ~spell.ids~ ~3497 NPC_SKALDSONG~ UNLESS ~NPC_SKALDSONG~
+APPEND ~spell.ids~ ~3499 NPC_JESTERSONG~ UNLESS ~NPC_JESTERSONG~
+APPEND ~spell.ids~ ~3501 NPC_ENHANCEDSONG~ UNLESS ~NPC_ENHANCEDSONG~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin495.spl~ BEGIN
+  COPY ~bp/spl/spin495.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin497.spl~ BEGIN
+  COPY ~bp/spl/spin497.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin499.spl~ BEGIN
+  COPY ~bp/spl/spin499.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin500.spl~ BEGIN
+  COPY ~bp/spl/spin500.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin501.spl~ BEGIN
+  COPY ~bp/spl/spin501.spl~ ~override~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION animal_rules BEGIN
+
+COPY_EXISTING ~wolfwi1.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_ASCII 0x3a ~spwi320b~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gbull01~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cbull01~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      WRITE_ASCII (0x38 * w + abil_off + 4) ~spwi320b~ #8 //Use icon
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 2 BEGIN //If ranged
+        WRITE_SHORT (0x38 * w + abil_off + 0x14) 10 //THAC0 bonus (was 2)
+        WRITE_SHORT (0x38 * w + abil_off + 0x1c) 4 //Damage type (ranged, was piercing)
+      END
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~wolfwi2.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_ASCII 0x44 ~gblun01~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cblun01~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        WRITE_SHORT (0x38 * w + abil_off + 0x14) 5 //THAC0 bonus (was 0)
+      END
+    END
+  END
+BUT_ONLY
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION animal_scripts BEGIN
+
+LAF animal_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION beholder_rules BEGIN
+
+LAF telekinesis END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin471.spl~ BEGIN
+  COPY ~bp/spl/spin471.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin472.spl~ BEGIN
+  COPY ~bp/spl/spin472.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin473.spl~ BEGIN
+  COPY ~bp/spl/spin473.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin474.spl~ BEGIN
+  COPY ~bp/spl/spin474.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin475.spl~ BEGIN
+  COPY ~bp/spl/spin475.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin477.spl~ BEGIN
+  COPY ~bp/spl/spin477.spl~ ~override~
+    SAY NAME1 @153 //Summon Gauth
+    SAY NAME2 @153 //Summon Gauth
+END
+
+APPEND ~spell.ids~ ~3471 GAUTH_CONE_OF_COLD~ UNLESS ~GAUTH_CONE_OF_COLD~
+APPEND ~spell.ids~ ~3472 GAUTH_REPULSION~ UNLESS ~GAUTH_REPULSION~
+APPEND ~spell.ids~ ~3473 SPECTATOR_SUGGESTION~ UNLESS ~SPECTATOR_SUGGESTION~
+APPEND ~spell.ids~ ~3474 TYRANT_HOLD_MONSTER~ UNLESS ~TYRANT_HOLD_MONSTER~
+APPEND ~spell.ids~ ~3475 DIRECTOR_PHANTASMAL_KILLER~ UNLESS ~DIRECTOR_PHANTASMAL_KILLER~
+APPEND ~spell.ids~ ~3477 HIVE_MOTHER_SUMMON_GAUTH~ UNLESS ~HIVE_MOTHER_SUMMON_GAUTH~
+APPEND ~spell.ids~ ~3550 HIVE_MOTHER_ANTIMAGIC_RAY~ UNLESS ~HIVE_MOTHER_ANTIMAGIC_RAY~
+APPEND ~spell.ids~ ~3551 HIVE_MOTHER_CAUSE_SERIOUS_WOUNDS~ UNLESS ~HIVE_MOTHER_CAUSE_SERIOUS_WOUNDS~
+APPEND ~spell.ids~ ~3552 HIVE_MOTHER_DISINTEGRATE~ UNLESS ~HIVE_MOTHER_DISINTEGRATE~
+APPEND ~spell.ids~ ~3665 BEHOLDER_BLAST_VISUAL2~ UNLESS ~BEHOLDER_BLAST_VISUAL2~
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION beholder_scripts BEGIN
+
+LAF telekinesis END
+LAF beholder_rules END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~behiv02.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/beholder~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpbehdir.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/beholder~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~cresht01.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/cresht01.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/cresht01.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION demon_rules BEGIN
+
+APPEND ~spell.ids~ ~3480 DEMON_ATTRACTION~ UNLESS ~DEMON_ATTRACTION~
+APPEND ~spell.ids~ ~3482 DEMON_REPULSION~ UNLESS ~DEMON_REPULSION~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin480.spl~ BEGIN
+  COPY ~bp/spl/spin480.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin482.spl~ BEGIN
+  COPY ~bp/spl/spin482.spl~ ~override~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION demon_scripts BEGIN
+
+LAF bp_boulder  END
+LAF telekinesis END
+LAF demon_rules END
+
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdempit.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/demon~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemonx.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/demon/bpdemonx.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemon.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/demon~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/demon~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcthi2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcthi2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcfig2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcfig2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10a.baf~
+END
+
+
+COPY_EXISTING ~cornugon.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oCORNUGN.baf~ ~bp/SNIP/nCORNUGN.baf~
+BUT_ONLY
+
+COPY_EXISTING ~demalu01.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oDEMALU1.baf~ ~bp/SNIP/nDEMALU1.baf~
+BUT_ONLY
+
+COPY_EXISTING ~demglab.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oDEMGLAB.baf~ ~bp/SNIP/nDEMGLAB.baf~
+BUT_ONLY
+
+COPY_EXISTING ~demmau01.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oDEMMAU1.baf~ ~bp/SNIP/nDEMMAU1.baf~
+BUT_ONLY
+
+
+COPY_EXISTING ~demnabsu.bcs~ ~override~
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~IF
+  See([GOODCUTOFF])
+THEN
+  RESPONSE #60
+    AttackOneRound(Lastseenby(Myself))
+    AttackOneRound(Lastseenby(Myself))
+  RESPONSE #20
+    ForceSpell(Lastseenby(Myself),TANARI_VAMPIRIC_TOUCH)
+    AttackOneRound(Lastseenby(Myself))
+  RESPONSE #15
+    ForceSpell(Lastseenby(Myself),TANARI_PARALYZE)
+    AttackOneRound(Lastseenby(Myself))
+  RESPONSE #5
+    ForceSpell(Lastseenby(Myself),TANARI_DEATH_GAZE)
+    AttackOneRound(Lastseenby(Myself))
+END~ ~IF
+  OR(4)
+    See([GOODCUTOFF])
+    See([GOODCUTOFF.GENERAL_ITEM.DEMONIC.0.0.0.LAWFUL_EVIL])
+    See([GOODCUTOFF.GENERAL_ITEM.0.TANARI.0.0.LAWFUL_EVIL])
+    See([GOODCUTOFF.GENERAL_ITEM.0.0.0.SUMMONED_DEMON.LAWFUL_EVIL])
+  !GlobalTimerNotExpired("MAULER","LOCALS")
+  OR(2)
+    !See([0.GENERAL_ITEM.DEMONIC.0.0.0.LAWFUL_EVIL])
+    See([GOODCUTOFF.GENERAL_ITEM.DEMONIC.0.0.0.LAWFUL_EVIL])
+  OR(2)
+    !See([0.GENERAL_ITEM.0.TANARI.0.0.LAWFUL_EVIL])
+    See([GOODCUTOFF.GENERAL_ITEM.0.TANARI.0.0.LAWFUL_EVIL])
+  OR(2)
+    !See([0.GENERAL_ITEM.0.0.0.SUMMONED_DEMON.LAWFUL_EVIL])
+    See([GOODCUTOFF.GENERAL_ITEM.0.0.0.SUMMONED_DEMON.LAWFUL_EVIL])
+THEN
+  RESPONSE #60
+    SetGlobalTimer("MAULER","LOCALS",0)
+    SetGlobalTimer("BPT","LOCALS",0)
+    AttackOneRound(Lastseenby(Myself))
+    AttackOneRound(Lastseenby(Myself))
+  RESPONSE #20
+    SetGlobalTimer("MAULER","LOCALS",15)
+    ForceSpell(Lastseenby(Myself),TANARI_VAMPIRIC_TOUCH)
+    AttackOneRound(Lastseenby(Myself))
+  RESPONSE #15
+    SetGlobalTimer("MAULER","LOCALS",15)
+    ForceSpell(Lastseenby(Myself),TANARI_PARALYZE)
+    AttackOneRound(Lastseenby(Myself))
+  RESPONSE #5
+    SetGlobalTimer("MAULER","LOCALS",15)
+    ForceSpell(Lastseenby(Myself),TANARI_DEATH_GAZE)
+    AttackOneRound(Lastseenby(Myself))
+END~
+
+  REPLACE_TEXTUALLY ~IF
+  See([0])
+THEN
+  RESPONSE #70
+    AttackReevaluate(Lastseenby(Myself),30)
+  RESPONSE #15
+    ForceSpell(Lastseenby(Myself),TANARI_VAMPIRIC_TOUCH)
+    Wait(2)
+  RESPONSE #10
+    ForceSpell(Lastseenby(Myself),TANARI_PARALYZE)
+    Wait(2)
+  RESPONSE #5
+    ForceSpellRES("",Lastseenby(Myself))
+    Wait(2)
+END~ ~IF
+  OR(4)
+    See([0])
+    See([0.GENERAL_ITEM.DEMONIC.0.0.0.LAWFUL_EVIL])
+    See([0.GENERAL_ITEM.0.TANARI.0.0.LAWFUL_EVIL])
+    See([0.GENERAL_ITEM.0.0.0.SUMMONED_DEMON])
+THEN
+  RESPONSE #70
+    AttackReevaluate(Lastseenby(Myself),30)
+  RESPONSE #15
+    ForceSpell(Lastseenby(Myself),TANARI_VAMPIRIC_TOUCH)
+    Wait(2)
+  RESPONSE #10
+    ForceSpell(Lastseenby(Myself),TANARI_PARALYZE)
+    Wait(2)
+  RESPONSE #5
+    ForceSpell(Lastseenby(Myself),TANARI_SILENCE)
+    Wait(2)
+END~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+COPY_EXISTING ~dempit.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oDEMPIT.baf~ ~bp/SNIP/nDEMPIT.baf~
+BUT_ONLY
+
+COPY_EXISTING ~demsuc.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oDEMSUC.baf~ ~bp/SNIP/nDEMSUC.baf~
+  DECOMPILE_BCS_TO_BAF
+   REPLACE_TEXTUALLY ~SecondNearestMyGroupOfType~ ~SecondNearest~
+   REPLACE_TEXTUALLY ~ThirdNearestMyGroupOfType~  ~ThirdNearest~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+COPY_EXISTING ~erinyes.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~SecondNearestMyGroupOfType~  ~SecondNearest~
+    REPLACE_TEXTUALLY ~ThirdNearestMyGroupOfType~   ~ThirdNearest~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+
+COPY_EXISTING ~gorcamb2.bcs~ ~override~
+              ~gorcamb3.bcs~ ~override~
+              ~gorcamb4.bcs~ ~override~
+              ~gorcamb5.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~Shout(ALERT_151)~   ~Shout(HELP79)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+EXTEND_BOTTOM ~tanhigh.bcs~ ~bp/snip/btanhigh.baf~
+EXTEND_BOTTOM ~tdr10a.bcs~ ~bp/snip/btdr10a.baf~
+
+
+COPY_EXISTING ~uddeath.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~ReallyForceSpell(LastSeenBy(Myself),0)~ ~ReallyForceSpell(LastSeenBy(Myself),DEATHKNIGHT_FIREBALL)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION dragon_rules BEGIN
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~drgrbrht.spl~ BEGIN
+  COPY ~bp/spl/drgrbrht.spl~ ~override~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION dragon_scripts BEGIN
+
+LAF dragon_rules END
+
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION drow_rules BEGIN
+
+APPEND ~spell.ids~ ~3403 INNATE_FAERIE_FIRE~ UNLESS ~INNATE_FAERIE_FIRE~
+APPEND ~spell.ids~ ~3405 INNATE_DANCING_LIGHTS~ UNLESS ~INNATE_DANCING_LIGHTS~
+APPEND ~spell.ids~ ~3406 INNATE_GLOBE_OF_DARKNESS~ UNLESS ~INNATE_GLOBE_OF_DARKNESS~
+APPEND ~spell.ids~ ~3407 INNATE_IMPROVED_GLOBE_OF_DARKNESS~ UNLESS ~INNATE_IMPROVED_GLOBE_OF_DARKNESS~
+
+COPY ~bp/sfx/core/kr_drow~ ~override~
+COPY ~bp/bam/core/kr_drow~ ~override~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin400.spl~ BEGIN
+  COPY ~bp/spl/spin400.spl~ ~override~
+    SAY NAME1 @140 //Globe of Darkness
+    SAY UNIDENTIFIED_DESC @141
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin403.spl~ BEGIN
+  COPY ~bp/spl/spin403.spl~ ~override~
+    SAY NAME1 @144 //Faerie Fire
+    SAY UNIDENTIFIED_DESC @145
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin405.spl~ BEGIN
+  COPY ~bp/spl/spin405.spl~ ~override~
+    SAY NAME1 @146 //Dancing Lights
+    SAY UNIDENTIFIED_DESC @147
+    SAY 0xfe @148
+    SAY 0x12e @149
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin406.spl~ BEGIN
+  COPY ~bp/spl/spin406.spl~ ~override~
+    SAY NAME1 @140 //Globe of Darkness
+    SAY UNIDENTIFIED_DESC @141
+END
+
+//Had to change to spin407 from spin401, for NeJ2
+//It's only ForceSpell() cast from scripts, so it's fine
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin407.spl~ BEGIN
+  COPY ~bp/spl/spin407.spl~ ~override~
+    SAY NAME1 @142 //Improved Globe of Darkness
+    SAY UNIDENTIFIED_DESC @143
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION drow_scripts BEGIN
+
+LAF undead_rules END
+LAF drow_rules END
+LAF trap_projectiles END
+LAF bp_boulder END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtsigt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtsigt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtsigt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdrow.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/drow/bpdrow.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/drow/bpdrow.baf~
+  END
+END
+
+COPY_EXISTING ~udlesa.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~!CombatCounter(0)~ ~!CombatCounter(0) Global("PlayerDuelingLesaonar","GLOBAL",0)~
+//  REPLACE_BCS_BLOCK   ~bp/SNIP/oUDLESA.bcs~ ~bp/SNIP/nUDLESA.bcs~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcarc2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcarc2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri14t.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bppri14t.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bppri14t.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri18a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri18a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri18c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri18c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprst12.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprst12.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprt12b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprt12b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~cbwtasgt.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/cbwtasgt.baf~
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION druid_rules BEGIN
+
+LAF trap_projectiles END
+
+APPEND ~RACE.IDS~ ~160 TREANT~       UNLESS ~TREANT~
+APPEND ~spell.ids~ ~3462 TREANT_SUMMON_TREE~ UNLESS ~TREANT_SUMMON_TREE~
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~druheal.spl~ BEGIN
+  COPY ~bp/spl/druheal.spl~ ~override~
+    SAY NAME1 @133 //Cures
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wwbear.cre~ BEGIN
+  COPY ~bp/cre/wwbear.cre~ ~override~
+    SAY NAME1 @350 //Bearwere
+    SAY NAME2 @350 //Bearwere
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wwbearwe.cre~ BEGIN
+  COPY ~bp/cre/wwbearwe.cre~ ~override~
+    SAY NAME1 @351 //Greater Bearwere
+    SAY NAME2 @351 //Greater Bearwere
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wwwere.itm~ BEGIN
+COPY ~bp/itm/wwwere.itm~ ~override~
+  SAY DESC @128
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wwweregr.itm~ BEGIN
+COPY ~bp/itm/wwweregr.itm~ ~override~
+  SAY DESC @129
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wwwerej.itm~ BEGIN
+COPY ~bp/itm/wwwerej.itm~ ~override~
+  SAY DESC @128
+END
+
+
+COPY_EXISTING ~spin123.spl~ ~override~
+              ~spin153.spl~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    LAUNCH_PATCH_FUNCTION DELETE_SPELL_EFFECT
+      INT_VAR opcode_to_delete = 17
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 11 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 10
+      probability2 = 0
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 12 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 25
+      probability2 = 11
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 13 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 50
+      probability2 = 26
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 14 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 75
+      probability2 = 51
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 15 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 90
+      probability2 = 76
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 16 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 100
+      probability2 = 91
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~spin124.spl~ ~override~
+              ~spin125.spl~ ~override~
+              ~spin126.spl~ ~override~
+              ~spin150.spl~ ~override~
+              ~spin151.spl~ ~override~
+              ~spin152.spl~ ~override~
+              ~spin154.spl~ ~override~
+              ~spin155.spl~ ~override~
+              ~spin156.spl~ ~override~
+              ~spin157.spl~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    READ_LONG 0x64 abil_off
+    READ_LONG 0x6a ef_off
+    READ_SHORT (abil_off + 0x1e) ef_count
+    FOR (v = 0; v < ef_count; v += 1) BEGIN //Cycle through effects
+      READ_BYTE (0x30 * v + ef_off + 0xc) tmd //Timing
+      READ_LONG (0x30 * v + ef_off + 0xe) dur //Duration
+      PATCH_IF (tmd = 0) AND (dur = 0) BEGIN
+        WRITE_BYTE (0x30 * v + ef_off + 0xc) 1 //Timing (Instantaneous)
+      END
+      PATCH_IF (tmd = 1) AND (dur > 0) BEGIN
+        WRITE_LONG (0x30 * v + ef_off + 0xe) 0 //Duration
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_SPELL_EFFECT
+      INT_VAR opcode_to_delete = 17
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 10 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 10
+      probability2 = 0
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 20 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 30
+      probability2 = 11
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 30 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 65
+      probability2 = 31
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 40 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 85
+      probability2 = 66
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 50 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 95
+      probability2 = 86
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 60 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 100
+      probability2 = 96
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~spin127.spl~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 147 //Learn Spell
+      target = 1 //Self
+      power = 3
+      timing = 0 //Duration
+      duration = 3600000
+      STR_VAR resource = spin160
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 147 //Learn Spell
+      target = 1 //Self
+      power = 3
+      timing = 0 //Duration
+      duration = 3600000
+      STR_VAR resource = spin160
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 147 //Learn Spell
+      target = 1 //Self
+      power = 3
+      timing = 0 //Duration
+      duration = 3600000
+      STR_VAR resource = spin160
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_SPELL_EFFECT
+      INT_VAR opcode_to_delete = 17
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 10 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 10
+      probability2 = 0
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 20 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 30
+      probability2 = 11
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 30 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 65
+      probability2 = 31
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 40 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 85
+      probability2 = 66
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 50 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 95
+      probability2 = 86
+    END
+    LAUNCH_PATCH_FUNCTION ADD_SPELL_EFFECT
+      INT_VAR opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      power = 3
+      parameter1 = 60 //Modifier
+      parameter2 = 2 //Type (Percentage)
+      timing = 1 //Instantaneous
+      probability1 = 100
+      probability2 = 96
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spcl645.spl~ BEGIN
+  COPY ~bp/spl/spcl645.spl~ ~override~
+END
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION druid_scripts BEGIN
+
+
+LAF druid_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdru10a.bcs~ BEGIN
+ COMPILE ~bp/baf/re-baf/druid~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdru12b.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/druid~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/druid~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri18a.bcs~ BEGIN
+ COMPILE ~bp/baf/re-baf/core/bppri18a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10b.baf~
+END
+
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION duergar_rules BEGIN
+
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~snare5.cre~ BEGIN
+  LAF trap_projectiles END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~boulder.itm~ BEGIN
+  LAF bp_boulder END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduearc.spl~ BEGIN
+COPY ~bp/spl/bpduearc.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduega2.spl~ BEGIN
+COPY ~bp/spl/bpduega2.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduegar.spl~ BEGIN
+COPY ~bp/spl/bpduegar.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduegau.spl~ BEGIN
+COPY ~bp/spl/bpduegau.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduegia.spl~ BEGIN
+COPY ~bp/spl/bpduegia.spl~ ~override~
+  SAY NAME1 @132 //Duergar Enlargement
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduema2.spl~ BEGIN
+COPY ~bp/spl/bpduema2.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduemag.spl~ BEGIN
+COPY ~bp/spl/bpduemag.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduepre.spl~ BEGIN
+COPY ~bp/spl/bpduepre.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdueske.spl~ BEGIN
+COPY ~bp/spl/bpdueske.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpilyich.spl~ BEGIN
+COPY ~bp/spl/bpilyich.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spduepre.spl~ BEGIN
+COPY ~bp/spl/spduepre.spl~ ~override~
+  SAY NAME1 @131 //Duergar Reduction
+END
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION duergar_scripts BEGIN
+
+LAF duergar_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpduegar.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/duergar~
+  EXTEND_BOTTOM ~duergar1.bcs~ ~bp/snip/bduegar1.baf~
+  EXTEND_BOTTOM ~ilyich.bcs~ ~bp/baf/new_baf/duergar/bilyich.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdueall.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+       COMPILE ~bp/tdd/baf/no_strings/bpdueall.baf~
+    END ELSE BEGIN
+      COMPILE ~bp/baf/shouts/no_strings_2/bpdueall.baf~
+    END
+  END ELSE ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+     COMPILE ~bp/tdd/baf/core/bpdueall.baf~
+  END ELSE BEGIN
+     COMPILE ~bp/baf/no_tdd/core/bpdueall.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION elemental_rules BEGIN
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION elemental_scripts BEGIN
+
+LAF elemental_rules END
+LAF undead_rules END
+LAF drow_rules END
+LAF bp_boulder END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwzasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwzasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpwzasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wgarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wgarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wgarsgt.baf~
+  END
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION githyanki_rules BEGIN
+
+LAF duergar_rules END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION githyanki_scripts BEGIN
+
+LAF githyanki_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gith03.bcs~ AND FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+  COMPILE ~bp/tdd/baf/gith~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wgarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wgarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wgarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12e.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12e.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16c.baf~
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION golem_rules BEGIN
+
+COPY_EXISTING ~goliro.itm~ ~override~
+              ~golsto.itm~ ~override~
+			  ~golcla.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME1 #4666 //Attack
+    SAY NAME2 #4666 //Attack
+    WRITE_ASCII 0x3a ~ishape03~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gbrac06~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cbrac10~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    READ_LONG 0x6a eff_off
+    READ_SHORT abil_off+30 num_eff
+
+    SET abil_off = abil_off + (0x38*num_abil)
+    INSERT_BYTES abil_off 0x38
+    WRITE_BYTE  abil_off  ~2~ //ranged
+    WRITE_SHORT abil_off+2 ~1~
+    WRITE_ASCII abil_off+4 ~IBULL01~ #8
+    WRITE_BYTE  abil_off+12 ~1~ // living actor
+    WRITE_SHORT abil_off+14 ~30~ //range
+    WRITE_SHORT abil_off+18 ~10~ //speed
+    WRITE_LONG  abil_off+22 ~10~  //damage die
+    WRITE_SHORT abil_off+24 ~2~  //num dice
+    WRITE_SHORT abil_off+28 ~2~  // crushing
+    READ_SHORT  abil_off+32 index
+    WRITE_SHORT abil_off+32 (%index%+%num_eff%)
+    WRITE_SHORT abil_off+34 ~30~ // 30 charges per day
+    WRITE_BYTE  abil_off+36 ~3~ // Recharges Daily
+    WRITE_BYTE  abil_off+38 ~1~ // Allow Strength
+    WRITE_BYTE  abil_off+39 ~8~ // Recharges after rest
+    WRITE_SHORT abil_off+42 ~20~ // Bullet.pro    
+    WRITE_SHORT abil_off+44 ~100~ // always overhead
+
+    SET eff_off = eff_off + 0x38
+    SET num_abil = num_abil+1
+    WRITE_LONG 0x68 num_abil
+    WRITE_LONG 0x6a eff_off
+  END
+BUT_ONLY
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION golem_scripts BEGIN
+
+LAF golem_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgolem.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/misc/bpgolem.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~quietsht.bcs~ BEGIN
+  COMPILE ~bp/baf/shouts/no_strings/quietsht.baf~
+END
+
+COPY_EXISTING ~igolfle.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~Continue()~  ~~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgoliro.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/golem~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION humanoid_rules BEGIN
+
+LAF bp_boulder END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~mor5a1.bam~ BEGIN
+  COPY ~bp/bam/orcmage~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~mli3a1.bam~ BEGIN
+  COPY ~bp/bam/lizard~  ~override~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION humanoid_scripts BEGIN
+
+LAF humanoid_rules END
+
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpkbsham.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/humanoid/bpkbsham.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage3.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage3.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpshout.bcs~ BEGIN
+  COMPILE ~bp/baf/shouts/strings/bpshout.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wgarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wgarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wgarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10a.baf~
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION knight_rules BEGIN
+
+LAF enemy_bard END
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION knight_scripts BEGIN
+
+LAF knight_rules END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcmag2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcmag2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppald10.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppald10.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprist6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprist6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!bard.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!bard.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppald16.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bppald16.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bppald16.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcpal2a.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bpcpal2a.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bpcpal2a.baf~
+  END
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION mage_rules BEGIN
+
+LAF trap_projectiles END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spmisled.spl~ BEGIN
+  COMPILE ~bp//spl/spmisled.spl~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spmisgit.spl~ BEGIN
+  COMPILE ~bp//spl/spmisgit.spl~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bptarget.spl~ BEGIN
+  COMPILE ~bp//spl/bptarget.spl~
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION mage_scripts BEGIN
+
+LAF mage_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage10d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage11.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage11.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12e.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12e.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14t.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14t.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18e.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18e.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18y.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18y.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18z.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18z.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcmag2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcmag2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpccle2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpccle2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprst12.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprst12.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wgarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wgarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wgarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmisled.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/spl/bpmisled.baf~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION mind_flayer_rules BEGIN
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~GBAstral.spl~ BEGIN
+  COPY ~bp/spl/GBAstral.spl~ ~override~
+END
+
+COPY_EXISTING ~mindfl02.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME1 #4666 //Attack
+    SAY NAME2 #4666 //Attack
+    WRITE_ASCII 0x3a ~ishape02~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gbrac06~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cbrac10~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      WRITE_ASCII (0x38 * w + abil_off + 4) ~ishape02~ #8 //Use icon
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 193
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 193 //Invisible Detection by Script
+      target = 1 //Self
+      parameter2 = 1 //Constant value
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 166
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 166 //Magic Resistance Modifier
+      target = 1 //Self
+      parameter1 = 90 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 86
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 86 //Reduced Damage from Slashing Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 87
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 87 //Reduced Damage from Crushing Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 88
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 88 //Reduced Damage from Piercing Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 89
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 89 //Reduced Damage from Missiles Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 19
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 19 //Intelligence Modifier
+      target = 2 //Pre-target
+      parameter1 = (0 - 5) //Modifier
+      timing = 0 //Duration
+      duration = 30
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 86 //Icon (Intelligence Drained)
+      timing = 0 //Duration
+      duration = 30
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 139 //Display String
+      target = 1 //Self
+      parameter1 = 32089 //String Reference (Devour brain)
+      timing = 4 //Delayed
+      duration = 1
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 17
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 17 //Current HP Modifier
+      target = 1 //Self
+      parameter1 = 10 //Modifier
+      timing = 1 //Instantaneous
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 50
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 50 //Glow by RGB (Brief)
+      target = 1 //Self
+      parameter1 = (0 - 4365568) //RGB Color
+      parameter2 = 1966080 //Location and Speed
+      timing = 0 //Duration
+      duration = 1
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 141
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 141 //Lighting Effects
+      target = 1 //Self
+      parameter2 = 2 //Type (aqua water)
+      timing = 1 //Instantaneous
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 139 //Display String
+      target = 1 //Self
+      parameter1 = 14022 //String Reference (Healed)
+      timing = 1 //Instantaneous
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~mindflay.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        WRITE_LONG  (0x38 * w + abil_off + 0x16) 6 //Dice sides (was 2)
+        WRITE_SHORT (0x38 * w + abil_off + 0x1a) 4 //Damage bonus
+        WRITE_SHORT (0x38 * w + abil_off + 0x1c) 1 //Damage type (piercing/magic, was blunt)
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 193
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 193 //Invisible Detection by Script
+      target = 1 //Self
+      parameter2 = 1 //Constant value
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 166
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 166 //Magic Resistance Modifier
+      target = 1 //Self
+      parameter1 = 90 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 86
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 86 //Reduced Damage from Slashing Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 87
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 87 //Reduced Damage from Crushing Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 88
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 88 //Reduced Damage from Piercing Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 89
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 89 //Reduced Damage from Missiles Modifier
+      target = 1 //Self
+      parameter1 = 50 //Modifier
+      parameter2 = 1 //Type (flat value)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 19
+    END
+  END
+BUT_ONLY
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION mind_flayer_scripts BEGIN
+
+LAF mind_flayer_rules END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpflayr1.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/flayer~
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+  COMPILE ~bp/tdd/baf/flayer~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+COPY_EXISTING ~flayun.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oFLAYUN.Baf~ ~bp/SNIP/nFLAYUN.baf~
+BUT_ONLY
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION mist_rules BEGIN
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~sumshad.spl~ BEGIN
+  COPY ~bp/spl/sumshad.spl~ ~override~
+    SAY NAME1 @155 //Summon Shadow Fiends
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION mist_scripts BEGIN
+
+LAF mist_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpshadow.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/shadow/bpshadow.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmistva.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/mist~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14m.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpally.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpally.baf~
+END
+
+COPY_EXISTING ~mistho.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oMISTHO.baf~ ~bp/SNIP/nMISTHO.baf~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~Range(NearestEnemyOf(Myself),30)~ ~Range(NearestEnemyOf(Myself),20)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION priest_rules BEGIN
+
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION priest_scripts BEGIN
+
+LAF priest_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie6b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie6b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie6c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie6c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprt12b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprt12b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri18a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri18a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri18b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri18b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri18c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri18c.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION sea_devil_rules BEGIN
+
+COPY_EXISTING ~sahbolt.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY DESC @105
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    found_abil = 1
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 2 BEGIN //If ranged
+        found_abil = w + 1
+        WRITE_SHORT (0x38 * w + abil_off + 0xe) 30 //Range (was 100)
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 45 //Stun
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 139 //Display String
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 142 //Display Special Effect Icon
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 175 //Hold Creature II
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 175 //Hold Creature II
+      target = 2 //Pre-target
+      timing = 0 //Duration
+	  parameter2 = 2 // EA
+      duration = 12
+      probability1 = 25
+      probability2 = 0
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 175 //Hold Creature II
+      target = 2 //Pre-target
+      timing = 0 //Duration
+	  parameter2 = 2 // EA
+      duration = 18
+      probability1 = 55
+      probability2 = 26
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 175 //Hold Creature II
+      target = 2 //Pre-target
+      timing = 0 //Duration
+	  parameter2 = 2 // EA
+      duration = 24
+      probability1 = 85
+      probability2 = 56
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 175 //Hold Creature II
+      target = 2 //Pre-target
+      timing = 0 //Duration
+	  parameter2 = 2 // EA
+      duration = 30
+      probability1 = 100
+      probability2 = 86
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 13 //Icon (Held)
+      timing = 0 //Duration
+      duration = 12
+      probability1 = 25
+      probability2 = 0
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 13 //Icon (Held)
+      timing = 0 //Duration
+      duration = 18
+      probability1 = 55
+      probability2 = 26
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 13 //Icon (Held)
+      timing = 0 //Duration
+      duration = 24
+      probability1 = 85
+      probability2 = 56
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 13 //Icon (Held)
+      timing = 0 //Duration
+      duration = 30
+      probability1 = 100
+      probability2 = 86
+      savingthrow = 4 //Poison
+      resist_dispel = 3 //Dispel/Bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 2 //Ranged
+      opcode         = 139 //Display String
+      target         = 2 //Pre-target
+      parameter1     = 14650 //Paralyzed
+      timing         = 1 //Instantaneous
+      savingthrow    = 4 //Poison
+      resist_dispel  = 3 //Dispel/Bypass
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~sahnet.itm~ BEGIN
+  COPY ~bp/itm/sahnet.itm~ ~override~
+    SAY NAME1 @106 //Sahuagin Throwing Net
+    SAY NAME2 @106 //Sahuagin Throwing Net
+    SAY UNIDENTIFIED_DESC @107
+    SAY DESC @107
+    SAY 0x28e @108
+END
+
+COPY_EXISTING ~sahspear.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME2 @109 //Sahuagin Spear
+    SAY DESC @110
+    WRITE_BYTE 0x18 (THIS BOR 0b00000100) //Movable
+    WRITE_BYTE 0x26 7 //Minimum strength (was 5)
+    WRITE_LONG 0x34 75 //Price (was 1)
+    WRITE_LONG 0x4c 10 //Weight (was 5)
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    READ_LONG 0x6a cf //Effect offset
+    found_abil = 1
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        found_abil = w + 1
+        WRITE_SHORT (0x38 * w + abil_off + 0xe) 3 //Range
+        WRITE_LONG  (0x38 * w + abil_off + 0x16) 6 //Dice sides
+        WRITE_SHORT (0x38 * w + abil_off + 0x18) 2 //Dice thrown
+        WRITE_SHORT (0x38 * w + abil_off + 0x2c) 0 //Overhand
+        WRITE_SHORT (0x38 * w + abil_off + 0x2e) 0 //Backhand
+        WRITE_SHORT (0x38 * w + abil_off + 0x30) 100 //Thrust
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EQEFFECT
+      INT_VAR opcode_to_delete = 0
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 0 //AC vs. Damage Type Modifier
+      target = 1 //Self
+      power = 4
+      parameter1 = 4 //AC Modifier
+      parameter2 = 8 //Type (slashing)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 0 //AC vs. Damage Type Modifier
+      target = 1 //Self
+      power = 4
+      parameter1 = 4 //AC Modifier
+      parameter2 = 4 //Type (piercing)
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 264
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 264 //Drop Weapons in Panic
+      header         = found_abil
+      target         = 2 //Pre-target
+      power          = 5
+      parameter2     = 1 //Type (drop weapons)
+      timing         = 1 //Instantaneous
+      probability1   = 25
+      savingthrow    = 8 //Wands
+      savebonus      = (0 - 2)
+      resist_dispel  = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 139 //Display String
+      header         = found_abil
+      target         = 1 //Self
+      power          = 5
+      parameter1     = 99999
+      timing         = 1 //Instantaneous
+      probability1   = 25
+      savingthrow    = 8 //Wands
+      savebonus      = (0 - 2)
+      resist_dispel  = 2 //Not dispel/bypass
+    END
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        READ_SHORT (0x38 * w + abil_off + 0x1e) fq //Feature count
+        READ_SHORT (0x38 * w + abil_off + 0x20) fx //Feature index
+        FOR (g1 = 0; g1 < fq; g1 += 1) BEGIN //Cycle through features
+          READ_SHORT (cf + 0x30 * (fx + g1)) pc //Opcode
+          READ_LONG (cf + 0x30 * (fx + g1) + 4) p1 //Parameter 1
+          PATCH_IF ((pc = 139) AND (p1 = 99999)) BEGIN
+            SAY (cf + 0x30 * (fx + g1) + 4) @111 //Disarming Strike
+          END
+        END
+      END
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sahstaff.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY DESC @112
+    WRITE_BYTE 0x18 (THIS BOR 0b00000100) //Movable
+    WRITE_BYTE 0x26 7 //Minimum strength (was 5)
+    WRITE_LONG 0x34 3 //Price (was 0)
+    WRITE_LONG 0x4c 7 //Weight (was 4)
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    READ_LONG 0x6a cf //Effect offset
+    found_abil = 1
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        found_abil = w + 1
+        WRITE_SHORT (0x38 * w + abil_off + 0x12) 5 //Speed (was 4)
+        WRITE_LONG  (0x38 * w + abil_off + 0x16) 4 //Dice sides
+        WRITE_SHORT (0x38 * w + abil_off + 0x18) 2 //Dice thrown
+        WRITE_SHORT (0x38 * w + abil_off + 0x1a) 2 //Damage bonus
+        WRITE_SHORT (0x38 * w + abil_off + 0x2c) 10 //Overhand
+        WRITE_SHORT (0x38 * w + abil_off + 0x2e) 70 //Backhand
+        WRITE_SHORT (0x38 * w + abil_off + 0x30) 20 //Thrust
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 45
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 45 //Stun
+      target         = 2 //Pre-target
+      power          = 3
+      timing         = 0 //Duration
+      probability1   = 25
+      savingthrow    = 8 //Wands
+      savebonus      = (0 - 3)
+      resist_dispel  = 2 //Not dispel/bypass
+      duration       = 12
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 142 //Display Special Effect Icon
+      target         = 2 //Pre-target
+      power          = 3
+      parameter2     = 55 //Icon (Stunned)
+      timing         = 0 //Duration
+      probability1   = 25
+      savingthrow    = 8 //Wands
+      savebonus      = (0 - 3)
+      resist_dispel  = 2 //Not dispel/bypass
+      duration       = 12
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 139 //Display String
+      target         = 2 //Pre-target
+      power          = 3
+      parameter1     = 1280 //String Reference (Stunned)
+      timing         = 1 //Instantaneous
+      probability1   = 25
+      savingthrow    = 8 //Wands
+      savebonus      = (0 - 3)
+      resist_dispel  = 2 //Not dispel/bypass
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~kuobolt.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY DESC @87
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    found_abil = 1
+    found_text = 0
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 2 BEGIN //If ranged
+        found_abil = w + 1
+        WRITE_SHORT (0x38 * w + abil_off + 0xe) 30 //Range (was 100)
+        WRITE_LONG  (0x38 * w + abil_off + 0x16) 8 //Dice sides (was 6)
+        WRITE_SHORT (0x38 * w + abil_off + 0x18) 1 //Dice thrown (was 2)
+        READ_SHORT (0x38 * w + abil_off + 0x1e) num_eff
+        READ_SHORT (0x38 * w + abil_off + 0x20) eff_off
+        FOR (x = 0; x < num_eff; x += 1) BEGIN
+          READ_SHORT (eff_off + 0x30 * x) eff_type
+          PATCH_IF eff_type = 139 BEGIN
+            READ_LONG (eff_off + 0x30 * x + 4) sref
+            PATCH_IF sref = 1280 BEGIN
+              WRITE_LONG (eff_off + 0x30 * x + 0x24) 4 //Saving throw (poison, was spells)
+              WRITE_LONG (eff_off + 0x30 * x + 0x28) 2 //Save bonus (was 0)
+              found_text = 1
+            END
+          END
+        END
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 45 //Stun
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 142 //Display Special Effect Icon
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 45 //Stun
+      target = 2 //Pre-target
+      timing = 0 //Duration
+      duration = 12
+      probability1 = 35
+      probability2 = 0
+      savingthrow = 4 //Poison
+      savebonus = 2
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 45 //Stun
+      target = 2 //Pre-target
+      timing = 0 //Duration
+      duration = 18
+      probability1 = 70
+      probability2 = 36
+      savingthrow = 4 //Poison
+      savebonus = 2
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 45 //Stun
+      target = 2 //Pre-target
+      timing = 0 //Duration
+      duration = 24
+      probability1 = 100
+      probability2 = 71
+      savingthrow = 4 //Poison
+      savebonus = 2
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 55 //Icon (Stunned)
+      timing = 0 //Duration
+      duration = 12
+      probability1 = 35
+      probability2 = 0
+      savingthrow = 4 //Poison
+      savebonus = 2
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 55 //Icon (Stunned)
+      timing = 0 //Duration
+      duration = 18
+      probability1 = 70
+      probability2 = 36
+      savingthrow = 4 //Poison
+      savebonus = 2
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 2 //Ranged
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      parameter2 = 55 //Icon (Stunned)
+      timing = 0 //Duration
+      duration = 24
+      probability1 = 100
+      probability2 = 71
+      savingthrow = 4 //Poison
+      savebonus = 2
+    END
+    PATCH_IF found_text = 0 BEGIN
+      LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+        INT_VAR type = 2 //Ranged
+        opcode        = 139 //Display String
+        target        = 2 //Pre-target
+        parameter1    = 1280 //Stunned
+        timing        = 1 //Instantaneous
+        savingthrow   = 4 //Poison
+        savebonus     = 2
+      END
+      found_text = 1
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~kuoharp.itm~ BEGIN
+  COPY ~bp/itm/kuoharp.itm~ ~override~
+    SAY NAME1 @88 //Kuo-Toa Harpoon
+    SAY NAME2 @88 //Kuo-Toa Harpoon
+    SAY UNIDENTIFIED_DESC @89
+    SAY DESC @89
+    SAY 0x16e @90
+END
+
+COPY_EXISTING ~kuosper.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY UNIDENTIFIED_DESC @91
+    SAY DESC @91
+    WRITE_BYTE 0x18 (THIS BOR 0b00000100) //Movable
+    WRITE_BYTE 0x26 7 //Minimum strength (was 5)
+    WRITE_LONG 0x34 25 //Price (was 1)
+    WRITE_LONG 0x4c 10 //Weight (was 5)
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    found_abil = 1
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        found_abil = w + 1
+        WRITE_SHORT (0x38 * w + abil_off + 0xe) 3 //Range
+        WRITE_LONG  (0x38 * w + abil_off + 0x16) 8 //Dice sides
+        WRITE_SHORT (0x38 * w + abil_off + 0x18) 1 //Dice thrown
+        WRITE_SHORT (0x38 * w + abil_off + 0x1a) 2 //Damage bonus
+        WRITE_SHORT (0x38 * w + abil_off + 0x2c) 0 //Overhand
+        WRITE_SHORT (0x38 * w + abil_off + 0x2e) 0 //Backhand
+        WRITE_SHORT (0x38 * w + abil_off + 0x30) 100 //Thrust
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 40 //Slow
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 142 //Display Special Effect Icon
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 158 //Grease
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 215 //Play 3D Effect
+      target = 2 //Pre-target
+      power  = 4
+      timing = 0 //Duration
+      duration = 12
+      probability1 = 50
+      probability2 = 0
+      savingthrow = 4 //Poison
+      STR_VAR resource = spgreorb
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 40 //Slow
+      target = 2 //Pre-target
+      power  = 4
+      timing = 0 //Duration
+      duration = 12
+      probability1 = 10
+      probability2 = 0
+      savingthrow = 4 //Poison
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 40 //Slow
+      target = 2 //Pre-target
+      power  = 4
+      timing = 0 //Duration
+      duration = 18
+      probability1 = 20
+      probability2 = 11
+      savingthrow = 4 //Poison
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 40 //Slow
+      target = 2 //Pre-target
+      power  = 4
+      timing = 0 //Duration
+      duration = 24
+      probability1 = 25
+      probability2 = 21
+      savingthrow = 4 //Poison
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      power  = 4
+      parameter2 = 41 //Icon (Slowed)
+      timing = 0 //Duration
+      duration = 12
+      probability1 = 10
+      probability2 = 0
+      savingthrow = 4 //Poison
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      power  = 4
+      parameter2 = 41 //Icon (Slowed)
+      timing = 0 //Duration
+      duration = 18
+      probability1 = 20
+      probability2 = 11
+      savingthrow = 4 //Poison
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      power  = 4
+      parameter2 = 41 //Icon (Slowed)
+      timing = 0 //Duration
+      duration = 24
+      probability1 = 25
+      probability2 = 21
+      savingthrow = 4 //Poison
+    END
+    PATCH_IF found_text = 0 BEGIN
+      LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+        INT_VAR type  = 1 //Melee
+        opcode        = 139 //Display String
+        target        = 2 //Pre-target
+        parameter1    = 1280 //Stunned
+        timing        = 1 //Instantaneous
+        savingthrow   = 4 //Poison
+      END
+      found_text = 1
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~sumshad.spl~ BEGIN
+  COPY ~bp/spl/sumshad.spl~ ~override~
+    SAY NAME1 @155 //Summon Shadow Fiends
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION sea_devil_scripts BEGIN
+
+LAF sea_devil_rules  END
+LAF trap_projectiles END
+
+COPY_EXISTING ~ar2300.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oAR2300.baf~  ~bp/SNIP/nAR2300.baf~
+BUT_ONLY
+
+EXTEND_BOTTOM ~ar2300.bcs~ ~bp/snip/bar2300.baf~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~sahrun.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/sahuagin~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgparch.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgparch.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12e.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12e.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcmnk2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcmnk2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcber2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcber2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri14t.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bppri14t.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bppri14t.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri18c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri18c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION shadow_thief_rules BEGIN
+
+INCLUDE ~bp/lib/bp_processing.tph~
+
+
+LAF trap_projectiles END
+
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION shadow_thief_scripts BEGIN
+
+LAF shadow_thief_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage6a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage6a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag10a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag10a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprst12.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprst12.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpally.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpally.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpbounty.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpbounty.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION thief_rules BEGIN
+
+LAF trap_projectiles END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION thief_scripts BEGIN
+
+LAF thief_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcmnk2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcmnk2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcpal2a.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bpcpal2a.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bpcpal2a.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+
+
+END
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION troll_rules BEGIN
+
+APPEND ~spell.ids~ ~3461 ENEMY_SUMMON_GHAST~ UNLESS ~ENEMY_SUMMON_GHAST~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~mtsna1.bam~ BEGIN
+  COPY ~bp/bam/snowtroll~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin461.spl~ BEGIN
+  COPY ~bp/spl/spin461.spl~ ~override~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~icetrolx.spl~ BEGIN
+  COPY ~bp/spl/icetrolx.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~icetrolz.spl~ BEGIN
+  COPY ~bp/spl/icetrolz.spl~ ~override~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~trollsn.itm~ BEGIN
+  COPY ~bp/itm/trollsn.itm~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~trollsn2.itm~ BEGIN
+  COPY ~bp/itm/trollsn2.itm~ ~override~
+END
+
+//this may belong in TDD instead or as well---we'll have to check
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~trolicdd.spl~ BEGIN
+  COPY ~bp/spl/trolicdd.spl~ ~override~
+END
+
+
+COPY_EXISTING ~trollsp.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_SHORT 0x22 0x2020 //Item animation (none, was helm)
+    WRITE_ASCII 0x3a ~ighoul~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gbrac06~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cbrac10~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      WRITE_ASCII (0x38 * w + abil_off + 4) ~ighoul~ #8 //Use icon
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 216
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 216 //Level Drain
+      target = 2 //Pre-target
+      power = 4
+      parameter1 = 1 //Amount
+      resist_dispel = 2 //Not dispel/bypass
+      timing = 1 //Instantaneous
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 233
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 139
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 139 //Display String
+      target = 2 //Pre-target
+      power = 4
+      parameter1 = 41495 //String Reference (One Level Drained)
+      resist_dispel = 2 //Not dispel/bypass
+      timing = 1 //Instantaneous
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 141
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 141 //Lighting Effects
+      target = 2 //Pre-target
+      power = 4
+      parameter2 = 1 //Type (aqua shearth)
+      resist_dispel = 2 //Not dispel/bypass
+      timing = 1 //Instantaneous
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~trollspi.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_SHORT 0x22 0x2020 //Item animation (none, was helm)
+    WRITE_ASCII 0x3a ~ighoul~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gbrac06~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cbrac10~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      WRITE_ASCII (0x38 * w + abil_off + 4) ~ighoul~ #8 //Use icon
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 17 //Current HP Modifier
+      target = 2 //Pre-target
+      power = 3
+      parameter1 = (0 - 4) //Amount
+      timing = 1 //Instantaneous
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 10
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 10 //Constitution Modifier
+      target = 2 //Pre-target
+      power = 3
+      parameter1 = (0 - 1) //Amount
+      timing = 0 //Duration
+      duration = 300
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      power = 3
+      parameter2 = 91 //Icon (Ability Score Drained)
+      timing = 0 //Duration
+      duration = 300
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 139 //Display String
+      target = 2 //Pre-target
+      power = 3
+      parameter1 = 360 //String Reference (Weakened)
+      timing = 1 //Instantaneous
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 18
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 18 //Slow
+      target = 2 //Pre-target
+      power = 3
+      timing = 0 //Duration
+      duration = 18
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      power = 3
+      parameter2 = 41 //Icon (Slowed)
+      timing = 0 //Duration
+      duration = 18
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 139 //Display String
+      target = 2 //Pre-target
+      power = 3
+      parameter1 = 335 //String Reference (Slowed)
+      timing = 1 //Instantaneous
+      probability1 = 50
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 2)
+    END
+  END
+BUT_ONLY
+
+
+
+COPY_EXISTING ~trolltor.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_SHORT 0x22 0x2020 //Item animation (none, was helm)
+    WRITE_ASCII 0x3a ~ighoul~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gbrac06~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cbrac10~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      WRITE_ASCII (0x38 * w + abil_off + 4) ~ighoul~ #8 //Use icon
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        WRITE_LONG  (0x38 * w + abil_off + 0x16) 4 //Dice sides (was 6)
+        WRITE_SHORT (0x38 * w + abil_off + 0x18) 4 //Dice thrown (was 2)
+        WRITE_SHORT (0x38 * w + abil_off + 0x1a) 4 //Damage bonus (was 2)
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 45
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 45 //Stun
+      target = 2 //Pre-target
+      power = 3
+      timing = 0 //Duration
+      resist_dispel = 1 //Dispel/not bypass
+      duration = 8
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 4)
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 142 //Display Special Effect Icon
+      target = 2 //Pre-target
+      power = 3
+      timing = 0 //Duration
+      resist_dispel = 1 //Dispel/not bypass
+      duration = 8
+      savingthrow = 4 //Death/poison
+      savebonus = (0 - 4)
+    END
+  END
+BUT_ONLY
+  
+  // create 'dead' or 'knocked down' versions of 'special' trolls (revised by Nythrun)
+  COPY_EXISTING ~drshnl01.cre~ ~override/drshnl11.cre~
+                ~kptrol03.cre~ ~override/kptrol23.cre~
+                ~pptroll1.cre~ ~override/pptroll2.cre~
+                ~sutroll.cre~  ~override/sutroll2.cre~
+                ~torgal.cre~   ~override/torgal2.cre~
+    WRITE_SHORT    0x24    1 // current HP
+    WRITE_SHORT    0x46   10 // natural AC
+    WRITE_SHORT    0x48   10 // effective AC
+    WRITE_BYTE     0x5a  100 // resist cold
+    WRITE_BYTE     0x5b  100 // resist electricity
+    WRITE_BYTE     0x5f  100 // resist magic cold
+    WRITE_BYTE     0x60  100 // resist slashing
+    WRITE_BYTE     0x61  100 // resist crushing
+    WRITE_BYTE     0x62  100 // resist piercing
+    WRITE_BYTE     0x63  100 // resist missile
+    WRITE_BYTE     0x23c   9 // dexterity
+    WRITE_BYTE     0x270 255 // enemy
+    PATCH_IF          "%SOURCE_RES%" STRING_EQUAL_CASE kptrol03 BEGIN
+      WRITE_ASCII  0x248 kptrol13   // override script
+    END ELSE PATCH_IF "%SOURCE_RES%" STRING_EQUAL_CASE drshnl01 BEGIN
+      WRITE_ASCII  0x248 drshnl21
+    END ELSE PATCH_IF "%SOURCE_RES%" STRING_EQUAL_CASE torgal   BEGIN
+      WRITE_ASCII  0x248 torgal3 #8 
+    END ELSE BEGIN
+      WRITE_ASCIIE 0x248 ~%SOURCE_RES%~ // new script
+    END
+    WRITE_ASCII    0x250 ~~ #32         // blanks all other script references
+    WRITE_ASCII    0x2cc ~~ #8          // blanks dialog file
+    REMOVE_CRE_ITEM  monhp1 trollreg trollspi
+    REPLACE_CRE_ITEM trolldie #0 #0 #0 ~UNSTEALABLE&UNDROPPABLE~ BELT
+  
+  // add monhp1 item to trolls to prevent death; assign script to force transformation to dead form at low HP
+  COPY_EXISTING ~drshnl01.cre~ ~override~
+                ~kptrol03.cre~ ~override~
+                ~pptroll1.cre~ ~override~
+                ~sutroll.cre~  ~override~
+                ~torgal.cre~   ~override~
+    ADD_CRE_ITEM ~monhp1~ #0 #0 #0 ~NONE~ ~AMULET~
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "kptrol03" = 0) BEGIN
+      WRITE_ASCII 0x248 ~kptrol23~
+    END ELSE
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "drshnl01" = 0) BEGIN
+      WRITE_ASCII 0x248 ~drshnl11~
+      WRITE_ASCII 0x258 ~drshnl01~ // restore Nith's attack script, pt 2: assign script
+    END ELSE
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "pptroll1" = 0) BEGIN
+      WRITE_ASCII 0x248 ~pptroll2~
+    END ELSE
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "sutroll" = 0) BEGIN
+      WRITE_ASCII 0x248 ~sutroll2~
+    END ELSE
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "torgal" = 0) BEGIN
+      WRITE_ASCII 0x258 ~torgal2~ #8 // race script
+    END
+  
+  // one-off change for Nilthiri to prevent repeating dialogue after regenerating
+  COPY_EXISTING ~drshnl01.cre~ ~override/drshnl21.cre~
+    WRITE_ASCII 0x250 ~~ #8 // no approach and speak script
+    WRITE_BYTE  0x270 255   // enemy
+    WRITE_ASCII 0x2cc ~~ #8 // no dialogue file
+
+
+END
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION troll_scripts BEGIN
+
+LAF troll_rules END
+
+LAF undead_rules END
+LAF drow_rules END
+LAF bp_boulder END
+
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~icetrlx1.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/troll~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtsigt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtsigt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtsigt.baf~
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprie8a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprie8a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprist6.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprist6.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmage8.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmage8.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+
+EXTEND_TOP ~drshnl01.bcs~ ~bp/baf/new_baf/misc/nith02.baf~
+
+COPY_EXISTING ~drshnl02.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,0)~ ~ReallyForceSpell(Myself,TROLL_CHANGE_NITHIRI)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+EXTEND_BOTTOM ~torgal2.bcs~ ~bp/baf/new_baf/core/bp!plot.baf~
+
+
+//Implement Fixpack troll code if not installed
+ACTION_IF NOT MOD_IS_INSTALLED setup-bg2fixpack.tp2 0 BEGIN
+  // restore Nith's attack script, pt 1: false() out stuff that'll break
+  COPY_EXISTING ~drshnl01.bcs~ ~override~
+    DECOMPILE_BCS_TO_BAF
+      REPLACE_TEXTUALLY ~HPLT(Myself,10)~ ~False()~
+    COMPILE_BAF_TO_BCS
+  
+  // new troll scripts to transform to dead versions at low HP
+  COPY_EXISTING ~troll01.bcs~ ~override/drshnl11.bcs~
+                ~troll01.bcs~ ~override/kptrol23.bcs~
+                ~troll01.bcs~ ~override/pptroll2.bcs~
+                ~troll01.bcs~ ~override/sutroll2.bcs~
+                ~troll01.bcs~ ~override/torgal2.bcs~
+    DECOMPILE_BCS_TO_BAF
+      REPLACE_TEXTUALLY ~ChangeAnimationNoEffect("TROLL02")~ ~ChangeAnimationNoEffect("%DEST_RES%")~
+    COMPILE_BAF_TO_BCS
+  BUT_ONLY
+  
+  // duplicates functionality, but needed for ub compatibility
+  EXTEND_TOP ~drshnl01.bcs~ ~override/drshnl11.bcs~
+  
+  // new troll scripts to transform from dead to alive after time expires
+  COPY_EXISTING ~troll02.bcs~ ~override/drshnl21.bcs~
+                ~troll02.bcs~ ~override/kptrol13.bcs~
+                ~troll02.bcs~ ~override/pptroll1.bcs~
+                ~troll02.bcs~ ~override/sutroll.bcs~
+                ~troll02.bcs~ ~override/torgal3.bcs~
+    DECOMPILE_BCS_TO_BAF
+      REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,TROLL_CHANGE)~ ~ReallyForceSpellRES("%DEST_RES%",Myself)~
+      COMPILE_BAF_TO_BCS
+  END
+
+
+END
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION undead_rules BEGIN
+
+APPEND ~spell.ids~ ~3407 INNATE_IMPROVED_GLOBE_OF_DARKNESS~ UNLESS ~INNATE_IMPROVED_GLOBE_OF_DARKNESS~
+APPEND ~spell.ids~ ~3461 ENEMY_SUMMON_GHAST~ UNLESS ~ENEMY_SUMMON_GHAST~
+APPEND ~spell.ids~ ~3473 SPECTATOR_SUGGESTION~ UNLESS ~SPECTATOR_SUGGESTION~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin407.spl~ BEGIN
+  COPY ~bp/spl/spin407.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin461.spl~ BEGIN
+  COPY ~bp/spl/spin461.spl~ ~override~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin473.spl~ BEGIN
+  COPY ~bp/spl/spin473.spl~ ~override~
+END
+
+COPY_EXISTING ~lich.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME2 #6348 //Identified name (Ring)
+    WRITE_LONG 0x34 0 //Price (was 10000)
+    WRITE_ASCII 0x3a ~iring09~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gring01~ #8 //Ground icon
+    WRITE_LONG 0x54 ~-1~ //Identified description
+    WRITE_ASCII 0x58 ~cring09~ #8 //Description icon
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    READ_LONG 0x6a eq_off
+    READ_SHORT 0x70 eq_count
+    FOR (v = 0; v < eq_count; v += 1) BEGIN //Cycle through equipped effects
+      WRITE_BYTE (0x30 * v + eq_off + 2) 1 //Target (self)
+      WRITE_BYTE (0x30 * v + eq_off + 3) 0 //Power
+      WRITE_BYTE (0x30 * v + eq_off + 0xc) 2 //Timing mode (while equipped)
+      WRITE_BYTE (0x30 * v + eq_off + 0xd) 2 //Not dispel/bypass resistance
+      WRITE_LONG (0x30 * v + eq_off + 0xe) 0 //Duration
+    END
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 0 BEGIN //If none
+        DELETE_BYTES (0x38 * w + abil_off) 0x38
+        WRITE_SHORT 0x68 (num_abil - 1)
+        WRITE_LONG 0x6a (THIS - 0x38) //Feature offset
+      END
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 101 //Protection from Opcode
+      target = 1 //Self
+      parameter2 = 5 //Charm Specific Creature
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 101 //Protection from Opcode
+      target = 1 //Self
+      parameter2 = 25 //Poison
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 101 //Protection from Opcode
+      target = 1 //Self
+      parameter2 = 128 //Confusion
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~lich02.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME1 #4666 //Attack
+    SAY NAME2 #4666 //Attack
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 109 //Hold Creature I
+      target = 2 //Pre-target
+      parameter1 = 7 //Race (half-orc)
+      parameter2 = 4 //Race.ids
+      timing = 0 //Duration
+      resist_dispel = 1 //Dispel/not bypass
+      duration = 30
+      savingthrow = 4 //Death/poison
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type = 1 //Melee
+      opcode = 12 //Damage
+      target = 2 //pre-target
+      power = 5
+      parameter1 = 2 //Damage amount
+      parameter2 = 131072 //Cold
+      timing = 1 //Instantaneous
+      resist_dispel = 2 //Not dispel/bypass
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sahzom01.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME1 #4666 //Attack
+    SAY NAME2 #4666 //Attack
+    READ_LONG 0x64 abil_off
+    READ_SHORT 0x68 num_abil
+    READ_LONG 0x6a cf //Effect offset
+    found_abil = 1
+    FOR (w = 0; w < num_abil; w += 1) BEGIN //Cycle through headers
+      READ_BYTE (0x38 * w + abil_off) pt //Attack type
+      PATCH_IF pt = 1 BEGIN //If melee
+        found_abil = w + 1
+        WRITE_ASCII (0x38 * w + abil_off + 4) ~isw1h07~ #8 //Use icon
+        READ_SHORT (0x38 * w + abil_off + 0x1e) fq //Feature count
+        READ_SHORT (0x38 * w + abil_off + 0x20) fx //Feature index
+        FOR (g1 = 0; g1 < fq; g1 += 1) BEGIN //Cycle through features
+          READ_BYTE (cf + 0x30 * (fx + g1) + 0x12) pb1 //Probability 1
+          PATCH_IF pb1 = 10 BEGIN
+            WRITE_BYTE (cf + 0x30 * (fx + g1) + 0x12) 35
+          END
+        END
+      END
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 40
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 40 //Slow
+      target         = 2 //Pre-target
+      power          = 3
+      timing         = 0 //Duration
+      probability1   = 35
+      duration       = 60
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 44
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 44 //Strength Modifier
+      target         = 2 //Pre-target
+      power          = 3
+      parameter1     = (0 - 3) //Modifier
+      timing         = 0 //Duration
+      probability1   = 35
+      duration       = 60
+    END
+    LAUNCH_PATCH_FUNCTION DELETE_ITEM_EFFECT
+      INT_VAR opcode_to_delete = 10
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR type   = 1 //Melee
+      opcode         = 10 //Constitution Modifier
+      target         = 2 //Pre-target
+      power          = 3
+      parameter1     = (0 - 3) //Modifier
+      timing         = 0 //Duration
+      probability1   = 35
+      duration       = 60
+    END
+  END
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wwundead.spl~ BEGIN
+  COPY ~bp/spl/wwundead.spl~ ~override~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION undead_scripts BEGIN
+
+
+LAF undead_rules END
+LAF thief_rules END
+
+
+
+COMPILE ~bp/baf/new_baf/undead~
+COMPILE ~bp/baf/re-baf/undead~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpundead.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/undead/bpundead.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcass2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcass2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpally.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpally.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtrsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtrsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtrsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wsasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wsasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wsasight.baf~
+  END
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION shadow_rules BEGIN
+
+LAF undead_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~sumshad.spl~ BEGIN
+  COPY ~bp/spl/sumshad.spl~ ~override~
+    SAY NAME1 @155 //Summon Shadow Fiends
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spmisled.spl~ BEGIN
+  COMPILE ~bp//spl/spmisled.spl~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spmisgit.spl~ BEGIN
+  COMPILE ~bp//spl/spmisgit.spl~
+END
+
+
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION shadow_scripts BEGIN
+
+LAF shadow_rules END
+
+LAF drow_rules END
+LAF bp_boulder END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpshadow.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/shadow~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwtsigt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwtsigt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwtsigt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag14m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag14m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmisled.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/spl/bpmisled.baf~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION vampire_rules BEGIN
+
+
+APPEND ~spell.ids~ ~3406 INNATE_GLOBE_OF_DARKNESS~ UNLESS ~INNATE_GLOBE_OF_DARKNESS~
+APPEND ~spell.ids~ ~3407 INNATE_IMPROVED_GLOBE_OF_DARKNESS~ UNLESS ~INNATE_IMPROVED_GLOBE_OF_DARKNESS~
+APPEND ~spell.ids~ ~3461 ENEMY_SUMMON_GHAST~ UNLESS ~ENEMY_SUMMON_GHAST~
+APPEND ~spell.ids~ ~3473 SPECTATOR_SUGGESTION~ UNLESS ~SPECTATOR_SUGGESTION~
+
+COPY ~bp/sfx/core/kr_drow~ ~override~
+COPY ~bp/bam/core/kr_drow~ ~override~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin407.spl~ BEGIN
+  COPY ~bp/spl/spin407.spl~ ~override~
+    SAY NAME1 @140 //Globe of Darkness
+    SAY UNIDENTIFIED_DESC @141
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin406.spl~ BEGIN
+  COPY ~bp/spl/spin406.spl~ ~override~
+    SAY NAME1 @140 //Globe of Darkness
+    SAY UNIDENTIFIED_DESC @141
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin473.spl~ BEGIN
+  COPY ~bp/spl/spin473.spl~ ~override~
+END
+ 
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpvamgas.spl~ BEGIN
+  COPY ~bp/spl/bpvamgas.spl~ ~override~
+END
+
+COPY ~bp/spl/spin460.spl~ ~override~
+  SAY NAME1 @150 //Enemy Summon Ghast
+
+COPY ~bp/spl/spin461.spl~ ~override~
+  SAY NAME1 @150 //Enemy Summon Ghast
+
+
+
+END
+
+///////////////////////////////////////////////////////////

@@ -1,0 +1,49 @@
+IF
+  OR(2)
+    NumDeadGT("ritskul1",6)
+    Global("RitualSkip","GLOBAL",1)
+  See([GOODCUTOFF])
+  Global("MadeCountess","LOCALS",0)
+THEN
+  RESPONSE #100
+    DialogueInterrupt(FALSE)
+    SetInterrupt(FALSE)
+    SetGlobal("MadeCountess","LOCALS",1)
+    SetGlobal("RitualGuardPassed","GLOBAL",1)
+    DisplayString(Myself,@0)
+    ForceSpell(Myself,RED_PILLAR_VISUAL)
+    CreateCreature("ritgol0",[1762.2158],0)  // ~Unit Zero~
+    CreateCreature("ritgol1",[2056.2370],0)  // ~Unit One~
+    CreateCreature("ritgol2",[1869.2289],0)  // ~Unit Two~
+    CreateCreature("ritcount",[1967.2203],0)  // ~Countess Merentha~
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  OR(2)
+    NumDeadGT("ritskul1",6)
+    Global("RitualSkip","GLOBAL",1)
+  See([GOODCUTOFF])
+  Global("MadeCountess","LOCALS",1)
+THEN
+  RESPONSE #100
+    DialogueInterrupt(FALSE)
+    SetInterrupt(FALSE)
+    SetGlobal("RitualGuardPassed","GLOBAL",1)
+    DisplayString(Myself,@0)
+    ForceSpell(Myself,RED_PILLAR_VISUAL)
+    Wait(1)
+    DestroySelf()
+END
+
+IF
+  See([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("SPPORTAL",LastSeenBy(Myself))
+    ActionOverride(LastSeenBy(Myself),JumpToPoint([1048.2544]))
+    DisplayString(LastSeenBy(Myself),@1)
+    Continue()
+END
+

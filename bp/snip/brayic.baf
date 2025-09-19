@@ -1,0 +1,20 @@
+IF
+  Allegiance(Myself,ENEMY)
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("CHE","LOCALS",40)
+    DisplayString(Myself,26243)
+    SmallWait(5)
+    DisplayStringHead(Myself,39968)
+    ReallyForceSpell(Myself,WIZARD_SPELL_TURNING)
+    DisplayString(Myself,40246)
+    ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+    DisplayString(Myself,2469)
+    ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_NORMAL_MISSILES)
+    Wait(2)
+    SetGlobalTimer("BPT","LOCALS",0)
+    ForceSpell(Myself,WIZARD_STONE_SKIN)
+END
+

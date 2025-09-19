@@ -1,0 +1,92 @@
+IF
+  AttackedBy([GOODCUTOFF],DEFAULT)
+  OR(3)
+    Allegiance(Myself,GOODBUTBLUE)
+    Allegiance(Myself,NEUTRAL)
+    Allegiance(Myself,EVILBUTBLUE)
+THEN
+  RESPONSE #100
+    Shout(154)
+    Enemy()
+END
+
+IF
+  HitBy([GOODCUTOFF],CRUSHING)
+THEN
+  RESPONSE #100
+    Shout(154)
+    Continue()
+END
+
+IF
+  See([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    Shout(154)
+    Continue()
+END
+
+IF
+  OR(4)
+    Heard([NEUTRAL],154)
+    Heard([GOODBUTBLUE],154)
+    Heard([EVILBUTBLUE],154)
+    Heard([EVILCUTOFF],154)
+  !Class(Myself,INNOCENT)
+  OR(2)
+    Allegiance(Myself,GOODBUTBLUE)
+    Allegiance(Myself,NEUTRAL)
+THEN
+  RESPONSE #100
+    Enemy()
+    MoveToObject(LastHeardBy(Myself))
+END
+
+IF
+  OR(4)
+    Heard([NEUTRAL],154)
+    Heard([GOODBUTBLUE],154)
+    Heard([EVILBUTBLUE],154)
+    Heard([EVILCUTOFF],154)
+  OR(2)
+    Allegiance(Myself,GOODBUTBLUE)
+    Allegiance(Myself,NEUTRAL)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  OR(4)
+    Heard([NEUTRAL],154)
+    Heard([GOODBUTBLUE],154)
+    Heard([EVILBUTBLUE],154)
+    Heard([EVILCUTOFF],154)
+  !Class(Myself,INNOCENT)
+  !See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    MoveToObject(LastHeardBy(Myself))
+    Continue()
+END
+
+IF
+  See([ENEMY])
+  !Allegiance(Myself,EVILCUTOFF)
+THEN
+  RESPONSE #100
+    AttackReevaluate([ENEMY],45)
+END
+
+IF
+  !See([ENEMY])
+  Global("ReturnToPost","LOCALS",0)
+THEN
+  RESPONSE #100
+    MoveToPoint([3911.2717])
+    Face(14)
+    SetGlobal("ReturnToPost","LOCALS",1)
+END
+

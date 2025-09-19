@@ -1,0 +1,59 @@
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR1302",0)
+  DifficultyGT(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1302",1)
+    CreateCreature("TROLL01",[785.600],8)
+    CreateCreature("TROLGI01",[1115.905],5)
+    CreateCreature("TROLIC01",[1085.925],9)
+    CreateCreature("TROLL01",[1220.1010],1)
+    CreateCreature("TROLL01",[1260.1000],13)
+    CreateCreature("TROLGI01",[1750.540],2)
+    CreateCreature("TROLGI01",[985.830],10)
+END
+
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR1302",1)
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1302",2)
+    CreateCreature("TROLSI01",[1525.510],4)
+    CreateCreature("TROLSI01",[1300.350],12)
+    CreateCreature("TROLGI01",[1750.540],10)
+    CreateCreature("TROLGI01",[1710.560],6)
+    CreateCreature("TROLGI01",[1750.540],2)
+    CreateCreature("TROLGI01",[985.830],10)
+END
+
+IF
+  Global("BP_MoreStooges","AR1302",2)
+  DifficultyGT(EASY)
+  LevelGT(Player1,12)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1302",3)
+    CreateCreature("TROLSI01",[720.595],8)
+    CreateCreature("TROLSI01",[1025.425],8)
+    CreateCreature("TROLSI01",[1160.900],8)
+    CreateCreature("TROLSI01",[1265.940],0)
+    CreateCreature("TROLSI01",[1845.680],0)
+END
+
+IF
+  Global("BP_MoreStooges","AR1302",3)
+  DifficultyGT(NORMAL)
+  LevelGT(Player1,15)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1302",4)
+    CreateCreature("TROLSP01",[1160.1015],0)
+    CreateCreature("TROLSP01",[1100.985],8)
+    CreateCreature("TROLSP01",[1475.420],6)
+    CreateCreature("TROLSP01",[1205.275],14)
+    CreateCreature("TROLSP01",[1825.660],0)
+END
+

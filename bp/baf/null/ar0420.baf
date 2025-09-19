@@ -1,0 +1,14 @@
+IF
+  Global("BP_MoreStooges","AR0420",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0420",1)
+    CreateCreature("BPLIZKNG",[815.205],0)  // ~Lizard King~
+    CreateCreature("BPLIZSHA",[720.245],0)  // ~Lizard Shaman~
+    CreateCreature("BPLIZGRD",[600.315],0)  // ~Lizard Man~
+    CreateCreature("ICLIZ01",[505.370],0)  // ~Lizard Man~
+    CreateCreature("ICLIZ01",[500.425],0)  // ~Lizard Man~
+    CreateCreature("ICLIZ01",[695.485],0)  // ~Lizard Man~
+END
+

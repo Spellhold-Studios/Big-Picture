@@ -1,0 +1,34 @@
+IF
+  HPPercentLT(Player1,80)
+THEN
+  RESPONSE #100
+    ProtectObject(Player1,25)
+END
+
+IF
+  See([ENEMY])
+  !InParty(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  !See(Player1)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    MoveToObject(Player1)
+    SetInterrupt(TRUE)
+END
+
+IF
+  See([PC])
+  !Exists([EVILCUTOFF])
+  Global("KR_GET_IN_FORM","GLOBAL",0)
+THEN
+  RESPONSE #100
+    RandomWalk()
+END
+
+

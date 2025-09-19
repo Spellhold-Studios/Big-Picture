@@ -1,0 +1,676 @@
+IF
+  GlobalTimerExpired("REINFORCEMENTS","GLOBAL")
+  Difficulty(EASIEST)
+  Global("KR_SPAWNED_ONCE","GLOBAL",0)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC02",[500.454],10)
+    CreateCreature("ORC01",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC03",[500.454],10)
+END
+
+IF
+  GlobalTimerExpired("REINFORCEMENTS","GLOBAL")
+  Difficulty(EASY)
+  Global("KR_SPAWNED_ONCE","GLOBAL",0)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[589.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC04",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC04",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[589.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC04",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC04",[500.454],10)
+END
+
+IF
+  GlobalTimerExpired("REINFORCEMENTS","GLOBAL")
+  DifficultyGT(EASY)
+  Global("KR_SPAWNED_ONCE","GLOBAL",0)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("ORC05",[589.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC04",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC02",[500.454],10)
+    CreateCreature("ORC02",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("ORC05",[589.542],10)
+END
+
+IF
+  OnCreation()
+  GlobalGT("RandomEncounters","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("SHADOW01",[488.558],10)
+    CreateCreature("SHADOW01",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[525.591],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("SHADOW01",[589.542],10)
+    CreateCreature("SHADOW01",[592.542],10)
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("MAGE14C",[488.558],10)
+    CreateCreature("SHADOW01",[500.454],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[525.591],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("SHADOW01",[589.542],10)
+    CreateCreature("SHADOW01",[592.542],10)
+END
+
+IF
+  OnCreation()
+  OR(2)
+    ReputationGT(Player1,6)
+    CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,1)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobal("RandomEncounters","GLOBAL",4)
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("RERAK01",[488.558],10)
+    CreateCreature("RERAK02",[500.454],10)
+    CreateCreature("RERAK03",[552.476],10)
+    CreateCreature("RERAK04",[427.548],10)
+    CreateCreature("RERAK05",[525.591],10)
+    CreateCreature("RERAK06",[585.542],10)
+END
+
+IF
+  OnCreation()
+  OR(2)
+    ReputationGT(Player1,6)
+    CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,2)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",4200,0,0))
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",3300,0,0))
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",800,0,0))
+    ActionOverride("DRAGRED",CreateItem("CLCK23",1,0,0))
+    ActionOverride("DRAGRED",CreateItem("CLCK23",1,0,0))
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",1200,0,0))
+    ActionOverride("DRAGRED",CreateItem("CLCK23",1,0,0))
+    ActionOverride("DRAGRED",CreateItem("CHAN13",1,0,0))
+END
+
+IF
+  OnCreation()
+  OR(2)
+    ReputationGT(Player1,6)
+    CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,3)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("MAGE20",[488.558],10)
+    CreateCreature("GOLSTO01",[500.454],10)
+    CreateCreature("GOLIRO01",[552.476],10)
+    CreateCreature("MAGE14C",[427.548],10)
+    ActionOverride("MAGE14C",CreateItem("MISC07",1700,0,0))
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[500.454],10)
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("MAGE20",[488.558],10)
+    CreateCreature("GOLSTO01",[500.454],10)
+    CreateCreature("GOLIRO01",[552.476],10)
+    CreateCreature("MAGE14C",[427.548],10)
+    ActionOverride("MAGE14C",CreateItem("MISC07",1100,0,0))
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[500.454],10)
+END
+
+IF
+  OnCreation()
+  ReputationGT(Player1,6)
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,4)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("BEHOLD01",[488.558],10)
+    CreateCreature("BEHDIR01",[500.454],10)
+    ActionOverride("BEHDIR01",CreateItem("MISC07",2800,0,0))
+    CreateCreature("BEHELD01",[552.476],10)
+    CreateCreature("BEHOBS01",[427.548],10)
+    CreateCreature("BEHGAU01",[525.591],10)
+    CreateCreature("BEHGAU01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("BEHDIR01",[500.454],10)
+    ActionOverride("BEHDIR01",CreateItem("MISC07",1800,0,0))
+    CreateCreature("BEHELD01",[552.476],10)
+    CreateCreature("BEHGAU01",[525.591],10)
+    CreateCreature("BEHGAU01",[585.542],10)
+    CreateCreature("BEHGAU01",[525.591],10)
+    CreateCreature("BEHGAU01",[585.542],10)
+END
+
+IF
+  OnCreation()
+  ReputationGT(Player1,6)
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,5)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("HGFEL01",[488.558],10)
+    CreateCreature("HGFEL01",[500.454],10)
+    CreateCreature("HGFEL01",[552.476],10)
+    CreateCreature("GIAFIR01",[427.548],10)
+    CreateCreature("GIAFIR01",[525.591],10)
+    CreateCreature("HGFEL01",[585.542],10)
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("MAGE18Y",[488.558],10)
+    ActionOverride("Mage18Y",CreateItem("MISC07",800,0,0))
+    CreateCreature("GIAFIR01",[427.548],10)
+    CreateCreature("GIAFIR01",[525.591],10)
+    CreateCreature("HGFEL01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE18Y",[488.558],10)
+    ActionOverride("Mage18Y",CreateItem("MISC07",400,0,0))
+    CreateCreature("GIAFIR01",[427.548],10)
+    CreateCreature("GIAFIR01",[525.591],10)
+    CreateCreature("HGFEL01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE18Y",[488.558],10)
+    ActionOverride("Mage18Y",CreateItem("MISC07",600,0,0))
+    CreateCreature("GIAFIR01",[427.548],10)
+    CreateCreature("GIAFIR01",[525.591],10)
+    CreateCreature("HGFEL01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE18Y",[488.558],10)
+    ActionOverride("Mage18Y",CreateItem("MISC07",300,0,0))
+    CreateCreature("GIAFIR01",[427.548],10)
+    CreateCreature("GIAFIR01",[525.591],10)
+    CreateCreature("HGFEL01",[585.542],10)
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("MAGE18Y",[488.558],10)
+    ActionOverride("Mage18Y",CreateItem("MISC07",700,0,0))
+    CreateCreature("GIAFIR01",[427.548],10)
+    CreateCreature("GIAFIR01",[525.591],10)
+    CreateCreature("HGFEL01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE18Y",[488.558],10)
+    ActionOverride("Mage18Y",CreateItem("MISC07",900,0,0))
+    CreateCreature("GIAFIR01",[427.548],10)
+    CreateCreature("GIAFIR01",[525.591],10)
+    CreateCreature("HGFEL01",[585.542],10)
+END
+
+IF
+  OnCreation()
+  ReputationGT(Player1,6)
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,6)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("MAGE20C",[488.558],10)
+    ActionOverride("Mage20",CreateItem("MISC07",1700,0,0))
+    CreateCreature("PRIES8A",[500.454],10)
+    CreateCreature("GOLKILL2",[427.548],10)
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE20C",[488.558],10)
+    ActionOverride("Mage20",CreateItem("MISC07",1800,0,0))
+    CreateCreature("PRIES8A",[500.454],10)
+    CreateCreature("GOLIRO01",[552.476],10)
+    CreateCreature("GOLKILL2",[427.548],10)
+    CreateCreature("GOLSTO01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE20C",[488.558],10)
+    ActionOverride("Mage20",CreateItem("MISC07",1200,0,0))
+    CreateCreature("PRIES8A",[500.454],10)
+    CreateCreature("GOLIRO01",[552.476],10)
+    CreateCreature("GOLKILL2",[427.548],10)
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE20C",[488.558],10)
+    ActionOverride("Mage20",CreateItem("MISC07",700,0,0))
+    CreateCreature("PRIES8A",[500.454],10)
+    CreateCreature("GOLKILL2",[427.548],10)
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[585.542],10)
+  RESPONSE #100
+    CreateCreature("MAGE20C",[488.558],10)
+    ActionOverride("Mage20",CreateItem("MISC07",200,0,0))
+    CreateCreature("PRIES8A",[500.454],10)
+    CreateCreature("GOLKILL2",[427.548],10)
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[525.591],10)
+    CreateCreature("GOLSTO01",[585.542],10)
+END
+
+IF
+  OnCreation()
+  ReputationGT(Player1,6)
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,7)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    ActionOverride("GreaterWolf",CreateItem("MISC07",750,0,0))
+    CreateCreature("WOLFGR01",[488.558],10)
+    CreateCreature("WOLFWI01",[500.454],10)
+    CreateCreature("WOLFWI01",[552.476],10)
+    CreateCreature("WOLFWI01",[427.548],10)
+    CreateCreature("WOLFGR01",[525.591],10)
+    CreateCreature("WOLFGR01",[585.542],10)
+    CreateCreature("WOLFWI01",[522.496],10)
+    CreateCreature("WOLFWI01",[420.588],10)
+END
+
+IF
+  OnCreation()
+  ReputationGT(Player1,6)
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,8)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("MAGE10D",[488.558],10)
+    ActionOverride("MAGE10D",CreateItem("MISC07",1850,0,0))
+    CreateCreature("VAMPM01",[488.558],10)
+    CreateCreature("VAMANC01",[427.548],10)
+    CreateCreature("WOLFVA01",[525.591],10)
+    CreateCreature("VAMPIF01",[585.542],10)
+    CreateCreature("VAMPIM1",[522.496],10)
+    CreateCreature("VAMVER01",[420.588],10)
+  RESPONSE #100
+    CreateCreature("MAGE14M",[488.558],10)
+    ActionOverride("MAGE14F",CreateItem("MISC07",850,0,0))
+    CreateCreature("VAMPIF01",[500.454],10)
+    CreateCreature("WOLFVA01",[525.591],10)
+    CreateCreature("VAMANC01",[427.548],10)
+    CreateCreature("WOLFVA01",[525.591],10)
+    CreateCreature("WOLFVA01",[525.591],10)
+END
+
+IF
+  OnCreation()
+  ReputationGT(Player1,6)
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,9)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("LICH01",[488.558],10)
+    ActionOverride("LICH01",CreateItem("MISC07",1500,0,0))
+    CreateCreature("VAMPIF01",[500.454],10)
+    CreateCreature("VAMANC01",[552.476],10)
+    CreateCreature("SHADOW01",[552.476],10)
+    CreateCreature("SHADOW01",[552.476],10)
+  RESPONSE #100
+    CreateCreature("LICH01",[488.558],10)
+    ActionOverride("LICH01",CreateItem("MISC07",2500,0,0))
+    CreateCreature("VAMPIF01",[500.454],10)
+    CreateCreature("VAMANC01",[552.476],10)
+    CreateCreature("SHADOW01",[552.476],10)
+  RESPONSE #100
+    CreateCreature("LICH01",[488.558],10)
+    ActionOverride("LICH01",CreateItem("MISC07",3500,0,0))
+    CreateCreature("VAMPIF01",[500.454],10)
+    CreateCreature("VAMANC01",[552.476],10)
+    CreateCreature("SHADOW01",[552.476],10)
+  RESPONSE #100
+    CreateCreature("LICH01",[488.558],10)
+    ActionOverride("LICH01",CreateItem("MISC07",1900,0,0))
+    CreateCreature("VAMPIF01",[500.454],10)
+    CreateCreature("VAMANC01",[552.476],10)
+    CreateCreature("SHADOW01",[552.476],10)
+    CreateCreature("SHADOW01",[552.476],10)
+  RESPONSE #100
+    CreateCreature("LICH01",[488.558],10)
+    ActionOverride("LICH01",CreateItem("MISC07",2900,0,0))
+    CreateCreature("VAMANC01",[427.548],10)
+    CreateCreature("VAMPM01",[522.496],10)
+    CreateCreature("VAMVER01",[420.588],10)
+END
+
+IF
+  OnCreation()
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,10)
+  GlobalGT("Chapter","GLOBAL",4)
+  !ReputationLT(Player1,7)
+THEN
+  RESPONSE #100
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",8000,0,0))
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+  RESPONSE #100
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",8000,0,0))
+    CreateCreature("ORC05",[520.240],10)
+    ActionOverride("ORC05",CreateItem("MISC07",200,0,0))
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+  RESPONSE #100
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",7000,0,0))
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+    CreateCreature("ORC05",[550.200],10)
+  RESPONSE #100
+    CreateCreature("DRAGRED",[488.558],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",14000,0,0))
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+    CreateCreature("ORC05",[550.200],10)
+    CreateCreature("ORC05",[320.140],10)
+END
+
+IF
+  OnCreation()
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(11,10)
+  GlobalGT("Chapter","GLOBAL",4)
+  ReputationLT(Player1,7)
+THEN
+  RESPONSE #100
+    CreateCreature("DRAGSILV",[488.558],10)
+    ActionOverride("DRAGSILV",CreateItem("MISC07",6000,0,0))
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+  RESPONSE #100
+    CreateCreature("DRAGSILV",[488.558],10)
+    ActionOverride("DRAGSILV",CreateItem("MISC07",12000,0,0))
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+  RESPONSE #100
+    CreateCreature("DRAGSILV",[488.558],10)
+    ActionOverride("DRAGSILV",CreateItem("MISC07",9000,0,0))
+    CreateCreature("ORC05",[520.240],10)
+    CreateCreature("ORC05",[550.200],10)
+END
+
+IF
+  OnCreation()
+  Global("RandomEncounters","GLOBAL",3)
+  GlobalGT("Chapter","GLOBAL",4)
+  RandomNum(11,11)
+  !ReputationLT(Player1,7)
+THEN
+  RESPONSE #100
+    CreateCreature("DRAGRED",[438.488],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",18000,0,0))
+  RESPONSE #100
+    CreateCreature("DRAGRED",[438.488],10)
+    ActionOverride("DRAGRED",CreateItem("MISC07",11000,0,0))
+END
+
+IF
+  OnCreation()
+  Global("RandomEncounters","GLOBAL",3)
+  GlobalGT("Chapter","GLOBAL",4)
+  RandomNum(11,11)
+  ReputationLT(Player1,7)
+THEN
+  RESPONSE #100
+    CreateCreature("DRAGSILV",[488.558],10)
+    ActionOverride("DRAGSILV",CreateItem("MISC07",4000,0,0))
+  RESPONSE #100
+    CreateCreature("DRAGSILV",[488.558],10)
+    ActionOverride("DRAGSILV",CreateItem("MISC07",10000,0,0))
+END
+
+IF
+  OnCreation()
+  CheckStatGT(Player1,400000,XP)
+  Global("RandomEncounters","GLOBAL",3)
+  RandomNum(4,1)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("DRAGRED",[438.488],10)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    CreateCreatureObject("AMNLEG1",Myself,0,0,0)
+    ActionOverride("AMNLEG1",CreateItem("MISC07",600,0,0))
+END
+
+IF
+  GlobalTimerExpired("REINFORCEMENTS","GLOBAL")
+  Difficulty(EASIEST)
+  Global("KR_SPAWNED_ONCE","GLOBAL",0)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC02",[500.454],10)
+    CreateCreature("ORC01",[500.454],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+END
+
+IF
+  GlobalTimerExpired("REINFORCEMENTS","GLOBAL")
+  Difficulty(EASY)
+  Global("KR_SPAWNED_ONCE","GLOBAL",0)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC02",[500.454],10)
+    CreateCreature("ORC01",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+END
+
+IF
+  GlobalTimerExpired("REINFORCEMENTS","GLOBAL")
+  DifficultyGT(EASY)
+  Global("KR_SPAWNED_ONCE","GLOBAL",0)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC04",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+  RESPONSE #100
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",1)
+    CreateCreature("ORC02",[500.454],10)
+    CreateCreature("ORC01",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC04",[500.454],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC03",[500.454],10)
+    CreateCreature("ORC05",[500.454],10)
+END
+
+IF
+  OnCreation()
+  GlobalGT("RandomEncounters","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("ORC05",[488.558],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[589.542],10)
+    CreateCreature("SHADOW01",[592.542],10)
+END
+
+IF
+  OnCreation()
+  GlobalGT("RandomEncounters","GLOBAL",3)
+  GlobalGT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("ORC05",[488.558],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[589.542],10)
+    CreateCreature("SHADOW01",[592.542],10)
+END
+

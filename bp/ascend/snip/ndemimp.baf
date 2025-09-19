@@ -1,0 +1,14 @@
+IF
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("DEMINVIS","LOCALS")
+  OR(2)
+    HPPercentLT(Myself,100)
+    Range(LastSeenBy(Myself),15)
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("DEMINVIS","LOCALS",12)
+    ApplySpell(Myself,WIZARD_IMPROVED_INVISIBILITY)
+END
+

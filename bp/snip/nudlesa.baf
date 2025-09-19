@@ -1,0 +1,16 @@
+IF
+  !NumDead("uddrow37",4)
+  Global("duelStarts","AR2202",1)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),15)
+END
+
+IF
+  !NumDead("uddrow37",4)
+  !See("uddrow37")
+THEN
+  RESPONSE #100
+    RandomWalk()
+END
+

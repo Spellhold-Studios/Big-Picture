@@ -1,0 +1,63 @@
+IF
+  Global("BP_Wimpout","LOCALS",0)
+  DifficultyLT(NORMAL)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Wimpout","LOCALS",1)
+    SetGlobal("BP_Stooges2300","LOCALS",3)
+    DestroyItem("IMOENHP1")
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",0)
+  Detect([PC])
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",1)
+    SetGlobalTimer("BP_Stooges1","LOCALS",10)
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",1)
+  GlobalTimerExpired("BP_Stooges1","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",2)
+    CreateCreature("SPIDSW01",[1675.2725],1)
+    CreateCreature("SPIDPH01",[1680.2725],1)
+    CreateCreature("SPIDGI01",[1675.2730],1)
+    CreateCreature("SPIDGI01",[1680.2730],1)
+    CreateCreature("SPIDSW01",[925.3500],10)
+    CreateCreature("SPIDPH01",[930.3500],10)
+    CreateCreature("SPIDGI01",[925.3505],10)
+    CreateCreature("SPIDGI01",[930.3505],10)
+    DestroyItem("IMOENHP1")
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",2)
+  DifficultyGT(NORMAL)
+  LevelGT(Player1,11)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",3)
+    CreateCreature("SPIDSW01",[1685.2735],1)
+    CreateCreature("SPIDPH01",[1690.2735],1)
+    CreateCreature("SPIDWR01",[1685.2740],1)
+    CreateCreature("SPIDWR01",[1690.2740],1)
+    CreateCreature("SPIDSW01",[935.3510],10)
+    CreateCreature("SPIDPH01",[940.3510],10)
+    CreateCreature("SPIDWR01",[935.3515],10)
+    CreateCreature("SPIDWR01",[940.3515],10)
+END
+
+IF
+  Global("BP_Stooges2300","LOCALS",2)
+  OR(2)
+    DifficultyLT(HARD)
+    LevelLT(Player1,12)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_Stooges2300","LOCALS",3)
+END

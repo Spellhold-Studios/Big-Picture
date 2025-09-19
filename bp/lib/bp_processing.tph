@@ -1,0 +1,553 @@
+
+///////////////////////ITEMS////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION process_items BEGIN
+
+
+// *******************************************************************************
+ACTION_IF FILE_EXISTS_IN_GAME ~amul17.itm~ BEGIN
+COPY_EXISTING ~amul17.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR opcode = 206 //Protection from Spell
+      target = 1 //Self
+      power = 8
+      timing = 0 //Duration
+      duration = 60
+      resist_dispel = 1 //Dispel/Not bypass
+      STR_VAR resource = spin542
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR opcode = 206 //Protection from Spell
+      target = 1 //Self
+      power = 8
+      timing = 0 //Duration
+      duration = 60
+      resist_dispel = 1 //Dispel/Not bypass
+      STR_VAR resource = spin543
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR opcode = 206 //Protection from Spell
+      target = 1 //Self
+      power = 8
+      timing = 0 //Duration
+      duration = 60
+      resist_dispel = 1 //Dispel/Not bypass
+      STR_VAR resource = spin545
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR opcode = 206 //Protection from Spell
+      target = 1 //Self
+      power = 8
+      timing = 0 //Duration
+      duration = 60
+      resist_dispel = 1 //Dispel/Not bypass
+      STR_VAR resource = spin547
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EFFECT
+      INT_VAR opcode = 206 //Protection from Spell
+      target = 1 //Self
+      power = 8
+      timing = 0 //Duration
+      duration = 60
+      resist_dispel = 1 //Dispel/Not bypass
+      STR_VAR resource = spin804
+    END
+  END
+BUT_ONLY
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~avatar.itm~ BEGIN
+COPY_EXISTING ~avatar.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME1 #30218 //Avatar
+    SAY NAME2 #30218 //Avatar
+    WRITE_ASCII 0x3a ~iring09~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gring01~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cring09~ #8 //Description icon
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 120 //Protection from Melee Weapons
+      target = 1 //Self
+      parameter1 = 1 //All magical weapons
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 120 //Protection from Melee Weapons
+      target = 1 //Self
+      parameter1 = 2 //All non-magical weapons
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+  END
+BUT_ONLY
+END
+
+COPY ~bp/ITM/b3-18.itm~         ~override/b3-18.itm~
+
+COPY ~bp/itm/bax1h02.itm~ ~override~
+
+COPY ~bp/itm/berserkr.itm~ ~override~
+
+COPY ~bp/itm/bleat01.itm~ ~override~
+
+COPY ~bp/itm/bleat02.itm~ ~override~
+
+COPY ~bp/itm/bleat03.itm~ ~override~
+
+COPY ~bp/itm/boring.itm~ ~override~
+  SAY NAME1 @41 //Ring
+  SAY NAME2 @42 //Edventar's Gift
+  SAY UNIDENTIFIED_DESC @43
+
+COPY ~bp/itm/bowhamm.itm~ ~override~
+  SAY NAME1 @44 //Composite Long Bow
+  SAY NAME2 @45 //Composite Long Bow +4: Defender
+  SAY UNIDENTIFIED_DESC @46
+  SAY DESC @47
+
+COPY ~bp/itm/bsw1h01.itm~ ~override~
+
+COPY ~bp/itm/bsw2h03.itm~ ~override~
+
+COPY ~bp/itm/buck02.itm~ ~override~
+  SAY NAME2 @50 //Wizard's Buckler +2
+  SAY DESC @51
+
+COPY ~bp/itm/cloakmi.itm~ ~override~
+  SAY NAME1 @52 //Cloak
+  SAY NAME2 @53 //Mithran's Cloak
+  SAY UNIDENTIFIED_DESC @54
+  SAY DESC @55
+
+COPY ~bp/itm/clrangbp.itm~ ~override~
+  SAY NAME1 @56 //Gloves
+  SAY NAME2 @57 // Gloves of the Priestly Ranger
+  SAY DESC @58
+
+COPY ~bp/itm/contagon.itm~ ~override~
+  SAY NAME1 @59 //Halberd
+  SAY NAME2 @60 //Contagon's Disk
+  SAY UNIDENTIFIED_DESC @61
+  SAY DESC @62
+
+
+COPY ~bp/itm/heavenst.itm~ ~override~
+  SAY NAME1 @71 //Spear
+  SAY NAME2 @72 //Spear of the Heavens
+  SAY UNIDENTIFIED_DESC @73
+  SAY DESC @74
+
+COPY ~bp/itm/icehnd.itm~ ~override~
+  SAY NAME1 @78 //Bracers
+  SAY NAME2 @79 //Bracers Of Dual Malice
+  SAY UNIDENTIFIED_DESC @80
+  SAY DESC @81
+
+COPY ~bp/itm/mantlecs.itm~ ~override~
+  SAY NAME1 @92 //Robe
+  SAY NAME2 @93 //Mantle of the Coming Storm
+  SAY UNIDENTIFIED_DESC @94
+  SAY DESC @95
+
+
+ACTION_IF FILE_EXISTS_IN_GAME ~minhp1.itm~ BEGIN
+COPY_EXISTING ~minhp1.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME1 #6852 //Amulet
+    SAY NAME2 #6852 //Amulet
+    WRITE_ASCII 0x3a ~iamul14~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~gamul02~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~camul14~ #8 //Description icon
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 169 //Immunity Special Effect Icon
+      target = 1 //Self
+      parameter2 = 3 //Confusion
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+    LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+      INT_VAR opcode = 169 //Immunity Special Effect Icon
+      target = 1 //Self
+      parameter2 = 47 //Chaos
+      timing = 2 //While equipped
+      resist_dispel = 2 //Not dispel/bypass
+    END
+  END
+BUT_ONLY
+END
+
+COPY ~bp/itm/mrimrin1.itm~ ~override~
+  SAY NAME1 @98 //Sacrificial Transfer
+  SAY NAME2 @98 //Sacrificial Transfer
+  SAY UNIDENTIFIED_DESC @99
+  SAY DESC @100
+
+COPY ~bp/itm/ringwiz.itm~ ~override~
+  SAY DESC @101
+
+COPY_EXISTING ~scrl3i.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    SAY NAME1 #7106 //Gem
+    SAY NAME2 #7142 //Rogue Stone
+    WRITE_LONG UNIDENTIFIED_DESC (0 - 1)
+    SAY DESC #17532
+    WRITE_SHORT 0x1c 0x22 //Item type (gem, was scroll)
+    WRITE_BYTE 0x2a 0 //Minimum intelligence (was 9)
+    WRITE_LONG 0x34 5000 //Price (was 1)
+    WRITE_SHORT 0x38 20 //Stack (was 1)
+    WRITE_ASCII 0x3a ~imisc45~ #8 //Inventory icon
+    WRITE_ASCII 0x44 ~ggem01~ #8 //Ground icon
+    WRITE_ASCII 0x58 ~cmisc16~ #8 //Description icon
+    LAUNCH_PATCH_FUNCTION t-add_spl_itm_header
+      INT_VAR
+      t-copy      = 0
+      t-atk_type  = 3
+      t-use_loc   = 4
+      t-range     = 1
+      t-dmg_type  = 1
+      t-deplete   = 1
+      t-flags     = 0
+      t-melee1    = 34
+      t-melee2    = 33
+      t-melee3    = 33
+      STR_VAR
+      t-bam       = imisc45
+    END
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~sw2h21.itm~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    READ_LONG 0x6a eq_off
+    READ_SHORT 0x70 eq_count
+    FOR (v = 0; v < eq_count; v += 1) BEGIN //Cycle through equipped effects
+      WRITE_BYTE (0x30 * v + eq_off + 2) 1 //Target (self)
+      WRITE_BYTE (0x30 * v + eq_off + 3) 0 //Power
+      WRITE_BYTE (0x30 * v + eq_off + 0xc) 2 //Timing mode (while equipped)
+      WRITE_BYTE (0x30 * v + eq_off + 0xd) 2 //Not dispel/bypass resistance
+      WRITE_LONG (0x30 * v + eq_off + 0xe) 0 //Duration
+    END
+    PATCH_FOR_EACH spn IN ~spin541~ ~spin543~ ~spin545~ ~spin547~ ~spin804~ BEGIN
+      LAUNCH_PATCH_FUNCTION ADD_ITEM_EQEFFECT
+        INT_VAR opcode = 206 //Protection from Spell
+        target = 1 //Self
+        timing = 2 //While equipped
+        resist_dispel = 2 //Not dispel/bypass
+        STR_VAR resource = EVALUATE_BUFFER ~%spn%~
+      END
+    END
+  END
+BUT_ONLY
+
+
+END
+
+///////////////////////////SPELLS////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION process_spells BEGIN
+
+
+//Some in-game overwrites here, need to be patched in
+
+COPY ~bp/spl/bpwaxed.spl~ ~override~
+
+COPY ~bp/spl/bsarmor.spl~ ~override~
+
+COPY ~bp/spl/fingermd.spl~ ~override~
+  SAY NAME1 @134 //Finger of Death
+  SAY UNIDENTIFIED_DESC @135
+
+COPY ~bp/spl/shgrasps.spl~ ~override~
+  SAY NAME1 @136 //Shocking Grasp
+  SAY UNIDENTIFIED_DESC @137
+
+
+COPY ~bp/spl/palrep.spl~ ~override~
+
+COPY ~bp/spl/spmisgit.spl~ ~override~
+
+COPY ~bp/spl/spmisled.spl~ ~override~
+
+
+END
+
+
+
+//**************************************************************************************************
+//configuring creatures' spell system
+//**************************************************************************************************
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION process_spell_table 
+STR_VAR table = "" 
+BEGIN
+
+  PRINT @373
+
+  COPY + ~%table%~  ~BP/tmp.tbl~
+  COUNT_2DA_ROWS 5 "rows_cnt"
+  FOR( cntg=0; cntg<"%rows_cnt%"; cntg=cntg+1 ) BEGIN
+    READ_2DA_ENTRY cntg  0 5 "table_file_name"
+    READ_2DA_ENTRY cntg  1 5 "spell_name"
+    READ_2DA_ENTRY cntg  2 5 "number"
+    READ_2DA_ENTRY cntg  3 5 "spell_type_str"
+    READ_2DA_ENTRY cntg  4 5 "spell_level"
+
+    SET fileExistsInGame = 0
+    INNER_PATCH_FILE "%table_file_name%" BEGIN
+      PATCH_IF (~%SOURCE_SIZE%~) BEGIN
+        SET fileExistsInGame = 1
+      END
+    END
+    PATCH_IF fileExistsInGame=1 AND FILE_EXISTS_IN_GAME "%spell_name%.SPL" THEN BEGIN
+      INNER_ACTION BEGIN
+        COPY_EXISTING "%table_file_name%"  ~override~  //patching the file from the current table entry
+          READ_LONG  0x2a0  "known_spells_offset"
+          READ_LONG  0x2a4  "known_spells_num"
+          READ_LONG  0x2a8  "spell_memorization_offset"
+          READ_LONG  0x2ac  "spell_memorization_num"
+          READ_LONG  0x2b0  "spell_memorized_offset"
+          READ_LONG  0x2b4  "spell_memorized_num"
+          READ_LONG  0x2b8  "item_slots_offset"
+          READ_LONG  0x2bc  "items_offset"
+          READ_LONG  0x2c0  "items_num"
+          READ_LONG  0x2c4  "effects_offset"
+          READ_LONG  0x2c8  "effects_num"
+
+          SET spell_type = 0  //Priest spell by default
+          PATCH_IF (("%spell_type_str%" STRING_COMPARE_CASE "WIZARD")=0) BEGIN
+            SET spell_type = 1
+          END
+          PATCH_IF (("%spell_type_str%" STRING_COMPARE_CASE "INNATE")=0) BEGIN
+            SET spell_type = 2
+          END
+
+          //**********************************************************************************************************
+          // 1st protection : it's necessary to reset yet unused memo-slots to point behind existing memorized spells
+          FOR(count=0; count<17; count=count+1) BEGIN
+             READ_SHORT ("%spell_memorization_offset%" + count*0x10 + 12) sp2_cnt
+             PATCH_IF( sp2_cnt=0 ) BEGIN
+               WRITE_SHORT ("%spell_memorization_offset%" + count*0x10 + 8) "%spell_memorized_num%"
+             END
+          END
+
+          //**********************************************************************************************************
+          // 2nd protection : it's necessary to set a valid offset for "spell_memorized_offset"
+          //                  it could contain some invalid values
+          PATCH_IF (("%effects_num%" == 0)
+                AND (("%effects_offset%" < 0x2d4)
+                  OR ("%effects_offset%" > BUFFER_LENGTH))) BEGIN
+            "effects_offset" = "%spell_memorized_offset%"+"%spell_memorized_num%"*0x10
+             WRITE_LONG  0x2c4 "%effects_offset%"
+          END
+          //**********************************************************************************************************
+
+          FOR(count=0; count<17; count=count+1) BEGIN
+             READ_SHORT ("%spell_memorization_offset%" + count*0x10 + 12) sp2_cnt
+             PATCH_IF( sp2_cnt=0 ) BEGIN
+               WRITE_SHORT ("%spell_memorization_offset%" + count*0x10 + 8) "%spell_memorized_num%"
+             END
+          END
+          //**********************************************************************************************************
+
+          //***********************************************************************************************
+          // adding new KNOWN spell if necessary
+          //***********************************************************************************************
+          SET necessary=1
+          FOR (count=0; count<"%known_spells_num%"; count=count+1) BEGIN
+            READ_ASCII ("%known_spells_offset%"+count*0x0c) "known_spell_name"
+            PATCH_IF (("%known_spell_name%" STRING_COMPARE_CASE "%spell_name%")=0) BEGIN
+              SET necessary=0
+            END
+          END
+          PATCH_IF (necessary=1) BEGIN  //adding new known spell
+//            //ADD_KNOWN_SPELL ~%spell_name%~ ~%spell_level%~ ~%spell_type%~  ------ for the future WeiDU
+
+            SET offset = "%known_spells_offset%" + "%known_spells_num%"*0x0c
+            INSERT_BYTES offset 0x0c
+            WRITE_EVALUATED_ASCII offset      ~%spell_name%~ #8
+            WRITE_SHORT           offset+8    spell_level
+            WRITE_SHORT           offset+10   spell_type
+            WRITE_LONG   0x2a4  "%known_spells_num%"+1
+
+            SET info_ext = 0x0c
+            PATCH_IF ("%spell_memorized_offset%">="%known_spells_offset%") BEGIN
+              "spell_memorized_offset"="%spell_memorized_offset%"+"%info_ext%"
+              WRITE_LONG  0x2b0 "%spell_memorized_offset%"
+            END
+            PATCH_IF ("%spell_memorization_offset%">="%known_spells_offset%") BEGIN
+              "spell_memorization_offset"="%spell_memorization_offset%"+"%info_ext%"
+              WRITE_LONG  0x2a8  "%spell_memorization_offset%"
+            END
+            PATCH_IF ("%item_slots_offset%">="%known_spells_offset%") BEGIN
+              "item_slots_offset"="%item_slots_offset%"+"%info_ext%"
+              WRITE_LONG  0x2b8  "%item_slots_offset%"
+            END
+            PATCH_IF ("%items_offset%">="%known_spells_offset%") BEGIN
+              "items_offset"="%items_offset%"+"%info_ext%"
+              WRITE_LONG  0x2bc  "%items_offset%"
+            END
+            PATCH_IF ("%effects_offset%">="%known_spells_offset%") BEGIN
+              "effects_offset"="%effects_offset%"+"%info_ext%"
+              WRITE_LONG  0x2c4  "%effects_offset%"
+            END
+          END
+          //***********************************************************************************************/
+          //***********************************************************************************************/
+
+          SET slot_idx = "%spell_level%"
+          PATCH_IF (("%spell_type_str%" STRING_COMPARE_CASE "WIZARD")=0) BEGIN
+            SET slot_idx = "%spell_level%"+7
+          END
+          PATCH_IF (("%spell_type_str%" STRING_COMPARE_CASE "INNATE")=0) BEGIN
+            SET slot_idx = 16
+          END
+          SET offset_memorization = "%spell_memorization_offset%" + "%slot_idx%"*0x10
+
+          //***********************************************************************************************/
+          // adding a necessary quantity of MEMORIZED new spells
+          //***********************************************************************************************/
+          SET total_add = 0
+          FOR (count=0; count<"%spell_memorized_num%"; count=count+1) BEGIN
+            READ_ASCII ("%spell_memorized_offset%"+count*0xc) "mem_spell_name"
+            PATCH_IF (("%mem_spell_name%" STRING_COMPARE_CASE "%spell_name%")=0) BEGIN
+              SET "number" = "%number%" - 1
+            END
+          END
+          //ADD_MEMORIZED_SPELL "%spell_name%" (~%spell_level%~) "%spell_type_str%" (~%number%~)
+
+          READ_LONG offset_memorization+8  current_slot_spell_index
+          SET offset = "%spell_memorized_offset%" + current_slot_spell_index*0x0c//"%spell_memorized_num%"
+          WHILE ("%number%">0) BEGIN
+            INSERT_BYTES offset    0x0c
+            WRITE_EVALUATED_ASCII  offset  ~%spell_name%~ #8
+            WRITE_SHORT  offset+8  1      //memorized
+            SET "number" = "%number%" - 1
+            SET total_add = total_add + 1
+            SET offset = offset + 0x0c
+         END
+
+          PATCH_IF(total_add>0) BEGIN
+            SET info_ext = 0x0c * total_add
+            WRITE_LONG 0x2b4 "%spell_memorized_num%"+total_add
+
+            READ_SHORT  (offset_memorization+12) innate_spell_count
+            WRITE_SHORT (offset_memorization+12) innate_spell_count + total_add
+            WRITE_SHORT (offset_memorization+2)  innate_spell_count + total_add
+            WRITE_SHORT (offset_memorization+4)  innate_spell_count + total_add
+            WRITE_SHORT (offset_memorization+6)  ~%spell_type%~
+
+            FOR(count=0; count<17; count=count+1) BEGIN
+                READ_SHORT ("%spell_memorization_offset%" + count*0x10 + 8)  sp2_index
+                READ_SHORT ("%spell_memorization_offset%" + count*0x10 + 12) sp2_cnt
+                PATCH_IF( count!=slot_idx AND sp2_cnt>0 AND sp2_index>=current_slot_spell_index ) BEGIN
+                  WRITE_SHORT ("%spell_memorization_offset%" + count*0x10 + 8)  sp2_index+total_add
+                END
+            END
+
+            PATCH_IF ("%known_spells_offset%">="%spell_memorized_offset%") BEGIN
+              "known_spells_offset"="%known_spells_offset%"+"%info_ext%"
+              WRITE_LONG  0x2a0 "%known_spells_offset%"
+            END
+            PATCH_IF ("%spell_memorization_offset%">="%spell_memorized_offset%") BEGIN
+              "spell_memorization_offset"="%spell_memorization_offset%"+"%info_ext%"
+              WRITE_LONG  0x2a8  "%spell_memorization_offset%"
+            END
+            PATCH_IF ("%item_slots_offset%">="%spell_memorized_offset%") BEGIN
+              "item_slots_offset"="%item_slots_offset%"+"%info_ext%"
+              WRITE_LONG  0x2b8  "%item_slots_offset%"
+            END
+            PATCH_IF ("%items_offset%">="%spell_memorized_offset%") BEGIN
+              "items_offset"="%items_offset%"+"%info_ext%"
+              WRITE_LONG  0x2bc  "%items_offset%"
+            END
+            PATCH_IF ("%effects_offset%">="%spell_memorized_offset%") BEGIN
+              "effects_offset"="%effects_offset%"+"%info_ext%"
+              WRITE_LONG  0x2c4  "%effects_offset%"
+            END
+          END
+        BUT_ONLY_IF_IT_CHANGES
+
+      END
+    END
+  END
+
+
+END
+
+
+///////////////////////////STORES////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION process_stores BEGIN
+
+//Both Bags sold in Adventurer's Mart
+COPY ~bp/itm/bpbag04.itm~ ~override~
+
+COPY ~bp/sto/bpbag04.sto~ ~override/bpbag04.sto~
+
+COPY ~bp/itm/bpbag05.itm~ ~override~
+
+COPY ~bp/sto/bpbag05.sto~ ~override/bpbag05.sto~
+
+COPY ~bp/itm/bpbag06.itm~ ~override~
+
+COPY ~bp/sto/bpbag06.sto~ ~override/bpbag06.sto~
+
+COPY ~bp/itm/dagg25.itm~ ~override~
+  SAY NAME2 @63 //Throwing Dagger +1
+  SAY DESC @64
+
+COPY ~bp/itm/dagg26.itm~ ~override~
+  SAY NAME2 @65 //Throwing Dagger +2
+  SAY DESC @66
+
+
+COPY_EXISTING ~25spell.sto~ ~override~
+  ADD_STORE_ITEM ~DAGG25~ #10 #0 #0 ~IDENTIFIED~ #40
+  ADD_STORE_ITEM ~DAGG26~ #10 #0 #0 ~IDENTIFIED~ #20
+
+COPY_EXISTING ~bernard2.sto~ ~override~
+  ADD_STORE_ITEM ~DAGG25~ #10 #0 #0 ~IDENTIFIED~ #20
+  ADD_STORE_ITEM ~DAGG26~ #10 #0 #0 ~IDENTIFIED~ #5
+
+COPY_EXISTING ~uhinn01.sto~ ~override~
+  ADD_STORE_ITEM ~DAGG25~ #10 #0 #0 ~IDENTIFIED~ #20
+  ADD_STORE_ITEM ~DAGG26~ #10 #0 #0 ~IDENTIFIED~ #5
+
+COPY_EXISTING ~ribald.sto~ ~override~
+  ADD_STORE_ITEM ~DAGG25~ #10 #0 #0 ~IDENTIFIED~ #20
+  ADD_STORE_ITEM ~DAGG26~ #10 #0 #0 ~IDENTIFIED~ #5
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wmart1.sto~ BEGIN
+  COPY ~bp/sto/wmart1.sto~ ~override/wmart1.sto~
+END ELSE BEGIN
+  COPY_EXISTING ~wmart1.sto~ ~override~
+    ADD_STORE_ITEM ~BPBAG04~ #0 #0 #0 ~IDENTIFIED~ #1
+  APPEND ~itemdial.2da~
+    ~BPBAG04       44002  BPBAG04~
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~cdammo.sto~ BEGIN //added by bg2 tweaks, same store
+  COPY_EXISTING ~shop05.sto~ ~override~
+    ADD_STORE_ITEM ~BPBAG05~ #0 #0 #0 ~IDENTIFIED~ #1
+END
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wmart2.sto~ BEGIN
+  COPY ~bp/sto/wmart2.sto~ ~override/wmart2.sto~
+END ELSE BEGIN
+  COPY_EXISTING ~wmart1.sto~ ~override~
+    ADD_STORE_ITEM ~BPBAG06~ #0 #0 #0 ~IDENTIFIED~ #1
+  APPEND ~itemdial.2da~
+    ~BPBAG06       44002  BPBAG06~
+END
+
+
+END

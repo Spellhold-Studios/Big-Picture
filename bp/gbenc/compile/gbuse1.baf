@@ -1,0 +1,94 @@
+IF
+  Delay(10)
+  Global("CreateItems","LOCALS",0)
+  Class(Myself,THIEF_ALL)
+  !HasItem("Potn10",Myself)  // ~Potion of Invisibility~
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobal("CreateItems","LOCALS",1)
+    GiveItemCreate("Potn52",Myself,2,0,0)  // ~Potion of Extra Healing~
+    GiveItemCreate("Potn14",Myself,1,0,0)  // ~Oil of Speed~
+    GiveItemCreate("Potn10",Myself,3,0,0)  // ~Potion of Invisibility~
+    GiveItemCreate("Misc07",Myself,350,0,0)  // ~Gold Piece~
+    SetInterrupt(TRUE)
+END
+
+IF
+  Delay(10)
+  Global("CreateItems","LOCALS",0)
+  !HasItem("Potn14",Myself)  // ~Oil of Speed~
+  !Class(Myself,THIEF_ALL)
+  !Class(Myself,CLERIC_ALL)
+  !Class(Myself,LONG_BOW)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobal("CreateItems","LOCALS",1)
+    GiveItemCreate("Potn52",Myself,2,0,0)  // ~Potion of Extra Healing~
+    GiveItemCreate("Potn14",Myself,1,0,0)  // ~Oil of Speed~
+    GiveItemCreate("Misc07",Myself,250,0,0)  // ~Gold Piece~
+    SetInterrupt(TRUE)
+END
+
+IF
+  Delay(10)
+  Global("CreateItems","LOCALS",0)
+  !HasItem("Potn52",Myself)  // ~Potion of Extra Healing~
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobal("CreateItems","LOCALS",1)
+    GiveItemCreate("Potn52",Myself,2,0,0)  // ~Potion of Extra Healing~
+    GiveItemCreate("RndTre04",Myself,0,0,0)  // <Invalid Strref 9999999>
+    SetInterrupt(TRUE)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCastNAttack","LOCALS")
+  HPPercentLT(Myself,50)
+  HasItem("Potn52",Myself)  // ~Potion of Extra Healing~
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    UseItem("Potn52",Myself)  // ~Potion of Extra Healing~
+    SetGlobalTimer("GBCast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCastNAttack","LOCALS")
+  !GlobalTimerNotExpired("GBInvisiblePotion","LOCALS")
+  HasItem("Potn10",Myself)  // ~Potion of Invisibility~
+  Range(NearestEnemyOf(Myself),5)
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    UseItem("Potn10",Myself)  // ~Potion of Invisibility~
+    SetGlobalTimer("GBInvisiblePotion","LOCALS",9)
+    SetGlobalTimer("GBCast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  HasItem("Potn14",Myself)  // ~Oil of Speed~
+  !GlobalTimerNotExpired("GBCastNAttack","LOCALS")
+  !Class(Myself,CLERIC_ALL)
+  !Class(Myself,LONG_BOW)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    UseItem("Potn14",Myself)  // ~Oil of Speed~
+    SetGlobalTimer("GBCast","LOCALS",6)
+    SetInterrupt(TRUE)
+END
+
+IF
+  Delay(20)
+  Global("CreateItems","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CreateItems","LOCALS",1)
+END
+

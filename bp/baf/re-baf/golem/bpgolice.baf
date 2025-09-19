@@ -1,0 +1,21 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  AttackedBy([GOODCUTOFF],DEFAULT)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+	HitBy([ANYONE],FIRE)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,ICE_GOLEM_STEAM)
+END

@@ -1,0 +1,58 @@
+YES I WILL REDO THIS ALL FOR THE PUBLIC RELEASE! --HtP, 2/20/2006
+
+
+I would like to take the time to thank the following:
+
+The ModMakers:
+
+The Darkest Day: Max and Minto, plus the TDD-ToB crew
+
+Shadows Over Soubar: CBisson
+
+Tortured Souls, Never Ending Journey: Vlad and Domi
+
+Baldur's Gate Trilogy: Bardez
+
+All the various WeiDu mods: Wes Weimer
+
+Various (former) WeiDu components: G Blucher, Kensai Ryu, Sim Dingo, Lady 
+                                   Dorotea, and possibly several others
+Imoen's Romance: Lord Mirrabo
+
+Acsension (hardwired into BP): David Gaider, and the old IEEAIS crew that
+                               assisted him. Wish you were still there, guys.
+
+Detectable Stats, Improved Berserkers: Cirrerek
+
+Big thanks to Max (again) for making the bp auto installer!
+Our lives are much simpler again! ;D
+
+Hlidskialf and SimDing0, for general modding referrence (even I have questions)
+
+Isaya, for his TDD worldmap fixes and his Drizzt encounter fix.
+
+Also, modder Jackyo for her Improved Tanners mod, Rattledagger, and Thesslian 
+for their fix files.
+
+Thanks for taking the time, buds !!! ;D
+
+Black Isle Studios, BioWare, TSR, and Wizards of the Coast, for making such a
+wonderful game in the first place
+
+All of the tool makers, for giving us the means of mucking around with this
+cool game.
+
+All of the loyal testplayers, for your feedback over the past few months:
+Good, bad, or downright ugly. You've helped make BP what it is today
+
+All of you, for taking the time to read this, and for checking out the Big 
+Picture Compatability Mod. Enjoy!
+
+(Last, but not least) NotMrt: (Well; he didn't do any modding, but he asked
+                               really nicely to be in the credits... :P)
+
+
+                               
+Did I leave anybody out? If so, I'm sorry...it's been a long couple of weeks,
+getting this version ready for public consumption. Just drop me a line, yell
+at me, and I'll make sure you're in the next version's list....

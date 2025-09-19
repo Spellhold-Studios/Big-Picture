@@ -1,0 +1,12 @@
+IF
+  HaveSpellRES("SPBS3")
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  RandomNumLT(125,76)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    SpellRES("SPBS3",Myself)  // ~Create Shadows~
+END
+

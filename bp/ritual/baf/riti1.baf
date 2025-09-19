@@ -1,0 +1,168 @@
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("PrepTimer","LOCALS",0)
+    SetGlobalTimer("TrueTimer","LOCALS",0)
+    SetGlobalTimer("DisTimer","LOCALS",0)
+END
+
+IF
+  GlobalTimerExpired("PrepTimer","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("PrepTimer","LOCALS",3600)
+    SetGlobalTimer("Cast","LOCALS",0)
+    GiveItemCreate("potn52",Myself,3,0,0)  // ~Potion of Extra Healing~
+    Continue()
+END
+
+IF
+  OR(8)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+    See(WorstAC)
+    See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(SixthNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(SixthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(SixthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(FifthNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(FifthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(FourthNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(FourthNearestEnemyOf(Myself),0,SANCTUARY)
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(ThirdNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(ThirdNearestEnemyOf(Myself),0,SANCTUARY)
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(SecondNearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(SecondNearestEnemyOf(Myself),0,SANCTUARY)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(NearestEnemyOf(Myself),0,STONESKINS)
+  !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(NearestEnemyOf(Myself),0,SANCTUARY)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(WorstAC,0,STONESKINS)
+  !StateCheck(WorstAC,STATE_IMPROVEDINVISIBILITY)
+  CheckStat(WorstAC,0,SANCTUARY)
+  See(WorstAC)
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalTimerExpired("TrueTimer","LOCALS")
+  HaveSpell(INQUIS_TRUE_SIGHT)
+  !CombatCounter(0)
+  Range([GOODCUTOFF],50)
+THEN
+  RESPONSE #100
+    Spell(Myself,INQUIS_TRUE_SIGHT)
+    SetGlobalTimer("TrueTimer","LOCALS",60)
+    SetGlobalTimer("Cast","LOCALS",6)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalTimerExpired("DisTimer","LOCALS")
+  HaveSpell(INQUIS_DISPEL_MAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("DisTimer","LOCALS",24)
+    Spell(LastSeenBy(Myself),INQUIS_DISPEL_MAGIC)
+    SetGlobalTimer("Cast","LOCALS",6)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,90)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  Heard([ENEMY],ALERT)
+  !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject(LastHeardBy(Myself))
+END
+

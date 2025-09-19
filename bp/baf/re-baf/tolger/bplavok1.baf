@@ -1,0 +1,17 @@
+IF
+  Global("LavSpy","GLOBAL",0)
+  See([PC])
+THEN
+  RESPONSE #100
+    SetGlobal("LavSpy","GLOBAL",1)
+END
+
+IF
+  HPLT(Myself,10)
+THEN
+  RESPONSE #100
+    SetGlobal("LavSpy","GLOBAL",3)
+    ApplySpell(Myself,HEAL_NO_VISUAL)
+    ChangeAnimationNoEffect("LAVOK02")
+END
+

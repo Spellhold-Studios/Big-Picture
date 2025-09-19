@@ -1,0 +1,14 @@
+IF
+  IsOverMe([ANYONE])
+  Global("SharkAmbush","AR2300",0)
+THEN
+  RESPONSE #100
+    SetGlobal("SharkAmbush","AR2300",1)
+    CreateCreature("sahramb1",[2703.1263],6)
+    CreateCreature("sahramb2",[2028.933],14)
+    CreateCreature("sahramb3",[2704.1245],2)
+    CreateCreature("sahramb4",[2266.1332],8)
+    CreateCreature("sahramb5",[2252.1296],10)
+    CreateCreature("sahspy04",[2150.1200],10)
+END
+

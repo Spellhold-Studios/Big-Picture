@@ -1,0 +1,10 @@
+IF
+  See([ANYONE])
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #70
+    AttackReevaluate([ANYONE],30)
+  RESPONSE #30
+    ForceSpell(NearestEnemyOf(Myself),WIZARD_POWER_WORD_STUN)
+END
+

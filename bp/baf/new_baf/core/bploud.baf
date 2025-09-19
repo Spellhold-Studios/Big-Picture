@@ -1,0 +1,19 @@
+IF
+  Global("BPBigMouthSpoke","AR8051",0)
+  OR(2)
+    IsOverMe([GOODCUTOFF])
+    Entered([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    DisplayString(LastTrigger,14381)  // ~Trap Sprung~ [AMB_D05C]
+    PlaySound("ALARM1")
+    Shout(99)
+    ActionOverride("BPSKULLY",Shout(154))
+    DisplayStringHead(Myself,@0)
+    Wait(1)
+    DisplayStringHead(Myself,@1)
+    SetGlobal("BPAlertAlert","AR8051",1)
+    SetGlobal("BPBigMouthSpoke","AR8051",1)
+    ActionOverride("BPSKULLY",StartDialogNoSet(Player1))
+END
+

@@ -1,0 +1,18 @@
+@500 = ~This halberd is a powerful weapon usually given out to the most important of Harmonium captains. The Harmonium is an faction based out of the planar city known as "Sigil."
+
+STATISTICS:
+
+Equipped abilities:
+– Strength: +1
+– Intelligence: -1
+– Wisdom: -1
+
+THAC0: +3
+Damage: 1d10+3 (piercing)
+Speed Factor: 9
+Proficiency Type: Halberd
+Type: Two-handed
+Requires:
+ 11 Strength
+
+Weight: 12~

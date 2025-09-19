@@ -1,0 +1,72 @@
+IF
+  BreakingPoint()
+THEN
+  RESPONSE #100
+    Calm(Myself)
+    Continue()
+END
+
+IF
+  HasItem("mel01",Myself)
+  !Detect([ENEMY])
+THEN
+  RESPONSE #100
+    DisplayString(Myself,61791)
+    DestroyItem("mel01")
+    DestroyItem("ringwolf")
+    Continue()
+END
+
+IF
+  HP(Myself,1)
+  HasItem("mel01",Myself)
+  Delay(10)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,54680)
+    Continue()
+END
+
+IF
+  See([GOODCUTOFF])
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  Delay(12)
+THEN
+  RESPONSE #100
+    Shout(125)
+    Continue()
+END
+
+IF
+  Delay(3)
+  OR(4)
+    CheckStat(Myself,11,180)
+    CheckStat(Myself,16,180)
+    CheckStat(Myself,17,180)
+    CheckStat(Myself,20,180)
+THEN
+  RESPONSE #100
+    ForceSpell(Myself,CLERIC_ZONE_OF_SWEET_AIR)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  See([GOODCUTOFF])
+  Gender(LastSeenBy(Myself),SUMMONED)
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  Delay(5)
+THEN
+  RESPONSE #100
+    ReallyForceSpellRES("ritskul1",LastSeenBy(Myself))
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  See([GOODCUTOFF])
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  Delay(12)
+THEN
+  RESPONSE #100
+    ReallyForceSpellRES("ritskul1",LastSeenBy(Myself))
+END
+

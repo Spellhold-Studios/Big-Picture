@@ -1,0 +1,307 @@
+IF
+  See([PC])
+  Global("Talked","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Talked","LOCALS",1)
+    SetGlobalTimer("TooLong","LOCALS",360)
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    SelectWeaponAbility(SLOT_WEAPON0,0)
+    StartDialogNoSet([PC])
+END
+
+IF
+  GlobalTimerExpired("TooLong","LOCALS")
+  Global("Talked","LOCALS",1)
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("SPPORTAL",Myself)
+    DisplayString(Myself,34746)  // ~Damn thy soul, upstart! I've not finished with you!~
+    SetGlobal("KuroiAlready","GLOBAL",1)
+    SetGlobal("KuroiSpawn","GLOBAL",0)
+    DestroySelf()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,56010)  // ~I intend to destroy you.~
+    SetGlobalTimer("MyCast","LOCALS",0)
+    SetGlobalTimer("DoneCasting","LOCALS",0)
+    SetGlobal("Prep","LOCALS",1)
+    ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  TookDamage()
+  Global("Contingency","LOCALS",0)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,40252)  // ~Contingency - Protection from Magical Weapons~
+    ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+    SetGlobal("Contingency","LOCALS",1)
+END
+
+IF
+  !GlobalTimerExpired("MyCast","LOCALS")
+  GlobalTimerExpired("DoneCasting","LOCALS")
+  CheckStat(Myself,0,128)
+  Detect(NearestEnemyOf(Myself))
+  HasItemEquiped("SCRL7O",Myself)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,61700)  // ~ Ooooh, this is not a good day!~ [GNOMEF08]
+    RunAwayFrom(NearestEnemyOf(Myself),30)
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  CheckStat(Myself,0,128)
+  HasItemEquiped("SCRL7O",Myself)
+  Detect(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    SetGlobalTimer("DoneCasting","LOCALS",1)
+    UseItem("SCRL7O",Myself)  // ~Protection From Magic Weapons~
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  CheckStatLT(Myself,1,STONESKINS)
+  HaveSpell(WIZARD_STONE_SKIN)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(Myself,WIZARD_STONE_SKIN)
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HasItemEquiped("SCRL7R",Myself)
+  OR(9)
+    See(ThirdNearest([GOODCUTOFF.0.0.LONG_BOW]))
+    See(SecondNearest([GOODCUTOFF.0.0.LONG_BOW]))
+    See(NearestEnemyOfType([0.0.0.LONG_BOW]))
+    See(ThirdNearest([GOODCUTOFF.0.0.SORCERER]))
+    See(SecondNearest([GOODCUTOFF.0.0.SORCERER]))
+    See(NearestEnemyOfType([0.0.0.SORCERER]))
+    See(ThirdNearest([GOODCUTOFF.0.0.BARD_ALL]))
+    See(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]))
+    See(NearestEnemyOfType([0.0.0.BARD_ALL]))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    SetGlobalTimer("DoneCasting","LOCALS",4)
+    UseItem("SCRL7R",LastSeenBy(Myself))  // ~Death Fog~
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HasItemEquiped("SCRL7R",Myself)
+  OR(3)
+    See(NearestEnemyOf(Myself))
+    See(NearestEnemyOfType([0.0.0.CLERIC_ALL]))
+    See(NearestEnemyOfType([0.0.0.DRUID_ALL]))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    SetGlobalTimer("DoneCasting","LOCALS",4)
+    UseItem("SCRL7R",LastSeenBy(Myself))  // ~Death Fog~
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  Detect(NearestEnemyOf(Myself))
+  HaveSpell(WIZARD_SHADOW_DOOR)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(Myself,WIZARD_SHADOW_DOOR)
+END
+
+IF
+  !GlobalTimerExpired("MyCast","LOCALS")
+  StateCheck(Myself,STATE_INVISIBLE)
+  HasItemEquiped("POTN52",Myself)
+  HPPercentLT(Myself,80)
+THEN
+  RESPONSE #100
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  StateCheck(Myself,STATE_INVISIBLE)
+  HasItemEquiped("POTN52",Myself)
+  HPPercentLT(Myself,80)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    UseItem("POTN52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HaveSpell(WIZARD_BREACH)
+  See(NearestEnemyOfType([PC]))
+  CheckStat(LastSeenBy(Myself),0,164)
+  CheckStat(LastSeenBy(Myself),0,177)
+  OR(13)
+    CheckStatGT(LastSeenBy(Myself),0,178)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICFIRE)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICCOLD)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTACID)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTELECTRICITY)
+    CheckStatGT(LastSeenBy(Myself),0,126)
+    CheckStatGT(LastSeenBy(Myself),0,130)
+    CheckStatGT(LastSeenBy(Myself),0,163)
+    CheckStatGT(LastSeenBy(Myself),0,179)
+    CheckStatGT(LastSeenBy(Myself),0,181)
+    CheckStatGT(LastSeenBy(Myself),0,128)
+    CheckStatGT(LastSeenBy(Myself),3,STONESKINS)
+    CheckStatGT(LastSeenBy(Myself),0,SCRIPTINGSTATE5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_BREACH)
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HaveSpell(WIZARD_TRUE_DISPEL_MAGIC)
+  See(NearestEnemyOfType([PC]))
+  OR(8)
+    StateCheck(LastSeenBy(Myself),STATE_HASTED)
+    StateCheck(LastSeenBy(Myself),STATE_BLESS)
+    StateCheck(LastSeenBy(Myself),STATE_CHANT)
+    StateCheck(LastSeenBy(Myself),STATE_DRAWUPONHOLYMIGHT)
+    StateCheck(LastSeenBy(Myself),STATE_LUCK)
+    StateCheck(LastSeenBy(Myself),STATE_AID)
+    StateCheck(LastSeenBy(Myself),STATE_MIRRORIMAGE)
+    StateCheck(LastSeenBy(Myself),STATE_BLUR)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_TRUE_DISPEL_MAGIC)
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HaveSpell(WIZARD_SLOW)
+  OR(3)
+    See([PC.0.0.FIGHTER_ALL])
+    See([PC.0.0.PALADIN_ALL])
+    See([PC.0.0.RANGER_ALL])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_SLOW)
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HaveSpell(WIZARD_MELF_ACID_ARROW)
+  OR(5)
+    See([PC])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.BARD_ALL])
+  CheckStatLT(LastSeenBy(Myself),50,RESISTACID)
+  !HasItemEquiped("CLCK26",LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_MELF_ACID_ARROW)
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HaveSpell(WIZARD_MAGIC_MISSILE)
+  OR(5)
+    See([PC])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.BARD_ALL])
+  !HasItemEquiped("CLCK26",LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+END
+
+IF
+  GlobalTimerExpired("MyCast","LOCALS")
+  HaveSpell(KENSAI_KIA)
+  Range(NearestEnemyOfType([PC]),9)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MyCast","LOCALS",6)
+    Spell(Myself,KENSAI_KIA)
+END
+
+IF
+  ActionListEmpty()
+  OR(3)
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+    See([PC.0.0.BARD_ALL])
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  OR(3)
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.BARD_ALL])
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See(WorstAC)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See([PC])
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  InMyArea(Player1)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackOneRound(Player1)
+END
+

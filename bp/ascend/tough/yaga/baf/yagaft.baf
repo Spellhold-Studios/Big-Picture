@@ -1,0 +1,47 @@
+IF
+  RandomNum(4,1)
+  !CheckStatGT(LastSeenBy(Myself),90,RESISTFIRE)
+  !GlobalTimerNotExpired("LavaBomb","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("LavaBomb","LOCALS",30)
+    DisplayStringHead(Myself,68229)  // ~Fire!~
+    ForceSpellRES("yaga01",LastSeenBy(Myself))  // <Invalid Strref -1>
+END
+
+IF
+  RandomNum(4,2)
+  Global("Firestorm","LOCALS",0)
+  Range(NearestEnemyOf(Myself),10)
+  Range(SecondNearestEnemyOf(Myself),10)
+  HPPercentLT(Myself,75)
+THEN
+  RESPONSE #100
+    SetGlobal("Firestorm","LOCALS",1)
+    ForceSpell(Myself,CLERIC_FIRE_STORM)
+END
+
+IF
+  Range(NearestEnemyOf(Myself),5)
+  !CheckStatGT(NearestEnemyOf(Myself),75,RESISTFIRE)
+  !CheckStatGT(NearestEnemyOf(Myself),75,RESISTMAGIC)
+  !Range([EVILCUTOFF],5)
+  RandomNum(4,3)
+  !GlobalTimerNotExpired("AuraFire","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("AuraFire","LOCALS",60)
+    ForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
+END
+
+IF
+  Range([GOODCUTOFF],15)
+  !Range([EVILCUTOFF],15)
+  RandomNum(4,4)
+  !GlobalTimerNotExpired("Sunray","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Sunray","LOCALS",30)
+    ForceSpell(Myself,CLERIC_SUNRAY)
+END
+

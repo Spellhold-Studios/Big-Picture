@@ -1,0 +1,4144 @@
+
+
+////////////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION watchers_keep BEGIN
+
+INCLUDE ~bp/lib/bp_tob_scripts.tph~
+
+
+COPY_EXISTING ~deck615.cre~ ~override~ //Demon Knight
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpmag18a~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~demosum1.cre~ ~override~ //Marilith
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpmarili~ #8 // Override (was GRPSHT01)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was MARILITH)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsgobl.cre~ ~override~ //Goblin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 8 // ACNatul (was 14)
+    WRITE_SHORT 0x48 8 // ACEffec (was 14)
+    WRITE_BYTE 0x52 19 // THAC0 (was 20)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsmage01.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x250 ~bpmag14a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART01~ #40 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsmage02.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x250 ~bpmag16a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART04~ #40 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsmage03.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x250 ~bpmag18a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART03~ #40 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsmage04.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_LONG 0x1c 25 // Goldcarried (was 0)
+    WRITE_SHORT 0x24 59 // CurrHP (was 50)
+    WRITE_SHORT 0x26 59 // MaxHP (was 50)
+    WRITE_BYTE 0x2c 27 // MetalColour (was 30)
+    WRITE_BYTE 0x30 91 // LeatherColour (was 23)
+    WRITE_BYTE 0x31 63 // ArmorColour (was 28)
+    WRITE_SHORT 0x46 4 // ACNatul (was 10)
+    WRITE_BYTE 0x52 15 // THAC0 (was 14)
+    WRITE_BYTE 0x58 1 // SaveVspell (was 6)
+    WRITE_BYTE 0x234 18 // HighestLevelPrimary (was 20)
+    WRITE_BYTE 0x238 10 // Str (was 12)
+    WRITE_BYTE 0x23a 18 // Int (was 15)
+    WRITE_BYTE 0x23b 16 // Wis (was 15)
+    WRITE_BYTE 0x23d 11 // Con (was 9)
+    WRITE_BYTE 0x23e 10 // Cha (was 9)
+    WRITE_BYTE 0x240 5 // Morbrk (was 1)
+    WRITE_LONG 0x244 8388608 // KitInfo (was 0)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x250 ~bpmag14a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x272 2 // IDSRace (was 1)
+    WRITE_BYTE 0x27b 19 // Alignment (was 34)
+    REMOVE_KNOWN_SPELL ~spwi506~
+    REMOVE_KNOWN_SPELL ~spwi523~
+    REMOVE_KNOWN_SPELL ~spwi714~
+    REMOVE_KNOWN_SPELL ~spwi717~
+    REMOVE_KNOWN_SPELL ~spwi813~
+    REMOVE_KNOWN_SPELL ~spwi909~
+    REMOVE_KNOWN_SPELL ~spwi913~
+    REMOVE_MEMORIZED_SPELL ~spwi217~
+    REMOVE_MEMORIZED_SPELL ~spwi219~
+    REMOVE_MEMORIZED_SPELL ~spwi304~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi305~
+    REMOVE_MEMORIZED_SPELL ~spwi506~
+    REMOVE_MEMORIZED_SPELL ~spwi523~
+    REMOVE_MEMORIZED_SPELL ~spwi609~
+    REMOVE_MEMORIZED_SPELL ~spwi616~
+    REMOVE_MEMORIZED_SPELL ~spwi714~
+    REMOVE_MEMORIZED_SPELL ~spwi717~
+    REMOVE_MEMORIZED_SPELL ~spwi909~
+    REMOVE_MEMORIZED_SPELL ~spwi913~
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (5)
+    ADD_MEMORIZED_SPELL ~spwi219~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (4)
+    ADD_MEMORIZED_SPELL ~spwi303~ #2 ~wizard~ (5)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi423~ #3 ~wizard~ (4)
+    ADD_MEMORIZED_SPELL ~spwi501~ #4 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi505~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi508~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi522~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi602~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi607~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi616~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi619~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi609~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi715~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi910~ #8 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi912~ #8 ~wizard~
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~DART03~ #40 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsspir3.cre~ ~override~ //Spirit Panel
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #64214 // LongName (was 64213)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsspira.cre~ ~override~ //Helmite Ghost
+              ~fsspirb.cre~ ~override~ //Helmite Ghost
+              ~fsspirc.cre~ ~override~ //Helmite Ghost
+              ~gorsnake.cre~ ~override~ //Giant Snake
+              ~gorsta06.cre~ ~override~ //Statue
+              ~gorsta08.cre~ ~override~ //Statue
+              ~gorsta12.cre~ ~override~ //Statue
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #64212 // LongName (was 64211)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorapr.cre~ ~override~ //Apprentice
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~STAF01~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DART04~ #40 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorcar.cre~ ~override~ //Carston
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DART02~ #40 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorair01.cre~ ~override~ //Lesser Air Elemental
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 4 // ACNatul (was 2)
+    WRITE_SHORT 0x48 4 // ACEffec (was 2)
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_BYTE 0x238 18 // Str (was 19)
+    WRITE_BYTE 0x239 51 // StrBon (was 0)
+    WRITE_ASCII 0x260 ~~ #8 // General (was AIRELE01)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorair02.cre~ ~override~ //Greater Air Elemental
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 0 // ACNatul (was 2)
+    WRITE_SHORT 0x48 0 // ACEffec (was 2)
+    WRITE_BYTE 0x53 8 // NOAtt (was 1)
+    WRITE_BYTE 0x238 20 // Str (was 19)
+    WRITE_ASCII 0x260 ~~ #8 // General (was AIRELE01)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~goralu01.cre~ ~override~ //Alu-Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~~ #8 // Override (was GRPSHT01)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorbat1.cre~ ~override~ //Erinyes
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~gorbat1~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~karash~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was ERINYES)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorbat2.cre~ ~override~ //Erinyes
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpgorbat~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~erinyes~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was ERINYES)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorbat3.cre~ ~override~ //Cornugon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpgorbat~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~cornugon~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was CORNUGON)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorbat4.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpgorbat~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was ERINYES)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorbat5.cre~ ~override~ //Bone Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #70639 // LongName (was 70638)
+    WRITE_ASCII 0x248 ~bpgorbat~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~dembal01~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorchr.cre~ ~override~ //Chromatic Demon
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    // SAY NAME1 #64103 // LongName (was 64102)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gordem.cre~ ~override~ //Balor
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bptanari~ #8 // Class (was GRPSHT01)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorfir01.cre~ ~override~ //Greater Fire Elemental
+              ~gorfir02.cre~ ~override~ //Greater Fire Elemental
+              ~gorfir03.cre~ ~override~ //Greater Fire Elemental
+              ~gorfir04.cre~ ~override~ //Greater Fire Elemental
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 0 // ACNatul (was 2)
+    WRITE_SHORT 0x48 0 // ACEffec (was 2)
+    WRITE_BYTE 0x53 8 // NOAtt (was 1)
+    WRITE_BYTE 0x238 20 // Str (was 19)
+    WRITE_ASCII 0x248 ~~ #8 
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GORFIR)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorfirg.cre~ ~override~ //Fire Giant
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_BYTE 0x59 110 // RstFire (was 50)
+    WRITE_BYTE 0x5e 110 // RstMFre (was 50)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REMOVE_CRE_ITEM ~GIANTS01~
+    REPLACE_CRE_ITEM ~GIANTS01~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorgoli.cre~ ~override~ //Ice Golem
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_LONG 0x18 875 // PowerLevel (was 250)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorgua04.cre~ ~override~ //Guardian Spirit
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~~ #8 // Override (was GORGUA04)
+    WRITE_ASCII 0x250 ~bpgpheal~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpcpal2a~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (8)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorgua05.cre~ ~override~ //Guardian Spirit
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpgpheal~ #8 // Override (was GORGUA04)
+    WRITE_ASCII 0x268 ~bpcpal2a~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorjelf2.cre~ ~override~ //Ooze Puddle
+              ~gorjelfu.cre~ ~override~ //Ooze Puddle
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #70783 // LongName (was 70782)
+    WRITE_SHORT 0x24 22 // CurrHP (was 16)
+    WRITE_SHORT 0x26 22 // MaxHP (was 16)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorjelgr.cre~ ~override~ //Green Slime
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 22 // CurrHP (was 16)
+    WRITE_SHORT 0x26 22 // MaxHP (was 16)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gormad1.cre~ ~override~ //Elven Madman
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~~ #8
+    REMOVE_MEMORIZED_SPELL ~spcl321~
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gormind.cre~ ~override~ //Ice Mist
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #65780 // LongName (was 65779)
+    WRITE_ASCII 0x248 ~bpgormnd~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpflayr2~ #8 // Class (was NONE)
+    WRITE_ASCII 0x260 ~~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gormisti.cre~ ~override~ //Ice Mist
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #65780 // LongName (was 65779)
+    WRITE_ASCII 0x250 ~bpmag14m~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gormistp.cre~ ~override~ //Poison Mist
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~bpmag14m~ #8 // Override (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gororc01.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 97 // CurrHP (was 90)
+    WRITE_SHORT 0x26 97 // MaxHP (was 90)
+    WRITE_BYTE 0x52 11 // THAC0 (was 10)
+    WRITE_BYTE 0x239 76 // StrBon (was 10)
+    WRITE_BYTE 0x23d 19 // Con (was 9)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was ORCWAR)
+    WRITE_ASCII 0x268 ~bpwtrsgt~ #8 // Default (was WTASIGHT)
+    SET_BG2_PROFICIENCY ~PROFICIENCYBASTARDSWORD~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gororc02.cre~ ~override~ //Orc Archer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 54 // CurrHP (was 45)
+    WRITE_SHORT 0x26 54 // MaxHP (was 45)
+    WRITE_BYTE 0x238 17 // Str (was 13)
+    WRITE_BYTE 0x23c 17 // Dex (was 15)
+    WRITE_BYTE 0x23d 19 // Con (was 10)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was OARCH02)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGBOW~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gororc03.cre~ ~override~ //Orc Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 47 // CurrHP (was 30)
+    WRITE_SHORT 0x26 47 // MaxHP (was 30)
+    WRITE_BYTE 0x234 10 // HighestLevelPrimary (was 12)
+    WRITE_BYTE 0x23a 17 // Int (was 9)
+    WRITE_BYTE 0x23c 17 // Dex (was 9)
+    WRITE_BYTE 0x23d 16 // Con (was 14)
+    WRITE_BYTE 0x240 2 // Morbrk (was 6)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x260 ~bpmag10a~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spwi217~
+    REMOVE_KNOWN_SPELL ~spwi212~
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi217~
+    REMOVE_MEMORIZED_SPELL ~spwi212~
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi114~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi104~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi118~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi213~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi418~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi508~ #4 ~wizard~
+    REPLACE_CRE_ITEM ~SLNG01~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~BULL01~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYSLING~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorsta03.cre~ ~override~ //Statue
+              ~gorsta04.cre~ ~override~ //Statue
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 
+    WRITE_ASCII 0x268 ~bpccle2b~ #8 // Default (was WTASIGHT)
+    REMOVE_CRE_ITEM ~UMBER1~
+    REPLACE_CRE_ITEM ~UMBER01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorsta09.cre~ ~override~ //Statue
+              ~gorsta07.cre~ ~override~ //Statue
+              ~gorsta05.cre~ ~override~ //Statue
+              ~gorsta02.cre~ ~override~ //Statue
+              ~gorsta01.cre~ ~override~ //Statue
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    REMOVE_CRE_ITEM ~UMBER1~
+    REPLACE_CRE_ITEM ~UMBER01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorsta11.cre~ ~override~ //Statue
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorsta10.cre~ ~override~ //Statue
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~creshout~ #8 
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_CRE_ITEM ~UMBER1~
+    REPLACE_CRE_ITEM ~UMBER01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorstalk.cre~ ~override~ //Guardian of Air
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #74047 // LongName (was 74046)
+    WRITE_ASCII 0x268 ~wbasight~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gortan2.cre~ ~override~ //Succubus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gortan3.cre~ ~override~ //Yochlol
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x250 ~demyoch~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was DEMYOCH)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gortan4.cre~ ~override~ //Succubus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpglabrz~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorwom01.cre~ ~override~ //Succubus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~cresht01~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~nalmiss~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorwom02.cre~ ~override~ //Succubus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~cresht01~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~huntress~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorwom03.cre~ ~override~ //Succubus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~cresht01~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~ytossi~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorwom04.cre~ ~override~ //Succubus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~ameral~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpccle2b~ #8 // Default (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorwom05.cre~ ~override~ //Hive Mother
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~cresht01~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~bpbehhiv~ #8 // Race (was NONE)
+    WRITE_ASCII 0x258 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was BEHHIV01)
+    ADD_MEMORIZED_SPELL ~sppr698~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr613~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr717~ #6 ~priest~
+    ADD_MEMORIZED_SPELL ~spwi219~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi508~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi519~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi615~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi609~ #5 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi606~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi714~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi703~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi813~ #7 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi803~ #7 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi907~ #8 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi910~ #8 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi913~ #8 ~wizard~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gorwom06.cre~ ~override~ //Succubus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~xeiwin~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpcfig2b~ #8 // Default (was NONE)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telbal1.cre~ ~override~ //Balor
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~telbal01~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telbal2.cre~ ~override~ //Balor
+              ~telcor1.cre~ ~override~ //Cornugon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telcam1.cre~ ~override~ //Cambion
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_SHORT 0x24 66 // CurrHP (was 60)
+    WRITE_SHORT 0x26 66 // MaxHP (was 60)
+    WRITE_ASCII 0x260 ~~ #8 // General (was CTHIE20B)
+    WRITE_ASCII 0x268 ~bpdemthf~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl917~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spin489~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin491~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    SET_BG2_PROFICIENCY ~PROFICIENCYBASTARDSWORD~ 5
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telpit2.cre~ ~override~ //Pit Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 140 // CurrHP (was 80)
+    WRITE_SHORT 0x26 140 // MaxHP (was 80)
+    WRITE_BYTE 0x238 23 // Str (was 18)
+    WRITE_BYTE 0x239 0 // StrBon (was 100)
+    WRITE_ASCII 0x248 ~telpit1~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x250 ~cresht01~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x258 ~bpdempit~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telpit2.cre~ ~override~ //Pit Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 140 // CurrHP (was 80)
+    WRITE_SHORT 0x26 140 // MaxHP (was 80)
+    WRITE_BYTE 0x238 23 // Str (was 18)
+    WRITE_BYTE 0x239 0 // StrBon (was 100)
+    WRITE_ASCII 0x248 ~cresht01~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x250 ~bpdempit~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telslav.cre~ ~override~ //Slave Wraith
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 97 // CurrHP (was 75)
+    WRITE_SHORT 0x26 97 // MaxHP (was 75)
+    WRITE_ASCII 0x250 ~cresht01~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x258 ~bpmag14m~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telsuc1.cre~ ~override~ //Alu-Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcarc2b~ #8 // General (was NONE)
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl902~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~teltief1.cre~ ~override~ //Tiefling
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~teltief1~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpgpmerc~ #8 // Default (was GPTHIEF)
+    ADD_MEMORIZED_SPELL ~spin489~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin491~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~teltief2.cre~ ~override~ //Tiefling
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcthi2a~ #8 // Default (was GPTHIEF)
+    ADD_MEMORIZED_SPELL ~spin489~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin491~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~teltief3.cre~ ~override~ //Tiefling
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x260 ~~ #8
+    WRITE_ASCII 0x268 ~bpmag20b~ #8 // Default (was GPTHIEF)
+    ADD_MEMORIZED_SPELL ~spin489~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin491~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~telwrai.cre~ ~override~ //Demon Wraith
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 122 // CurrHP (was 82)
+    WRITE_SHORT 0x26 122 // MaxHP (was 82)
+    WRITE_ASCII 0x248 ~telwrai~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~cresht01~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpmag14m~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Class (was NONE)
+  END
+BUT_ONLY
+
+LAF watchers_keep_scripts END
+
+END
+
+
+
+///////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION tob_improvements BEGIN
+
+INCLUDE ~bp/lib/bp_tob_scripts.tph~
+
+
+COPY_EXISTING ~25spell.cre~ ~override~ //Lazarus Librarus
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~humansht~ #8
+    WRITE_ASCII 0x260 ~bpcmag2a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarbha01.cre~ ~override~ //Alexander Ralisar
+              ~sarbha02.cre~ ~override~ //Oris Nimblefinger
+              ~sarbha03.cre~ ~override~ //Asmay Jahag
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarbul01.cre~ ~override~ //Human
+              ~sarbul02.cre~ ~override~ //Human
+              ~sarbul03.cre~ ~override~ //Human
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71237 // LongName (was 71236)
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarbul04.cre~ ~override~ //Gromnir Soldier
+              ~sarbul05.cre~ ~override~ //Gromnir Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71240 // LongName (was 71239)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarbul06.cre~ ~override~ //Il-Khan Soldier
+              ~sarbul07.cre~ ~override~ //Il-Khan Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #68793 // LongName (was 68792)
+    WRITE_ASCII 0x258 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarcpt01.cre~ ~override~ //Captain Samand
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #68897 // LongName (was 68896)
+    WRITE_ASCII 0x258 ~humansht~ #8
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarcult.cre~ ~override~ //Human Cultist
+              ~sarcult2.cre~ ~override~ //Human Cultist
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71335 // LongName (was 71334)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarculto.cre~ ~override~ //Orc Cultist
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71338 // LongName (was 71337)
+    WRITE_SHORT 0x24 71 // CurrHP (was 70)
+    WRITE_SHORT 0x26 71 // MaxHP (was 70)
+    WRITE_SHORT 0x46 4 // ACNatul (was 10)
+    WRITE_SHORT 0x48 4 // ACEffec (was 10)
+    WRITE_BYTE 0x238 18 // Str (was 9)
+    WRITE_BYTE 0x239 76 // StrBon (was 0)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sardw01.cre~ ~override~ //Dwarf
+              ~sardw02.cre~ ~override~ //Dwarf
+              ~sardw03.cre~ ~override~ //Dwarf
+              ~sardw04.cre~ ~override~ //Dwarf
+              ~sardw05.cre~ ~override~ //Dwarf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71235 // LongName (was 71234)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarelf01.cre~ ~override~ //Elven Man
+              ~sarelf02.cre~ ~override~ //Elven Man
+              ~sarelf03.cre~ ~override~ //Elven Woman
+              ~sarelf04.cre~ ~override~ //Elven Woman
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71645 // LongName (was 71644)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarelf05.cre~ ~override~ //Elf
+              ~sarelf06.cre~ ~override~ //Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarfaki2.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #67151 // LongName (was 67150)
+    WRITE_SHORT 0x24 180 // CurrHP (was 100)
+    WRITE_SHORT 0x26 180 // MaxHP (was 100)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was NONE)
+    WRITE_BYTE 0x271 5 // IDSGeneral (was 1)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarfakie.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 180 // CurrHP (was 100)
+    WRITE_SHORT 0x26 180 // MaxHP (was 100)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcber2b~ #8 // Default (was NONE)
+    WRITE_BYTE 0x271 5 // IDSGeneral (was 1)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REPLACE_CRE_ITEM ~GIAFIR~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~saripg01.cre~ ~override~ //Militia Guard
+              ~saripg02.cre~ ~override~ //Militia Guard
+              ~saripg03.cre~ ~override~ //Militia Guard
+              ~saripg04.cre~ ~override~ //Militia Guard
+              ~ammerc03.cre~ ~override~ //Mercenary
+              ~ammerc04.cre~ ~override~ //Mercenary
+              ~sarelf05.cre~ ~override~ //Elf
+              ~sarelf06.cre~ ~override~ //Elf
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd01.cre~ ~override~ //Militia Guard
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #69150 // LongName (was 69149)
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd02.cre~ ~override~ //Militia Guard
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd03.cre~ ~override~ //Militia Guard
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd04.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x28 59392 // AnimationID (was 59424)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd05.cre~ ~override~ //Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpthfsht~ #8
+    WRITE_ASCII 0x268 ~bpcass2b~ #8 // Default (was CTHIE20B)
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd06.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 65 // CurrHP (was 50)
+    WRITE_SHORT 0x26 65 // MaxHP (was 50)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcmag2a~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd07.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd08.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd09.cre~ ~override~ //Thief
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 135 // CurrHP (was 115)
+    WRITE_SHORT 0x26 135 // MaxHP (was 115)
+    WRITE_BYTE 0x23f 16 // Mor (was 12)
+    WRITE_BYTE 0x240 5 // Morbrk (was 7)
+    WRITE_ASCII 0x250 ~bpthfsht~ #8
+    WRITE_ASCII 0x268 ~bpcthi2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl917~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (8)
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spin491~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spin489~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spin487~ #0 ~innate~ (8)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (8)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd10.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd11.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_LONG 0x1c 500 // Goldcarried (was 1100)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sargrd12.cre~ ~override~ //Fighter
+              ~sargrd13.cre~ ~override~
+              ~sargrd14.cre~ ~override~
+              ~sargrd15.cre~ ~override~
+              ~sargrd16.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcarc2b~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spcl121~
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+  END
+BUT_ONLY
+              
+
+COPY_EXISTING ~sarhal.cre~ ~override~ //Halfling Cultist
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71330 // LongName (was 71329)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarjai01.cre~ ~override~ //Saradush Jailer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #68947 // LongName (was 68946)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarkis01.cre~ ~override~ //Kiser Jhaeri
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 60 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 0)
+    WRITE_ASCII 0x258 ~bpthfsht~ #8
+    WRITE_ASCII 0x268 ~bpcass2c~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl917~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarkis02.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #40921 // LongName (~Fighter~)
+    SAY NAME2 #40921 // ShortName (~Fighter~)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarkis03.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarkis04.cre~ ~override~ //Kiser Jhaeri
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 60 // DtectIll (was 0)
+    WRITE_BYTE 0x68 75 // Stealth (was 0)
+    WRITE_ASCII 0x250 ~bpthfsht~ #8
+    WRITE_ASCII 0x268 ~bpcass2c~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl917~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin489~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarmag01.cre~ ~override~ //Errard
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 76 // CurrHP (was 64)
+    WRITE_SHORT 0x26 76 // MaxHP (was 64)
+    WRITE_BYTE 0x52 13 // THAC0 (was 14)
+    WRITE_ASCII 0x248 ~~ #8 // Override (was SHOUT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarmat01.cre~ ~override~ //Mateo
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarmist.cre~ ~override~ //Cold Mistress
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~cresht01~ #8
+    WRITE_ASCII 0x260 ~bpmag14m~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~MISTICE~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarorc01.cre~ ~override~ //Elite Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71567 // LongName (was 71566)
+    WRITE_SHORT 0x24 88 // CurrHP (was 85)
+    WRITE_SHORT 0x26 88 // MaxHP (was 85)
+    WRITE_SHORT 0x46 4 // ACNatul (was 6)
+    WRITE_SHORT 0x48 4 // ACEffec (was 6)
+    WRITE_BYTE 0x52 10 // THAC0 (was 9)
+    WRITE_BYTE 0x53 2 // NOAtt (was 7)
+    WRITE_BYTE 0x238 19 // Str (was 9)
+    WRITE_BYTE 0x23a 13 // Int (was 9)
+    WRITE_BYTE 0x23b 11 // Wis (was 9)
+    WRITE_BYTE 0x23c 15 // Dex (was 9)
+    WRITE_BYTE 0x23d 21 // Con (was 9)
+    WRITE_BYTE 0x23e 12 // Cha (was 9)
+    WRITE_BYTE 0x23f 15 // Mor (was 12)
+    WRITE_BYTE 0x240 4 // Morbrk (was 7)
+    WRITE_BYTE 0x242 30 // MrlReco (was 60)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Override (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    REPLACE_CRE_ITEM ~AX1H04~ #10 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYAXE~ 4
+  END
+BUT_ONLY
+
+COPY_EXISTING ~saroro01.cre~ ~override~ //Elite Orog
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    SET_BG2_PROFICIENCY ~PROFICIENCYAXE~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarrein1.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #34784 // LongName (~Orc~)
+    SAY NAME2 #34784 // ShortName (~Orc~)
+    WRITE_SHORT 0x24 73 // CurrHP (was 70)
+    WRITE_SHORT 0x26 73 // MaxHP (was 70)
+    WRITE_SHORT 0x46 5 // ACNatul (was 10)
+    WRITE_SHORT 0x48 5 // ACEffec (was 10)
+    WRITE_BYTE 0x52 13 // THAC0 (was 14)
+    WRITE_BYTE 0x238 18 // Str (was 9)
+    WRITE_BYTE 0x239 76 // StrBon (was 0)
+    WRITE_BYTE 0x23a 11 // Int (was 9)
+    WRITE_BYTE 0x23b 11 // Wis (was 9)
+    WRITE_BYTE 0x23c 15 // Dex (was 9)
+    WRITE_BYTE 0x23d 20 // Con (was 9)
+    WRITE_BYTE 0x23e 7 // Cha (was 9)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    SET_BG2_PROFICIENCY ~PROFICIENCYAXE~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarrein2.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #34784 // LongName (~Orc~)
+    SAY NAME2 #34784 // ShortName (~Orc~)
+    WRITE_SHORT 0x24 84 // CurrHP (was 70)
+    WRITE_SHORT 0x26 84 // MaxHP (was 70)
+    WRITE_SHORT 0x46 8 // ACNatul (was 10)
+    WRITE_SHORT 0x48 8 // ACEffec (was 10)
+    WRITE_BYTE 0x52 13 // THAC0 (was 14)
+    WRITE_BYTE 0x238 18 // Str (was 9)
+    WRITE_BYTE 0x239 51 // StrBon (was 0)
+    WRITE_BYTE 0x23a 11 // Int (was 9)
+    WRITE_BYTE 0x23b 11 // Wis (was 9)
+    WRITE_BYTE 0x23c 15 // Dex (was 9)
+    WRITE_BYTE 0x23d 20 // Con (was 9)
+    WRITE_BYTE 0x23e 7 // Cha (was 9)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    SET_BG2_PROFICIENCY ~PROFICIENCYBASTARDSWORD~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarson01.cre~ ~override~ //Ardic Santele
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #68932 // LongName (was 68930)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarspir.cre~ ~override~ //Prison Spirit
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #68964 // LongName (was 68962)
+    WRITE_ASCII 0x248 ~cresht01~ #8
+    WRITE_ASCII 0x258 ~bpmag14m~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi212~
+    REMOVE_MEMORIZED_SPELL ~spwi304~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi402~
+    REMOVE_MEMORIZED_SPELL ~spwi415~
+    REMOVE_MEMORIZED_SPELL ~spwi502~
+    REMOVE_MEMORIZED_SPELL ~spwi504~
+    REMOVE_MEMORIZED_SPELL ~spwi602~
+    REMOVE_MEMORIZED_SPELL ~spwi604~
+    ADD_MEMORIZED_SPELL ~spwi105~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi106~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi125~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi205~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi317~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi314~ #2 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi409~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi412~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi419~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi512~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi607~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi618~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~sumshad~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sartem01.cre~ ~override~ //Sister Farielle
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #69114 // LongName (was 69113)
+    WRITE_ASCII 0x250 ~bpthfsht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x260 ~bpprst12~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sartro01.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #34784 // LongName (~Orc~)
+    SAY NAME2 #34784 // ShortName (~Orc~)
+    WRITE_SHORT 0x24 77 // CurrHP (was 70)
+    WRITE_SHORT 0x26 77 // MaxHP (was 70)
+    WRITE_SHORT 0x46 4 // ACNatul (was 10)
+    WRITE_SHORT 0x48 4 // ACEffec (was 10)
+    WRITE_BYTE 0x52 13 // THAC0 (was 14)
+    WRITE_BYTE 0x238 18 // Str (was 9)
+    WRITE_BYTE 0x239 76 // StrBon (was 0)
+    WRITE_BYTE 0x23a 10 // Int (was 9)
+    WRITE_BYTE 0x23c 15 // Dex (was 9)
+    WRITE_BYTE 0x23d 20 // Con (was 9)
+    WRITE_BYTE 0x23e 7 // Cha (was 9)
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sartro02.cre~ ~override~ 
+              ~sartro03.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sarvie01.cre~ ~override~ //Viekang
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 25 // DtectIll (was 10)
+    WRITE_ASCII 0x248 ~bpthfsht~ #8
+    WRITE_ASCII 0x260 ~~ #8 // General (was CTHIE20A)
+    WRITE_ASCII 0x268 ~bpcthi2a~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spin491~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl917~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+
+
+
+
+COPY_EXISTING ~sewarc01.cre~ ~override~ //Orc Archer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 96 // CurrHP (was 66)
+    WRITE_SHORT 0x26 96 // MaxHP (was 66)
+    WRITE_SHORT 0x46 3 // ACNatul (was 10)
+    WRITE_SHORT 0x48 3 // ACEffec (was 10)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcarc2b~ #8 // Default (was CFIGH20B)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    REMOVE_MEMORIZED_SPELL ~spcl121~
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewarc02.cre~ ~override~ //Orc Archer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 97 // CurrHP (was 70)
+    WRITE_SHORT 0x26 97 // MaxHP (was 70)
+    WRITE_SHORT 0x46 6 // ACNatul (was 10)
+    WRITE_SHORT 0x48 6 // ACEffec (was 10)
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_BYTE 0x238 18 // Str (was 15)
+    WRITE_BYTE 0x239 91 // StrBon (was 0)
+    WRITE_BYTE 0x23a 11 // Int (was 9)
+    WRITE_BYTE 0x23d 20 // Con (was 9)
+    WRITE_BYTE 0x23e 6 // Cha (was 9)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcarc2b~ #8 // Default (was CFIGH20B)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewdue01.cre~ ~override~ //Duergar Sapper
+              ~sewdue02.cre~ ~override~ //Duergar Sapper
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x258 ~~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwtasgt~ #8 // Default (was CFIGH20B)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewrak01.cre~ ~override~ //Rakshasa
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x258 ~bpmage8d~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x260 ~bprakruh~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewsha01.cre~ ~override~ //Shadow Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 76 // CurrHP (was 59)
+    WRITE_SHORT 0x26 76 // MaxHP (was 59)
+    WRITE_BYTE 0x234 7 // HighestLevelPrimary (was 5)
+    WRITE_ASCII 0x250 ~cresht01~ #8
+    WRITE_ASCII 0x258 ~bpmag14m~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi212~
+    REMOVE_MEMORIZED_SPELL ~spwi304~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi402~
+    REMOVE_MEMORIZED_SPELL ~spwi415~
+    REMOVE_MEMORIZED_SPELL ~spwi502~
+    REMOVE_MEMORIZED_SPELL ~spwi504~
+    REMOVE_MEMORIZED_SPELL ~spwi602~
+    REMOVE_MEMORIZED_SPELL ~spwi604~
+    ADD_MEMORIZED_SPELL ~spwi106~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi105~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi125~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi205~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi317~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi314~ #2 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi409~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi412~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi419~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi512~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi607~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi618~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~sumshad~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewsha02.cre~ ~override~ //Shadow Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 76 // CurrHP (was 59)
+    WRITE_SHORT 0x26 76 // MaxHP (was 59)
+    WRITE_BYTE 0x234 7 // HighestLevelPrimary (was 5)
+    WRITE_ASCII 0x250 ~cresht01~ #8
+    WRITE_ASCII 0x258 ~bpmag14m~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwtsigt~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi212~
+    REMOVE_MEMORIZED_SPELL ~spwi304~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi402~
+    REMOVE_MEMORIZED_SPELL ~spwi415~
+    REMOVE_MEMORIZED_SPELL ~spwi502~
+    REMOVE_MEMORIZED_SPELL ~spwi504~
+    REMOVE_MEMORIZED_SPELL ~spwi602~
+    REMOVE_MEMORIZED_SPELL ~spwi604~
+    ADD_MEMORIZED_SPELL ~spwi106~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi105~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi125~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi205~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi317~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi314~ #2 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi409~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi412~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi419~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi512~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi607~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi618~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~sumshad~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewsha03.cre~ ~override~ //Shadow
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 48 // CurrHP (was 30)
+    WRITE_SHORT 0x26 48 // MaxHP (was 30)
+    WRITE_SHORT 0x46 5 // ACNatul (was 7)
+    WRITE_SHORT 0x48 5 // ACEffec (was 7)
+    WRITE_BYTE 0x234 5 // HighestLevelPrimary (was 3)
+    WRITE_ASCII 0x250 ~cresht01~ #8
+    WRITE_ASCII 0x268 ~bpshadow~ #8 // Default (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi212~
+    REMOVE_MEMORIZED_SPELL ~spwi304~
+    REMOVE_MEMORIZED_SPELL ~spwi306~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi402~
+    REMOVE_MEMORIZED_SPELL ~spwi415~
+    REMOVE_MEMORIZED_SPELL ~spwi501~
+    REMOVE_MEMORIZED_SPELL ~spwi502~
+    REMOVE_MEMORIZED_SPELL ~spwi504~
+    REMOVE_MEMORIZED_SPELL ~spwi508~
+    REMOVE_MEMORIZED_SPELL ~spwi601~
+    REMOVE_MEMORIZED_SPELL ~spwi602~
+    REMOVE_MEMORIZED_SPELL ~spwi604~
+    ADD_MEMORIZED_SPELL ~spwi106~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi105~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi125~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi205~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi317~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi314~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi412~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi409~ #3 ~wizard~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewyag01.cre~ ~override~ //Elite Orog
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71569 // LongName (was 71568)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewyag02.cre~ ~override~ //Orc Archer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 137 // CurrHP (was 130)
+    WRITE_SHORT 0x26 137 // MaxHP (was 130)
+    WRITE_SHORT 0x46 6 // ACNatul (was 10)
+    WRITE_SHORT 0x48 6 // ACEffec (was 10)
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_BYTE 0x234 17 // HighestLevelPrimary (was 14)
+    WRITE_BYTE 0x238 18 // Str (was 15)
+    WRITE_BYTE 0x239 91 // StrBon (was 0)
+    WRITE_BYTE 0x23a 12 // Int (was 9)
+    WRITE_BYTE 0x23d 21 // Con (was 9)
+    WRITE_BYTE 0x23e 5 // Cha (was 9)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcarc2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    REMOVE_MEMORIZED_SPELL ~spcl121~
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewyag03.cre~ ~override~ //Elite Orog
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #71569 // LongName (was 71568)
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcber2b~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sewyag04.cre~ ~override~ //Yaga-Shura Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x258 ~bpmag20b~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DAGG16~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+
+
+
+COPY_EXISTING ~amarch01.cre~ ~override~ //Captain Erelon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amcarras.cre~ ~override~ //Carras
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_LONG 0x10 0x5000041
+    WRITE_ASCII 0x34 ~smugs~ #8
+    WRITE_BYTE 0x45 80
+    WRITE_BYTE 0x53 2
+    WRITE_BYTE 0x68 80
+    WRITE_BYTE 0x235 14
+    WRITE_BYTE 0x239 51
+    WRITE_ASCII 0x250 ~bpthfsht~ #8
+    WRITE_ASCII 0x258 ~amcarras~ #8
+    WRITE_ASCII 0x260 ~bpmag12e~ #8
+    WRITE_ASCII 0x268 ~bpthief~ #8
+    REMOVE_MEMORIZED_SPELL ~spwi205~ ~spwi305~ ~spwi306~ ~spwi505~ ~spwi511~ ~spwi623~
+    REMOVE_KNOWN_SPELL ~spwi205~ ~spwi305~ ~spwi306~ ~spwi505~ ~spwi511~ ~spwi623~
+    ADD_MEMORIZED_SPELL ~spwi104~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi206~ #1 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi302~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi306~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi308~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi316~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi401~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi402~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi407~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi505~ #4 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi506~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi518~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi605~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi618~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (3)
+    SET_BG2_PROFICIENCY ~PROFICIENCYSHORTBOW~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGSWORD~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amcler01.cre~ ~override~ //Priest of Waukeen
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x258 ~bppri10a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0  ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~SLNG01~ #0 #0 #0  ~NONE~ ~WEAPON2~ EQUIP
+    REPLACE_CRE_ITEM ~BULL01~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+    SET_BG2_PROFICIENCY ~PROFICIENCYSLING~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amcler02.cre~ ~override~ //Chyil
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x250 ~bppri10a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0  ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~SHLD01~ #0 #0 #0  ~NONE~ ~SHIELD~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0  ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BLUN04~ #0 #0 #0  ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~SLNG01~ #0 #0 #0  ~NONE~ ~WEAPON2~ EQUIP
+    REPLACE_CRE_ITEM ~BULL01~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 1
+    SET_BG2_PROFICIENCY ~PROFICIENCYSLING~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amcst02.cre~ ~override~ //Mage
+              ~amcst03.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGSWORD~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amcst04.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x260 ~bpmag10c~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 1
+    REPLACE_CRE_ITEM ~DAGG25~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amduel01.cre~ ~override~
+              ~amduel02.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpgpmerc~ #8
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amduel03.cre~ ~override~ //Mercenary Captain
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x258 ~bpleader~ #8
+    WRITE_ASCII 0x268 ~bpgpmerc~ #8
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amfaheed.cre~ ~override~ //Faheed
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x260 ~~ #8 //General script
+    WRITE_ASCII 0x268 ~bpckmg2b~ #8 //General script
+    WRITE_BYTE 0x273 7 //Class (fighter-mage)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammgrd01.cre~ ~override~ //Monk
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcmnk2b~ #8 //Default script
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammgrd02.cre~ ~override~ //Guard Captain
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~humansht~ #8
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammgrd03.cre~ ~override~ //Guard Captain
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammgrd04.cre~ ~override~ //Guard Captain
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammerc03.cre~ ~override~ //Mercenary
+              ~ammerc04.cre~ ~override~ //Mercenary
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammlegs.cre~ ~override~ //Monk
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcmnk2b~ #8 //Default script
+    REPLACE_CRE_ITEM ~DAGG25~ #20 #0 #0 ~NONE~ ~WEAPON2~
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammonk01.cre~ ~override~ //Monk
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcmnk2b~ #8 //Default script
+    REPLACE_CRE_ITEM ~DART02~ #40 #0 #0 ~NONE~ ~WEAPON2~
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammonk02.cre~ ~override~ //Monk
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammonk03.cre~ ~override~ //Monk
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpcmnk2b~ #8
+    REPLACE_CRE_ITEM ~MFIST7~ #0 #0 #0 ~UNDROPPABLE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG26~ #20 #0 #0 ~NONE~ ~WEAPON2~
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~ (6)
+    ADD_MEMORIZED_SPELL ~spcl815~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spcl820~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ammonk04.cre~ ~override~ //Monk
+              ~ammonk05.cre~ ~override~ //Monk
+              ~ammonk06.cre~ ~override~ //Monk
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x280 ~ammonk04~ #32
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amsmug01.cre~ ~override~ //Smuggler
+              ~amsmug02.cre~ ~override~ //Smuggler
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpthfsht~ #8
+    WRITE_ASCII 0x268 ~bpthief~ #8
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amtcap01.cre~ ~override~ //Tethyrian Captain
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 140
+    WRITE_SHORT 0x26 140
+    WRITE_BYTE 0x239 44
+    WRITE_BYTE 0x23c 17
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpgpmerc~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amtcler0.cre~ ~override~ //Tethyrian Battlemage
+              ~amtcle01.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpgpheal~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF06~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG25~ #30 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amtgen01.cre~ ~override~ //Tethyrian Battlemage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpgpmerc~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF06~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG25~ #30 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~amtmag01.cre~ ~override~ //Tethyrian Battlemage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8
+    WRITE_ASCII 0x268 ~bpgpmag2~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~STAF06~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG25~ #30 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobban01.cre~ ~override~ //Sharik Nefal
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8
+    WRITE_ASCII 0x260 ~bp!bard~ #8 
+    WRITE_ASCII 0x268 ~bpcbd12a~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobban02.cre~ ~override~ //Orc Archer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 134 // CurrHP (was 130)
+    WRITE_SHORT 0x26 134 // MaxHP (was 130)
+    WRITE_SHORT 0x46 6 // ACNatul (was 10)
+    WRITE_SHORT 0x48 6 // ACEffec (was 10)
+    WRITE_BYTE 0x52 8 // THAC0 (was 13)
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_BYTE 0x54 7 // SaveVDth (was 10)
+    WRITE_BYTE 0x55 9 // SaveVWnd (was 12)
+    WRITE_BYTE 0x56 8 // SaveVPoly (was 11)
+    WRITE_BYTE 0x57 8 // SaveVAtks (was 12)
+    WRITE_BYTE 0x58 10 // SaveVspell (was 13)
+    WRITE_BYTE 0x234 17 // HighestLevelPrimary (was 8)
+    WRITE_BYTE 0x238 18 // Str (was 15)
+    WRITE_BYTE 0x239 91 // StrBon (was 0)
+    WRITE_BYTE 0x23a 11 // Int (was 9)
+    WRITE_BYTE 0x23d 21 // Con (was 9)
+    WRITE_BYTE 0x23e 6 // Cha (was 9)
+    WRITE_ASCII 0x250 ~humansht~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcarc2b~ #8 // General (was WTASIGHT)
+    WRITE_BYTE 0x272 143 // IDSRace (was 2)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    REMOVE_MEMORIZED_SPELL ~spcl121~
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobban03.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 152 // CurrHP (was 90)
+    WRITE_SHORT 0x26 152 // MaxHP (was 90)
+    WRITE_SHORT 0x46 6 // ACNatul (was 10)
+    WRITE_SHORT 0x48 6 // ACEffec (was 10)
+    WRITE_BYTE 0x52 8 // THAC0 (was 9)
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_BYTE 0x234 12 // HighestLevelPrimary (was 10)
+    WRITE_BYTE 0x239 76 // StrBon (was 50)
+    WRITE_BYTE 0x23a 10 // Int (was 9)
+    WRITE_BYTE 0x23e 8 // Cha (was 9)
+    WRITE_ASCII 0x250 ~humansht~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcber2b~ #8 // General (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 18)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REPLACE_CRE_ITEM ~AX1H11~ #0 #0 #0 ~NONE~ ~SHIELD~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobban04.cre~ ~override~ //Orog
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_ASCII 0x250 ~humansht~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcber2b~ #8 // General (was WTASIGHT)
+    REMOVE_MEMORIZED_SPELL ~spcl321~
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~ (2)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobpar01.cre~ ~override~ //Eler Had
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 55 // DtectIll (was 0)
+    WRITE_BYTE 0x68 85 // Stealth (was 0)
+    WRITE_ASCII 0x250 ~bpthfsht~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcthi2b~ #8 // General (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl917~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobpar02.cre~ ~override~ //Karun the Black
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcbar2b~ #8 // General (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobpar03.cre~ ~override~ //Karun the Black
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // General (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpcmnk2b~ #8 // General (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tobpar04.cre~ ~override~ //Karun the Black
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~bpwdasgt~ #8 // General (was WTASIGHT)
+    REPLACE_CRE_ITEM ~DAGG26~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fshorde1.cre~ ~override~ //Goblin
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 15 // CurrHP (was 7)
+    WRITE_SHORT 0x28 58368 // AnimationID (was 58400)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fshorde2.cre~ ~override~ //Goblin
+              ~fshorde3.cre~ ~override~ //Goblin
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_SHORT 0x24 15 // CurrHP (was 7)
+    WRITE_SHORT 0x26 15 // MaxHP (was 7)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fshorde4.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x258 ~~ #8 // Race (was ORCWAR)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fshorde5.cre~ ~override~ //Orc Priest
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 72 // CurrHP (was 80)
+    WRITE_SHORT 0x26 72 // MaxHP (was 80)
+    WRITE_BYTE 0x52 14 // THAC0 (was 19)
+    WRITE_BYTE 0x54 10 // SaveVDth (was 14)
+    WRITE_BYTE 0x55 13 // SaveVWnd (was 16)
+    WRITE_BYTE 0x56 11 // SaveVPoly (was 15)
+    WRITE_BYTE 0x57 15 // SaveVAtks (was 17)
+    WRITE_BYTE 0x58 12 // SaveVspell (was 17)
+    // WRITE_BYTE 0x6e 1 // Unu0(Large swords prof) (was 0)
+    // WRITE_BYTE 0x6f 1 // Unu1(Small swords prof) (was 0)
+    // WRITE_BYTE 0x71 1 // Unu3(Spears prof) (was 0)
+    // WRITE_BYTE 0x73 1 // Unu5(Spiked prof) (was 0)
+    // WRITE_BYTE 0x74 1 // Unu6(Axe prof) (was 0)
+    // WRITE_BYTE 0x75 1 // Unu7(Missile prof) (was 0)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~sppr303~
+    REMOVE_KNOWN_SPELL ~sppr511~
+    REMOVE_MEMORIZED_SPELL ~sppr103~
+    REMOVE_MEMORIZED_SPELL ~sppr208~
+    REMOVE_MEMORIZED_SPELL ~sppr303~
+    ADD_MEMORIZED_SPELL ~sppr103~ #0 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr208~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr202~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr203~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr204~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr211~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr312~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr314~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr411~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr599~ #4 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr505~ #4 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr501~ #4 ~priest~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fshorde6.cre~ ~override~ //Orc Archer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 43 // CurrHP (was 35)
+    WRITE_SHORT 0x26 43 // MaxHP (was 35)
+    WRITE_BYTE 0x52 16 // THAC0 (was 18)
+    WRITE_BYTE 0x54 12 // SaveVDth (was 14)
+    WRITE_BYTE 0x55 14 // SaveVWnd (was 16)
+    WRITE_BYTE 0x56 13 // SaveVPoly (was 15)
+    WRITE_BYTE 0x57 15 // SaveVAtks (was 17)
+    WRITE_BYTE 0x58 15 // SaveVspell (was 17)
+    // WRITE_BYTE 0x6f 1 // Unu1(Small swords prof) (was 0)
+    // WRITE_BYTE 0x71 1 // Unu3(Spears prof) (was 0)
+    // WRITE_BYTE 0x72 1 // Unu4(Blunt prof) (was 0)
+    // WRITE_BYTE 0x73 1 // Unu5(Spiked prof) (was 0)
+    // WRITE_BYTE 0x74 1 // Unu6(Axe prof) (was 0)
+    // WRITE_BYTE 0x75 1 // Unu7(Missile prof) (was 0)
+    WRITE_BYTE 0x238 16 // Str (was 11)
+    WRITE_BYTE 0x23c 17 // Dex (was 11)
+    WRITE_BYTE 0x23d 19 // Con (was 10)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was OARCH02)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsmumm2.cre~ ~override~ //Mummy
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 55 // CurrHP (was 35)
+    WRITE_SHORT 0x26 55 // MaxHP (was 35)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~fsmumm3.cre~ ~override~ //Mummy
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 58 // CurrHP (was 30)
+    WRITE_SHORT 0x26 58 // MaxHP (was 30)
+  END
+BUT_ONLY
+
+LAF tob_scripts END
+
+END
+
+
+
+
+
+/////////////ASCENSION FOR BP, by David Gaider///////////////////
+
+DEFINE_ACTION_FUNCTION bp_ascension BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~GBAstral.spl~ BEGIN
+  COPY ~bp/spl/GBAstral.spl~ ~override~
+END
+
+COPY_EXISTING ~ar6200.are~ ~override~
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 1    //info
+    fj_box_left     = 1307
+    fj_box_top      = 627
+    fj_box_right    = 1322
+    fj_box_bottom   = 657
+    fj_cursor_idx   = 0  
+    fj_vertex_0     = 1317 + (627 << 16)
+    fj_vertex_1     = 1307 + (657 << 16)
+    fj_vertex_2     = 1322 + (756 << 16)
+    fj_loc_x        = 1300
+    fj_loc_y        = 788
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = ThroneC
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 1    //info
+    fj_box_left     = 1589
+    fj_box_top      = 1103
+    fj_box_right    = 1607
+    fj_box_bottom   = 1130
+    fj_cursor_idx   = 0  
+    fj_vertex_0     = 1589 + (1129 << 16)
+    fj_vertex_1     = 1600 + (1103 << 16)
+    fj_vertex_2     = 1607 + (1130 << 16)
+    fj_loc_x        = 1300
+    fj_loc_y        = 980
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = ThroneR
+  END
+  LPF fj_are_structure
+    INT_VAR
+    fj_type         = 1    //info
+    fj_box_left     = 854
+    fj_box_top      = 993
+    fj_box_right    = 873
+    fj_box_bottom   = 1017
+    fj_cursor_idx   = 0  
+    fj_vertex_0     = 854 + (1016 << 16)
+    fj_vertex_1     = 865 + (993 << 16)
+    fj_vertex_2     = 873 + (1017 << 16)
+    fj_loc_x        = 1044
+    fj_loc_y        = 980
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = ThroneL
+  END
+
+
+
+COPY_EXISTING ~ar5505.are~ ~override~
+  WRITE_BYTE    0x240 2    // party required
+
+  // "ThroneR" proximity trigger coords
+  WRITE_SHORT   0x512 1385
+  WRITE_SHORT   0x514 679
+  WRITE_SHORT   0x516 1417
+  WRITE_SHORT   0x518 703
+
+  // "ThroneL" proximity trigger coords
+  WRITE_SHORT   0x5d6 344
+  WRITE_SHORT   0x5d8 1000
+  WRITE_SHORT   0x5da 375
+  WRITE_SHORT   0x5dc 1041
+
+  // Vertex 38+ coordinates
+  WRITE_SHORT   0x978 0x3fe
+  WRITE_SHORT   0x97a 0x182
+  WRITE_SHORT   0x97c 0x3f2
+  WRITE_SHORT   0x97e 0x1a8
+  WRITE_SHORT   0x980 0x413
+  WRITE_SHORT   0x982 0x192
+  WRITE_SHORT   0x984 0x1b2
+  WRITE_SHORT   0x986 0x285
+  WRITE_SHORT   0x988 0x1c6
+  WRITE_SHORT   0x98a 0x25b
+  WRITE_SHORT   0x98c 0x1cd
+  WRITE_SHORT   0x98e 0x288
+BUT_ONLY
+
+
+COPY ~bp/ascend/cre/balelit1.cre~ ~override~
+
+COPY ~bp/ascend/cre/balelit2.cre~ ~override~
+
+COPY ~bp/ascend/cre/balelit3.cre~ ~override~
+
+COPY ~bp/ascend/cre/balelit4.cre~ ~override~
+
+COPY ~bp/ascend/cre/balth.cre~ ~override~
+
+COPY ~bp/ascend/cre/balth2.cre~ ~override~
+
+COPY ~bp/ascend/cre/finabaz.cre~ ~override~
+
+COPY ~bp/ascend/cre/finaluf.cre~ ~override~
+
+COPY ~bp/ascend/cre/finbabau.cre~ ~override~
+  SAY NAME1 @501 //Babau
+  SAY NAME2 @501 //Babau
+
+COPY ~bp/ascend/cre/finbalor.cre~ ~override~
+
+COPY ~bp/ascend/cre/finbalth.cre~ ~override~
+
+COPY ~bp/ascend/cre/finbodh.cre~ ~override~
+
+COPY ~bp/ascend/cre/fincamb2.cre~ ~override~
+
+COPY ~bp/ascend/cre/finglab.cre~ ~override~
+
+COPY ~bp/ascend/cre/fingrom.cre~ ~override~
+
+COPY ~bp/ascend/cre/finilla.cre~ ~override~
+
+COPY ~bp/ascend/cre/finimoen.cre~ ~override~
+
+COPY ~bp/ascend/cre/finirat.cre~ ~override~
+
+COPY ~bp/ascend/cre/finiren.cre~ ~override~
+
+COPY ~bp/ascend/cre/finmaril.cre~ ~override~
+
+COPY ~bp/ascend/cre/finmel01.cre~ ~override~
+
+COPY ~bp/ascend/cre/finnabas.cre~ ~override~
+
+COPY ~bp/ascend/cre/finsarev.cre~ ~override~
+
+COPY ~bp/ascend/cre/finsend.cre~ ~override~
+
+COPY_EXISTING ~finsol01.cre~ ~override~ //Solar
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #66429 // LongName (was 66428)
+    WRITE_ASCII 0x250 ~bpmag10b~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY ~bp/ascend/cre/finsola2.cre~ ~override~
+
+COPY ~bp/ascend/cre/finsolar.cre~ ~override~
+
+COPY ~bp/ascend/cre/finsucc.cre~ ~override~
+
+COPY ~bp/ascend/cre/finyaga.cre~ ~override~
+
+COPY ~bp/ascend/cre/krbodbat.cre~ ~override~
+
+COPY ~bp/ascend/cre/krbodvam.cre~ ~override~
+
+
+COPY ~bp/cre/melrat.cre~ ~override~
+
+COPY_EXISTING ~melsum02.cre~ ~override~ //Bone Fiend
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #70639 // LongName (was 70638)
+    WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~melsum03.cre~ ~override~ //Death Tyrant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #10653 // LongName (~Death Tyrant~)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~melsum06.cre~ ~override~ //Alhoon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY ~bp/cre/ravager.cre~ ~override~
+
+
+COPY ~bp/ascend/cre/slayer2.cre~ ~override~
+
+COPY ~bp/ascend/cre/slayer3.cre~ ~override~
+
+COPY ~bp/ascend/cre/sword01.cre~ ~override~
+
+COPY ~bp/cre/tobpar05.cre~ ~override~
+
+COPY ~bp/cre/yarmy02.cre~ ~override~
+
+COPY ~bp/ascend/itm/allfive.itm~ ~override~
+
+COPY ~bp/ascend/itm/balswd.itm~ ~override~
+
+COPY ~bp/ascend/itm/berena.itm~ ~override~
+
+COPY ~bp/ascend/itm/dartmel.itm~ ~override~
+
+COPY ~bp/ascend/itm/demsuc01.itm~ ~override~
+
+COPY ~bp/ascend/itm/eler.itm~ ~override~
+
+COPY ~bp/ascend/itm/finabaz.itm~ ~override~
+
+COPY ~bp/ascend/itm/finbabau.itm~ ~override~
+
+COPY ~bp/ascend/itm/finbalth.itm~ ~override~
+
+COPY ~bp/ascend/itm/finglab.itm~ ~override~
+
+COPY ~bp/ascend/itm/finilla.itm~ ~override~
+
+COPY ~bp/ascend/itm/finipotn.itm~ ~override~
+
+COPY ~bp/ascend/itm/finir0m.itm~ ~override~
+
+COPY ~bp/ascend/itm/finir0r.itm~ ~override~
+
+COPY ~bp/ascend/itm/finiren.itm~ ~override~
+
+COPY ~bp/ascend/itm/finirobe.itm~ ~override~
+
+COPY ~bp/ascend/itm/finmel01.itm~ ~override~
+
+COPY ~bp/ascend/itm/finnabas.itm~ ~override~
+
+COPY ~bp/ascend/itm/finsarev.itm~ ~override~
+  SAY NAME2 @502 //Sword of Chaos +4
+  SAY DESC @503
+
+COPY ~bp/ascend/itm/finsend.itm~ ~override~
+
+COPY ~bp/ascend/itm/finsrv.itm~ ~override~
+
+COPY ~bp/ascend/itm/finyaga.itm~ ~override~
+
+COPY ~bp/ascend/itm/irenbrch.itm~ ~override~
+
+COPY ~bp/ascend/itm/irenprce.itm~ ~override~
+
+COPY ~bp/ascend/itm/mfist7.itm~ ~override~
+
+COPY ~bp/ascend/itm/mfist8.itm~ ~override~
+
+COPY ~bp/ascend/itm/sdscrl1.itm~ ~override~
+
+COPY ~bp/ascend/itm/sdscrl2.itm~ ~override~
+
+COPY ~bp/ascend/itm/sdscrl3.itm~ ~override~
+
+COPY ~bp/ascend/itm/send01.itm~ ~override~
+  SAY NAME2 @504 //Sendai's Potion
+  SAY DESC @505
+
+COPY ~bp/ascend/itm/slaywp2.itm~ ~override~
+
+COPY ~bp/ascend/itm/slaywp3.itm~ ~override~
+
+COPY ~bp/ascend/itm/slaywp4.itm~ ~override~
+
+COPY ~bp/ascend/itm/slngsd.itm~ ~override~
+
+COPY ~bp/ascend/itm/spermel.itm~ ~override~
+
+
+COPY ~bp/ascend/tough/abaz/copy/abaz02.spl~ ~override~
+  SAY NAME1 @507 //Lightning Aura
+
+COPY ~bp/ascend/spl/balaura.spl~ ~override~
+
+COPY ~bp/ascend/spl/baldead.spl~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/balortk1.spl~ ~override~
+  SAY NAME1 @30 //Telekinesis
+
+COPY ~bp/ascend/tough/abaz/copy/balortk2.spl~ ~override~
+  SAY NAME1 @506 //Shockwave
+
+COPY ~bp/ascend/spl/balth02.spl~ ~override~
+
+COPY ~bp/ascend/spl/balth03.spl~ ~override~
+
+COPY ~bp/ascend/spl/balth04.spl~ ~override~
+
+COPY ~bp/ascend/spl/balth05.spl~ ~override~
+
+COPY ~bp/ascend/spl/balth07.spl~ ~override~
+
+COPY ~bp/ascend/spl/balth08.spl~ ~override~
+
+COPY ~bp/ascend/spl/balth10.spl~ ~override~
+
+COPY ~bp/ascend/spl/balth11.spl~ ~override~
+  SAY NAME1 @509 //Flip Resistances
+
+COPY ~bp/ascend/spl/balth12.spl~ ~override~
+
+COPY ~bp/ascend/spl/basilisk.spl~ ~override~
+
+COPY ~bp/ascend/spl/bhaal2b.spl~ ~override~
+
+COPY ~bp/ascend/spl/bodgasf.spl~ ~override~
+
+COPY ~bp/ascend/spl/ctrldem.spl~ ~override~
+  SAY NAME1 @510 //Control Demon
+
+COPY ~bp/ascend/spl/demondie.spl~ ~override~
+
+COPY ~bp/ascend/spl/dgwhirl.spl~ ~override~
+
+COPY ~bp/ascend/spl/dimdoor.spl~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake01.spl~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake02.spl~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake03.spl~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake04.spl~ ~override~
+
+COPY ~bp/ascend/spl/finsarev.spl~ ~override~
+
+COPY ~bp/ascend/spl/focus.spl~ ~override~
+  SAY NAME1 @511 //Focus
+
+COPY ~bp/ascend/spl/gate1.spl~ ~override~
+
+COPY ~bp/ascend/spl/gate2.spl~ ~override~
+
+COPY ~bp/ascend/spl/gate3.spl~ ~override~
+
+COPY ~bp/ascend/spl/gate4.spl~ ~override~
+
+COPY ~bp/ascend/spl/gate5.spl~ ~override~
+
+COPY ~bp/ascend/spl/gate6.spl~ ~override~
+
+COPY ~bp/ascend/spl/gate7.spl~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/illainv.spl~ ~override~
+
+
+COPY ~bp/ascend/spl/imoeth.spl~ ~override~
+
+COPY ~bp/ascend/spl/imoslay1.spl~ ~override~
+
+COPY ~bp/ascend/spl/imoslay2.spl~ ~override~
+
+COPY ~bp/ascend/spl/imoslay3.spl~ ~override~
+
+COPY ~bp/ascend/spl/imoslay4.spl~ ~override~
+
+COPY ~bp/ascend/spl/melis01.spl~ ~override~
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~melis02.spl~ BEGIN
+  COPY ~bp/ascend/spl/melis02.spl~ ~override~
+END ELSE BEGIN
+  COPY_EXISTING ~melis02.spl~ ~override~
+    READ_LONG  0x64  "ability_offset"
+    READ_SHORT 0x68  "abil_cnt"
+    READ_LONG  0x6a  "eff_offset"
+    FOR( cnt=0; cnt<"%abil_cnt%"; cnt=cnt+1) BEGIN
+      READ_BYTE ("%ability_offset%"+cnt*0x28)  "type"
+      PATCH_IF("%type%"=1) BEGIN        //Melee ability
+        READ_SHORT ("%ability_offset%"+cnt*0x28+0x1e)  eff_cnt
+        READ_SHORT ("%ability_offset%"+cnt*0x28+0x20)  eff_idx
+        FOR( cnt2=0; cnt2<eff_cnt; cnt2=cnt2+1) BEGIN
+          READ_SHORT ("%eff_offset%"+0x30*(cnt2+eff_idx))  "eff_type"
+          PATCH_IF( "%eff_type%"=282) BEGIN
+            SET offset = ("%eff_offset%"+0x30*(cnt2+eff_idx))
+            WRITE_SHORT  offset    233     //Modify proficiencies
+            WRITE_LONG   offset+4  2       //num. of stars
+            WRITE_LONG   offset+8  121     //CLERIC_BLADE_BARRIER
+          END
+        END
+      END
+    END
+  END
+
+   
+COPY ~bp/ascend/spl/melis02b.spl~ ~override~
+
+COPY ~bp/ascend/spl/melspl01.spl~ ~override~
+  SAY NAME1 @512 //Divine Mantle
+
+COPY ~bp/ascend/spl/melspl02.spl~ ~override~
+  SAY NAME1 @513 //Draw Power
+
+COPY ~bp/ascend/spl/melspl03.spl~ ~override~
+  SAY NAME1 @514 //Divine Spell Shield
+
+COPY ~bp/ascend/spl/melspl05.spl~ ~override~
+  SAY NAME1 @515 //Command Demon
+
+COPY ~bp/ascend/spl/melspl06.spl~ ~override~
+  SAY NAME1 @516 //Banish
+
+COPY ~bp/ascend/spl/melspl07.spl~ ~override~
+
+COPY ~bp/ascend/spl/melspl08.spl~ ~override~
+  SAY NAME1 @517 //Unleash
+
+COPY ~bp/ascend/spl/melspl09.spl~ ~override~
+  SAY NAME1 @517 //Unleash
+
+COPY ~bp/ascend/spl/melspl10.spl~ ~override~
+  SAY NAME1 @518 //Feedback
+
+COPY ~bp/ascend/spl/melspl11.spl~ ~override~
+  SAY NAME1 @519 //Divine Restoration
+
+COPY ~bp/ascend/spl/melspl12.spl~ ~override~
+  SAY NAME1 @520 //Divine Cleansing
+
+COPY ~bp/ascend/spl/melspl13.spl~ ~override~
+
+COPY ~bp/ascend/spl/melspl5a.spl~ ~override~
+  SAY NAME1 @521 //Melissan: Command the Minions of the Abyss
+  SAY 0x12e @521
+
+COPY ~bp/ascend/spl/melspl8a.spl~ ~override~
+
+COPY ~bp/ascend/spl/nabpara.spl~ ~override~
+  SAY NAME1 @522 //Paralyzation Aura
+
+COPY ~bp/ascend/spl/pool1a.spl~ ~override~
+
+COPY ~bp/ascend/spl/pool2a.spl~ ~override~
+
+COPY ~bp/ascend/spl/pool3a.spl~ ~override~
+
+COPY ~bp/ascend/spl/reaver.spl~ ~override~
+
+COPY ~bp/ascend/spl/reavimm.spl~ ~override~
+
+COPY ~bp/ascend/spl/slayer2.spl~ ~override~
+
+COPY ~bp/ascend/spl/slayer3.spl~ ~override~
+
+COPY ~bp/ascend/spl/slayer4.spl~ ~override~
+  SAY NAME1 @523 //Ravager Change
+
+COPY ~bp/ascend/spl/spdetect.spl~ ~override~
+
+COPY ~bp/ascend/spl/spinkrbt.spl~ ~override~
+  SAY NAME1 @524 //Transform Into Bat
+
+COPY ~bp/ascend/spl/spinkrva.spl~ ~override~
+  SAY NAME1 @525 //Lose Strength
+
+COPY ~bp/ascend/spl/spwi545.spl~ ~override~
+  SAY NAME1 @526 //Symbol Slow
+
+COPY ~bp/ascend/spl/unleash.spl~ ~override~
+  SAY NAME1 @517 //Unleash
+  
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpvambak.spl~ BEGIN
+  COPY ~bp/spl/bpvambak.spl~ ~override~
+END
+  
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpvamgas.spl~ BEGIN
+  COPY ~bp/spl/bpvamgas.spl~ ~override~
+END
+
+COPY ~bp/ascend/tough/yaga/copy/yagweak.spl~ ~override~
+
+COPY ~bp/ascend/tough/yaga/copy/yaga01.spl~ ~override~
+
+
+ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~0~ BEGIN
+  COPY_EXISTING ~demosum2.cre~ ~override~ //Balor
+    PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+      WRITE_ASCII 0x248 ~dembal01~ #8 // Override (was GRPSHT01)
+      WRITE_ASCII 0x268 ~bpdemon~ #8 // Default (was DEMOSUM2)
+    END
+  BUT_ONLY
+  ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemon.bcs~ BEGIN
+    ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+      COMPILE ~bp/tdd/baf/demon/bpdemon.bcs~
+    END ELSE BEGIN
+      COMPILE ~bp/baf/no_tdd/demon/bpdemon.bcs~
+    END
+  END
+END
+
+ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~0~ BEGIN
+  COPY_EXISTING ~demosum4.cre~ ~override~ //Cambion
+    PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+      WRITE_ASCII 0x248 ~~ #8 // Override (was GRPSHT01)
+      WRITE_ASCII 0x268 ~bpdemthf~ #8 // Default (was AESGAR)
+   END
+  BUT_ONLY
+  ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemthf.bcs~ BEGIN
+    ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+      COMPILE ~bp/tdd/baf/demon/bpdemthf.bcs~
+    END ELSE BEGIN
+      COMPILE ~bp/baf/no_tdd/demon/bpdemthf.bcs~
+    END
+  END
+END
+
+
+COPY ~bp/ascend/pic~ ~override~
+
+COPY ~bp/ascend/sfx~ ~override~
+
+EXTEND_TOP ~ar4500.bcs~ ~bp/ascend/snip/tar4500.baf~
+COPY_EXISTING ~ar4500.bcs~ ~override~
+  REPLACE ~999901~ @528
+  REPLACE ~999902~ @529
+  REPLACE ~999903~ @530
+  REPLACE ~999904~ @531
+  REPLACE ~999905~ @532
+  REPLACE ~999906~ @533
+  REPLACE ~999907~ @534
+  REPLACE ~999908~ @535
+
+EXTEND_TOP ~ar5505.bcs~ ~bp/ascend/snip/tar5505.baf~
+
+COPY_EXISTING ~itpplane.bcs~ ~override~
+  REPLACE_BCS_BLOCK ~bp/ASCEND/SNIP/oITPPLAN.baf~ ~bp/ASCEND/SNIP/nITPPLAN.baf~
+BUT_ONLY
+
+ACTION_IF FILE_EXISTS_IN_GAME ~dd6000.are~ BEGIN
+  COMPILE ~bp/ascend/baf/tdd/finbalor.baf~
+END ELSE BEGIN
+  COMPILE ~bp/ascend/baf/non-tdd/finbalor.baf~
+END
+
+COMPILE ~bp/ascend/snip/ar6200.baf~
+
+COPY ~bp/ascend/rule/aeriend1.2da~ ~override~
+  REPLACE ~100678~ @536
+
+COPY ~bp/ascend/rule/aeriend2.2da~ ~override~
+  REPLACE ~100679~ @537
+
+COPY ~bp/ascend/rule/aerifnd1.2da~ ~override~
+  REPLACE ~100678~ @536
+
+COPY ~bp/ascend/rule/anomend1.2da~ ~override~
+  REPLACE ~100680~ @538
+
+COPY ~bp/ascend/rule/anomend2.2da~ ~override~
+  REPLACE ~100681~ @539
+
+COPY ~bp/ascend/rule/balthand.2da~ ~override~
+  REPLACE ~100695~ @540
+
+COPY ~bp/ascend/rule/balthfnd.2da~ ~override~
+  REPLACE ~100695~ @540
+
+COPY ~bp/ascend/rule/bodhend.2da~ ~override~
+  REPLACE ~100696~ @541
+
+COPY ~bp/ascend/rule/bodhind.2da~ ~override~
+  REPLACE ~100696~ @541
+
+COPY ~bp/ascend/rule/cerndnd.2da~ ~override~
+  REPLACE ~100682~ @542
+
+COPY ~bp/ascend/rule/haernd.2da~ ~override~
+  REPLACE ~100683~ @543
+
+COPY ~bp/ascend/rule/imoenfnd.2da~ ~override~
+  REPLACE ~100693~ @544
+
+COPY ~bp/ascend/rule/imoennd.2da~ ~override~
+  REPLACE ~100693~ @544
+
+COPY ~bp/ascend/rule/jaheind1.2da~ ~override~
+  REPLACE ~100684~ @545
+
+COPY ~bp/ascend/rule/jaheind2.2da~ ~override~
+  REPLACE ~100685~ @546
+
+COPY ~bp/ascend/rule/mazzyfnd.2da~ ~override~
+  REPLACE ~100686~ @547
+
+COPY ~bp/ascend/rule/mazzynd.2da~ ~override~
+  REPLACE ~100686~ @547
+
+COPY ~bp/ascend/rule/naliand.2da~ ~override~
+  REPLACE ~100687~ @548
+
+COPY ~bp/ascend/rule/sarevfnd.2da~ ~override~
+  REPLACE ~100688~ @549
+
+COPY ~bp/ascend/rule/sarevnd.2da~ ~override~
+  REPLACE ~100688~ @549
+
+COPY ~bp/ascend/rule/sarevnd2.2da~ ~override~
+  REPLACE ~100689~ @550
+
+COPY ~bp/ascend/rule/valygfnd.2da~ ~override~
+  REPLACE ~100690~ @551
+
+COPY ~bp/ascend/rule/valygnd.2da~ ~override~
+  REPLACE ~100690~ @551
+
+COPY ~bp/ascend/rule/vicofnd3.2da~ ~override~
+  REPLACE ~100692~ @552
+
+COPY ~bp/ascend/rule/viconnd1.2da~ ~override~
+  REPLACE ~100691~ @553
+
+COPY ~bp/ascend/rule/viconnd2.2da~ ~override~
+  REPLACE ~100694~ @554
+
+COPY ~bp/ascend/rule/viconnd3.2da~ ~override~
+  REPLACE ~100691~ @553
+
+COPY_EXISTING ~teltief2.cre~ ~override~
+  WRITE_ASCII 0x260 ~teltief2~
+BUT_ONLY
+
+COPY_EXISTING ~teltief3.cre~ ~override~
+  WRITE_ASCII 0x260 ~teltief3~
+BUT_ONLY
+
+COPY_EXISTING ~demimp.bcs~ ~override~
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~IF
+  See(Nearestenemyof(Myself))
+  OR(2)
+    HPPercentLT(Myself,100)
+    Range(Lastseenby(Myself),15)
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_INVISIBILITY)
+END~ ~IF
+  See(Nearestenemyof(Myself))
+  !GlobalTimerNotExpired("DEMINVIS","LOCALS")
+  OR(2)
+    HPPercentLT(Myself,100)
+    Range(Lastseenby(Myself),15)
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("DEMINVIS","LOCALS",TWO_ROUNDS)
+    ApplySpell(Myself,WIZARD_IMPROVED_INVISIBILITY)
+END~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~ppguy02.cre~ BEGIN
+  COPY ~bp/cre/ppguy02.cre~ ~override~
+END
+
+COMPILE ~bp/ascend/d~
+
+COMPILE ~bp/ascend/baf~
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-bp.tp2~ 0) AND NOT (FILE_EXISTS_IN_GAME ~bpdemon.bcs~) BEGIN
+  ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdemon.bcs~ BEGIN
+    LAF demon_rules END
+    ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+      COMPILE ~bp/tdd/baf/demon/bpdemon.bcs~
+    END ELSE BEGIN
+      COMPILE ~bp/baf/no_tdd/demon/bpdemon.bcs~
+    END
+  END
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION abazigail BEGIN
+
+COPY ~bp/ascend/tough/abaz/copy/ar6005.are~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/abazdg02.cre~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/abazigal.cre~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake01.cre~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake02.cre~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake03.cre~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake04.cre~ ~override~
+
+
+COPY ~bp/ascend/tough/abaz/copy/salgrice.cre~ ~override~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~dragblue.cre~ BEGIN
+  COPY ~bp/ascend/tough/abaz/core/dragblue.cre~ ~override~
+END
+
+
+COPY ~bp/ascend/tough/abaz/copy/abaz03.itm~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/dragpur1.itm~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drake.itm~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/drakring.itm~ ~override~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~dragblue.itm~ BEGIN
+  COPY ~bp/ascend/tough/abaz/core/dragblue.itm~ ~override~
+END
+
+
+COPY ~bp/ascend/tough/abaz/copy/abaz01.spl~ ~override~
+  SAY NAME1 @506 //Shockwave
+
+COPY ~bp/ascend/tough/abaz/copy/abazdg02.spl~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/abzaway.spl~ ~override~
+
+COPY ~bp/ascend/tough/abaz/copy/spin695.spl~ ~override~
+
+COMPILE ~bp/ascend/tough/abaz/baf/new~
+
+
+END
+
+//////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION demogorgon BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF telekinesis END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin407.spl~ BEGIN
+  COPY ~bp/spl/spin407.spl~ ~override~
+    SAY NAME1 @140 //Globe of Darkness
+    SAY UNIDENTIFIED_DESC @141
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin473.spl~ BEGIN
+  COPY ~bp/spl/spin473.spl~ ~override~
+END
+
+APPEND ~spell.ids~ ~3407 INNATE_IMPROVED_GLOBE_OF_DARKNESS~ UNLESS ~INNATE_IMPROVED_GLOBE_OF_DARKNESS~
+APPEND ~spell.ids~ ~3473 SPECTATOR_SUGGESTION~ UNLESS ~SPECTATOR_SUGGESTION~
+
+
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-bp.tp2~ 0) AND (FILE_EXISTS_IN_GAME ~demogor2.cre~) BEGIN
+  COPY_EXISTING ~demogor2.cre~ ~override~
+    PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+      WRITE_ASCII 0x250 ~bp!plot~   #8
+      WRITE_ASCII 0x258 ~bpleader~ #8
+      WRITE_ASCII 0x260 ~demogor2~ #8
+      WRITE_ASCII 0x268 ~bpdemon~  #8
+    END
+  BUT_ONLY
+END
+
+
+ACTION_IF ((NOT FILE_EXISTS_IN_GAME ~demogor3.cre~) AND (FILE_EXISTS ~bp/ascend/tough/demo/copy/demogor3.cre~)) BEGIN
+  COPY ~bp/ascend/tough/demo/copy/demogor3.cre~ ~override~
+END
+
+COPY ~bp/ascend/tough/demo/copy/pool1a10.eff~ ~override~
+
+COPY ~bp/ascend/tough/demo/copy/beguile.spl~ ~override~
+
+COPY ~bp/ascend/tough/demo/copy/berserk.spl~ ~override~
+
+COPY ~bp/ascend/tough/demo/copy/insanity.spl~ ~override~
+
+COPY ~bp/ascend/tough/demo/copy/spin548.spl~ ~override~
+
+COPY ~bp/ascend/tough/demo/copy/spin549.spl~ ~override~
+
+COMPILE ~bp/ascend/tough/demo/baf/new~
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-bp.tp2~ 0) AND NOT (FILE_EXISTS_IN_GAME ~bpdemon.bcs~) BEGIN
+  LAF demon_rules END
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/demon/bpdemon.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/demon/bpdemon.baf~
+  END
+END
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-bp.tp2~ 0) AND NOT (FILE_EXISTS_IN_GAME ~bpleader.bcs~) BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-bp.tp2~ 0) AND NOT (FILE_EXISTS_IN_GAME ~bp!plot.bcs~) BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+
+END
+
+//////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION gromnir BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF trap_projectiles END
+
+COPY ~bp/ascend/tough/grom/copy/ar5002.are~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/gromnir.itm~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/jumjum.itm~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/ramaz.itm~ ~override~
+
+
+
+COPY_EXISTING ~gromg01.cre~ ~override~ //Il-Khan Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 120 // CurrHP (was 60)
+    WRITE_SHORT 0x26 120 // MaxHP (was 60)
+    WRITE_BYTE 0x52 6 // THAC0 (was 8)
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_ASCII 0x248 ~bpleader~ #8 // Override (was NONE)
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY ~bp/ascend/tough/grom/copy/gromg03.cre~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/gromg05.cre~ ~override~
+
+COPY_EXISTING ~gromg06.cre~ ~override~ //Il-Khan Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 100 // CurrHP (was 60)
+    WRITE_SHORT 0x26 100 // MaxHP (was 60)
+    WRITE_BYTE 0x52 4 // THAC0 (was 8)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gromg07.cre~ ~override~ //Il-Khan Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 135 // CurrHP (was 60)
+    WRITE_SHORT 0x26 135 // MaxHP (was 60)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY ~bp/ascend/tough/grom/copy/gromg08.cre~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/gromg09.cre~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/gromg10.cre~ ~override~
+
+COPY_EXISTING ~gromg11.cre~ ~override~ //Il-Khan Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REMOVE_MEMORIZED_SPELL ~spcl121~
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gromg12.cre~ ~override~ //Il-Khan Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x52 7 // THAC0 (was 5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gromg13.cre~ ~override~ //Il-Khan Battle Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~DART03~ #40 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~gromg14.cre~ ~override~ //Il-Khan Soldier
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl902~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY ~bp/ascend/tough/grom/copy/grommin.cre~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/gromnir.cre~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/jumjum.cre~ ~override~
+
+COPY ~bp/ascend/tough/grom/copy/ramaz.cre~ ~override~
+
+
+
+COMPILE ~bp/ascend/tough/grom/d~
+
+COMPILE ~bp/ascend/tough/grom/baf/new~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcarc2b.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/grom/baf/core/bpcarc2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcbar2b.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/grom/baf/core/bpcbar2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcmag2a.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/grom/baf/core/bpcmag2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpheal.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/grom/baf/core/bpgpheal.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpthif.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/grom/baf/core/bpgpthif.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpwsla.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/grom/baf/core/bpgpwsla.baf~
+END
+
+
+END
+
+/////////////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION illasera BEGIN
+
+APPEND ~SPECIFIC.IDS~ ~207 SIMULACRUM~ UNLESS ~SIMULACRUM~
+
+
+COPY ~bp/ascend/tough/illa/copy/illas01.itm~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/illas02.itm~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/illas03.itm~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/illas04.itm~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/zilfgt.itm~ ~override~
+
+
+COPY ~bp/ascend/tough/illa/copy/illasera.cre~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/zilarc01.cre~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/zilfgt01.cre~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/zilfgt02.cre~ ~override~
+
+COPY ~bp/ascend/tough/illa/copy/zilmag01.cre~ ~override~
+
+
+COMPILE ~bp/ascend/tough/illa/d~
+
+COMPILE ~bp/ascend/tough/illa/baf/new~
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcken2b.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/illa/baf/core/bpcken2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpheal.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/illa/baf/core/bpgpheal.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpmag1.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/illa/baf/core/bpgpmag1.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpmerc.bcs~ BEGIN
+  COMPILE ~bp/ascend/tough/illa/baf/core/bpgpmerc.baf~
+END
+
+
+COPY_EXISTING ~ar4000.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~IF
+  GlobalTimerExpired("IllaseraSpawnTimer","GLOBAL")
+  Global("IllaseraSpawn","GLOBAL",0)
+  OR(2)
+    NumInParty(1)
+    LevelPartyLT(10)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    SetGlobal("IllaseraSpawn","GLOBAL",1)
+    StartCutSceneMode()
+    StartCutScene("CUT204F2")
+END
+
+IF
+  GlobalTimerExpired("IllaseraSpawnTimer","GLOBAL")
+  Global("IllaseraSpawn","GLOBAL",0)
+  LevelPartyGT(19)
+  NumInPartyLT(4)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    SetGlobal("IllaseraSpawn","GLOBAL",1)
+    StartCutSceneMode()
+    StartCutScene("CUT204F3")
+END
+
+IF
+  GlobalTimerExpired("IllaseraSpawnTimer","GLOBAL")
+  Global("IllaseraSpawn","GLOBAL",0)
+  LevelPartyLT(20)
+  NumInPartyGT(1)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    SetGlobal("IllaseraSpawn","GLOBAL",1)
+    StartCutSceneMode()
+    StartCutScene("CUT204F3")
+END
+
+IF
+  GlobalTimerExpired("IllaseraSpawnTimer","GLOBAL")
+  Global("IllaseraSpawn","GLOBAL",0)
+  LevelPartyGT(19)
+  NumInPartyGT(3)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    SetGlobal("IllaseraSpawn","GLOBAL",1)
+    StartCutSceneMode()
+    StartCutScene("CUT204F")
+END~ ~IF
+  GlobalTimerExpired("IllaseraSpawnTimer","GLOBAL")
+  Global("IllaseraSpawn","GLOBAL",0)
+THEN
+  RESPONSE #100
+    ClearAllActions()
+    SetGlobal("IllaseraSpawn","GLOBAL",1)
+    StartCutSceneMode()
+    StartCutScene("CUT204F")
+END~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+
+END
+
+//////////////////////////////////////////////////////////
+DEFINE_ACTION_FUNCTION yagashura BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF bp_boulder END
+LAF hellhound_madness END
+LAF trap_projectiles END
+
+
+
+COPY ~bp/ascend/tough/yaga/copy/ar5203.are~ ~override~
+
+COPY ~bp/ascend/tough/yaga/copy/yagawh.itm~ ~override~
+
+COPY ~bp/ascend/tough/yaga/copy/yagweak.spl~ ~override~
+
+COPY ~bp/ascend/tough/yaga/copy/yaga01.spl~ ~override~
+  SAY NAME1 @527 //Lava Bomb
+
+///Patch ALL copies
+
+COPY ~bp/ascend/tough/yaga/copy/yaga01.cre~ ~override~
+
+COPY_EXISTING ~yaga01.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~275~ // CurrHP (was 150)
+    WRITE_SHORT 0x26 ~275~ // MaxHP (was 150)
+    WRITE_SHORT 0x46 ~-8~ 
+    WRITE_SHORT 0x48 ~-8~ 
+    WRITE_BYTE  0x63 ~90~ 
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl903~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYWARHAMMER~ 5
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 3 // Boulders
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yaga02.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~60~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~60~ // MaxHP (was 100)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcmag2a~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    REPLACE_CRE_ITEM ~SLNG03~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    REPLACE_CRE_ITEM ~BULL04~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYQUARTERSTAFF~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yaga03.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    SET_BG2_PROFICIENCY ~PROFICIENCYSCIMITARWAKISASHININJATO~ 5
+    SET_BG2_PROFICIENCY ~PROFICIENCY2WEAPON~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yaga04.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE  0x63  ~75~ // RstMissl (was 0)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpccle2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~sppr727~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl722~ #0 ~innate~
+    SET_BG2_PROFICIENCY ~PROFICIENCYMACE~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yaga05.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE  0x63  ~75~ // RstMissl (was 0)
+    WRITE_ASCII 0x248 ~bpthfsht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcthi2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~sppr913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl917~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yarmy01.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yarmy02.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcarc2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yarmy03.cre~ ~override~ //Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x258 ~bpmag16b~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    REPLACE_CRE_ITEM ~DART04~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yscara03.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~180~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~180~ // MaxHP (was 100)
+    WRITE_BYTE 0x63 ~75~ // RstMissl (was 0)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x271 ~5~ // IDSGeneral (was 1)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2 // Boulders
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yscara04.cre~ ~override~ //Greater Fire Elemental
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 ~0~ // ACNatul (was 2)
+    WRITE_SHORT 0x48 ~0~ // ACEffec (was 2)
+    WRITE_BYTE 0x52 ~6~ // THAC0 (was 5)
+    WRITE_BYTE 0x53 ~8~ // NOAtt (was 1)
+    WRITE_BYTE 0x238 ~20~ // Str (was 19)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+  END
+BUT_ONLY
+
+/// Custom file, good as-is
+COPY ~bp/ascend/tough/yaga/copy/yscler01.cre~ ~override~
+
+COPY_EXISTING ~ysfire01.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~125~ // CurrHP (was 130)
+    WRITE_SHORT 0x26 ~125~ // MaxHP (was 130)
+    WRITE_BYTE 0x63 ~75~ // RstMissl (was 0)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2 // Boulders
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysfire02.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~140~ // CurrHP (was 130)
+    WRITE_SHORT 0x26 ~140~ // MaxHP (was 130)
+    WRITE_BYTE 0x63 ~75~ // RstMissl (was 0)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl902~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2 // Boulders
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysg2.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~180~ // CurrHP (was 130)
+    WRITE_SHORT 0x26 ~180~ // MaxHP (was 130)
+    WRITE_BYTE 0x63 ~100~ // RstMissl (was 0)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysgp01.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysgp02.cre~ ~override~ //Merlinious
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcken2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl144~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysgp03.cre~ ~override~ //Merlinious
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x250 ~ysgp03~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpgparch~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysgp04.cre~ ~override~ //Merlinious
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~creshout~ #8 // Race (was CFIGT20B)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysgp05.cre~ ~override~ //Merlinious
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (4)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysguar01.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~150~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~150~ // MaxHP (was 100)
+    WRITE_BYTE 0x63 ~75~ // RstMissl (was 0)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2 // Boulders
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysguar02.cre~ ~override~ 
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~120~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~120~ // MaxHP (was 100)
+    WRITE_BYTE 0x234 ~16~ //level
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysguar03.cre~ ~override~ //Yaga-Shura Mage
+              ~ysguar06.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x258 ~bpmag12a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    REPLACE_CRE_ITEM ~STAF02~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DART02~ #30 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    SET_BG2_PROFICIENCY ~PROFICIENCYDART~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysguar04.cre~ ~override~ 
+              ~ysguar05.cre~ ~override~
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~90~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~90~ // MaxHP (was 100)
+    WRITE_BYTE 0x234 ~8~ //level
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysmage01.cre~ ~override~ //Yaga-Shura Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_SHORT 0x48 ~6~ // ACEffec (was 10)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x258 ~bpmag12a~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    REPLACE_CRE_ITEM ~DAGG03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DAGG16~ #20 #0 #0 ~NONE~ ~WEAPON2~
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 1
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ysmage02.cre~ ~override~ //Yaga-Shura Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_SHORT 0x48 ~4~ // ACEffec (was 10)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x258 ~bpmag16c~ #8 // Default (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    REPLACE_CRE_ITEM ~DAGG03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DAGG16~ #20 #0 #0 ~NONE~ ~WEAPON2~
+    SET_BG2_PROFICIENCY ~PROFICIENCYDAGGER~ 1
+  END
+BUT_ONLY
+
+COPY ~bp/ascend/tough/yaga/copy/yssold01.cre~ ~override~
+
+COPY_EXISTING ~yssold01.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~105~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~105~ // MaxHP (was 100)
+    WRITE_BYTE 0x234 ~9~ // level
+    WRITE_BYTE 0x239 ~51~ // exceptional str
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGSWORD~ 3
+    SET_BG2_PROFICIENCY ~PROFICIENCYSWORDANDSHIELD~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yssold02.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~95~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~95~ // MaxHP (was 100)
+    WRITE_BYTE 0x234 ~8~ // level
+    WRITE_BYTE 0x23c ~18~ // dexterity
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpgparch~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl121~ #0 ~innate~ (2)
+    REPLACE_CRE_ITEM ~BOW07~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~AROW05~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGSWORD~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGBOW~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yssold03.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~110~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~110~ // MaxHP (was 100)
+    WRITE_BYTE 0x234 ~9~ // level
+    WRITE_BYTE 0x238 ~18~ 
+    WRITE_BYTE 0x239 ~26~
+    WRITE_ASCII 0x248 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpgparch~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~ (2)
+    REPLACE_CRE_ITEM ~BOW02~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    REPLACE_CRE_ITEM ~AROW02~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYBASTARDSWORD~ 3
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGBOW~ 1
+    SET_BG2_PROFICIENCY ~PROFICIENCYSINGLEWEAPON~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yssold04.cre~ ~override~ //Fighter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 ~135~ // CurrHP (was 100)
+    WRITE_SHORT 0x26 ~135~ // MaxHP (was 100)
+    WRITE_SHORT 0x46 ~4~
+    WRITE_SHORT 0x48 ~4~
+    WRITE_BYTE 0x234 ~12~ // level
+    WRITE_BYTE 0x238 ~18~ 
+    WRITE_BYTE 0x239 ~76~
+    WRITE_ASCII 0x250 ~humansht~ #8 // Race (was CFIGT20B)
+    WRITE_ASCII 0x268 ~bpcfig2b~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b ~19~ //Alignment
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~ (2)
+    SET_BG2_PROFICIENCY ~PROFICIENCYHALBERD~ 5
+    SET_BG2_PROFICIENCY ~PROFICIENCY2HANDED~ 3
+  END
+BUT_ONLY
+
+
+COPY ~bp/ascend/tough/yaga/copy/yssold04.cre~ ~override~
+
+COPY_EXISTING ~yssold10.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 180 // CurrHP (was 100)
+    WRITE_SHORT 0x26 180 // MaxHP (was 100)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_ASCII 0x268 ~bpcber2b~ #8 // Default (was GPMERC)
+    WRITE_BYTE 0x271 5 // IDSGeneral (was 1)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2 // Boulders
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yssold14.cre~ ~override~ //Yaga-Shura Mage
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x260 ~~ #8 // General (was SPSEQ12A)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yssold15.cre~ ~override~ //Yaga-Shura Officer
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x260 ~bpleader~ #8 // General (was NONE)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hgmag01.cre~ ~override~ //Fire Giant Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    // SAY NAME1 #70177 // LongName (was 70176)
+    WRITE_SHORT 0x24 139 // CurrHP (was 89)
+    WRITE_SHORT 0x26 139 // MaxHP (was 89)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_BYTE 0x234 20 // HighestLevelPrimary (was 18)
+    WRITE_ASCII 0x248 ~humsht01~ #8 // Override (was GRPSHT01)
+    WRITE_ASCII 0x250 ~fgmage~ #8 // Class (was MAGE18B)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was NONE)
+    REMOVE_KNOWN_SPELL ~spwi308~
+    REMOVE_KNOWN_SPELL ~spwi604~
+    REMOVE_KNOWN_SPELL ~spwi713~
+    REMOVE_KNOWN_SPELL ~spwi910~
+    REMOVE_MEMORIZED_SPELL ~spwi118~
+    REMOVE_MEMORIZED_SPELL ~spwi217~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi604~
+    REMOVE_MEMORIZED_SPELL ~spwi715~
+    REMOVE_MEMORIZED_SPELL ~spwi713~
+    REMOVE_MEMORIZED_SPELL ~spwi701~
+    REMOVE_MEMORIZED_SPELL ~spwi910~
+    ADD_MEMORIZED_SPELL ~spwi118~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi103~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi114~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi217~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi304~ #2 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi325~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi403~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi595~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi620~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi612~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi611~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi701~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi712~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi717~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi810~ #7 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi805~ #7 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi911~ #8 ~wizard~
+    REMOVE_CRE_ITEM ~B1-8~
+    REPLACE_CRE_ITEM ~GIAFIR~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYWARHAMMER~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hgmag02.cre~ ~override~ //Fire Giant Mage
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    // SAY NAME1 #70177 // LongName (was 70176)
+    WRITE_SHORT 0x24 139 // CurrHP (was 89)
+    WRITE_SHORT 0x26 139 // MaxHP (was 89)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_BYTE 0x234 20 // HighestLevelPrimary (was 18)
+    WRITE_ASCII 0x248 ~humsht01~ #8 // Override (was GRPSHT01)
+    WRITE_ASCII 0x250 ~fgmage~ #8 // Class (was MAGE18C)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was NONE)
+    REMOVE_KNOWN_SPELL ~spwi308~
+    REMOVE_KNOWN_SPELL ~spwi604~
+    REMOVE_KNOWN_SPELL ~spwi713~
+    REMOVE_KNOWN_SPELL ~spwi910~
+    REMOVE_KNOWN_SPELL ~spwi898~
+    REMOVE_KNOWN_SPELL ~spwi903~
+    REMOVE_KNOWN_SPELL ~spwi812~
+    REMOVE_KNOWN_SPELL ~spwi616~
+    REMOVE_KNOWN_SPELL ~spwi418~
+    REMOVE_KNOWN_SPELL ~spwi303~
+    REMOVE_KNOWN_SPELL ~spwi211~
+    REMOVE_KNOWN_SPELL ~spwi119~
+    REMOVE_MEMORIZED_SPELL ~spwi118~
+    REMOVE_MEMORIZED_SPELL ~spwi119~
+    REMOVE_MEMORIZED_SPELL ~spwi211~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi312~
+    REMOVE_MEMORIZED_SPELL ~spwi303~
+    REMOVE_MEMORIZED_SPELL ~spwi418~
+    REMOVE_MEMORIZED_SPELL ~spwi604~
+    REMOVE_MEMORIZED_SPELL ~spwi616~
+    REMOVE_MEMORIZED_SPELL ~spwi715~
+    REMOVE_MEMORIZED_SPELL ~spwi713~
+    REMOVE_MEMORIZED_SPELL ~spwi701~
+    REMOVE_MEMORIZED_SPELL ~spwi898~
+    REMOVE_MEMORIZED_SPELL ~spwi812~
+    REMOVE_MEMORIZED_SPELL ~spwi903~
+    ADD_MEMORIZED_SPELL ~spwi118~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi103~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi114~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi304~ #2 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi325~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi403~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi595~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi620~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi612~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi611~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi701~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi712~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi810~ #7 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi805~ #7 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi912~ #8 ~wizard~
+    REMOVE_CRE_ITEM ~B1-8~
+    REPLACE_CRE_ITEM ~GIAFIR~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYWARHAMMER~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hgwar01.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 150 // CurrHP (was 130)
+    WRITE_SHORT 0x26 150 // MaxHP (was 130)
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Override (was GRPSHT01)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~hgwar02.cre~ ~override~ //Elite Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x54 2 // SaveVDth (was 3)
+    WRITE_BYTE 0x55 4 // SaveVWnd (was 5)
+    WRITE_BYTE 0x56 3 // SaveVPoly (was 4)
+    WRITE_BYTE 0x57 3 // SaveVAtks (was 4)
+    WRITE_BYTE 0x58 5 // SaveVspell (was 6)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_BYTE 0x234 25 // HighestLevelPrimary (was 20)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Override (was GRPSHT01)
+    WRITE_ASCII 0x268 ~bpcber2b~ #8 // Default (was CFIGH20B)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~giafir01.cre~ ~override~ //Fire Giant
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 155 // CurrHP (was 130)
+    WRITE_SHORT 0x26 155 // MaxHP (was 130)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_BYTE 0x271 5 // IDSGeneral (was 1)
+    WRITE_BYTE 0x272 142 // IDSRace (was 4)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+  END
+BUT_ONLY
+
+COPY_EXISTING ~giantf01.cre~ ~override~ //Fire Giant
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_SHORT 0x24 150 // CurrHP (was 120)
+    WRITE_SHORT 0x26 150 // MaxHP (was 120)
+    WRITE_SHORT 0x28 32574 // AnimationID (was 36864)
+    WRITE_BYTE 0x59 110 // RstFire (was 50)
+    WRITE_BYTE 0x5e 110 // RstMFre (was 50)
+    WRITE_BYTE 0x63 100 // RstMissl (was 0)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was NONE)
+    REMOVE_CRE_ITEM ~DART06~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYSPEAR~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~yscara05.cre~ ~override~ //Merchant
+              ~ysgp05.cre~ ~override~ //Chinchilla
+              ~ysgrunt.cre~ ~override~ //Yaga-Shura Soldier
+              ~ysguar02.cre~ ~override~ //Yaga-Shura Soldier
+              ~ysguar04.cre~ ~override~ //Yaga-Shura Soldier
+              ~ysguar05.cre~ ~override~ //Yaga-Shura Soldier
+              ~ysguar06.cre~ ~override~ //Yaga-Shura Officer
+              ~yssold15.cre~ ~override~ //Yaga-Shura Officer
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+  END
+BUT_ONLY
+
+
+COMPILE ~bp/ascend/tough/yaga/d~
+
+COMPILE ~bp/ascend/tough/yaga/baf~
+
+COPY_EXISTING ~hgarch01.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~Shout(83)~         ~Shout(153)~
+    REPLACE_TEXTUALLY ~Shout(HEALME_83)~         ~Shout(153)~
+    REPLACE_TEXTUALLY ~Shout(80)~        ~Shout(89)~
+    REPLACE_TEXTUALLY ~Shout(RETREAT_80)~        ~Shout(89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.PALADIN\],81)~ ~Heard([0.0.HOBGOBLIN.PALADIN],80)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.PALADIN\],RALLY_TO_ME_82)~ ~Heard([0.0.HOBGOBLIN.PALADIN],80)~  //??????? was 81, not 82
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+COPY_EXISTING ~hgwarr01.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~Shout(83)~         ~Shout(153)~
+    REPLACE_TEXTUALLY ~Shout(HEALME_83)~         ~Shout(153)~ //??? no such code anywhere
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.PALADIN\],81)~ ~Heard([0.0.HOBGOBLIN.PALADIN],80)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.PALADIN\],RALLY_TO_ME_82)~ ~Heard([0.0.HOBGOBLIN.PALADIN],80)~  //??????? was 81, not 82
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.THIEF\],80)~ ~Heard([0.0.HOBGOBLIN.THIEF],89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.THIEF\],RETREAT_80)~ ~Heard([0.0.HOBGOBLIN.THIEF],89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.RANGER\],80)~ ~Heard([0.0.HOBGOBLIN.RANGER],89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.RANGER\],RETREAT_80)~ ~Heard([0.0.HOBGOBLIN.RANGER],89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.MAGE\],80)~ ~Heard([0.0.HOBGOBLIN.MAGE],89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.MAGE\],RETREAT_80)~ ~Heard([0.0.HOBGOBLIN.MAGE],89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.PALADIN\],80)~ ~Heard([0.0.HOBGOBLIN.PALADIN],89)~
+    REPLACE_TEXTUALLY ~Heard(\[0.0.HOBGOBLIN.PALADIN\],RETREAT_80)~ ~Heard([0.0.HOBGOBLIN.PALADIN],89)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  COMPILE ~bp/baf/shouts/strings/humansht.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcarc2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcarc2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcber2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcber2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcfig2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcfig2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcken2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcken2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcthi2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcthi2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgparch.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgparch.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpheal.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgpheal.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpkens.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgpkens.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpmag1.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgpmag1.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpmag2.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgpmag2.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpmerc.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpgpmerc.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16c.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16c.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpgpmerc.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/bpgpmerc.baf~
+END
+
+
+END
+
+///////////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION sendai BEGIN
+
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF drow_rules END
+LAF thief_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcarc2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcarc2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcass2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcass2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcber2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcber2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpccle2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpccle2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcfig3b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcfig3b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcken3b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcken3b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpckth2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpckth2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcmag2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcmag2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcthi2a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcthi2a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpflayr2.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/flayer/bpflayr2.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag18d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag18d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag20b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag20b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~creshout.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/creshout.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/creshout.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdrow.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/drow/bpdrow.baf~ ~override~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/drow/bpdrow.baf~ ~override~
+  END
+END
+
+
+COPY_EXISTING ~senani01.cre~ ~override~ //Moose
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senani02.cre~ ~override~ //Deer
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~DAGG03~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG26~ #20 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senani04.cre~ ~override~ //Rabbit
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendai.cre~ ~override~ //Sendai
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_SHORT 0x24 244 // CurrHP (was 182)
+    WRITE_SHORT 0x26 244 // MaxHP (was 182)
+    WRITE_SHORT 0x46 6 // ACNatul (was 8)
+    WRITE_SHORT 0x48 6 // ACEffec (was 8)
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_BYTE 0x5d 88 // RstMagc (was 84)
+    WRITE_BYTE 0x60 10 // RstSlash (was 0)
+    WRITE_BYTE 0x61 10 // RstCrush (was 0)
+    WRITE_BYTE 0x62 10 // RstPierc (was 0)
+    WRITE_BYTE 0x63 10 // RstMissl (was 0)
+    WRITE_BYTE 0x64 75 // DtectIll (was 0)
+    WRITE_BYTE 0x6d 6 // Luck (was 4)
+    WRITE_BYTE 0x23a 18 // Int (was 14)
+    WRITE_BYTE 0x23b 18 // Wis (was 14)
+    WRITE_BYTE 0x23c 20 // Dex (was 19)
+    REMOVE_KNOWN_SPELL ~spwi919~
+    REMOVE_KNOWN_SPELL ~spwi811~
+    REMOVE_KNOWN_SPELL ~spwi908~
+    REMOVE_MEMORIZED_SPELL ~spwi408~
+    REMOVE_MEMORIZED_SPELL ~spwi811~
+    REMOVE_MEMORIZED_SPELL ~spwi919~
+    REMOVE_MEMORIZED_SPELL ~spwi908~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr105~ #0 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr107~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~ (3)
+    ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr202~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr208~ #1 ~priest~ (3)
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr301~ #2 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr304~ #2 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr310~ #2 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr312~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr314~ #2 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ (3)
+    ADD_MEMORIZED_SPELL ~sppr411~ #3 ~priest~ (3)
+    ADD_MEMORIZED_SPELL ~sppr412~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr416~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi214~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi595~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi702~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi898~ #7 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi899~ #7 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi913~ #8 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi924~ #8 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi925~ #8 ~wizard~
+    REPLACE_CRE_ITEM ~SLNG03~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    REPLACE_CRE_ITEM ~BULL02~ #40 #0 #0 ~NONE~ ~QUIVER1~
+    SET_BG2_PROFICIENCY ~PROFICIENCYFLAILMORNINGSTAR~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYSLING~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYSWORDANDSHIELD~ 2
+    SET_BG2_PROFICIENCY ~PROFICIENCYSINGLEWEAPON~ 2
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendai4.cre~ ~override~ //Sendai
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x64 90 // DtectIll (was 0)
+    WRITE_BYTE 0x68 90 // Stealth (was 0)
+    WRITE_ASCII 0x258 ~bpdrow~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpcthi2a~ #8 // Default (was SENDAI4)
+    REMOVE_MEMORIZED_SPELL ~spcl423~
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendai5.cre~ ~override~ //Sendai
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REMOVE_MEMORIZED_SPELL ~spcl321~
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl903~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendai6.cre~ ~override~ //Sendai
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpdrow~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpckth2b~ #8 // Default (was SENDAI4)
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendai7.cre~ ~override~ //Sendai
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~SLNG03~ #0 #0 #0 ~NONE~ ~WEAPON2~
+    REPLACE_CRE_ITEM ~BULL05~ #40 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendai8.cre~ ~override~ //Sendai
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 244 // CurrHP (was 122)
+    WRITE_SHORT 0x26 244 // MaxHP (was 122)
+    WRITE_SHORT 0x46 6 // ACNatul (was 10)
+    WRITE_SHORT 0x48 6 // ACEffec (was 10)
+    WRITE_BYTE 0x64 75 // DtectIll (was 0)
+    WRITE_BYTE 0x235 20 // HighestLevelSecond (was 1)
+    WRITE_BYTE 0x23a 18 // Int (was 15)
+    WRITE_BYTE 0x23b 18 // Wis (was 15)
+    WRITE_BYTE 0x23c 20 // Dex (was 10)
+    WRITE_ASCII 0x248 ~bpcmag2a~ #8 // Override (was NONE)
+    WRITE_ASCII 0x250 ~bpccle2b~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~~ #8 // Default (was CMAGE20A)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendark.cre~ ~override~ //Dark Master
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #72055 // LongName (was 72054)
+    WRITE_ASCII 0x260 ~bpwdasgt~ #8 // General (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendro01.cre~ ~override~ //Drow
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendro02.cre~ ~override~ //Drow
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~DAGG03~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG26~ #30 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY ~bp/cre/sendro03.cre~ ~override~
+
+COPY_EXISTING ~sendro04.cre~ ~override~ //Drow
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl903~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sendro05.cre~ ~override~ //Drow
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x64 70 // DtectIll (was 0)
+    WRITE_BYTE 0x68 90 // Stealth (was 0)
+    WRITE_ASCII 0x258 ~bpdrow~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpcass2b~ #8 // Default (was CASSA30B)
+    ADD_MEMORIZED_SPELL ~spin489~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin493~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl423~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spcl916~ #0 ~innate~ (2)
+    ADD_MEMORIZED_SPELL ~spcl913~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl914~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (5)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senfod02.cre~ ~override~ //Drow
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REPLACE_CRE_ITEM ~DAGG24~ #0 #0 #0 ~NONE~ ~WEAPON1~
+    REPLACE_CRE_ITEM ~DAGG26~ #30 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sengua01.cre~ ~override~ //Woodcutter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    REMOVE_MEMORIZED_SPELL ~spcl144~
+    ADD_MEMORIZED_SPELL ~spcl144~ #0 ~innate~ (5)
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sengua04.cre~ ~override~ //Slavemaster
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #70749 // LongName (was 70748)
+    WRITE_ASCII 0x258 ~wbasight~ #8 // Race (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senill01.cre~ ~override~ //Mithykyl
+              ~senill02.cre~ ~override~ //Mithykyl
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #70653 // LongName (was 70652)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senken01.cre~ ~override~ //Thelynn'ss
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    ADD_MEMORIZED_SPELL ~spcl900~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl903~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senmonk.cre~ ~override~ //Master Bennon
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x273 20 //Class (monk, was fighter)
+    ADD_MEMORIZED_SPELL ~spcl811~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl815~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl908~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl901~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl905~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl909~ #0 ~innate~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senorc01.cre~ ~override~ //Derro Berserker
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #72957 // LongName (was 72956)
+    // WRITE_BYTE 0x71 5 // Unu3(Spears prof) (was 0)
+    WRITE_ASCII 0x268 ~~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    SET_BG2_PROFICIENCY ~PROFICIENCYHALBERD~ 5
+  END
+BUT_ONLY
+
+COPY_EXISTING ~senorc03.cre~ ~override~ //Derro Berserker
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    // SAY NAME1 #72957 // LongName (was 72956)
+    WRITE_ASCII 0x268 ~~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl906~ #0 ~innate~
+  END
+BUT_ONLY
+
+
+END
+

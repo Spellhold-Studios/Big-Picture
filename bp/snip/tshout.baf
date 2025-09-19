@@ -1,0 +1,43 @@
+IF
+  OR(2)
+    General(Myself,HUMANOID)
+    General(Myself,GIANTHUMANOID)
+  OR(4)
+    Class(Myself,MAGE_ALL)
+    Class(Myself,CLERIC_ALL)
+    Class(Myself,DRUID_ALL)
+    Class(Myself,THIEF_ALL)
+  Global("BP_ShoutSwap","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeAIScript("HUMSHT01",OVERRIDE)
+    SetGlobal("BP_ShoutSwap","LOCALS",1)
+END
+
+IF
+  OR(2)
+    General(Myself,HUMANOID)
+    General(Myself,GIANTHUMANOID)
+  Global("BP_ShoutSwap","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeAIScript("HUMSHOUT",OVERRIDE)
+    SetGlobal("BP_ShoutSwap","LOCALS",1)
+END
+
+IF
+  Race(Myself,BEHOLDER) // More types to be added here as this progresses
+  Global("BP_ShoutSwap","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeAIScript("CRESHT01",OVERRIDE)
+    SetGlobal("BP_ShoutSwap","LOCALS",1)
+END
+
+IF
+  Global("BP_ShoutSwap","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeAIScript("CRESHOUT",OVERRIDE)
+    SetGlobal("BP_ShoutSwap","LOCALS",1)
+END

@@ -1,0 +1,56 @@
+IF
+  Global("GrovePoisoned","GLOBAL",1)
+  Global("BPBadBad","AR1900",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BPBadBad","AR1900",1)
+    SetGlobalTimer("TreeRevenge","GLOBAL",36)
+END
+
+IF
+  GlobalTimerExpired("TreeRevenge","GLOBAL")
+  Global("BPBadBad","AR1900",1)
+THEN
+  RESPONSE #100
+    SetGlobal("BPBadBad","AR1900",2)
+    CreateCreatureObject("BPTREANT",Player1,0,0,0)
+    CreateCreatureObject("BPTREANT",Player1,0,0,0)
+    CreateCreatureObject("BPTREBOS",Player1,0,0,0)
+END
+
+IF
+  Global("BPBadBad","AR1900",2)
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BPBadBad","AR1900",3)
+    CreateCreatureObject("BPTREELD",Player1,0,0,0)
+    CreateCreatureObject("BPTREELD",Player1,0,0,0)
+END
+
+IF
+  Global("DruidQuest1","GLOBAL",1)
+  Global("DruidStronghold","GLOBAL",1)
+  Global("Nilthspawn","AR1900",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Nilthspawn","AR1900",1)
+    CreateCreature("Drshnl01",[1815.2330],8)
+    CreateCreature("BPTrol01",[1720.2325],6)
+    CreateCreature("BPTrol01",[1845.2400],10)
+    CreateCreature("BPTrol01",[1740.2280],16)
+END
+
+IF
+  Global("Nilthspawn","AR1900",1)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("Nilthspawn","AR1900",2)
+    CreateCreature("BPtrsp01",[1800.2250],5)
+    CreateCreature("BPtrsn01",[1910.2365],14)
+    CreateCreature("BPtrsi01",[1965.2420],0)
+END
+

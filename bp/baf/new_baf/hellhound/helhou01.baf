@@ -1,0 +1,48 @@
+IF
+  DifficultyLT(NORMAL)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  GlobalLT("Fire","LOCALS",2)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",15)
+    SetGlobalTimer("DELAY","LOCALS",4)
+    IncrementGlobal("FIRE","LOCALS",1)
+    ForceSpellRES("SPIN484",LastSeenBy(Myself))
+END
+
+IF
+  DifficultyGT(EASY)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  GlobalLT("FIRE","LOCALS",3)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",9)
+    SetGlobalTimer("DELAY","LOCALS",4)
+    IncrementGlobal("FIRE","LOCALS",1)
+    ForceSpellRES("SPIN484",LastSeenBy(Myself))
+END
+
+IF
+  HasItem("HELLHO",Myself)
+  See(NearestEnemyOf(Myself))
+  !Range(LastSeenBy(Myself),3)
+  !GlobalTimerNotExpired("DELAY","LOCALS")
+THEN
+  RESPONSE #80
+    SetGlobalTimer("DELAY","LOCALS",4)
+    EquipRanged()
+    AttackReevaluate(NearestEnemyOf(Myself),45)
+  RESPONSE #20
+    Continue()
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackReevaluate(NearestEnemyOf(Myself),45)
+END
+

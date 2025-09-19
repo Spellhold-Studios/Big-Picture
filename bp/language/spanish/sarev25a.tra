@@ -1,0 +1,179 @@
+@0     = ~Bien, por fin has llegado. Te he estado esperando.~ [SAREVO01]
+@1     = ~¿Sarevok? ¿Acaso no te maté ya en el Infierno?~
+@2     = ~¿Dónde estoy, Sarevok? ¿Por qué me has traído aquí?~
+@3     = ~Lo hiciste, sin duda... aunque no fue culpa mía. Fuiste tú quien me mandó llamar, aunque las palabras fueran mías. Desde entonces todo lo que he hecho ha sido para reformarme.~
+@4     = ~Ah. Eres tú otra vez. ¿Qué es lo que quieres ahora?~
+@5     = ~¿Yo? Yo no te traje aquí, estúpido. Me ha llevado mucho tiempo reformarme desde la última vez que me hiciste llamar. Recuerdas que me mataste, ¿verdad, hermano?~ ~¿Yo?  Yo no te traje aquí, estúpida. Me ha llevado mucho tiempo reformarme desde la última vez que me hiciste llamar. Recuerdas que me mataste, ¿verdad, hermano?~
+@6     = ~Como recordarás, es tu voluntad la que dirige los designios del reino de nuestro padre... tanto si eres consciente de ello como si no. Ahora, yo no soy nada, sólo la sombra que tienes ante ti.~
+@7     = ~¿Estás diciendo que estoy de nuevo en el Infierno?~
+@8     = ~Eso no explica qué estás haciendo aquí.~
+@9     = ~¡Bien, sombra o no, te destruiré otra vez!~
+@10    = ~No... no sabes dónde estás, ¿verdad? ¿No has venido aquí a propósito?~
+@11    = ~¡Ja ja! ¡Qué ironía más amarga! Tú, que caminas casi a ciegas sin conocer tu auténtico poder, sigues viviendo, mientras que yo, Sarevok, mira en lo que me he quedado. ¡Bah! Muy bien, <CHARNAME>... te diré dónde estás.~
+@12    = ~Claro que quiero hacer un trato. Tengo poco que perder... y mucho que ganar. Igual que tú.  Y he estado esperando mucho tiempo en tu casa para negociar contigo.~
+@13    = ~¿Mi casa? ¿De qué estás hablando?~
+@14    = ~Olvídalo, Sarevok. No tengo ninguna intención de hacer tratos contigo.~
+@15    = ~No puedes destruirme, <CHARNAME>, puesto que no soy más que una sombra. Y apuesto a  no posees el poder para forzarme a dejar tu casa.~
+@16    = ~¿Qué quieres decir con eso de "casa"? ¡Yo no vivo aquí!~
+@17    = ~Te encuentras en el reino abismal de nuestro padre, hermano. El plano en el que una vez reinó Baal y al que ahora da forma la mancha presente en tu alma... pero ya no en la mía. Ya has estado aquí antes.~ ~Te encuentras en el reino abismal de nuestro padre, hermana. El plano en el que una vez reinó Baal y al que ahora da forma la mancha presente en tu alma... pero ya no en la mía. Ya has estado aquí antes.~
+@18    = ~Esto es una... una especie de capullo. Una versión en miniatura del más vasto reino de nuestro padre. Un plano dentro de otro plano, como si dijéramos. Supongo que tu mente lo creó para protegerte del poder de este lugar. Muy ingenioso, querido hermano... no te habría considerado capaz de ello.~ ~Esto es una... una especie de capullo. Una versión en miniatura del más vasto reino de nuestro padre. Un plano dentro de otro plano, como si dijéramos. Supongo que tu mente lo creó para protegerte del poder de este lugar. Muy ingenioso, querida hermana... no te habría considerado capaz de ello.~
+@19    = ~Pese a todo, vi cómo se formaba y anticipé su intención. Entonces vine aquí y esperé. Sabía que acabarías viniendo... y que así podríamos discutir mi... trato.~
+@20    = ~¿Qué tipo de trato? ¿Qué podrías querer?~
+@21    = ~Dime cómo puedo salir de aquí... es lo único que quiero saber.~
+@22    = ~En ese caso, date una vuelta. Busca tu camino, si es lo que debes hacer. Volverás.~
+@23    = ~Sarevok en el Infierno, Segunda parte
+
+Una criatura celestial me ha traído de vuelta al Abismo para informarme, según parece, de que mi destino como Engendro de Baal está a punto de realizarse. Pero parece ser que todavía no estoy del todo preparado.
+
+No hay ninguna salida a la vista...no es un lugar demasiado grande. Y ya están empezando a llegar invitados no deseados de la zona. Mi viejo enemigo Sarevok, como la falsa moneda, apareció con una propuesta... me dirá cómo salir del semiplano y lo que sea que me oculta a cambio de un insignificante fragmento de mi alma que le devuelva a algo parecido a la vida. No sé si estoy muy dispuesto a algo así... ya he hecho suficientes intercambios de alma como para que me duren varias eternidades. Tal vez pueda encontrar la salida por mis propios medios; ya veremos.~ ~Sarevok en el Infierno, Segunda parte
+
+Una criatura celestial me ha traído de vuelta al Abismo para informarme, según parece, de que mi destino como Engendro de Baal está a punto de realizarse. Pero parece ser que todavía no estoy del todo preparada.
+
+No hay ninguna salida a la vista...no es un lugar demasiado grande. Y ya están empezando a llegar invitados no deseados de la zona. Mi viejo enemigo Sarevok, como la falsa moneda, apareció con una propuesta... me dirá cómo salir del semiplano y lo que sea que me oculta a cambio de un insignificante fragmento de mi alma que le devuelva a algo parecido a la vida. No sé si estoy muy dispuesta a algo así... ya he hecho suficientes intercambios de alma como para que me duren varias eternidades. Tal vez pueda encontrar la salida por mis propios medios; ya veremos.~
+@24    = ~¿Y dónde irías? Esto no es un edificio, querido hermano, esto es el plano *entero*. Y a menos que hayas adquirido las habilidades para viajar entre planos desde la última vez que nos hemos visto, sólo hay un camino para salir de aquí.~ ~¿Y dónde irías? Esto no es un edificio, querida hermana, esto es el plano *entero*. Y a menos que hayas adquirido las habilidades para viajar entre planos desde la última vez que nos hemos visto, sólo hay un camino para salir de aquí.~
+@25    = ~Sé lo que es, pero tú no. Ni tampoco creo que tengas ni el tiempo ni la paciencia necesarios para aprender por tu cuenta. Acepta mi propuesta, <CHARNAME>, y te lo diré.~
+@26    = ~En ese caso, háblame de tu propuesta. ¿Qué es lo que quieres?~
+@27    = ~Olvídalo. Encontraré la salida por mi cuenta.~
+@28    = ~¿Qué crees que podría querer? Quiero existir... quiero volver a vivir. Tú puedes hacerlo.~
+@29    = ~Una minúscula fracción de tu alma... si la entregas libremente, con la mancha de nuestro padre ya muerto. Eso sería suficiente para recrear mi carne, para devolverme mi mortalidad. ¡Sarevok volvería a vivir!~
+@30    = ~¿Y qué sacaría yo de todo esto?~
+@31    = ~Ya te maté en una ocasión... ¿qué te hace pensar que me gustaría devolverte la vida?~
+@32    = ~No he venido con las manos vacías, <CHARNAME>. ¿Crees que soy un estúpido? Eres más fuerte que yo... no discuto eso. Pero puedo ayudarte. Y eso tiene un precio.~
+@33    = ~¿En qué consiste esa ayuda?~
+@34    = ~Tengo el conocimiento de cómo salir de este plano, <CHARNAME>. Es lo único que puedo darte, aunque no lo sabía cuando llegué aquí.~
+@35    = ~No, lo que te ofrezco es un conocimiento mucho más importante. Algo que se remonta a mis días mortales, cuando mi poder crecía en el Trono de Hierro. Algo que encontrarás... de lo más interesante.~
+@36    = ~¿Qué dices?~
+@37    = ~¿Ý cómo conseguiste tú ese supuesto conocimiento?~
+@38    = ~¿Conocimiento? ¿Eso es todo lo que ofreces por una parte de mi alma?~
+@39    = ~Uh-huh. ¿Y qué me impediría matarte después de que me lo cuentes?~
+@40    = ~Cuéntame ahora y juzgaré si tu información vale la pena.~
+@41    = ~¿No hay otra forma de que vuelvas?~
+@42    = ~Olvídalo, Sarevok. No puedo confiar en ti de ninguna manera.~
+@43    = ~¿Y qué piensas hacer con tu... nueva vida?~
+@44    = ~Muy bien, haré lo que me pides.~
+@45    = ~Reuní una gran cantidad del viejo saber mientras estaba vivo. Como recordarás, mi objetivo era asumir la responsabilidad de nuestro padre. Puede que esté muerto, pero ese saber todavía sigue vivo... para ti.~
+@46    = ~¡Bah! El conocimiento es mucho más importante que cualquier otra cosa, estúpido. Y lo único que pido es una chispa... una chispa de la mancha divina que tú posees. No seré un Hijo de Baal, hace mucho que perdí mi mancha... pero estaré vivo de nuevo.~ ~¡Bah! El conocimiento es mucho más importante que cualquier otra cosa, estúpida. Y lo único que pido es una chispa... una chispa de la mancha divina que tú posees. No seré un Hijo de Baal, hace mucho que perdí mi mancha... pero estaré vivo de nuevo.~
+@47    = ~Quizás nada. Hacerlo no te reportará nada de lo que entregaste libremente.~
+@48    = ~¿Y por qué me ibas a matar? ¿Venganza? Ya tuviste tu venganza. ¿Sigues culpándome por mi antigua ambición? Si pudiera, volvería a hacer lo mismo. Sin embargo, no puedo hacerlo, y ahora no tienes nada que temer de mí.~
+@49    = ~No soy ningún estúpido. He luchado para llegar hasta aquí después de que me destruyeses y sé que los acontecimientos siguen su curso incluso mientras estamos hablando. Tú no tienes tiempo para aprender estas cosas por ti mismo... y yo no volveré a tener una oportunidad como ésta.~
+@50    = ~No... no lo sé. No voy a traicionarte, querido hermano, eso es cierto. Mi ambición lo era todo en otro tiempo. Ahora que la mancha ha desaparecido, no... no estoy seguro. Pero deseo vivir.~ ~No... no lo sé. No voy a traicionarte, querida hermana, eso es cierto. Mi ambición lo era todo en otro tiempo. Ahora que la mancha ha desaparecido, no... no estoy seguro. Pero deseo vivir.~
+@51    = ~Puede que si la haya. Cualquier chispa divina servirá, no importa de qué Hijo de Baal provenga. Sin embargo, dudo que nuestra otra hermana, aquí presente, tenga el valor necesario.~
+@52    = ~Ya te lo habías imaginado, ¿verdad? El pensamiento de albergar una chispa de tu azucarada alma durante toda la eternidad no me llena precisamente de gozo... sí, pero creo que también me puede valer.~
+@53    = ~Querida Imoen, maté a muchos más en el curso de mi ambición. Pregúntate a ti misma a cuántos as matado... o <CHARNAME>. ¿Eres tan inocente? ¿Lo era Gorion? No estoy pidiendo vuestro perdón.~
+@54    = ~Ah, de manera que <CHARNAME> ha encontrado a alguien que le haga el trabajo. ¿Estás segura, chiquilla? No podrás echarte atrás después y reclamar a <CHARNAME> que te ha usado. Debe salir de ti libremente.~
+@55    = ~Con tan sólo una chispa tuya en mi interior, estoy convencido que volveré a correr sobre los campos en flor antes de que acabe la estación. Pase lo que pase, me tomaré eso como un sí.~
+@56    = ~No existe otro modo, <CHARNAME>, a menos que tengas otro Hijo de Baal a quien yo desconozca. Ha de ser tu chispa o nada. Elige.~
+@57    = ~Muy bien. Entonces supongo que dejaré a Imoen hacerlo.~
+@58    = ~Que así sea. De acuerdo.~
+@59    = ~Todavía no lo he decidido.~
+@60    = ~Olvídalo. No confío en ti.~
+@61    = ~Como quieras. En todo caso, date una vuelta y examina lo que desees de tus dominios. El tiempo pasa y los acontecimientos se mueven con él. Estoy seguro de que no tardarás en darte cuenta de la verdad.~
+@62    = ~Gracias, querido hermano... ningún obsequio me podría agradar más.~ ~Gracias, querida hermana... ningún obsequio me podría agradar más.~
+@63    = ~Dejadme. Sólo quiero hablar con <CHARNAME>, pero con ninguno de sus desventurados acompañantes. Vosotros no podéis hacer nada por mí.~
+@64    = ~Anda, si es mi hermanita. Dime, pequeña... ¿sigues pavoneándote, fingiendo que eres una ladrona? ¿Te crees digna de llevar la sangre de Baal en tus venas?~ [SAREVO74]
+@65    = ~¿Oh? No sabía nada de eso. Gasta tu tiempo en el Abismo, muchacha, muerta y destruida... y verás qué tipo de sueños tienes entonces. Apuesto a que te marchitas como una flor con el calor.~
+@66    = ~¿Y? ¿Has calculado todo lo que quieres, o has decidido atender a razones?~
+@67    = ~Escucharé tu propuesta, Sarevok. Dime qué es lo que quieres.~
+@68    = ~Todavía no he acabado.~
+@69    = ~He decidido que haré lo que me pides. Imoen te devolverá a la vida.~
+@70    = ~He decidido que haré lo que me pides, Sarevok. Te devolveré la vida.~
+@71    = ~Me gustaría saber primero cómo conseguiste ese conocimiento que tienes.~
+@72    = ~No sé si estoy dispuesto a entregarte parte de mi alma a cambio de un poco de información~
+@73    = ~¿Y qué me impedirá matarte otra vez cuando me hayas contado lo que sabes?~
+@74    = ~¿No hay otra forma de devolverte la vida?~
+@75    = ~¡Vivo! ¡Carne y sangre y huesos! ¡Estoy vivo! ¡Ja ja! Juré que volvería a rastras al mundo de los vivos... ¡y lo he conseguido!~ [SAREVO76]
+@76    = ~Aunque mi espada y mi armadura no han aparecido. No importa. Sin la esencia de Baal para canalizar sus poderes, apenas tienen utilidad. Me las arreglaré sin ellas, como ya lo hice en otra ocasión. Gracias, <CHARNAME>. Estoy satisfecho.~
+@77    = ~No me des las gracias. Dáselas a Imoen.~
+@78    = ~Es extraño... no siento ninguna diferencia.~
+@79    = ~Yo he cumplido con mi parte del trato, Sarevok. Ahora, cuéntame lo que sabes.~
+@80    = ~Ya está bien. Ahora, desembucha o comenzaremos el tercer asalto, ¿me entiendes?~
+@81    = ~Ciertamente. Gracias, hermanita. Aunque te de una rabia infinita, guardaré tu diminuta chispa como un tesoro.~
+@82    = ~¿No te dije que sólo era una parte pequeña? Pensaba que al hacerlo aquí, en este lugar, todo funcionaría... pero no estaba seguro. Está bien ver que tenía razón después de todo.~
+@83    = ~¿No estabas *seguro*? Ha sido muy arriesgado.~
+@84    = ~No llegué donde llegué en la vida sin correr riesgo. No era un engaño... Sabía lo suficiente para sospechar que podría funcionar, y más sabiendo que teníamos la misma sangre. Pero nada de eso es importante. Imagino que estás deseando escuchar lo que tengo que decir.~
+@85    = ~Lo primero que te diré es cómo salir de esta bolsa planar que has creado. Se trata de una extensión de tu voluntad, <CHARNAME>... existe porque tú necesitabas que existiese.~
+@86    = ~Es este plano el que crea el portal de salida, pero no te llevará adonde tú quieras ir. Te lleva adonde tienes que estar. O quizá adonde tú creas que tienes que estar.~
+@87    = ~Pero no puedo darte la capacidad de hacer que este plano cree tal portal. Hay muchos pasos prohibidos en este plano tuyo de los que no sé mucho. Sin embargo, hay uno que puedo abrir... y al otro lado se encuentra lo que buscas. Observa.~
+@88    = ~Entra en esa sala y enfréntate a tu desafío, <CHARNAME>. Será difícil... puede que no quieras hacerlo solo. Aquí hay un... espíritu...que puede traer a aquellos compañeros que necesites para tu grupo, si es que lo necesitas.~ ~Entra en esa sala y enfréntate a tu desafío, <CHARNAME>. Será difícil... puede que no quieras hacerlo sola. Aquí hay un... espíritu...que puede traer a aquellos compañeros que necesites para tu grupo, si es que lo necesitas.~
+@89    = ~Durante mi juventud, pasé gran parte de mi tiempo investigando el saber antiguo del sacerdocio del muerto Baal. Descubrí una de las antiguas profecías de una secta poco cooperativa de Cyric... que hablaba en detalle de la época que vivimos en la actualidad.~ [SAREVO78]
+@90    = ~La Costa de la Espada se volverá roja con la sangre, sí... Pero las batallas culminarán en una gran pugna en una ciudad al sur, la ciudad tethyriana de Saradush.~ [SAREVO79]
+@91    = ~Sarevok en el Infierno, Segunda parte
+
+Una criatura celestial me ha traído de vuelta al Abismo para informarme de que mi destino como Engendro de Baal está a punto de realizarse. Pero parece ser que todavía no estoy del todo preparado. Mi mente no está capacitada para asimilar todo el poder del reino de Baal...así que ha creado un semiplano propio, un "capullo", según dice ella, en el que tendré que prepararme.
+
+Unos momentos después de que se fuera la criatura, se apareció nada menos que Sarevok, y tenía en mente un trato: devolverle a la vida a cambio de la manera de abandonar la bolsa planar y de información acerca de mi destino. No tuve más remedio que aceptar.~ ~Sarevok en el Infierno, Segunda parte
+
+Una criatura celestial me ha traído de vuelta al Abismo para informarme de que mi destino como Engendro de Baal está a punto de realizarse. Pero parece ser que todavía no estoy del todo preparada. Mi mente no está capacitada para asimilar todo el poder del reino de Baal...así que ha creado un semiplano propio, un "capullo", según dice ella, en el que tendré que prepararme.
+
+Unos momentos después de que se fuera la criatura, se apareció nada menos que Sarevok, y tenía en mente un trato: devolverle a la vida a cambio de la manera de abandonar la bolsa planar y de información acerca de mi destino. No tuve más remedio que aceptar.~
+@92    = ~Allí es donde tú debes ir, donde se desarrollará el primer paso de la profecía. Aunque, naturalmente, primero tendrás que enfrentarte a tu desafío.~ [SAREVO80]
+@93    = ~Y entonces, ¿qué sucederá?~
+@94    = ~Los desafíos y el espíritu del destino
+
+Sarevok me ha informado acerca de dos aspectos importantes de mi bolsa planar.
+
+El primero son los desafíos. No estoy seguro de qué forma adoptarán, pero hay cinco pasillos que salen de la sala principal y, no sé por qué, estoy seguro de que se abrirán cuando esté preparado para enfrentarme a lo que yace al otro lado. Sarevok me dio a entender que los desafíos serían muy difíciles y que debería pensar en conseguir ayuda.
+
+Lo que me lleva al "espíritu del destino". No estoy seguro de cómo hace este espíritu las cosas que hace, pero parece ser que tengo algún control sobre la gente cuyo destino está entrelazado con el mío. El espíritu del destino me traerá compañeros... no sirvientes, sino posibles amigos. Para hablar con el espíritu, no tengo más que interactuar con él cerca de la "entrada" a este plano.~ ~Los desafíos y el espíritu del destino
+
+Sarevok me ha informado acerca de dos aspectos importantes de mi bolsa planar.
+
+El primero son los desafíos. No estoy segura de qué forma adoptarán, pero hay cinco pasillos que salen de la sala principal y, no sé por qué, estoy segura de que se abrirán cuando esté preparada para enfrentarme a lo que yace al otro lado. Sarevok me dio a entender que los desafíos serían muy difíciles y que debería pensar en conseguir ayuda.
+
+Lo que me lleva al "espíritu del destino". No estoy segura de cómo hace este espíritu las cosas que hace, pero parece ser que tengo algún control sobre la gente cuyo destino está entrelazado con el mío. El espíritu del destino me traerá compañeros... no sirvientes, sino posibles amigos. Para hablar con el espíritu, no tengo más que interactuar con él cerca de la "entrada" a este plano.~
+@95    = ~¿Cómo sé que puedo confiar en lo que dices?~
+@96    = ~Entonces, llevaré a cabo mi desafío ahora.~
+@97    = ~¿No eres todavía un Hijo de Baal?~
+@98    = ~Entonces, aquí comienza el futuro. Ahora veremos todos qué tipo de papel vas a jugar en este conflicto y si puedes estar a la altura de la herencia de nuestro padre.~
+@99    = ~Entonces, iré allí ahora mismo.~
+@100   = ~¿Así que eres un Hijo de Baal o no?~
+@101   = ~De acuerdo. Ya he oído bastante.~
+@102   = ~No. La esencia de Baal desapareció de mí cuando morí... y lo que me acabáis de entregar ahora sólo mantiene mi mortalidad. Algunos podrían considerarme todavía un Engendro de Baal, pero eso tan sólo es un asunto de la historia y de la memoria.~
+@103   = ~Entonces, ¿qué ocurrirá después de que me vaya a Saradush?~
+@104   = ~Entonces, iré a afrontar ahora mi desafío.~
+@105   = ~Claro que no puedes confiar en mí. ¿Por qué deberías hacerlo? Llévame contigo, <CHARNAME>.~
+@106   = ~¡¿Qué?!~
+@107   = ~Antes de que te vayas, tengo una cosa más que pedirte, <CHARNAME>. Llévame contigo.~
+@108   = ~Antes, estaba seguro de que las viejas profecías se centraban en mí. Aunque ya no sea así, es probable que sepa más que nadie acerca de ellas. Yo puedo serte de ayuda, <CHARNAME>. En el desafío que te espera en esa sala y en más cosas.~
+@109   = ~Naturalmente, no hago esto por nada. Hay un gran poder en tu estela, <CHARNAME>. Estoy seguro que no soy el primero que te lo dice. Y no encontraré una oportunidad mejor en ninguna otra parte.~
+@110   = ~Además... tú me derrotaste hace mucho tiempo. Te has ganado mi respeto. ¡Piensa en ello, <CHARNAME>! ¡Los dos hermanos juntos, codo con codo!~
+@111   = ~Olvídalo. No eres mi hermano y nunca confiaría en ti si te tuviera a mi espalda.~
+@112   = ~¿Y para qué me puedes servir tú?~
+@113   = ~Podría considerar que te unieras a mí... pero tendrías que hacer exactamente lo que te diga.~
+@114   = ~No tengo sitio para ti en mi grupo, incluso aunque quisiera llevarte.~
+@115   = ~Ya veo. Sea. Entonces, nuestros tratos han concluido, <CHARNAME>. Tienes lo que necesitas y yo también. Reúne a tus compañeros para tu desafío y márchate. Ojalá no volvamos a encontrarnos.~
+@116   = ~La siguiente parada del destino
+
+Según Sarevok, el lugar al que debo dirigirme a continuación es la ciudad tethyriana de Saradush. Puede que no me quede más remedio... esta bolsa planar no es un simple portal que me lleva donde yo quiera. Me lleva donde debo estar.~ ~La siguiente parada del destino
+
+Según Sarevok, el lugar al que debo dirigirme a continuación es la ciudad tethyriana de Saradush. Puede que no me quede más remedio... esta bolsa planar no es un simple portal que me lleva donde yo quiera. Me lleva donde debo estar.~
+@117   = ~Además del conocimiento que tengo, soy un guerrero con buenas cualidades. Ya luchaste contra mí, <CHARNAME>, y lo debes saber. Y he mejorado todavía más durante mi estancia en el Infierno. Bajo tu tutela podría ser todavía mejor.~
+@118   = ~Sin tu armadura y tu poder divino, no veo qué utilidad puedes tener. Lárgate.~
+@119   = ~¿Y cómo sé que no me traicionarás en cuanto te convenga?~
+@120   = ~Prestaré un juramento para seguirte, si eso te basta, hermano mío. Aquí... en este lugar... ese juramento sería legítimo, como una obligación. No podría traicionarte.~ ~Prestaré un juramento para seguirte, si eso te basta, hermana mía. Aquí... en este lugar... ese juramento sería legítimo, como una obligación. No podría traicionarte.~
+@121   = ~No, eres demasiado capaz de ello. No confío en ti. Olvídalo.~
+@122   = ~No, no hace falta ningún juramento. Ya me basta. Únete a mí y marchémonos.~
+@123   = ~Está bien. Si prestas juramento de que no me traicionarás... entonces podrás unirte a mí.~
+@124   = ~Puede que vuelva por ti más tarde. Quizás puedas prestar juramento entonces.~
+@125   = ~Entonces, deja aquí a alguno de tus lacayos, en tu plano, para que vuelvas cuando requieras su ayuda. O déjame en este lugar hasta que me necesites. Mi intención es observar lo que te sucede, así que esperaré.~
+@126   = ~No, accedes a ello con demasiada facilidad. Nunca confiaré en ti. Olvídalo.~
+@127   = ~¿Cómo sabría que no me traicionas a la menos oportunidad?~
+@128   = ~No, no te molestes en esperar aquí. Pese a todo, no dejaré que te unas a mí.~
+@129   = ~¿No... precisarás un juramento? Extraña... decisión, hermano. Yo te lo habría pedido a ti. Si te hubiera dejado vivir. Como quieras, entonces... ocupémonos de tu desafío. Recuerda... considera que puedes necesitar más compañeros para completarlo.~ ~¿No... precisarás un juramento? Extraña... decisión, hermana. Yo te lo habría pedido a ti. Si te hubiera dejado vivir. Como quieras, entonces... ocupémonos de tu desafío. Recuerda... considera que puedes necesitar más compañeros para completarlo.~
+@130   = ~Muy bien. Yo, Sarevok, juro sobre las amargas cenizas de mi madre y del dios muerto que es mi padre, en nombre de la venganza y de la amarga bilis que es mi sangre... juro que no traicionaré a <CHARNAME> mientras viva.~
+@131   = ~Vale. Vámonos.~
+@132   = ~Ya vale. Puede que vuelva por ti más tarde, así que... espera aquí.~
+@133   = ~No me creo ni una palabra. Tu palabra no vale nada para mí, Sarevok.~
+@134   = ~¡Bueno! ¡Ahora será todavía más fácil matarte por tercera vez!~
+@135   = ~Como desees. Esperaré tu regreso, <CHARNAME>. Recuerda... el desafío puede ser de gran dificultad. Piénsate lo de llamar a más compañeros a tu lado.~
+@136   = ~¿Te vuelves en mi contra? Debería haberlo previsto. Yo haría lo mismo. Sé cómo salir de este sitio por mi cuenta, sin embargo... puede que no nos volvamos a ver, querido hermano.~ ~¿Te vuelves en mi contra? Debería haberlo previsto. Yo haría lo mismo. Sé cómo salir de este sitio por mi cuenta, sin embargo... puede que no nos volvamos a ver, querida hermana.~
+@137   = ~¿Necesitas de nuevo mi espada? Está lista para matar a tus órdenes.~ [SAREVO81]
+@138   = ~Sí, ven conmigo.~
+@139   = ~Creo que necesitaré un juramento de lealtad por tu parte, si es que quieres que confíe en ti.~
+@140   = ~No, sigue esperando aquí. Volveré.~
+@141   = ~Lárgate. No tengo nada que decirte. Con el único que he de hablar es con <CHARNAME>.~
+@142   = ~Sé cuál es tu destino, <CHARNAME>. Sé dónde debes ir para encontrarlo. Pero si lo buscas por tu cuenta, pronto será tarde... el momento de las viejas profecías ha llegado para nosotros. O, al menos, para ti.~
+@143   = ~Silencio. He estado esperado a <CHARNAME> y mis palabras son para él.~ ~Silencio. He estado esperado a <CHARNAME> y mis palabras son para ella.~
+@144   = ~Sí, como desees, hermano mío. Recuerda... debes enfrentarte a tu desafío en esa caverna. Puedes hacer que el espíritu te traiga más ayuda.~ ~Sí, como desees, hermana mía. Recuerda... debes enfrentarte a tu desafío en esa caverna. Puedes hacer que el espíritu te traiga más ayuda.~
+@145   = ~No importa; una vez hayas completado ese desafío, podrás abandonar este plano tuyo. Pero no te lleva adonde tú quieras ir... te lleva adonde tú tienes que estar. Y, como ya dije, yo sé donde es.~
+

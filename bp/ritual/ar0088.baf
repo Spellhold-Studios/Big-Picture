@@ -1,0 +1,137 @@
+IF
+  Global("RitPrep","GLOBAL",0)
+  InMyArea(Player1)
+THEN
+  RESPONSE #100
+    SetGlobal("RitPrep","GLOBAL",1)
+    SetGlobalTimer("RitualIsNowOver","GLOBAL",3600)
+    SetGlobal("RitualDisrupted","GLOBAL",0)
+    SetGlobal("RitualGuardPassed","GLOBAL",0)
+    CreateCreature("ritguard",[1550.2471],0)  // ~Manifestation~
+    CreateCreature("ritskul1",[1200.439],0)  // ~Ritual Skull~
+    CreateCreature("riti1",[1200.439],0)  // ~Vryce, Ritual Inquisitor~
+    CreateCreature("ritac1",[1223.474],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritkm1",[1156.440],0)  // ~Ritual Battlemage~
+    CreateCreature("ritd1",[1289.440],0)  // ~Ritual Totemist~
+    CreateCreature("ritwolf",[1289.440],0)  // ~Spirit Wolf~
+    CreateCreature("ritbear",[1289.440],0)  // ~Spirit Bear~
+    CreateCreature("ritlion",[1289.440],0)  // ~Spirit Lion~
+    CreateCreature("ritw1",[1284.487],0)  // ~Ritual Disruptor~
+    CreateCreature("ritb1",[1145.487],0)  // ~Ritual Battlerager~
+    CreateCreature("ritkt1",[1231.560],0)  // ~Ritual Shadowstalker~
+    CreateCreature("ritskul1",[2309.596],0)  // ~Ritual Skull~
+    CreateCreature("ritend",[2309.596],0)  // ~Ender, Ritual Captain~
+    CreateCreature("ritac1",[2241.471],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritd1",[2472.534],0)  // ~Ritual Totemist~
+    CreateCreature("ritwolf",[2472.534],0)  // ~Spirit Wolf~
+    CreateCreature("ritbear",[2472.534],0)  // ~Spirit Bear~
+    CreateCreature("ritlion",[2472.534],0)  // ~Spirit Lion~
+    CreateCreature("ritkm1",[2269.696],0)  // ~Ritual Battlemage~
+    CreateCreature("ritw1",[2435.661],0)  // ~Ritual Disruptor~
+    CreateCreature("ritb1",[2155.625],0)  // ~Ritual Battlerager~
+    CreateCreature("ritkt1",[2044.748],0)  // ~Ritual Shadowstalker~
+    CreateCreature("ritskul1",[3393.979],0)  // ~Ritual Skull~
+    CreateCreature("ritsf1",[3291.701],0)  // ~Chanur, Ritual Shapeshifter~
+    CreateCreature("ritb1",[3250.980],0)  // ~Ritual Battlerager~
+    CreateCreature("ritac1",[3353.1050],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritd1",[3399.757],0)  // ~Ritual Totemist~
+    CreateCreature("ritwolf",[3399.757],0)  // ~Spirit Wolf~
+    CreateCreature("ritlion",[3399.757],0)  // ~Spirit Lion~
+    CreateCreature("ritbear",[3399.757],0)  // ~Spirit Bear~
+    CreateCreature("ritkm1",[3506.1188],0)  // ~Ritual Battlemage~
+    CreateCreature("ritw1",[3430.991],0)  // ~Ritual Disruptor~
+    CreateCreature("ritkt1",[3184.1171],0)  // ~Ritual Shadowstalker~
+    CreateCreature("ritskul1",[542.1420],0)  // ~Ritual Skull~
+    CreateCreature("ritm1",[799.1434],0)  // ~Number Ten Ox, Ritual Monk~
+    CreateCreature("ritb1",[978.1570],0)  // ~Ritual Battlerager~
+    CreateCreature("ritac1",[665.1577],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritd1",[298.1446],0)  // ~Ritual Totemist~
+    CreateCreature("ritlion",[298.1446],0)  // ~Spirit Lion~
+    CreateCreature("ritbear",[298.1446],0)  // ~Spirit Bear~
+    CreateCreature("ritwolf",[298.1446],0)  // ~Spirit Wolf~
+    CreateCreature("ritkm1",[423.1601],0)  // ~Ritual Battlemage~
+    CreateCreature("ritw1",[538.1456],0)  // ~Ritual Disruptor~
+    CreateCreature("ritkt1",[803.1645],0)  // ~Ritual Shadowstalker~
+    CreateCreature("ritskul1",[2276.1420],0)  // ~Ritual Skull~
+    CreateCreature("ritac1",[2276.1420],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritac1",[2172.1247],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritac1",[2032.1383],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritb1",[1961.1166],0)  // ~Ritual Battlerager~
+    CreateCreature("ritd1",[1729.1418],0)  // ~Ritual Totemist~
+    CreateCreature("ritwolf",[1729.1418],0)  // ~Spirit Wolf~
+    CreateCreature("ritbear",[1729.1418],0)  // ~Spirit Bear~
+    CreateCreature("ritlion",[1729.1418],0)  // ~Spirit Lion~
+    CreateCreature("ritkm1",[2492.1302],0)  // ~Ritual Battlemage~
+    CreateCreature("ritw1",[2294.1077],0)  // ~Ritual Disruptor~
+    CreateCreature("ritkt1",[1621.1604],0)  // ~Ritual Shadowstalker~
+    CreateCreature("ritskul1",[3270.1641],0)  // ~Ritual Skull~
+    CreateCreature("rits1",[3270.1641],0)  // ~Li Kao, Ritual Wu Jen~
+    CreateCreature("ritb1",[2890.1690],0)  // ~Ritual Battlerager~
+    CreateCreature("ritac1",[3515.1776],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritd1",[3270.1641],0)  // ~Ritual Totemist~
+    CreateCreature("ritwolf",[3270.1641],0)  // ~Spirit Wolf~
+    CreateCreature("ritlion",[3270.1641],0)  // ~Spirit Lion~
+    CreateCreature("ritbear",[3270.1641],0)  // ~Spirit Bear~
+    CreateCreature("ritkm1",[3349.1503],0)  // ~Ritual Battlemage~
+    CreateCreature("ritw1",[3270.1641],0)  // ~Ritual Disruptor~
+    CreateCreature("ritkt1",[3057.1458],0)  // ~Ritual Shadowstalker~
+    CreateCreature("ritskul1",[3059.2289],0)  // ~Ritual Skull~
+    CreateCreature("ritw1",[3050.2237],0)  // ~Ritual Disruptor~
+    CreateCreature("ritw1",[2998.2322],0)  // ~Ritual Disruptor~
+    CreateCreature("ritw1",[3162.2321],0)  // ~Ritual Disruptor~
+    CreateCreature("ritb1",[2814.2353],0)  // ~Ritual Battlerager~
+    CreateCreature("ritkm1",[3244.2149],0)  // ~Ritual Battlemage~
+    CreateCreature("ritd1",[3084.2424],0)  // ~Ritual Totemist~
+    CreateCreature("ritlion",[3084.2424],0)  // ~Spirit Lion~
+    CreateCreature("ritwolf",[3084.2424],0)  // ~Spirit Wolf~
+    CreateCreature("ritbear",[3084.2424],0)  // ~Spirit Bear~
+    CreateCreature("ritac1",[3400.2339],0)  // ~Ritual Theurgeon~
+    CreateCreature("ritkt1",[3332.2168],0)  // ~Ritual Shadowstalker~
+    CreateCreature("ritpont",[371.577],0)  // ~Pontifex~
+    ActionOverride("ritpont",StartDialogNoSet(Player1))
+END
+
+IF
+  !GlobalTimerExpired("RitualIsNowOver","GLOBAL")
+  Dead("ritcount")  // ~Countess Merentha~
+  Global("RitualDisrupted","GLOBAL",0)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    DisplayString(Player1,~The Ritual was disrupted.~)
+    DisplayStringHead(Player1,~The Ritual was disrupted.~)
+    ScreenShake([5.5],30)
+    SetGlobal("RitualDisrupted","GLOBAL",1)
+    EndCutSceneMode()
+END
+
+IF
+  GlobalTimerExpired("RitualIsNowOver","GLOBAL")
+  Exists("ritcount")  // ~Countess Merentha~
+  !Dead("ritcount")  // ~Countess Merentha~
+  CheckStatLT("ritcount",20,WIS)  // ~Countess Merentha~
+  Global("RitualDisrupted","GLOBAL",0)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    DisplayString(Player1,~The Ritual was disrupted.~)
+    DisplayStringHead(Player1,~The Ritual was disrupted.~)
+    ScreenShake([5.5],30)
+    SetGlobal("RitualDisrupted","GLOBAL",1)
+    EndCutSceneMode()
+END
+
+IF
+  GlobalTimerExpired("RitualIsNowOver","GLOBAL")
+  Global("RitualDisrupted","GLOBAL",0)
+  Global("RitualNotDisruptedMentioned","GLOBAL",0)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    SetGlobal("RitualNotDisruptedMentioned","GLOBAL",1)
+    ScreenShake([5.5],30)
+    DisplayStringHead(Player1,~The Ritual was completed.~)
+    DisplayString(Player1,~The Ritual was completed.~)
+    EndCutSceneMode()
+END
+

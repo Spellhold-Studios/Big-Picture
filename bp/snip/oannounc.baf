@@ -1,0 +1,11 @@
+IF
+  Global("DestroyAnnouncer","AR0406",1)
+THEN
+  RESPONSE #100
+    CreateCreature("WOLFWI01",[2924.1372],12)
+    CreateCreature("DSBODY01",[2638.1588],8)
+    CreateCreature("DSTHIEF",[2735.1598],12)
+    CreateCreature("DSBODY01",[2831.1361],8)
+    DestroySelf()
+END
+

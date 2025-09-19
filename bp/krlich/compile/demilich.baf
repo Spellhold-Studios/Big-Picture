@@ -1,0 +1,231 @@
+IF
+	PartyHasItem("Blun25") // Mace of Disruption +2
+THEN
+	RESPONSE #100
+		DisplayStringHead(Myself,43801) // No, <CHARNAME>... it is MINE!  Give it to ME!!
+		TakePartyItem("Blun25") // Mace of Disruption +2
+END
+
+IF
+	HPPercentLT(Myself,50)
+	Global("DemiHeal","LOCALS",0)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,CLERIC_HEAL)
+		SetGlobal("DemiProt","LOCALS",0)
+		SetGlobal("DemiHeal","LOCALS",1)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",0)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_STONE_SKIN)
+		ApplySpell(Myself,WIZARD_ABSOLUTE_IMMUNITY)
+		ApplySpell(Myself,WIZARD_PROTECTION_FROM_THE_ELEMENTS)
+		SetGlobal("DemiProt","LOCALS",1)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",1)
+	CheckStatGT(NearestEnemyOf(Myself),26,RESISTMAGIC)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_TIME_STOP)
+		ForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+		ForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+		SetGlobal("DemiProt","LOCALS",2)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",1)
+	HPLT(LastSeenBy(Myself),60)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),WIZARD_POWER_WORD_KILL)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",1)
+	HPGT(LastSeenBy(Myself),61)
+	CheckStatGT(LastSeenBy(Myself),5,0)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,DEMILICH_DEATH)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",1)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),DEMILICH_TRAP_SOUL)
+		SetGlobal("DemiProt","LOCALS",15)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",15)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+		SetGlobal("DemiProt","LOCALS",16)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",16)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),WIZARD_TIME_STOP)
+		SetGlobal("DemiProt","LOCALS",17)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",17)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+		SetGlobal("DemiProt","LOCALS",18)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",18)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+		SetGlobal("DemiProt","LOCALS",19)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",19)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+		SetGlobal("DemiProt","LOCALS",20)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",20)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_PHANTOM_BLADE)
+		SetGlobal("DemiProt","LOCALS",21)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",21)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_TENSERS_TRANSFORMATION)
+		SetGlobal("DemiProt","LOCALS",22)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",22)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_BLACK_BLADE_OF_DISASTER)
+		SetGlobal("DemiProt","LOCALS",23)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",23)
+THEN
+	RESPONSE #100
+		AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",1)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),WIZARD_ABI_DALZIMS_HORRID_WILTING)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",2)
+	CheckStatGT(LastSeenBy(Myself),26,RESISTMAGIC)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),WIZARD_LOWER_RESISTANCE)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",2)
+	CheckStatGT(LastSeenBy(Myself),5,0)
+	!HasBounceEffects(LastSeenBy(Myself))
+THEN
+	RESPONSE #50
+		ForceSpell(Myself,WIZARD_SYMBOL_FEAR)
+	RESPONSE #50
+		ForceSpell(Myself,WIZARD_SPHERE_OF_CHAOS)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",2)
+	CheckStatGT(LastSeenBy(Myself),17,INT)
+	Global("DemiWizd","LOCALS",0)
+	HPLT(LastSeenBy(Myself),70)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,WIZARD_SUMMON_HAKEASHAR)
+		SetGlobal("DemiWizd","LOCALS",1)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",2)
+	HPGT(LastSeenBy(Myself),60)
+	CheckStatLT(LastSeenBy(Myself),26,RESISTMAGIC)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),WIZARD_ABI_DALZIMS_HORRID_WILTING)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",2)
+	CheckStatLT(LastSeenBy(Myself),36,RESISTFIRE)
+	CheckStatLT(LastSeenBy(Myself),26,RESISTMAGIC)
+	HPGT(LastSeenBy(Myself),60)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),WIZARD_DELAYED_BLAST_FIREBALL)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Global("DemiProt","LOCALS",2)
+	HPLT(LastSeenBy(Myself),60)
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(Myself),WIZARD_POWER_WORD_KILL)
+END
+
+IF
+	StateCheck(LastSeenBy(Myself),STATE_DEAD)
+	OR(2)
+		StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+		StateCheck(LastSeenBy(Myself),STATE_PANIC)
+THEN
+	RESPONSE #100
+		SetGlobal("DemiProt","LOCALS",0)
+END
+
+

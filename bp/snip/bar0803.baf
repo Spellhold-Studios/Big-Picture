@@ -1,0 +1,36 @@
+IF
+  Global("FindLassal","AR0803",1)
+  Global("BP_MoreStooges","AR0803",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0803",1)
+    CreateCreature("SKELWA",[615.733],6)
+    CreateCreature("SKELAR01",[735.800],6)
+    CreateCreature("SKELAR01",[705.825],6)
+    CreateCreature("SHADFI01",[1580.525],4)
+    CreateCreature("ZOMBJU01",[1260.610],4)
+    CreateCreature("ZOMBJU01",[1120.520],6)
+    CreateCreature("VAMFLF01",[1485.535],4)
+    CreateCreature("VAMFLM01",[1265.355],3)
+    CreateCreature("SKELWA",[1750.235],4)
+    CreateCreature("IVAMP01",[1640.175],0)
+END
+
+IF
+  Global("BP_MoreStooges","AR0803",1)
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0803",2)
+    CreateCreature("SHADFI01",[790.860],6)
+    CreateCreature("SHADFI01",[1040.660],2)
+    CreateCreature("IVAMP01",[1455.280],3)
+    CreateCreature("IVAMP01",[1580.375],3)
+    CreateCreature("SHADFI01",[1240.290],2)
+    CreateCreature("WRAITH01",[1075.210],0)
+    CreateCreature("WRAITH01",[985.225],15)
+    CreateCreature("WRAITH01",[1830.170],3)
+END
+

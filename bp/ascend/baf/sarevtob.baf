@@ -1,0 +1,415 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  OR(2)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    Heard([ANYONE],79)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  HitBy([GOODCUTOFF],CRUSHING)
+  !Allegiance(Myself,GOODCUTOFF)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Shout(151)
+    Enemy()
+END
+
+IF
+  OR(2)
+    !Allegiance(Myself,ENEMY)
+    !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+END
+
+IF
+  TargetUnreachable(LastSeenBy(Myself))
+  Delay(3)
+THEN
+  RESPONSE #100
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  Range(NearestEnemyOf(Myself),2)
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,125)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+THEN
+  RESPONSE #70
+    RunAwayFrom(NearestEnemyOf(Myself),4)
+  RESPONSE #30
+    Continue()
+END
+
+IF
+  HaveSpell(WARRIOR_RESIST_MAGIC)
+  CheckStatLT(Myself,50,RESISTMAGIC)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(4)
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+    See([GOODCUTOFF.0.0.BARD_ALL])
+    See([GOODCUTOFF.0.0.LONG_BOW])
+    See([GOODCUTOFF.0.0.SORCERER])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    ReallyForceSpell(Myself,WARRIOR_RESIST_MAGIC)
+    RemoveSpell(WARRIOR_RESIST_MAGIC)
+END
+
+IF
+  HasItem("potn55",Myself)  // ~Potion of Superior Healing~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  HPPercentLT(Myself,60)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    UseItem("potn55",Myself)  // ~Potion of Superior Healing~
+END
+
+IF
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  HPPercentLT(Myself,70)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  HasItem("POTN07",Myself)  // ~Potion of Storm Giant Strength~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  CheckStatLT(Myself,24,STR)
+  RandomNum(3,1)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    UseItem("POTN07",Myself)  // ~Potion of Storm Giant Strength~
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+END
+
+IF
+  HaveSpell(WARRIOR_WAR_CRY)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Range(SecondNearestEnemyOf(Myself),10)
+  RandomNumLT(6,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,33783)  // ~RRRAAAUUGH!!~
+    ReallyForceSpell(Myself,WARRIOR_WAR_CRY)
+    RemoveSpell(WARRIOR_WAR_CRY)
+END
+
+IF
+  HaveSpell(WARRIOR_HARDINESS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !GlobalTimerNotExpired("HARD","LOCALS")
+  !CombatCounter(0)
+  RandomNumLT(5,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,63953)  // ~Hardiness~
+    ReallyForceSpell(Myself,WARRIOR_HARDINESS)
+    SetGlobalTimer("HARD","LOCALS",ONE_TURN)
+    RemoveSpell(WARRIOR_HARDINESS)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(31,21)
+  OR(6)
+    See(NearestEnemyOf(Myself))
+    See(WeakestOf)
+    See(WorstAC)
+    See(MostDamagedOf)
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+  RandomNumLT(28,22)
+  OR(4)
+    See([GOODCUTOFF.0.0.0.0.SUMMONED_DEMON])
+    See([GOODCUTOFF.0.0.0.0.SUMMONED])
+    See([GOODCUTOFF.0.0.0.SIMULACRUM])
+    See([GOODCUTOFF.0.0.0.0.ILLUSIONARY])
+  RandomNumLT(29,23)
+  OR(7)
+    See([PC.0.0.RANGER_ALL])
+    See([PC.0.0.PALADIN_ALL])
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+  RandomNumLT(30,16)
+  See(Protagonist)
+  RandomNumLT(26,10)
+  OR(4)
+    See([GOODCUTOFF.0.0.RANGER_ALL])
+    See([GOODCUTOFF.0.0.DRUID_ALL])
+    See([GOODCUTOFF.0.0.PALADIN_ALL])
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+  RandomNumLT(27,10)
+  OR(3)
+    See([GOODCUTOFF.0.0.MONK])
+    See([GOODCUTOFF.0.0.BARD_ALL])
+    See([GOODCUTOFF.0.0.THIEF_ALL])
+  RandomNumLT(24,9)
+  OR(3)
+    See(StrongestOf)
+    See(BestAC)
+    See(LeastDamagedOf)
+  RandomNumLT(25,9)
+  See(WeakestOf)
+  RandomNumLT(23,8)
+  See(WorstAC)
+  RandomNumLT(21,8)
+  See(MostDamagedOf)
+  RandomNumLT(32,11)
+  OR(2)
+    See(TenthNearest([GOODCUTOFF.0.0.LONG_BOW]))
+    See(TenthNearest([GOODCUTOFF.0.0.SORCERER]))
+  RandomNumLT(20,8)
+  See(TenthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  OR(3)
+    Allegiance(LastSeenBy(Myself),ENEMY)
+    Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+    Allegiance(LastSeenBy(Myself),GOODBUTRED)
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStatGT(Myself,0,SCRIPTINGSTATE4)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),45)
+END
+
+IF
+  HaveSpell(WARRIOR_SMITE)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,185)
+  CheckStat(Myself,0,SCRIPTINGSTATE4)
+  Range(LastSeenBy(Myself),7)
+  RandomNumLT(6,5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,65598)  // ~Smite~
+    ReallyForceSpell(Myself,WARRIOR_SMITE)
+    RemoveSpell(WARRIOR_SMITE)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  HaveSpell(WARRIOR_GREATER_WHIRLWIND)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,185)
+  CheckStat(Myself,0,SCRIPTINGSTATE4)
+  Range(LastSeenBy(Myself),8)
+  RandomNumLT(66,40)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,63904)  // ~Greater Whirlwind Attack~
+    ReallyForceSpell(Myself,WARRIOR_GREATER_WHIRLWIND)
+    RemoveSpell(WARRIOR_GREATER_WHIRLWIND)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  HaveSpell(WARRIOR_CRITICAL_STRIKE)
+  Range(LastSeenBy(Myself),8)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,185)
+  CheckStat(Myself,0,SCRIPTINGSTATE4)
+  RandomNumLT(68,38)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,65434)  // ~Critical Strike~
+    ReallyForceSpell(Myself,WARRIOR_CRITICAL_STRIKE)
+    RemoveSpell(WARRIOR_CRITICAL_STRIKE)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  HaveSpell(WARRIOR_GREATER_DEATHBLOW)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,185)
+  CheckStat(Myself,0,SCRIPTINGSTATE4)
+  CheckStatLT(LastSeenBy(Myself),13,LEVEL)
+  Range(LastSeenBy(Myself),8)
+  RandomNumLT(67,36)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,63938)  // ~Greater Deathblow~
+    ReallyForceSpell(Myself,WARRIOR_GREATER_DEATHBLOW)
+    RemoveSpell(WARRIOR_GREATER_DEATHBLOW)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  HaveSpell(WARRIOR_WHIRLWIND)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,185)
+  CheckStat(Myself,0,SCRIPTINGSTATE4)
+  Range(LastSeenBy(Myself),8)
+  RandomNumLT(72,32)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,63902)  // ~Whirlwind Attack~
+    ReallyForceSpell(Myself,WARRIOR_WHIRLWIND)
+    RemoveSpell(WARRIOR_WHIRLWIND)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  HaveSpell(WARRIOR_DEATHBLOW)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,185)
+  CheckStat(Myself,0,SCRIPTINGSTATE4)
+  CheckStatLT(LastSeenBy(Myself),9,LEVEL)
+  Range(LastSeenBy(Myself),8)
+  RandomNumLT(75,26)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,63922)  // ~Deathblow~
+    ReallyForceSpell(Myself,WARRIOR_DEATHBLOW)
+    RemoveSpell(WARRIOR_DEATHBLOW)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  HaveSpell(WARRIOR_POWER_ATTACK)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,185)
+  CheckStat(Myself,0,SCRIPTINGSTATE4)
+  Range(LastSeenBy(Myself),8)
+  RandomNumLT(76,20)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,63941)  // ~Power Attack~
+    ReallyForceSpell(Myself,WARRIOR_POWER_ATTACK)
+    RemoveSpell(WARRIOR_POWER_ATTACK)
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,25)
+  Range(LastHitter(Myself),10)
+  !GlobalTimerNotExpired("BPW","LOCALS")
+THEN
+  RESPONSE #30
+    DisplayStringHead(Myself,@0)
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    RunAwayFrom(LastHitter(Myself),40)
+  RESPONSE #15
+    DisplayStringHead(Myself,@1)
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    Attack(LastHitter(Myself))
+  RESPONSE #40
+    DisplayStringHead(Myself,@2)
+    Shout(123)
+    SetGlobalTimer("BPW","LOCALS",10)
+    AttackReevaluate(LastSeenBy(Myself),15)
+END
+
+IF
+  ActionListEmpty()
+  CheckStatGT(LastSeenBy(Myself),10,180)
+  CheckStatLT(Myself,11,180)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  OR(3)
+    !Range(LastSeenBy(Myself),5)
+    CheckStatGT(LastSeenBy(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #25
+    Continue()
+  RESPONSE #75
+END
+
+IF
+  ActionListEmpty()
+  !Range(LastSeenBy(Myself),8)
+THEN
+  RESPONSE #90
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    MoveToObjectNoInterrupt(LastSeenBy(Myself))
+    AttackReevaluate(LastSeenBy(Myself),135)
+END
+
+IF
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+

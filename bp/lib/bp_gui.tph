@@ -1,0 +1,205 @@
+
+DEFINE_ACTION_FUNCTION install_gui BEGIN
+
+////CODE below was blatantly hijacked from King Diamond//////
+////At least I have his permission, hehe/////////////////////
+
+//******************************************************************************
+//*** GUI Switcher v 2.0
+//******************************************************************************
+PRINT @1
+
+<<<<<<<< new_gui_switcher.tp2
+BACKUP ~GUI_Mods/Backup~
+AUTHOR ~King Diamond~ //Unix version by Turambar
+
+>>>>>>>>
+<<<<<<<< GUI_Mods.2DA
+NEXT_AVAILABLE_MOD_SLOT      1
+CURRENT_ACTIVE_MOD_GUI       0
+RESERVED2                    -1
+RESERVED3                    -1
+RESERVED4                    -1
+RESERVED5                    -1
+RESERVED6                    -1
+RESERVED7                    -1
+RESERVED8                    -1
+RESERVED9                    -1
+>>>>>>>>
+<<<<<<<< orig_gui.tp2
+//****************************************************************************
+BEGIN ~"Original SoA/ToB"~
+SUBCOMPONENT ~Game Graphical User Interface (GUI)~
+
+COPY ~GUI_Mods/GUI_Mods.2DA~ ~GUI_Mods~
+SET_2DA_ENTRY  1 1 2    0   //CURRENT_ACTIVE_MOD_GUI
+ACTION_IF ~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ BEGIN
+  AT_EXIT ~Setup-GUI.exe --noautoupdate --skip-at-view --uninstall~ //This was not Unix-friendy
+END ELSE BEGIN
+  AT_EXIT ~"%WEIDU_EXECUTABLE%" setup-gui.tp2 --noautoupdate --no-auto-tp2 --autolog --logapp --skip-at-view --uninstall~ EXACT
+END
+
+>>>>>>>>
+<<<<<<<< mod_gui.tp2
+//****************************************************************************
+BEGIN ~"Big Picture"~
+SUBCOMPONENT ~Game Graphical User Interface (GUI)~
+
+COPY ~GUI_Mods/GUI_Mods.2DA~ ~GUI_Mods~
+SET_2DA_ENTRY  1 1 2   "%gui_slot_name%"  //CURRENT_ACTIVE_MOD_GUI
+COPY ~GUI_Mods/%gui_slot_name%~  ~override~
+
+>>>>>>>>
+
+// new.tp2 is a skeleton tp2 for the newly created GUI Switcher mod
+//
+// orig_gui.tp2 section above will allow to activate original SoA/ToB GUI
+//
+// mod_gui.tp2 section contains an installation script for current mod's GUI
+// Only mod's name (after BEGIN) should be altered
+
+//************************************************
+//create GUI Switcher mod if it doesn't exist yet
+//************************************************
+
+ACTION_FOR_EACH ext IN ~~ ~.exe~ ~.command~ BEGIN
+  ACTION_IF FILE_EXISTS ~Setup-bp%ext%~ AND NOT FILE_EXISTS ~Setup-GUI%ext%~ BEGIN
+    COPY ~Setup-bp%ext%~ ~Setup-GUI%ext%~
+//        ^^^^^^^^^^^^     replace this with a real setup .exe name of your mod
+  END
+END
+
+
+ACTION_IF NOT FILE_EXISTS ~Setup-GUI.tp2~
+THEN BEGIN
+  MKDIR ~GUI_Mods~
+
+  COPY ~GUI_Mods.2DA~ ~GUI_Mods/GUI_Mods.2DA~
+
+  COPY ~new_gui_switcher.tp2~ ~Setup-GUI.tp2~
+   APPEND_FILE ~orig_gui.tp2~
+END
+ELSE BEGIN
+  COPY ~Setup-GUI.tp2~ ~Setup-GUI.tp2~ //linux and OSX compatibility
+    REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH "AT_EXIT ~Setup-GUI.exe --uninstall~"
+~~~~~ACTION_IF ~#%#WEIDU_OS#%#~ STRING_EQUAL_CASE ~win32~ BEGIN
+  AT_EXIT ~Setup-GUI.exe --noautoupdate --skip-at-view --uninstall~
+END ELSE BEGIN
+  AT_EXIT ~"#%#WEIDU_EXECUTABLE#%#" setup-gui.tp2 --noautoupdate --no-auto-tp2 --autolog --logapp --skip-at-view --uninstall~ EXACT
+END~~~~~
+    REPLACE_TEXTUALLY CASE_SENSITIVE EXACT_MATCH ~#%#~ ~%~ //otherwise, variables would be evaluated during BGT installation, instead of during GUI installation.
+    REPLACE_TEXTUALLY CASE_SENSITIVE EVALUATE_REGEXP "AUTHOR ~\([^~]*\)~" "AUTHOR ~\1~ //Unix version by Turambar"
+  UNLESS ~WEIDU_OS~ //already OS-sensitive
+//  OUTER_SET active_gui=0 //why? I'll read it just after...
+  COPY - ~GUI_Mods/GUI_Mods.2DA~ ~GUI_Mods/GUI_Mods.2DA~
+   READ_2DA_ENTRY 1 1 2 "active_gui"   //CURRENT_ACTIVE_MOD_GUI
+
+  ACTION_IF ("%active_gui%">0) THEN BEGIN
+   UNINSTALL ~Setup-GUI.tp2~ ~%active_gui%~  
+  END
+END
+
+COPY_EXISTING ~loadhint.2da~ ~override~
+ COUNT_2DA_ROWS 2 hint_rows_cnt
+ INSERT_2DA_ROW hint_rows_cnt 2 ~%hint_rows_cnt%          99777~
+ SET hint_rows_cnt += 1
+ INSERT_2DA_ROW hint_rows_cnt 2 ~%hint_rows_cnt%          99778~
+ SET hint_rows_cnt += 1
+ INSERT_2DA_ROW hint_rows_cnt 2 ~%hint_rows_cnt%          99779~
+ REPLACE ~99777~ @990
+ REPLACE ~99778~ @991
+ REPLACE ~99779~ @992
+
+
+//************************************************
+//register current mod in GUI Switcher
+//************************************************
+OUTER_SET gui_slot_name=0
+COPY ~GUI_Mods/GUI_Mods.2DA~ ~GUI_Mods~
+  READ_2DA_ENTRY 0 1 2 gui_slot_name
+  SET_2DA_ENTRY  0 1 2 gui_slot_name+1  //NEXT_AVAILABLE_MOD_SLOT
+BUT_ONLY
+
+COPY ~Setup-GUI.tp2~ ~Setup-GUI.tp2~
+ subc=INDEX_BUFFER (CASE_SENSITIVE EVALUATE_REGEXP ~SUBCOMPONENT +@~)
+ PATCH_IF subc +1 BEGIN
+  subc=INDEX_BUFFER (CASE_SENSITIVE EXACT_MATCH ~@~ subc)
+  ln=INDEX_BUFFER (CASE_SENSITIVE EVALUATE_REGEXP ~\b~ subc) - subc
+  READ_ASCII subc subcTRA (ln)
+ END
+IF ~LANGUAGE~
+BUT_ONLY
+COPY ~Setup-GUI.tp2~ ~Setup-GUI.tp2~
+ APPEND_FILE_EVALUATE ~mod_gui.tp2~
+ PATCH_IF VARIABLE_IS_SET subcTRA BEGIN
+   REPLACE_TEXTUALLY CASE_SENSITIVE EXACT_MATCH "~Game Graphical User Interface (GUI)~" "%subcTRA%"
+ END
+
+MKDIR ~GUI_Mods/%gui_slot_name%~
+COPY ~bp/GUI~ ~GUI_Mods/%gui_slot_name%~
+//1)  ^^^^^ - replace "BGT_U" with a real name of your mod's home directory;
+//2) put all GUI-related stuff from your mod in the \gui\ subdirectory of your mod's home
+//   or name it different but don't forget to change it here as well.
+//*****************************************************************************
+//*****************************************************************************
+
+/////////TITLE NAME CHANGE (FOR Big-Mod compat)/////////
+//////////////Code hijacked from TDD-weidu////////////////
+//Substitute the SoA button prompt string  ************************************
+
+COPY_EXISTING - ~bp/title.tr~ ~bp/title.tra~
+ SPRINT bgt " "
+ SPRINT tdd ""
+ SPRINT sos ""
+ SPRINT ts  ""
+ SPRINT nej ""
+ SPRINT ctb ""
+ SPRINT bp  ""
+ SPRINT separator ""
+ installed_bgt = FILE_EXISTS_IN_GAME ~aram00.are~
+ installed_ts  = FILE_EXISTS_IN_GAME ~kachi01.wav~
+ installed_tdd = FILE_EXISTS_IN_GAME ~dd0012.are~
+ installed_sos = FILE_EXISTS_IN_GAME ~ar4230.are~
+ installed_nej = (FILE_EXISTS_IN_GAME ~bag02nej.itm~) OR (FILE_EXISTS_IN_GAME ~eyebite.itm~)
+ installed_rot = FILE_EXISTS_IN_GAME ~ra4600.are~
+ installed_ctb = FILE_EXISTS_IN_GAME ~ar3540.are~
+ PATCH_IF installed_bgt BEGIN //here
+   SPRINT bgt @12
+ END
+ PATCH_IF installed_ts BEGIN
+   SPRINT ts @4
+   SPRINT separator ", "
+ END
+ PATCH_IF installed_tdd BEGIN
+   SPRINT tdd @5
+   SPRINT separator ", "
+ END
+ PATCH_IF installed_sos BEGIN
+   SPRINT sos @6
+   SPRINT separator ", "
+ END
+ PATCH_IF installed_nej BEGIN
+   SPRINT nej @7
+   SPRINT separator ", "
+ END
+ PATCH_IF installed_ctb BEGIN
+   SPRINT ctb @9
+   SPRINT separator ", "
+ END
+ PATCH_IF installed_rot BEGIN
+   SPRINT rot @10
+   SPRINT separator ", "
+ END
+ SPRINT bp @8
+ SPRINT separator ", "
+ SPRINT separator2 @14
+ 
+ SPRINT str @13
+ REPLACE_TEXTUALLY CASE_SENSITIVE EXACT_MATCH ~game prompt~ "%str%"
+
+STRING_SET ~73245~ @123456789 USING ~bp/title.tra~
+
+//////////////////////////////////////////////////////////
+
+
+END

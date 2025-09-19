@@ -1,0 +1,15 @@
+IF
+  Allegiance(Myself,ENEMY)
+  Global("beastOpenTheDoors","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("beastOpenTheDoors","GLOBAL",1)
+    OpenDoor("DOOR19")
+    OpenDoor("DOOR20")
+    OpenDoor("DOOR21")
+    OpenDoor("DOOR22")
+    OpenDoor("DOOR23")
+    OpenDoor("DOOR24")
+    Shout(68)
+END
+

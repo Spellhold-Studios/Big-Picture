@@ -1,0 +1,7 @@
+IF
+  Dead("cefald01")
+THEN
+  RESPONSE #100
+    EscapeArea()
+END
+

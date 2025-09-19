@@ -1,0 +1,11 @@
+IF
+  Entered([ANYONE])
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    CreateCreature("DEMSUC01",[3220.695],0)
+    CreateCreature("DEMPIT01",[3280.750],0)
+    CreateCreature("DEMBAL01",[3350.725],0)
+    Continue()
+END
+

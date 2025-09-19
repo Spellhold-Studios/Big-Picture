@@ -1,0 +1,1548 @@
+@0 = ~Big Picture, composant principal (requis pour la plupart des sous-composants)~
+@1    = ~Configuration de l’interface...~
+@2    = ~Core Component (Required)~
+@3    = ~ ~
+@4    = ~"Tortured Souls"~
+@5    = ~%separator%"The Darkest Day"~
+@6    = ~%separator%"Shadows Over Soubar"~
+@7    = ~%separator%"Neverending Journey"~
+@8    = ~%separator%"Big Picture"~
+@9    = ~%separator%"Check The Bodies"~
+@10   = ~%separator%"Region Of Terror"~
+
+@12   = ~Baldur's Gate<TM> et Tales of the Sword Coast<TM>~
+@13   = ~Jouer à %bgt%Shadows of Amn<TM>%separator2%%ts%%tdd%%sos%%nej%%ctb%%bp%~
+@14   = ~avec la(les) nouvelle(s) extension(s) :~
+  
+@21   = ~Corrige STATS.IDS...~
+@22   = ~Configure STATES...~
+@23   = ~Big Picture vous est offert par Horred the Plague.~
+@24   = ~Dédicace spéciale à tous les modders et créateurs de mods qui ont rendu Big Picture possible !~
+@25   = ~N'oubliez pas de visiter l'Antre d'Horred dans vos grandioses aventures !
+(Je vous le recommande "chaudement"...)~
+@26   = ~%str_add%         -1~
+@27   = ~Protection Vitale~
+@28   = ~Commandement Chaotique~
+@29   = ~Convocation d'Ombres~
+@30   = ~Télékinésie~
+@31   = ~Rocher de jet~
+@32   = ~Rocher~
+@33   = ~C’est le type de pierres que le géant lance sur l’infortuné. Les blocs peuvent causer d'importants dégâts, mais également plonger la victime dans l’inconscience. Une personne ayant la force d’un géant est également en mesure de les lancer.
+
+Distance : 75 mètres
+Spécial : La victime doit réussir un jet de sauvegarde contre le souffle (à -4) sous peine de subir de 3 à 18 points de dégâts, ou d'être étourdie pendant 2 tours.
+Force nécessaire : 19~
+@34   = ~C’est le type de pierres que le géant lance sur l’infortuné. Les blocs peuvent causer d'importants dégâts, mais également plonger la victime dans l’inconscience. Une personne ayant la force d’un géant est également en mesure de les lancer.
+
+Distance : 75 mètres
+Spécial : La victime doit réussir un jet de sauvegarde contre le souffle (à -4) sous peine de subir de 3 à 18 points de dégâts, ou d'être étourdie pendant 2 tours.
+Force nécessaire : 19~
+@35   = ~Bottes~
+@36   = ~Bottes des Oubliés~
+@37   = ~Les bottes sont généralement fabriquées de façon artisanale par des cordonniers. Les bottes ordinaires sont confectionnées à l'aide d'un moule, mais les bottes de qualité supérieure sont faites sur mesure. 
+
+PARAMETRES :
+
+Poids : 4~
+@38   = ~Ces bottes ridées et râpeuses ont été confectionnées à partir du scalp des chamans de la tribu orque de la Patte Puante. Avide de pouvoir, le chef spirituel de la tribu, Algrash Qui-Surveille-dans-le-Noir, a ordonné à ses séides de déterrer les cadavres de ses prédécesseurs afin d'obtenir les scalps nécessaires. Il est mort après avoir provoqué une lutte contre une bande d'ogres. Les bottes sont restées sur le lieu du combat.
+
+PARAMETRES :
+
+Permettent au porteur de jeter 2 sorts du 1er niveau et du 2e niveau, et 1 sort du 3e niveau en plus de son lot quotidien.
+Augmentent de 2 fois la vitesse de déplacement du porteur.
+Uniquement utilisable par :
+Clercs (monoclassés, multiclassés ou à classes jumelées)
+Druides (monoclassés, multiclassés ou à classes jumelées)~
+@39   = ~Bottes du renard~
+@40   = ~Ces bottes voyantes (elles sont rouges et vertes) appartenaient au roublard Elpham de Perryvin. Extrêmement doué pour le vol à la tire, Elpham se sentait obligé de narguer ses victimes après les avoir détroussées. Après avoir été attrapé à deux reprises, il investit dans la création de ces bottes. Il connut une mort soudaine, après s'en être pris à Xain Morobdel, Sorcier Rouge de Thay connu pour ses colères massacrantes. Après lui avoir subtilisé une bourse pleine de gemmes, Elpham effectua une petite gigue dans la foule en criant " Si tu me poursuivais jusqu'au Priador, le chauve ? Ha, ha, ha ! " Fou de rage, Xain appela quatre chasseurs invisibles et leur ordonna de tuer " le crétin aux bottes rouges et vertes ".
+
+PARAMETRES :
+
+Augmentent de 2 fois la vitesse de déplacement du porteur.
+Classe d'Armure : bonus de +1~
+@41   = ~Anneau~
+@42   = ~Cadeau d'Edventar~
+@43   = ~Un anneau est une fine lanière de métal précieux. Il sert en général d'ornement. Plus rarement, certains sont enchantés et permettent à quiconque les porte d'user de la magie qu'ils contiennent. Ils sont de ce fait très recherchés par les aventuriers.~
+@44   = ~Arc long composé~
+@45   = ~Arc long composé +4 : le Défenseur~
+@46   = ~L'arc long est similaire à l'arc court, sauf que la hampe est pratiquement aussi grande que l'archer, généralement entre 1,80 m et 2 m. Sa portée et sa précision sont supérieures à celles de l'arc court.
+
+PARAMETRES :
+
+TAC0 : +1
+Poids : 3
+Facteur de vitesse : 7
+Type de compétence : Arc long
+Type : Arme à 2 mains
+Force nécessaire : 6
+Non utilisable par :
+ Druide
+ Clerc
+ Mage
+ Voleur~
+@47   = ~L'arc long composé est similaire à l'arc long, à l'exception du fait que la hampe de l'arc, faite de plus d'un type de matériau, est plus lourde et qu'elle est à peu près aussi grande que l'archer, habituellement de 1,8 à 2 mètres. En dépit du fait que l'arc long composé est légèrement plus lent qu'un arc long classique, il a une meilleure portée et une plus grande précision. Cet arc spécial a été amélioré avec des propriétés magiques, lui donnant une approche de la perfection. De plus la lourde hampe de cet arc a été faite avec du cèdre et du pin enchantés, ce qui garantit une protection supplémentaire à son porteur.
+
+PARAMETRES :
+
+Capacité spéciale : 4 attaques par round
+
+Dégâts : +4 (projectile)
+TAC0 : +4
+Bonus à la Classe d'Armure : 2
+Facteur de vitesse : 7
+Type de Compétence : Arc long
+Type : arme à 2 mains
+Dextérité nécessaire : 17
+Force nécessaire : 17
+Non utilisable par :
+Druide
+Clerc
+Mage
+Voleur~
+@48   = ~Morsure de Rat~
+@49   = ~<No Text>~
+@50   = ~Targe du Magicien +2~
+@51   = ~Exaspéré par les flèches des archers moqueurs d'une famille rivale, Balthester le Prestidigitateur commanda la création de cet objet. Ainsi protégé contre leurs projectiles, le magicien put chasser à loisir ces importuns hors des Royaumes. Malheureusement, la dague sournoise d'un assassin eut raison de lui.
+
+PARAMETRES :
+
+Bonus à la Classe d'Armure : +3
+Spécial : Pas de Protection contre les Projectiles et les Attaques Perforantes
+Spécial : Bouclier, trois fois par jour (à partir du niveau 10)
+Spécial : Protection contre les Projectiles Normaux, deux fois par jour (à partir du niveau 10)
+Poids : 2
+Force nécessaire : 4~
+@52   = ~Cape~
+@53   = ~Cape de Mithran~
+@54   = ~La cape peut être confectionnée dans presque n'importe quel type de tissu et prendre n'importe quelle forme. Les capes les plus courantes sont faites d'un morceau de tissu circulaire troué en son centre pour passer la tête et d'un tissu drapé à partir du cou, attaché par une chaîne, une broche, une ficelle ou des épingles.~
+@55   = ~Cette cape elfique, tissée de soie et de laine, était portée par un puissant magicien de Myth Nantar, Mithran Finpétale. Mithran était connu pour son amour des voyages et son acceptation des " N'TelQuessir ", c'est-à-dire le " non peuple ", ou tous les individus qui n'étaient pas elfes. C'est cette cape qui causa sa perte, car elle avait été tissée et enchantée par celle qu'il aimait, l'elfe noire Rauva Vrinn. Le style de la cape noire et bleu sombre était tellement éloigné de ce que les elfes fabriquaient que les compagnons de Mithran commencèrent à avoir des doutes à son sujet.
+
+Un jour, une connaissance de Mithran, un elfe chasseur de drows appelé Gaedel, découvrit la cachette de Rauva dans la forêt entourant Myth Nantar. Accompagné d'un petit groupe de guerriers, il prit la hutte d'assaut et tua Rauva. Quand Mithran l'apprit, il devint fou de rage. Il attaqua le chalet de chasse de Gaedel et ses frères, qu'il détruisit en abattant tous ses occupants. La famille de Gaedel se vengea en tuant Mithran. La cape fut récupérée par un proche ami du mage, un guerrier nain du nom d'Hael Lacdebronze. Sans ce dernier, elle aurait fini au fond du lac des Etoiles Déchues, engloutie avec le reste de Myth Nantar, qui sombra quelques années après la mort de Mithran. 
+
+PARAMETRES :
+
+CA : +3
+Bonus aux jets de sauvegarde : +2
+Non utilisable par :~
+@56   = ~Gants~
+@57   = ~Gants du Rôdeur Prêtre~
+@58   = ~Ces gants se sont transmis de grand prêtre à grand prêtre pendant des années jusqu’à ce qu’ils soient perdus lors d’une bataille. Pourquoi ou comment se sont-ils retrouvés ici en ce lieu est un mystère total. Ils aideront à déterminer les sorts les plus utiles pour les besoins d’un clerc/rôdeur.
+
+Instructions : Equiper votre prêtre avec ces gants après lui avoir fait gagner un niveau, puis les conserver dans l’inventaire.~
+@59   = ~Hallebarde~
+@60   = ~Disque de Contagion~
+@61   = ~De loin la plus ancienne et la plus utilisée arme d'hast, la hallebarde est constituée d'une lame de hache montée sur une lance d'environ 2 m de long. La hache est équipée à l'arrière d'une pique et vers le haut d'une pointe généralement de section carrée. La pique est souvent remplacée par un crochet, utilisé pour faire tomber les cavaliers. La hallebarde peut être décrite comme un compromis entre la hache et la lance.
+
+PARAMETRES :
+
+Dégâts : 1D10
+Type de dégâts : perforant
+Poids : 15
+Facteur de vitesse : 9
+Type de compétence : hallebarde
+Type : arme à 2 mains
+Force nécessaire : 13
+Non utilisable par :
+ Druide
+ Clerc
+ Magicien
+ Voleur~
+@62   = ~Cette arme d'hast dispose d'une lame suffisamment aiguisée pour pénétrer les armures d'adamantite, et suffisamment infectée pour terrasser un dragon. La pointe grouille de maladies et si par malheur elle mord son adversaire jusqu'au sang, seul le plus chanceux en évitera les conséquences.
+
+PARAMETRES :
+
+Spécial : 33% de chances de causer Infection à chaque coup. La victime doit réussir un jet de sauvegarde ou subir une perte de 3 points à la CA, à la Force, à la Constitution et au TAC0 pendant 8 rounds
+
+Dégâts : 1D10 +2
+TAC0 : +1
+Type de dégâts : perforant
+Poids : 14
+Facteur de vitesse : 8
+Type de compétence : hallebarde
+Type : arme à 2 mains
+Force nécessaire : 13
+Non utilisable par :
+ Personnages d'alignement Bon
+ Druide
+ Clerc
+ Magicien
+ Voleur~
+@63   = ~Dague de lancer +1~
+@64   = ~Cette dague de lancer classique a une lame à double tranchant, en pointe, contrairement à un simple couteau avec une lame à simple tranchant, plus courte. Contrairement à une dague simple, elle a un manche plus court, et elle est équilibrée différemment.
+
+PARAMETRES :
+
+Dégâts : 1D4 +1
+Type de dégâts : projectile (perforant)
+Poids : 1
+Facteur de vitesse : 2
+Type de compétence : dague
+Type : arme à 1 main
+Force nécessaire : 7
+Dxtérité nécessaire : 10
+Non utilisable par : 
+ Clerc
+ Belluaire~
+@65   = ~Dague de lancer +2~
+@66   = ~Cette dague de lancer classique a une lame à double tranchant, en pointe, contrairement à un simple couteau avec une lame à simple tranchant, plus courte. Contrairement à une dague simple, elle a un manche plus court, et elle est équilibrée différemment.
+
+PARAMETRES :
+
+Dégâts : 1D4 +2
+Type de dégâts : projectile (perforant)
+Poids : 1
+Facteur de vitesse : 2
+Type de compétence : dague
+Type : arme à 1 main
+Force nécessaire : 7
+Dxtérité nécessaire : 10
+Non utilisable par : 
+ Clerc
+ Belluaire~
+@67   = ~Bottes Lourdes~
+@68   = ~Bottes de Gravité~
+@69   = ~Ces lourdes bottes ont été réalisées dans une étrange matière, totalement inconnue. Vous n'en aviez jamais vu de semblables auparavant.~
+@70   = ~Ces lourdes bottes ont été réalisées dans une étrange matière, totalement inconnue. Une fois enfilées, elles semblent aussi légères qu'une plume. L'assurance qu'elles procurent permet au porteur d'être immunisé contre toutes formes de renversement comme celles engendrées par les Coups d'aile, ou la Répulsion magique. (Notez qu'elles ne le protègeront cependant pas des autres effets éventuels de ces sorts, comme les étourdissements des Coups d'aile). Cet objet immunise également aux sorts de Tremblement de Terre lorsqu'il est porté.
+
+PARAMETRES :
+
+Capacité d'équipement : Le porteur est immunisé aux effets de Coup d'aile, Répulsion, Tremblement de Terre, et d'une manière générale tous les effets de renversement.
+
+Poids : 9
+Non utilisable par :~
+@71   = ~Lance~
+@72   = ~Lance des Cieux~
+@73   = ~La lance, l'une des premières armes de l'homme, remonte aux temps les plus reculés et était initialement constituée d'un pic ou d'un bâton de bois taillé en pointe à une extrémité. Avec la découverte et la maîtrise des métaux, les hommes ont commencé à remplacer les pointes en bois par des pointes en fer et en acier. Les armuriers ont alors pu essayer différents types de pointes, ce qui a permis l'élaboration de certains types d'armes d'hast.
+
+PARAMETRES :
+
+Dégâts : 1D6
+Type de dégâts : perforant
+Poids : 5
+Facteur de vitesse : 6
+Type de compétence : lance
+Type : arme à 2 mains
+Force nécessaire : 5 
+Non utilisable par :
+ Clerc
+ Mage
+ Voleur~
+@74   = ~L'origine de cette arme est totalement inconnue. Quel qu'en soit son créateur, elle déborde d'énergie électrique qui se décharge parfois à travers son manche. La lance peut à la fois choquer un adversaire par contact, et lancer également une décharge électrique vers une cible. Cet arme est très utile aux Druides de l'Air du fait de leur immunité aux dégâts électriques, leur permettant ainsi de la manier avec sûreté quand d'autres succomberaient à sa puissance.
+
+PARAMETRES :
+
+Dégâts : 1D6 +2
+TAC0 : +3
+Spécial : 50% de chances de causer 1D4 points de dégâts d'électricité
+Poids : 5
+Facteur de vitesse : 6
+Type de compétence : lance
+Type : arme à 2 mains
+Utilisable par :
+ Druides~
+@75   = ~Heaume de Vie Sacrée~
+@76   = ~Ce heaume orné est forgé à partir d’argent renforcé de fer. Il offre une protection complète du visage et de la tête. Une fente pour les yeux et des trous pour respirer sont un ajout appréciable.~
+@77   = ~Ce heaume béni fut forgé il y a des siècles par le grand Archevèque de Lathandre, Exaultus le Pieux. Il l’offra à son unique neveu, le paladin renommé Exaultus le Pur, pour l’accompagner dans sa terrible quête. Exaultus devait éradiquer une assemblée de vampires, mené par un seigneur Liche particulièrement vil nommé Scarvos le Flétri. Il entra vaillamment dans leur caverne suintante, ayant pour seule compagnie le fidèle Justicier Gloire d'Antan. De part son courage et sa grande habileté au combat, et protégé par l’incroyable magie de Helm, le paladin s’occupa rapidement de la horde de vampires. Cependant, dans l’antichambre principale, sa chance tourna dramatiquement. Exaultus le Pur fut défait par le seigneur Liche et son compagnon démoniaque. Il fut victime du redouté sort d’Emprisonnement de Scarvos, et est porté disparu de la surface des Royaumes depuis ce jour. La manière dont le heaume a échappé à ce même destin est un mystère que le pénitent doit méditer.
+
+PARAMETRES :
+
+Protection permanente contre le Mal
+(Bonus à la Classe d'Armure : +4 contre le Mal)
+
+Protection Vitale, 4 heures par jour
+    (Immunité à l'absorption de niveaux)
+Commandement Chaotique 2 heures par jour
+   (Ordres Chaotiques de groupe)
+Résurrection 1 fois par jour
+Immunité aux coups critiques
+
+Force nécessaire : 13
+Sagesse nécessaire : 13
+Charisme nécessaire : 13
+
+Utilisable par :
+ Personnages bons
+ Guerriers (mono, multiclassé ou classe jumelée) et sous-classes de guerrier
+ Clercs ~
+@78   = ~Bracelets~
+@79   = ~Bracelets de double malveillance~
+@80   = ~Les bracelets sont d'épaisses lanières de métal ou de cuir que l'on se noue ou s'attache autour de l'avant-bras.~
+@81   = ~Ces bracelets furent créés par les meilleurs enchanteurs pour compléter les talents de combat des guerriers de mêlée. Leur plus récent possesseur, Adario Kalvaras, excellait dans le maniement simultané de deux épées. La magie des bracelets lui permit d'améliorer davantage son maniement déjà impressionnant des épées jumelles.
+
+PARAMETRES :
+
+Capacité Spéciale : le porteur bénéficie d'un bonus de +3 en combat au corps à corps
+
+Poids : 2
+Utilisable par :
+ Adario Kalvaras~
+@82   = ~Clef des égouts~
+@83   = ~Cette clé de forme étrange semble avoir été faite pour ouvrir la grille d’un égout ou une porte ressemblante quelque part. Le dessin d’un crâne est gravé dans la tête de la clé.~
+@84   = ~Clef à Tête de Démon~
+@85   = ~Ce type de clé semble ouvrir la porte d’un égout quelque part dans Athkatla.~
+@86   = ~Cette clé est ornée d’un crâne démoniaque, petit mais authentique. La lettre “H” est gravée dessus. Cette clé ne semble pas d’origine elfe noire.~
+@87   = ~Les Kuo-Toas enduisent leurs carreaux d'un poison spécial d'origine aquatique. Toute cible touchée doit réussir un jet de sauvegarde contre le poison (à +2) ou être étourdie pour 2 à 4 rounds.
+
+PARAMETRES :
+
+Dégâts Spéciaux : Etourdissement pour 2 à 4 rounds (jet de sauvegarde contre le poison à +2 pour annuler)
+Dégâts : 1D8
+Poids : 0
+Arme de jet : arbalète~
+@88   = ~Harpon Kuo-Toa~
+@89   = ~Un autre témoignage de l’art Kuo-Toan dans la fabrication des harpons. Ce harpon, pourvu d’un hameçon, est muni d’une chaîne légère mais résistante. Sa portée est de 6 mètres. La victime peut être immobilisée par l’hameçon. Les cibles ratant un jet de sauvegarde contre la mort (à +2) seront piégées par le lanceur. Elles seront immobilisées à terre pendant le premier tour (même effet que l’étourdissement), et subiront une pénalité de dextérité de -4 pendant les 4 tours suivants.
+
+Capacité de combat : 25% de chance de subir l'effet de Hameçon (jet de sauvegarde contre la mort à +2 pour annuler)
+Dégâts : 1D6 +2
+Facteur de vitesse : 8 (réglé pour 1 attaque par round)
+Poids : 12
+Force nécessaire : 10
+Non utilisable par :
+ Clerc
+ Mage
+ Voleur~
+@90   = ~Empêtré~
+@91   = ~Comme d’autres espèces aquatiques, les Kuo-toans sont passés maîtres dans l’art de la fabrication des harpons. Leur arme munie d’un hameçon cause de 3 à 10 points de dégâts par coup au but. De plus, ils l’ont traitée avec un poison spécial secrété par des anémones de mer. La cible doit réussir un jet de sauvegarde contre le poison ou être ralentie pendant 2 à 4 tours. 
+
+Capacité de combat : la cible a 25% de chance d'être sous l'effet du sort Lenteur pendant 2 à 4 rounds (jet de sauvegarde contre le poison pour annuler)
+Dégâts : 1D8 +2
+Facteur de vitesse : 6
+Poids : 10
+Force nécessaire : 7
+Non utilisable par :
+ Clerc
+ Mage
+ Voleur~
+@92   = ~Robe~
+@93   = ~Manteau de la Tempête Prochaine~
+@94   = ~Depuis l'ère de Nethéril, les mages ont appris à conférer aux objets quotidiens qui les entouraient une grande variété de propriétés magiques. L'un des plus usités de ces objets est la robe courante. Elle est légère, peu onéreuse et conserve bien ses enchantements. Cela en fait une parure de mage idéale. Cependant, en raison de leur héritage magique, ces robes enchantées ne peuvent être portées que par des mages mono classés, à classes jumelées ou multiclassés.~
+@95   = ~Cette robe apparemment usée jusqu'à la corde a mis ses pouvoirs " en sommeil " sur ordre de Lysan, afin de ne pas révéler que cette dernière était prêtresse d'Aurile. Mais il suffit qu'un seul flocon de neige tombe sur la robe pour qu'elle se transforme en mante d'un blanc scintillant, permettant à son porteur de flotter au-dessus de la neige et de marcher sur les torrents. Peu de marchands acceptent d'acheter un tel objet (et encore le font-ils à bas prix), car ils reconnaissent là un objet sacré de la Fille du Gel, dont ils ne voudraient surtout pas encourir le déplaisir.
+
+Créées durant la fête de la Tempête Prochaine (le début de l'hiver), les robes de ce type résistent aux flammes et permettent à qui les porte de ne pas se retrouver immobilisé. Même si les prêtresses d'Aurile résistent naturellement au froid et peuvent se déplacer aisément dans la neige et les cours d'eau glacée, la mante augmente encore la protection que leur confère la déesse, puisqu'elle leur offre une protection supplémentaire contre le froid (en leur permettant, si elles sont immunisées contre celui-ci, de l'absorber) et les défend également contre le feu. De plus, il suffit d'invoquer le pouvoir de la mante pour traverser un obstacle ou bouger malgré un blocage physique ou magique (paralysie de goule, sorts de Toile d'araignée ou d'Immobilisation des personnes, etc...).
+
+PARAMETRES :
+
+Spécial : lance Action libre (3 charges)
+CA : +3
+Jets de sauvegarde contre la paralysie : +2
+Résistance au froid : +40 %
+Résistance au feu : +40 %
+Poids : 1
+Utilisable par :
+ Mage (toutes classes)~
+@96   = ~Corps de Sime~
+@97   = ~Sime a été capturée par Bodhi et infectée de vampirisme, vous forçant à la tuer. Il est possible qu’il y ait une manière de la faire revivre, mais vous ne la connaissez pas.~
+@98   = ~Transfert par Sacrifice~
+@99   = ~Transfert par Sacrifice (Nécromancie)
+Niveau : 9
+Portée : Toucher
+Temps d'incantation : 10
+Durée : Permanente
+Zone d'effet : 1 créature
+Jet de sauvegarde : aucun
+
+Ce sort est un sacrifice que le mage accomplit pour aider un autre membre de son groupe. Le mage entaille en fait sa source de vie, en en prélevant une part minuscule. Ensuite il canalise cette énergie vers un autre membre de son groupe. Le sort retire de façon permanente 1 point de vie du maximum du mage, mais il le transfère au destinataire qui gagne 1 point de vie à son maximum.~
+@100  = ~Afflux d’adrénaline~
+@101  = ~Anneau des arcanes : "Mémoire éternelle"
+On raconte que jadis, un grand magicien amnien défia les limites imposées par Mystra dans les arts magiques. Des légendes racontent que ce magicien était doué d'une capacité de mémorisation illimitée pour lancer des sorts. Il s'avéra finalement que son pouvoir provenait de plusieurs anneaux magiques qu'il s'était fabriqué. Sa prétendue "mémoire infinie" n'était qu'une plaisanterie, mais ses anneaux continuent de figurer parmi les objets les plus recherchés des Royaumes.
+
+PARAMETRES :
+
+Sorts : double la quantité de sorts de 1er niveau qu'un mage peut mémoriser.
+Utilisable uniquement par :
+ Mage~
+@102  = ~Carreau~
+@103  = ~Carreau paralysant~
+@104  = ~Les carreaux sont les projectiles tirés par les arbalètes, quelle qu'en soit la taille.
+Comme pour la plupart des objets elfe noir, cet objet est fait d'adamantine, un alliage d'adamantite qui tombe en poussière s'il quitte les Tréfonds Obscurs.
+
+PARAMETRES :
+
+Dégâts : 1D8
+Type de dégâts : perforant
+Poids : 0
+Arme de jet : arbalète~
+@105  = ~Carreau de paralysie
+
+Toute cible touchée par ce carreau doit réussir un jet de sauvegarde contre la paralysie ou être étourdie pendant 5 rounds.
+
+PARAMETRES :
+
+Capacité de combat : la cible doit réussir un jet de sauvegarde contre la paralysie ou être étourdie pendant 4 rounds
+Dégâts : 1d10
+Type de dégâts : missile (perforant)
+Poids : 1
+Arme de jet : arbalète~
+@106  = ~Filet de jet Sahuagin~
+@107  = ~Les Sahuagins ont tissé des fils à partir d’algues et de flore aquatique pour former un enchevêtrement de mailles circulaires. Ils en ont alourdi les bords avec des coquillages et des coraux, si bien que cela en fait une redoutable arme de jet. Ils ont tissé des hameçons, des dents et autres objets tranchants sur le filet en lui-même, pour couper les victimes lorsqu’elles luttent pour se libérer. 
+
+Les cibles touchées par le filet passeront un tour complet à se dépêtrer (équivalent d’un sort de Toile d’araignée). De plus, elles doivent réussir un jet de paralysie ou resteront empêtrées de 1 à 3 tours supplémentaires. 
+
+Note : Le filet est souvent détruit lorsque la cible s’en dépêtre (il ne résiste qu’à un seul jet).
+
+Spécial : La cible est empêtrée durant 1 round, et doit réussir un jet de sauvegarde contre la paralysie pour ne pas l'être durant 1D3 rounds supplémentaires.
+Portée : 27 mètres
+Facteur de vitesse : 8 (basé sur 1 attaque par round)
+Dégâts : 2 à 4 par round, lorsque la cible est empêtrée
+Type de compétence : gourdin.~
+@108  = ~Empêtré~
+@109  = ~Lance Sahuagin~
+@110  = ~Les Sahuagins sont passés maîtres dans l’art de la fabrication des armes adaptées aux climats subaquatiques. Le harpon a toujours été pour eux une arme de choix. Ils l’ont perfectionné en y ajoutant plusieurs dardillons de telle sorte qu’il puisse désarmer un adversaire. Il procure aussi à l’utilisateur une protection contre les armes provoquant des dégâts perforants et tranchants.
+
+PARAMETRES :
+
+Attaque Spéciale : 25% de chances de désarmer la cible (jet de sauvegarde contre les baguettes (à -2) pour annuler)
+
+Dégâts : 2D6
+Type de dégâts : perforant
+Poids : 10
+Facteur de vitesse : 6
+Type de compétence : lance
+Type : arme à 2 mains
+Force nécessaire : 7
+Spécial : +4 à la CA contre les dégâts perforants et tranchants
+Non utilisable par :
+ Clerc
+ Mage
+ Voleur~
+@111  = ~Frappe désarmante~
+@112  = ~Le clergé Sahuagin a consacré de nombreux efforts pour augmenter la souffrance de leurs adversaires. Ce bâton a des extrémités alourdies par des renforts en métal, et est recouvert d’arêtes résistantes. L’impact du coup est tel que la victime perd souvent connaissance.
+
+PARAMETRES :
+
+Attaque Spéciale : 25% de chances d'étourdir la cible pour 2 rounds (jet de sauvegarde contre les baguettes (à -3) pour annuler)
+
+Dégâts : 2D4
+Poids : 7
+Facteur de vitesse : 5
+Type : arme à 2 mains
+Force nécessaire : 7~
+@113  = ~Gemme~
+@114  = ~Les cartes maritimes.~
+@115  = ~Lanterne~
+@116  = ~Lanterne de l’Ombre~
+@117  = ~Cette lanterne ressemble à n’importe quelle autre lanterne que vous pourriez utiliser pour vous éclairer la nuit. Sa seule qualité particulière est son absence de coloration et le fait qu’elle irradie de la magie.~
+@118  = ~"Don du Seigneur des Ombres"
+    
+Cet objet date des temps anciens, à l'époque où la créature connue comme le Seigneur des Ombres parcourait les Royaumes en tant que simple mortel. Il était un homme particulièrement mauvais (oui, il était de descendance humaine), obsédé par la noirceur et par tout ce qui était maléfique. Etant par nature un mégalomaniaque homicide, il ne se risquait jamais à sortir durant les heures de jour, préférant toujours la protection des ombres du crépuscule pour laisser libre cours à ses déchaînements meurtriers et à la terreur générale. Finalement, les êtres extra-dimensionnels demeurant dans le Royaume extra-planaire des ombres le remarquèrent (personne ne se souvient de son nom de mortel, après tout, pas même Ellisime).Ils le trouvèrent sous la lumière de la pleine lune, traversant le voile d’ombre qui le séparait de leurs mondes. Ils lui offrirent une semi-immortalité en échange de l’âme de ses victimes, et, comme bien d’autres avant lui et à venir, il accepta volontiers. La Lanterne lui fut offerte comme symbole de leur pacte ; avec celle-ci, il pouvait leur demander des faveurs et invoquer les ombres autour de lui à son secours, pour se délecter d’une fête de carnage et de souffrances.
+     Au fil du temps, les éléments de son essence commencèrent à fusionner avec ceux des ombres, et ils devinrent de plus en plus difficiles à distinguer. A la fin, après une durée de plusieurs vies humaines, il ne fit qu’un avec les ombres qu’il adorait et devint l’entité immatérielle connue seulement sous le nom du Seigneur des Ombres.  
+
+Capacités :
+
+Convocation d'Ombres 1 fois par jour
+(de 3 à 5 Ombres, ou de 1 à 2 Fiélons d'Ombre viendront en aide au porteur pour un tour complet)
+
+A chaque utilisation, 1% de chance de drainer la Force du porteur de 1 point de façon permanente (lorsque la Force tombe à 0, le porteur "meurt"--et traverse alors le Plan de l'Ombre)
+
+Sagesse nécessaire : 14
+
+Non utilisable par :
+ Personnages bons~
+@119  = ~Hallebarde +4 de la Toundra~
+@120  = ~De loin l'arme d'hast la plus ancienne et la plus répandue, la hallebarde se compose d'une hache en forme de couperet montée sur un bâton de 1,80 m de long. La hache est équilibrée à l'arrière par un barbillon et surmontée d'une pointe acérée, généralement de forme quadrangulaire. Le barbillon est parfois remplacé par un crochet utilisé pour faire tomber l'ennemi de cheval. La hallebarde est en réalité un croisement entre la lance et la hache. 
+
+PARAMETRES :
+
+Dégâts : 1D10
+Type de dégâts : perforant
+Poids : 15
+Facteur de vitesse : 9
+Type de compétence : hallebarde
+Type : arme à 2 mains
+Force nécessaire : 13
+Non utilisable par :
+ Druide
+ Clerc
+ Mage
+ Voleur~
+@121  = ~Comme d’autres de son type, cette hallebarde se compose d’une hache en forme de couperet montée sur un bâton de 2 mètres de long. On lui a aussi conféré un petit nombre de propriétés magiques, la rendant donc plus efficace au combat. Sa lame aiguisée, par exemple, tranchera la chair de votre adversaire jusqu’à l’os, tandis que son extrémité munie de pointes créera des trous dans son armure. 
+
+PARAMETRES :
+
+Dégâts : 1D10 +4
+TAC0 : +4
+Type de dégâts : perforant
+Spécial : 50% de chances d'infliger 2D3 points de dégâts d'acide
+Résistance à la magie : +10 %
+Poids : 14
+Facteur de vitesse : 8
+Type de compétence : hallebarde
+Type : arme à 2 mains
+Non utilisable par :
+ Druide
+ Clerc
+ Mage
+ Voleur~
+@122  = ~Katana~
+@123  = ~Katana
+Le katana est une épée légèrement courbée à simple tranchant, dont la lame se termine en pointe. C'est probablement une des meilleures épées jamais conçues. Les étapes de sa fabrication constituent un procédé long et secret qui est considéré plus comme un art que comme une technique. Cette lame représente un aspect important de la culture de Kara-Tur. C'est faire insulte à un samouraï et provoquer sa colère que d'utiliser ou même de toucher son katana. Il est très rare pour un gaïjin, un étranger, de posséder une telle lame. Cela implique que le gaïjin soit l'ami estimé d'un personnage important, ou bien qu'il ait assassiné un samouraï.
+
+PARAMETRES :
+
+Dégâts : 1D10
+Type de dégât : tranchant
+Poids : 6
+Facteur de vitesse : 4
+Type de compétence : Katana
+Type : arme à 1 main
+Inutilisable par :
+ Druide
+ Clerc
+ Mage~
+@124  = ~Lame Flottante de Dak'kon~
+@125  = ~Lame Flottante +2 de Dak'kon
+L'arme de prédilection du fameux githzerai Dak'kon. Il fut tué par une puissante entité inconnue alors qu'il était au service d'une créature nommée « Sans-Nom ». 
+
+PARAMETRES :
+
+Capacités d'équipement :
+Bonus à la Classe d’Armure : +1
+Mémorisation de 2 sorts supplémentaires de 1er, 2ème, 3ème et 4ème niveau
+
+TAC0 : +2
+Dégâts : 1D10 +2
+Type de dégâts : tranchant
+Poids :  4
+Facteur de vitesse : 2
+Type de compétence : Katana
+Type : arme à 1 main
+Force nécessaire : 6
+Non utilisable par :
+ Druide
+ Clerc
+ Mage~
+@126  = ~Lame Flottante +3 de Dak'kon
+L'arme de prédilection du fameux githzerai Dak'kon. Il fut tué par une puissante entité inconnue alors qu'il était au service d'une créature nommée « Sans-Nom ». 
+
+PARAMETRES :
+
+Capacités d'équipement :
+Bonus à la Classe d’Armure : +3
+Mémorisation de 3 sorts supplémentaires de 1er, 2ème, 3ème niveau et de 2 sorts supplémentaires de 4ème niveau
+
+TAC0 : +3
+Dégâts : 1D10 +3
+Type de dégâts : tranchant
+Poids :  4
+Facteur de vitesse : 2
+Type de compétence : Katana
+Type : arme à 1 main
+Force nécessaire : 6
+Non utilisable par :
+ Druide
+ Clerc
+ Mage~
+@127  = ~Lame Flottante +4 de Dak'kon
+L'arme de prédilection du fameux githzerai Dak'kon. Il fut tué par une puissante entité inconnue alors qu'il était au service d'une créature nommée « Sans-Nom ». 
+
+PARAMETRES :
+
+Capacités d'équipement :
+Bonus à la Classe d’Armure : +3
+Mémorisation de 3 sorts supplémentaires de 1er, 2ème, 3ème, 4ème et d’un sort de 5ème niveau
+
+TAC0 : +4
+Dégâts : 1D10 +4
+Type de dégâts : tranchant
+Poids :  4
+Facteur de vitesse : 2
+Type de compétence : Katana
+Type : arme à 1 main
+Force nécessaire : 6
+Non utilisable par :
+ Druide
+ Clerc
+ Mage~
+@128  = ~Cette patte symbolique représente le contrôle d’un Métamorphe sur la lycanthropie. Lorsque la patte est portée, le Métamorphe devient un Loup-garou. Quand la patte est enlevée, le Métamorphe reprend sa forme humaine. Les pattes d’un Loup-garou comptent comme des armes +2.
+
+PARAMETRES :
+
+Caractéristiques : 19 FOR, 16 DEX, 15 CON
+Classe d'Armure de Base : 1
+Résistances : 20% de résistance à la magie, Immunité contre les armes non-magiques
+Nombre d'Attaques par Round : 2
+Dégâts : 1D12
+Type de dégâts : tranchant
+Facteur de vitesse : 3
+Type de compétence : dague
+Type : arme à 1 main
+Utilisable par :
+ Métamorphe~
+@129  = ~Cette patte symbolique représente le contrôle absolu du Métamorphe sur la lycanthropie. Lorsque la patte est portée, le Métamorphe devient un Loup-garou majeur. Quand la patte est enlevée, le Métamorphe reprend sa forme humaine. Les pattes d’un Loup-garou majeur comptent comme des armes +3..  
+
+PARAMETRES :
+
+Caractéristiques : 21 FOR, 20 DEX, 25 CON
+Classe d'Armure de Base : -6
+Jets de Sauvegarde de Base : 1/1/1/2/1
+Résistances : 40% de résistance à la magie, 50% de résistance aux éléments, Immunité contre les armes non-magiques
+Régénération : 3 pv par seconde
+Nombre d'Attaques par Round : 3
+TAC0 de Base de la Griffe : 6 
+Dégâts : 2D8
+Type de dégâts : tranchant
+Facteur de vitesse : 3
+Type de compétence : dague
+Type : arme à 1 main
+Utilisable par :
+ Métamorphe~
+@130  = ~Mise a jour de tous les sorts innes existants, niveau a un.....~
+@131  = ~Réduction duergar~
+@132  = ~Accroissement duergar~
+@133  = ~Soins~
+@134  = ~Doigt de Mort~
+@135  = ~Doigt de Mort (Nécromancie)
+Niveau : 7
+Portée : Champ visuel du lanceur
+Durée : Permanente
+Temps d'incantation : 5
+Zone d'effet : 1 créature
+Jet de sauvegarde : Spécial
+
+Le doigt de mort absorbe la force vitale de la victime. Le lanceur doit pointer son doigt en direction de la victime une fois l'incantation terminée. Si la cible rate son jet de sauvegarde contre les sorts à -2, elle est tuée instantanément. Dans le cas d'un jet de sauvegarde réussi, elle reçoit malgré tout 2d8 +1 points de dégâts.~
+@136  = ~Poigne électrique~
+@137  = ~Poigne électrique (Altération) 
+Niveau : 1
+Portée : toucher
+Durée : spéciale
+Temps d'incantation : 1 
+Zone d'effet : créature touchée
+Jet de sauvegarde : aucun
+
+Si le magicien touche une créature alors que ce sort est en action, cette dernière subit 1d8 + 1/niveau points de dégâts d'électricité. Le magicien ne dispose que d'1 round par niveau pour tenter de porter le coup. En cas d'échec ou d'attente trop longue, le sort est gaspillé.~
+
+
+@138  = ~Protège avec Protection contre le Plan Négatif pour une durée de 4 heures.~
+@139  = ~Le groupe n'est plus sous les effets de Commandement Chaotique, pour une durée de 2 heures.~
+@140  = ~Sphère d'Obscurité~
+@141  = ~Sphère d'Obscurité (Sans Ecole / Non Spécifié)
+Niveau : 1
+Portée : Champ visuel du jeteur de sorts
+Durée : 1 round /  2 niveaux du jeteur de sorts
+Temps d'incantation : 2
+Zone d'effet : 1 créature
+Jet de sauvegarde : Annule
+
+Cette capacité, innée pour les elfes des profondeurs, aveugle temporairement une cible pour une durée de 1 round tous les 2 niveaux du lanceur, ou jusqu'à ce qu'elle soit dissipée.~
+@142  = ~Sphère d'Obscurité Supérieure~
+@143  = ~Sphère d'Obscurité Supérieure (Sans Ecole / Non Spécifié)
+Niveau : 1
+Portée : Champ visuel du jeteur de sorts
+Durée : 1 round /  2 niveaux du jeteur de sorts
+Temps d'incantation : 2
+Zone d'effet : 1 cible 
+Jet de sauvegarde : Annule
+
+Cette capacité, innée pour les elfes des profondeurs, aveugle temporairement une cible pour une durée de 1 round tous les 2 niveaux du lanceur, ou jusqu'à ce qu'elle soit dissipée.~
+@144  = ~Lueur Féérique~
+@145  = ~Lueur Féérique (Sans Ecole / Non Spécifié)
+Niveau : 1
+Sphère : Combat
+Portée : 0
+Durée : 6 rounds
+Temps d'incantation : 1
+Zone d'effet : 1 cible
+Jet de sauvegarde : aucun
+
+Ce sort entoure la cible d'un voile laiteux protecteur, lui conférant une classe d'armure de -2.~
+@146  = ~Lueurs Dansantes~
+@147  = ~Lueurs Dansantes (Sans Ecole / Non Spécifié)
+Niveau : 1
+Portée : Champ visuel du jeteur de sorts
+Durée : 3 rounds
+Temps d'incantation : 2
+Zone d'effet : 1 cible
+Jet de sauvegarde : Annule
+
+Cette capacité, innée pour les elfes noirs, cause la confusion sur une cible durant 3 rounds.~
+@148  = ~Sous les effets de Lueurs Dansantes.~
+@149  = ~Distrait.~
+@150  = ~L’ennemi convoque un Blême~
+@151  = ~Animation des Arbres~
+@152  = ~Animation des Arbres (Conjuration/Convocation)
+Niveau : 7
+Portée : 27 mètres
+Zone d'effet : Spécial
+Durée : 2 tours
+Jet de sauvegarde : aucun
+
+Grâce à ce sort, le druide est capable d’appeler au secours un ou deux grands arbres pour le défendre durant la durée de ce sort. Ces arbres vont combattre comme des Sylvaniens, provoquant de 4 à 24 points de dégâts par coup et attaquant deux fois par tour. Bien qu’ils ne gagnent pas la capacité d’un vrai Sylvanien invoqué, ils combattront si nécessaire jusqu’à la mort. Le druide doit se trouver à l’extérieur, dans un environnement naturel pour que ce sort fonctionne.~
+@153  = ~Convocation de Gauth~
+@154  = ~Les Clones Maléfiques d'Horred~
+@155  = ~Convocation de Fiélons d'Ombre~
+@156  = ~Feu Céleste~
+@157  = ~Athach~
+@158  = ~Abishai Vert~
+@159  = ~Shargrailar~
+@160  = ~Barbazu~
+@161  = ~Gobelours~
+@162  = ~Efrit~
+@163  = ~Efrit noble~
+@164  = ~Djinn~
+@165  = ~Djinn noble~
+@166  = ~Giblan~
+@167  = ~Brute arabe~
+@168  = ~Garde de magasin~
+@169  = ~Prêtre de Waukyne~
+@170  = ~Rat-garou~
+@171  = ~Brute arabe~
+@172  = ~Commerçant~
+@173  = ~Femme captive~
+@174  = ~Dragon de Topaze~
+@175  = ~Dragon Chromatique~
+@176  = ~Dalhaleitkazyyr~
+@177  = ~Construction de Mage~
+@178  = ~Golem de Cristal Rouge~
+@179  = ~Cyclope~
+@180  = ~Brume Sombre~
+@181  = ~Balor~
+@182  = ~Nabassu~
+@183  = ~Fiélon du Puits~
+@184  = ~Rylock~
+@185  = ~Nizidramanii'yt~
+@186  = ~Gnoll~
+@187  = ~Dragon rouge~
+@188  = ~Thaxll'ssillyia~
+@189  = ~Dragon d'argent~
+@190  = ~Tapanasacar~
+@191  = ~Icebraniken~
+@192  = ~Elfe noir guerrier~
+@193  = ~Elfe noir~
+@194  = ~Prêtresse Elfe noir~
+@195  = ~Gardien Abishai vert~
+@196  = ~Duergar~
+@197  = ~Mage Duergar~
+@198  = ~Conjurateur de Squelette Duergar~
+@199  = ~Elfe noir magicien~
+@200  = ~Elémental de Terre majeur~
+@201  = ~Elémental de Feu majeur~
+@202  = ~Elémental d'Eau majeur~
+@203  = ~Elminster~
+@204  = ~Errtu~
+@205  = ~Perleflamme Cheveux-d'Elfe~
+@206  = ~Firkraag~
+@207  = ~Mercenaire~
+@208  = ~Géant du givre~
+@209  = ~Ver du givre~
+@210  = ~Gandar~
+@211  = ~Gargouille~
+@212  = ~Gélugon~
+@213  = ~Génie~
+@214  = ~Glabrezu majeur~
+@215  = ~Blême~
+@216  = ~Mère Grouilleux~
+@217  = ~Golem de Glace~
+@218  = ~Zombie majeur~
+@219  = ~Lucette~
+@220  = ~Hasuno~
+@221  = ~Reine-mère~
+@222  = ~Horred le Fléau~
+@223  = ~Horred~
+@224  = ~Elemental d'Eau~
+@225  = ~Troll des Glaces~
+@226  = ~Gobelin~
+@227  = ~Capitaine Gobelin~
+@228  = ~Myconide~
+@229  = ~Grouilleux~
+@230  = ~Diablotin~
+@231  = ~Garde~
+@232  = ~Gardien de Tombe~
+@233  = ~Squelette~
+@234  = ~Jarlaxle~
+@235  = ~Kalvassa~
+@236  = ~Karan~
+@237  = ~Keris~
+@238  = ~Khelben~
+@239  = ~Kiotsi~
+@240  = ~Ogre~
+@241  = ~Knord~
+@242  = ~Elemental de Lave~
+@243  = ~Elemental de Foudre~
+@244  = ~Lulu Hashimoto~
+@245  = ~Lulu~
+@246  = ~Madeel~
+@247  = ~Mae'Var~
+@248  = ~Masaki Hayashi~
+@249  = ~Masaki~
+@250  = ~Voleur de l'Ombre~
+@251  = ~Tyran mort~
+@252  = ~Michio Nakanishi~
+@253  = ~Michio~
+@254  = ~Minotaure~
+@255  = ~Elfe guerrier~
+@256  = ~Sorcier Elfe~
+@257  = ~Elfe assassin~
+@258  = ~Troglodyte~
+@259  = ~Momoko Nakanishi~
+@260  = ~Momoko~
+@261  = ~Montaron~
+@262  = ~Momie~
+@263  = ~Sorcière de la nuit~
+@264  = ~Marcheur de la nuit~
+@265  = ~Garde Nakanishi~
+@266  = ~Samurai Mort-vivant~
+@267  = ~Acolyte Nakanishi~
+@268  = ~Ogi Hashimoto~
+@269  = ~Ogi~
+@270  = ~Orque~
+@271  = ~Archer Orque~
+@272  = ~Orog~
+@273  = ~Prêtre Orque~
+@274  = ~Esclave~
+@275  = ~Orgoth~
+@276  = ~Otako Hashimoto~
+@277  = ~Otako~
+@278  = ~Phlydia~
+@279  = ~Pibble~
+@280  = ~Branthor~
+@281  = ~Apparition spectrale~
+@282  = ~Envoyé écarlate~
+@283  = ~Spectre d'Ombre~
+@284  = ~Beghael~
+@285  = ~Orfa~
+@286  = ~Deneron~
+@287  = ~Carval~
+@288  = ~Loup~
+@289  = ~Envoyé~
+@290  = ~[MALE GREETING 5] Il y a quelqu'un ?~ [GENMG05]
+@291  = ~[MALE TOWNSFOLK 5]~ [VILLM05]
+@292  = ~[MALE TOWNSFOLK 6]~ [MTOWN06]
+@293  = ~[POE THE BARD HOSTILE] Mon verbe est inutile pour des esprits aussi étroits que les vôtres. Laissez-moi.~
+@294  = ~[POE THE BARD POST] Je vous prie de m'excuser de paraître impoli, mais je dois prendre congé. Je dois apporter la touche finale à mon poème épique.~
+@295  = ~Grand Seigneur Chevalier des Ténèbres~
+@296  = ~Berserker Purang~
+@297  = ~Hurgan~
+@298  = ~Makan~
+@299  = ~Chobenhair~
+@300  = ~Laras~
+@301  = ~Reno~
+@302  = ~Troll géant~
+@303  = ~Reingard~
+@304  = ~Norin~
+@305  = ~Ronar~
+@306  = ~Rugnar~
+@307  = ~Hammel~
+@308  = ~Abishai rouge~
+@309  = ~Rezak le Maître d'Armes~
+@310  = ~Renal Bloodscalp~
+@311  = ~Gorrek~
+@312  = ~Mage orque~
+@313  = ~Sandrain Durion~
+@314  = ~Guerrier~
+@315  = ~Sasaki Hashimoto~
+@316  = ~Sasaki~
+@317  = ~Pookey~
+@318  = ~Shakar~
+@319  = ~Guerrier Tribal~
+@320  = ~Guerrier demi-quallian~
+@321  = ~Shaman Tribal~
+@322  = ~Tyrian~
+@323  = ~Hoarax~
+@324  = ~Combattant squelette~
+@325  = ~Ebullition du sang~
+@326  = ~Mage Yuan-Ti~
+@327  = ~Mage Yuan-Ti~
+@328  = ~Yuan-Ti majeur~
+@329  = ~Piège~
+@330  = ~Piège spécial~
+@331  = ~Piège garni de pointes~
+@332  = ~Piège explosif~
+@333  = ~Piège à retardement~
+@334  = ~Tanar'ri~
+@335  = ~Téthtoril~
+@336  = ~Harceleur~
+@337  = ~Garde de Calimport~
+@338  = ~Archimage de Calimport~
+@339  = ~Troll des Glaces putréfié~
+@340  = ~Adalon~
+@341  = ~Ombre des roches~
+@342  = ~Aran Linvail~
+@343  = ~Armure animée~
+@344  = ~Virdei Forgebrand~
+@345  = ~Eris Elenaak~
+@346  = ~Prêtresse de Séluné~
+@347  = ~Winthrop~
+@348  = ~Loup des glaces~
+@349  = ~Thorknar~
+@350  = ~Ours-garou~
+@351  = ~Ours-garou majeur~
+@352  = ~Membre d'équipage~
+@353  = ~Yochlol~
+@354  = ~Marilith~
+@355  = ~Zombie~
+@356  = ~Prêtre Drider~
+@357  = ~Guerrier Drider~
+@358  = ~Magicien Drider~
+@359  = ~Blême majeur~
+@360  = ~Archer Kuo-Toa~
+@361  = ~Prêtre Kuo-Toa~
+@362  = ~Roi lézard~
+@363  = ~Shaman lézard~
+@364  = ~Pyro-Tyugh~
+@365  = ~Rat de Sumatra~
+@366  = ~Tête d'Os~
+@367  = ~Tête d'Os~
+@368  = ~Sylvanien~
+@369  = ~Chef Sylvanien~
+@370  = ~Ancêtre Sylvanien~
+@371  = ~Conversion des creatures au systeme de script de BP. Cela va prendre un peu de temps...~
+@372  = ~%new_script%~
+@373  = ~Configuration du systeme de sorts des creatures...~
+@374  = ~Configuration du systeme de competences des creatures...~
+@375  = ~Amelioration de Suldanessalar~
+@376  = ~Amelioration de Spellhold~
+@377  = ~Ajout de la Baguette d Orcus~
+@378  = ~Les cloches se balancent silencieusement, tenues par une force invisible. Une inscription sur le mur annonce :
+
+Prends garde, mortel, à cet avertissement
+Suis le rituel et les cloches se balanceront silencieusement
+Mais que l'Emprisonné vienne à se libérer
+Et les cloches pour Helm se mettront à sonner.
+Il saura alors que dans ta mission tu as failli
+Et sa colère brûlera comme le soleil de midi...~
+@379  = ~Grosse Baguette~
+@380  = ~Baguette d'Orcus~
+@381  = ~Convocation d'Orcus~
+@382  = ~Le Prince des Morts-Vivants dispose de toutes sortes d'amis, tous plus ignobles les uns que les autres......~
+@383  = ~Obscurité, d'un rayon de 4,5 mètres~
+@384  = ~Obscurité, d'un rayon de 4,5 mètres
+
+Niveau : 5
+Sphère : Illusion/Fantasme
+Portée : Champ visuel du jeteur de sorts
+Temps d'incantation : 5
+Durée : 1 tour
+Jet de sauvegarde : aucun
+Zone d'effet : sphère de 9 mètres de diamètre
+
+Ce sort affecte la zone d’une obscurité totale, aveuglant ceux s’y trouvant pendant la durée du sort. Bien qu’il n’y ait pas de jet de sauvegarde, la résistance à la magie s’applique et ce sort peut être dissipé par n’importe quel moyen conventionnel.~
+@385  = ~Obscurité~
+@386  = ~Gourdin Tête d'Os~
+@387  = ~Ce gourdin donne au porteur une sensation de pressentiment. Le manche est forgé d’un métal inconnu. Le crâne qui orne cet assemblage, bien qu’humanoïde, semble différent, comme provenant d’une origine étrangère. Vous ne pouvez pas faire disparaître le sentiment que préfèreriez être ailleurs (par exemple, n’importe où, pourvu que le gourdin n’y soit pas !)...
+
+
+PARAMETRES :
+
+Dégâts : 1D6
+Type de dégâts : contondant
+Poids : 20
+Facteur de vitesse : 5
+Type de compétence : Gourdin
+Type : arme à 1 main
+Force nécessaire : 5
+Non utilisable par :
+ Mage~
+@388  = ~"Baguette d'Orcus : Le Butoir de Mort
+  
+Cette arme effrayante est la propriété du prince-démon Orcus, mais il est dit qu'elle lui permet de se rendre parfois sur le Plan Primaire afin d'y assouvir sa soif de mal et de chaos...  Le porteur de la baguette n'en a cependant pas l'entier pouvoir de dévastation. Les victimes de son souffle disposent d'un jet de sauvegarde contre la magie afin d'éviter la mort ou la destruction (les dieux, avatars, seigneurs démons, démons supérieurs, saints, et demi-dieux (à l'exception des rejetons de Bhaal) ne sont pas affectés bien sûr). Toutefois, la Baguette d'Orcus confère à son porteur les effets et pouvoirs suivants :"
+
+CAPACITES DE COMBAT :
+
+15% de chance de causer la mort instantanée à chaque coup (jet de sauvegarde contre la mort magique (à -2) pour annuler)
+15% de chance que la victime soit confuse à chaque coup (jet de sauvegarde contre les sorts (à -4) pour annuler)
+5% de chance de causer au porteur la cécité / la surdité à chaque coup, pour 2 rounds (jet de sauvegarde contre la mort / pétrification (à -2) pour annuler)
+5% de chance d'invoquer un démon à chaque coup (protection magique non comprise)
+1% de chance d'invoquer Orcus lui-même à chaque coup (Peut-être vient-il vous féliciter pour votre habile utilisation de son arme délicate ?)
+
+CAPACITES SPECIALES :
+
+Immunité contre la Mort Magique, les sorts "Labyrinthe" et "Emprisonnement" (lorsqu'elle est équipée)
+Obscurité dans un rayon de 10 mètres, 3 fois par jour (cause la cécité pour une durée d'un tour à toutes les créatures touchées dans la zone d'effet, pas de jet de sauvegarde)
+Invocation d'un Fiélon du Puit 1 fois par jour (sans protection offerte ; Orcus a 5% de chance d'être invoqué à sa place)
+
+PARAMETRES :
+
+TAC0 : +5
+Dégâts : 2D6 +5
+Type de dégâts : contondant
+Poids : 20
+Facteur de vitesse : 6
+Type de compétence : Gourdin
+Force nécessaire : 14
+Sagesse nécessaire : 12
+Constitution nécessaire : 15
+
+Non utilisable par :
+ Mages
+ Personnages loyaux
+ Personnages bons~
+@389  = ~Orcus~
+@390  = ~ ~ [DEMOG02]
+@391  = ~ ~ [DEMOG03]
+
+@394  = ~Tu oses t'approcher, mortel ?~ ~Tu oses t'approcher, mortelle ?~ [DEMOG01]
+@395  = ~Amelioration de la Passe du Petit Croc, par Kensai Ryu~
+@396  = ~Amelioration de la Rencontre avec Kangaxx, par Kensai Ryu~
+@397  = ~Amelioration du Roi de la crypte, par Kensai Ryu~
+@398  = ~Le Gnome Guerrier/Illusioniste des Quais, de Kensai Ryu~
+@399  = ~Amelioration des Rencontres Aleatoires, par Gebhard Blucher et Kensai Ryu~
+@400  = ~La Liche sur les Quais, de Gebhard Blucher~
+@401  = ~L'insigne rouge, une Rencontre Basee sur le Poison, par Westley Weimer~
+@402  = ~Serpent Amer~
+@403  = ~Lanceur Sanglant~
+@404  = ~Brumevierge~
+@405  = ~Rougepointe~
+@406  = ~Lance Sanglante~
+@407  = ~Fléau Sanglant +5~
+@408  = ~Fléau Sanglant +5 : Lance de jet
+Cette lance écarlate a été trouvée sur le corps d'un des assaillants de <CHARNAME>, un des "Avatars de Poison". La lance en elle-même est chaude au toucher et semble s'insinuer légèrement sous vos doigts, battant d'un rythme effréné comme des pulsations cardiaques irrégulières. L'effet est assez déconcertant, mais c'est toujours préférable que de se trouver embroché à son extrémité. Les victimes transpercées par la lance sont souvent frappées de convulsions paralysantes tandis que la magie tente de coaguler le sang dans leurs veines.
+Contrairement à toutes les autres lances que vous avez rencontrées, celle-ci a été conçue pour être jetée. La lance retourne instantanément dans les mains de son porteur après chaque attaque. Le Fléau Sanglant peut aussi être utilisé comme une arme de mélée.
+
+PARAMETRES :
+
+Capacités d'équipement : 1 attaque supplémentaire par round
+
+Capacités de combat : Chaque coup réussi inflige 6 points de dégâts de poison répartis sur 6 secondes (pas de jet de sauvegarde) et assommera la victime pour 10 secondes si un jet de sauvegarde contre les souffles, avec une pénalité de -4, échoue.
+TAC0 : +5
+Dégâts : 1D6 +5
+Type de dégâts : perforant
+Poids : 5
+Facteur de Vitesse : 0
+Compétence : Lance
+Type d'arme : arme à 2 mains
+Inutilisable par :
+ Clerc
+ Mage
+ Voleur~
+@409  = ~Kuroisan le kensai acide, par Westley Weimer~
+@410  = ~Kuroisan~
+@411  = ~Contrecoup Acide~
+@412  = ~Sanchuudoku +4~
+@413  = ~Sanchuudoku +4 : Katana Acide
+Cette lame verte a été forgée par un Wu Jen Kara-Turien comme cadeau pour son seigneur paranoïaque ; son nom signifie "Empoisonnement Acide". L'épée fut enchantée en utilisant le sang frais d'un Dragon Noir et sa garde est décorée avec des fragments d'os de Muloups. La lame guérit les blessures de son porteur à une vitesse alarmante et un acide puissant semble s'en envoler chaque fois qu'une attaque est portée sur l'utilisateur.
+
+PARAMETRES :
+
+Capacités d'équipement : Régénération (1 point de vie par seconde), Immunité à l'acide, quiconque attaque ou jette un sort sur le porteur est sujet à un Contrecoup Acide.
+Capacités de combat : Chaque coup diminue la résistance à l'acide de la cible de 25% pour 18 secondes et inflige 2D4 points de dégâts d'acide.
+
+TAC0 : +4
+Dégâts : 1D10 +4
+Type de dégâts : tranchant
+Poids : 8
+Facteur de Vitesse : 0
+Compétence : Katana
+Type d'arme : arme à 1 main
+Inutilisable par :
+ Clerc
+ Druide
+ Mage~
+@414  = ~Le Rituel, par Westley Weimer~
+@415  = ~Ritualiste, Théurgiste~
+@416  = ~Ritualiste, Combattant furieux~
+@417  = ~Comtesse Merentha~
+@418  = ~Ritualiste, Totémiste~
+@419  = ~Ira'kiou'dneg~
+@420  = ~Ender, Capitaine ritualiste~
+@421  = ~Unité Zéro~
+@422  = ~Unité Un~
+@423  = ~Unité Deux~
+@424  = ~Manifestation~
+@425  = ~Vryce, Inquisiteur ritualiste~
+@426  = ~Ritualiste, Mage de combat~
+@427  = ~Ritualiste, Traqueur de l'ombre~
+@428  = ~Boeuf Numéro Dix, Moine ritualiste~
+@429  = ~Pontifex~
+@430  = ~Li Kao, Wu Jen ritualiste~
+@431  = ~Chanur, Métamorphe ritualiste~
+@432  = ~Crâne du Rituel~
+@433  = ~Ritualiste, Briseur de sorts~
+@434  = ~Bottes de Préservation~
+@435  = ~Bottes de Préservation
+Ces bottes magiques sont inutiles en elles-mêmes, mais lorsqu'elles sont portées par un puissant magicien, elles deviennent mortelles. Les bottes de préservation immunisent leur porteur contre presque tous les sorts de dissipation. Par exemple, le Fouet protecteur de Khelben, la puissante Brèche, la Vision Véritable et la divine Dissipation de la Magie de l'Inquisiteur sont tous sans effet sur les enchantements qui protègent la personne du mage. Les armes créées par un sort et portées par le mage (comme les Minuscules Météores de Melf) peuvent toujours être dissipées normalement. Remarquez que même les dissipations des alliés sont déviées, il est donc conseillé au porteur d'éviter d'être charmé ou confus. De plus, le porteur est immunisé à l'attaque sournoise des voleurs.
+
+Capacité d'équipement : Immunité aux effets de Dissipation et à l'attaque sournoise
+Poids: 3
+Utilisable par :
+ Tous~
+@436  = ~Amulette de Lillim~
+@437  = ~Amulette de Lillim
+Cette amulette maudite a une forte odeur de sang et de poussière. Elle est venue en votre possession lors de votre implication dans l'affaire du Rituel. A la fois le Rituel et cette amulette demeurent enveloppés de mystère, mais certains des pouvoirs de l'amulette peuvent être appréhendés. Manifestement, elle offre au porteur certaines immunités et protections magiques que possèdent en général les vampires : régénération, résistance au froid et à l'électricité, immunité au poison, à la peur, au sommeil, au drainage de niveau, à l'immobilisation, au charme et aux armes non magiques. Ceux qui ont un coeur véritablement pur ne peuvent supporter l'amulette, et elle ne peut être ôtée sans l'aide d'un clerc. Vous êtes persuadé que les pouvoirs de l'amulette s'accompagnent d'un prix terrible, sans pouvoir toutefois détecter nul inconvénient. En fait, l'amulette semble étrangement familière, et elle remue quelque chose de profondément enfoui dans votre mémoire.
+
+*OBJET MAUDIT*
+
+PARAMETRES :
+
+Offre des protections vampiriques
+Inutilisable par :
+ Paladin~
+@438  = ~Armure de Dragon Jaune~
+@439  = ~Armure de Dragon Jaune
+Cette armure est faite d'écailles de Dragon Jaune qui s'entremêlent. Les Dragons Jaunes sont connus pour leurs attaques de sable enflammé et pour leur résistance aux armes perforantes. Cette armure-ci a été obtenue par <CHARNAME> lors de son intervention dans le Rituel. L'armure est d'une légèreté surnaturelle, et d'encombrement réduit.
+
+PARAMETRES :
+
+Bonus : +50% de résistance aux missiles et aux armes perforantes
+Classe d'armure : -1
+Poids : 10
+Force minimale requise : 6
+Inutilisable par :
+ Mage~
+@440  = ~Sa partie du Rituel Complet~
+@441  = ~Regles de jeu etendues au niveau 50 (Code par King Diamond)~
+@442  = ~Vous l avez deja car TDD est installe~
+@443  = ~Mise a jour des regles (2DA, IDS)...~
+@444  = ~%cnt%      10  10  10  10  10  9   8~
+@445  = ~%cnt%      11  10  10  10  10  9   9~
+@446  = ~%cnt%      11  10  10  10  10  10  9~
+@447  = ~%cnt%      11  11  10  10  10  10  9~
+@448  = ~%cnt%      11  11  11  10  10  10  9~
+@449  = ~%cnt%      11  11  11  10  10  10  10~
+@450  = ~%cnt%      11  11  11  11  10  10  10~
+@451  = ~%cnt%      11  11  11  11  11  10  10~
+@452  = ~%cnt%      6   6   5   5~
+@453  = ~%cnt%      6   6   6   5~
+@454  = ~%cnt%      7   6   6   5~
+@455  = ~%cnt%      7   7   6   5~
+@456  = ~%cnt%      7   7   6   6~
+@457  = ~%cnt%      8   7   6   6~
+@458  = ~%cnt%      7   7   6~
+@459  = ~%cnt%      8   7   6~
+@460  = ~%cnt%      8   8   6~
+@461  = ~%cnt%      8   8   7~
+@462  = ~%cnt%      9   9   8   8   8   7   7   7   5~
+@463  = ~%cnt%      10  9   9   8   8   7   7   7   5~
+@464  = ~%cnt%      10  9   9   8   8   8   7   7   5~
+@465  = ~%cnt%      10  10  9   9   8   8   7   7   5~
+@466  = ~%cnt%      11  10  10  9   8   8   8   7   6~
+@467  = ~%cnt%      11  10  10  9   9   8   8   7   6~
+@468  = ~%cnt%      9   9   8   8   8   8   8   7   7~
+@469  = ~%cnt%      9   9   9   8   8   8   8   7   7~
+@470  = ~%cnt%      10  9   9   9   8   8   8   8   7~
+@471  = ~%cnt%      10  9   9   9   9   8   8   8   7~
+@472  = ~%cnt%      10  10  9   9   9   9   8   8   7~
+@473  = ~%cnt%      10  10  10  9   9   9   9   8   7~
+@474  = ~%cnt%      11  10  10  10  9   9   9   8   8~
+@475  = ~%cnt%      11  11  10  10  10  9   9   9   8~
+@476  = ~%cnt%      11  11  11  10  10  10  9   9   8~
+@477  = ~%cnt%      12  11  11  10  10  10  9   9   8~
+@478  = ~%cnt%      17500~
+@479  = ~%cnt%      18000~
+@480  = ~%cnt%      18500~
+@481  = ~%cnt%      19000~
+@482  = ~%cnt%      19500~
+@483  = ~%cnt%      20000~
+@484  = ~%cnt%      20500~
+@485  = ~%cnt%      21000~
+@486  = ~%cnt%      21500~
+@487  = ~%cnt%      22000~
+@488  = ~%cnt%      100~
+@489  = ~%cnt%      105~
+@490  = ~%cnt%      110~
+@491  = ~%cnt%      115~
+@492  = ~%cnt%      120~
+@493  = ~%cnt%      125~
+@494  = ~%cnt%      130~
+@495  = ~%cnt%      135~
+@496  = ~%cnt%      140~
+@497  = ~%cnt%      99~
+@498  = ~%cnt%      9   9   9   9   9   9   9   8   8~
+@499  = ~%cnt%      9   9   9   9   9   9   9   9   9~
+@500  = ~Ascension pour BP~
+@501  = ~Babau~
+@502  = ~Epée du Chaos +4~
+@503  = ~Lame du Chaos de Sarevok
+Il s'agit de l'arme de Sarevok, frère de <CHARNAME>, qui fut utilisée dans la bataille de la Porte de Baldur. <CHARNAME> a gagné, ruinant ainsi les plans de Sarevok, et sauvant la Côte des Epées de la guerre. Maintenant, Sarevok s'est joint à la cause de <CHARNAME> et son épée lui a été rendue. Sarevok décrit cette arme comme une Lame Fatale et a restauré une partie des anciens pouvoirs de cet objet. Cependant, sans son essence d'Enfant de Bhaal pour nourrir l'épée, il n'a pu lui rendre la totalité du pouvoir qu'elle possédait autrefois. Quoiqu'il en soit, elle reste une arme formidable... et Sarevok prévient qu'elle deviendrait très difficile à utiliser dans les mains de quelqu'un qui ne fût pas un Porteur de Mort, voire impossible à utiliser.
+
+PARAMETRES :
+
+Capacités de combat : chaque coup porté draine de 1 à 5 points de vie de la cible et les transfère au porteur (qui ne peut pas dépasser son maximum).
+
+La lame procure également +10% de Résistance à la Magie lorsqu'elle est équipée.
+
+Dégâts : 1D10 +4
+TAC0 : +4
+Type de dégâts : tranchant
+Poids : 10
+Facteur de Vitesse : 8
+Type de compétence : Epée à 2 mains
+Type :  à 2 mains
+Prérequis : 14 en Force, 18 en Constitution
+Inutilisable par :
+Clerc
+Mage
+Paladin
+Rôdeur
+Druide
+Personnages d'alignement Non Chaotiques~
+@504  = ~Potion de Sendai~
+@505  = ~Potion de Sendai
+Certainement confectionnée par Sendai elle-même, c'est une potion de soin d'une incroyable puissance capable de restaurer complètement les points de vie de celui qui la boit.~
+@506  = ~Onde de Choc~
+@507  = ~Aura électrique~
+@508  = ~ENCORE là ! RRrr... J'vais vous fracasser la tête !~
+@509  = ~Changement de Résistances~
+@510  = ~Contrôle de Démon~
+@511  = ~Focalisation~
+@512  = ~Manteau Divin~
+@513  = ~Puiser de l'énergie~
+@514  = ~Bouclier de sort divin~
+@515  = ~Commandement de Démons~
+@516  = ~Bannissement~
+@517  = ~Décharge~
+@518  = ~Contrecoup~
+@519  = ~Restauration Divine~
+@520  = ~Eclaircissement Divin~
+@521  = ~Mélissane : Commande les Créatures des Abysses~
+@522  = ~Aura de Paralysie~
+@523  = ~Changement en Ravageur~
+@524  = ~Transformation en chauve-souris~
+@525  = ~Perte de Force~
+@526  = ~Symbole : Lenteur~
+@527  = ~Bombe de Lave~
+@528  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME> a acquis la capacité, utilisable une fois par jour : 
+Soin de masse (Nécromancie)
+
+Portée : Champ visuel du lanceur
+Durée : permanente 
+Temps d'incantation : 1
+Zone d'effet : rayon de 6 m
+Jet de Sauvegarde : Aucun 
+
+Lorsqu'il utilise cette capacité, l'enfant de Bhaal doit se concentrer sur les visages de ses compagnons et sur l'unité du groupe. Une fois l'incantation achevée, tous les membres du groupe dans un rayon de 6 m reçoivent 2d8 points de vie + 2 / niveau. Ce soin concerne également : la fatigue, le poison, la maladie, la cécité et la surdité.~
+@529  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME> a acquis la capacité, utilisable une fois par jour : 
+Régénération (Nécromancie)
+
+Portée : Contact
+Durée : 1 round par tranche de 2 niveaux
+Temps d'incantation : 7
+Zone d'effet : Créature ciblée
+Jet de Sauvegarde : Aucun 
+
+Cette puissante capacité permet à l'Enfant de Bhaal de prodiguer la capacité de régénération à une créature. Toutes ses blessures seront guéries et même les membres sectionnés repousseront grâce à ce sort. Le bénéficiaire récupérera 3 points de vie par seconde. La durée du sort est fixée à un nombre maximum de rounds égal à la moitié du niveau du lanceur. Par exemple, un prêtre de 14ème niveau régénérera ainsi 18 points de vie par round pendant 7 rounds.~
+@530  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME> a acquis la capacité, utilisable une fois par jour : 
+Puiser dans la puissance divine (Invocation)
+
+Portée : 0 
+Durée : 1 tour
+Temps d'incantation : 1
+Zone d'effet : lanceur
+Jet de Sauvegarde : Aucun 
+
+L'enfant de Bhaal sollicite l'essence de son père pour augmenter ses pouvoirs pendant une courte durée. Sa Force, sa Constitution et sa Dextérité gagnent alors 1 point par 3 niveaux du lanceur. Un lanceur du 3ème niveau verra ainsi ses caractéristiques gagner 1 point, alors qu'un lanceur du 12ème niveau les verra augmenter de +4.~
+@531  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME> a acquis la capacité, utilisable une fois par jour : 
+Souffle de Bhaal (Nécromancie)
+
+Portée : 7 mètres
+Durée : 1 tour
+Temps d'incantation : 1
+Zone d'effet : 1 créature
+Jet de Sauvegarde : Annule
+
+Cette capacité permet à l'enfant de Bhaal d'envelopper la victime dans le souffle vicié de son père. Cette dernière peut échapper à l'empoisonnement si elle réussit un jet de sauvegarde contre la mort. Les effets dépendent du niveau du lanceur :
+
+Niveaux 7 à 9 : 2D8 +2 / round, lenteur pendant 12 secondes, -2 au jet de sauvegarde
+Niveaux 10 à 12 : 3D8 +3 / round, lenteur pendant 12 secondes, -2 au jet de sauvegarde
+Niveaux 13 à 14 : 4D8 +4 / round, lenteur pendant 12 secondes, -2 au jet de sauvegarde
+Niveaux 15 à 16 : 6D8 +5 / round, lenteur pendant 24 secondes, -2 au jet de sauvegarde
+Niveaux 17 à 21 : 8D8 +6 / round, lenteur pendant 24 secondes, -4 au jet de sauvegarde
+Niveau 25 et plus : 8D8 +6 / round, lenteur pendant 36 secondes, -4 au jet de sauvegarde, un groupe entier de cibles est affecté~
+@532  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME> a gagné la Protection Permanente Contre le Plan Négatif (par exemple, <CHARNAME> ne peut se faire drainer ses niveaux) et 5% de résistance magique.~
+@533  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME>  a acquis la capacité, utilisable une fois par jour : 
+Main de Bhaal (Nécromancie)
+
+Portée : lanceur
+Durée : 1 round par tranche de 5 niveaux
+Temps d'incantation : 1
+Jet de Sauvegarde : Aucun 
+
+Cette capacité permet à l'Enfant de Bhaal d'infliger des dégâts supplémentaires en mêlée avec l'arme de son choix (mains nues, épée, etc...) et d'absorber une partie de l'énergie vitale volée à la cible. L'effet varie en fonction du niveau du lanceur :
+Niveau 10 : 2 rounds, 4 points de dégâts supplémentaires, 4 points de vie guéris
+Niveau 15 : 3 rounds, 6 points de dégâts supplémentaires, 6 points de vie guéris
+Niveau 20 : 4 rounds, 8 points de dégâts supplémentaires, 8 points de vie guéris
+Niveau 25 : 5 rounds, 10 points de dégâts supplémentaires, 10 points de vie guéris
+Niveau 30 : 6 rounds, 12 points de dégâts supplémentaires, 12 points de vie guéris~
+@534  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME>  a acquis la capacité, utilisable une fois par jour : 
+Résurrection (Nécromancie)
+
+Portée : Contact
+Durée : permanent
+Temps d'incantation : 1
+Zone d'effet : Créature ciblée
+Jet de Sauvegarde : Aucun
+
+Tout comme le sort de 5ème niveau de prêtre Rappel à la vie, Résurrection ramène un personnage à la vie. Il est cependant ressuscité avec le maximum de ses points de vie.~
+@535  = ~Pouvoirs de l'Enfant de Bhaal
+
+<CHARNAME> a gagné 25% de résistance aux dégâts physiques (par exemple aux dégâts tranchants, perforants, contondants et aux Projectiles).~
+@536  = ~Aerie continua sa vie aventureuse après avoir quitté <CHARNAME>, se posant comme une féroce adversaire de toute forme d'esclavage. Sa compassion commença à être empreinte de vengeance cependant, de la vengeance pour ce qui lui avait été pris lorsqu'elle était enchaînée et ne lui serait jamais rendu. Elle aurait pu perdre la raison si la fortune ne lui avait pas souri. Les histoires disent qu'Aerie, pleine de rage, détruisit une enclave d'esclavagistes dans les collines au nord du Cormyr à elle seule. Elle fut surprise d'y trouver un groupe d'Avariels qui étaient retenus prisonniers et les libéra rapidement. Ils la persuadèrent de rejoindre Faenya-Dail, sa patrie, où elle apprit beaucoup, notamment qu'elle ne serait jamais plus une Avariel. Elle cessa donc de se lamenter et de tenter de récupérer ses ailes, sachant que c'était désormais inutile. Faenya-Dail n'était plus son foyer, et ce fut troublée qu'elle en partit pour toujours. Il est dit qu'Aerie finit par devenir une grande prêtresse à Pierrebasse, un village gnome dont son tuteur Quayle lui avait quelquefois parlé. Il avait été sa seule vraie famille, et c'est parmi son peuple qu'elle trouva finalement la joie et la famille qu'elle avait souhaitées. Il est aussi dit qu'Aerie priait pour son ancien ami, <CHARNAME>, chaque nuit alors que les étoiles apparaissaient dans le ciel. Elle espérait sincèrement que son ami ait eu la chance de trouver la paix qu'elle avait trouvée... grâce à lui.~
+@537  = ~Aerie et <CHARNAME> prouvèrent qu'ils étaient inséparables, continuant leurs aventures plusieurs années encore. L'envie de voyage d'Aerie emmena le couple à travers tout Féerune, voire plus loin. Leur jeune fils les accompagnait toujours, faisant sourire <CHARNAME> à chaque fois qu'il écarquillait ses yeux sur les merveilles du monde. Finalement le couple s'établit, donnant naissance à une fille qui devint la seconde joie de leurs vies. Rarement <CHARNAME> et Aerie furent amenés à quitter leur retraite pour utiliser leurs grands pouvoirs contre le mal, bien que les récits de leurs combats devinrent légendaires. Les années suivantes les amenèrent à entreprendre un long voyage, alors qu'Aerie ressentait de la tristesse en se rappelant ses années d'esclavage et la perte de ses ailes. Elle et <CHARNAME> cherchèrent les Avariels de Faenya-Dail, les elfes ailés à qui elle avait été enlevée il y a bien longtemps. Ils découvrirent non seulement son peuple, mais aussi des parents aimants qui avaient passés des années à chercher leur enfant perdue. Aerie avait finalement trouvé sa famille. Sans plus aucun mystère ou confusion dans leurs vies, ce fut ici, parmi les nuages, qu'Aerie et <CHARNAME> se marièrent enfin. Leur union, dit-on, fut bénie par la présence d'Aerdrie Faenya et Baervan Ermiterrant. Concernant les enfants de <CHARNAME> et d'Aerie, instruits par deux des plus puissants héros des Royaumes, leur futur est destiné à être une légende rivalisant avec celle de leur père...~
+@538  = ~Finissant par se séparer de ses compagnons, Anomen entra dans la hiérarchie de l'église de Helm, atteignant avec le temps le rang de Grand Vigilant. Il resta infatigable et insatisfait, se rappelant des mois passé aux côtés de <CHARNAME>... et bien que de nombreux amis lui dirent le contraire, Anomen ne sentit jamais que l'église était son vrai foyer. Il resta à ce poste un an et finalement ne put le supporter davantage. Il laissa son travail à l'église et, pour un temps, erra dans la contrée de Maztica en tant que missionnaire.  Anomen resta un esprit troublé, ne trouvant jamais satisfaction bien que ses prouesses lui aient valu le respect des nouveaux compagnons qu'il rencontrât. Quand le puissant et maléfique prêtre Yamash invoqua une horde de Démons pour tenter de détruire toute vie sur Maztica, Anomen trouva enfin sa voie. Seul, il organisa quelques soldats Amniens et les habitants de Maztica en une armée unie qui s'opposa au sombre prêtre. Lors du grand combat qui suivit, Anomen fut vu par tous en train de se battre seul face à Yamash. Il n'avait pas <CHARNAME> ou d'autres compagnons à ses côtés : seul il s'opposa au mal, et avait enfin trouvé ce qu'il cherchait. Il fut aperçu pour la dernière fois de loin, versant des larmes de joie tandis qu'il affrontait Yamash et priait Helm en concentrant une lumière aveuglante de puissance. Lorsque cette lumière se dissipa, aussi bien Anomen que le prêtre avaient disparu. Le combat fut gagné et Maztica sauvée. Anomen fut toujours regardé comme un héros, inspirant la création d'un ordre de chevaliers protecteurs en son nom. Un nouvel ordre pour un nouveau pays.~
+@539  = ~Anomen et <CHARNAME> continuèrent l'aventure jusqu'à ce qu'ils soient considérés comme des héros à peu près partout où ils allaient. Nombres étaient les histoires sur le Chevalier Etincelant et sa dévotion à sa Dame. Le passé de <CHARNAME> en tant qu'Enfant de Bhaal fut oublié à jamais tandis que de nouveaux faits remplaçaient les anciens et ils en tirèrent une gloire dépassant tout ce que pouvait apporter un sang divin. Leurs actions furent si prolifiques que le jour fixé de leur mariage, ils partirent en mission chacun de leur côté, à propos d'une quelconque crise ou aventure sur laquelle ils insistaient de pouvoir enquêter. Une date fut finalement fixée, que <CHARNAME> et Anomen respectèrent. Les plus grands héros et les plus grandes figures de Féérune se déplacèrent pour assister à la cérémonie. Tous connaissaient les deux héros, au moins de renom, et tous voulaient voir Elminster en personne unir ces deux êtres d'exception au cours de ce qui fut sans doute la plus belle cérémonie de toute l'histoire de la Porte de Baldur. Anomen et <CHARNAME> se retirèrent de la vie publique peu de temps après la naissance de leur fille, bien que si les histoires sont vraies, leurs aventures ne connurent jamais vraiment de fin. Anomen se serait élevé très haut dans la hiérarchie de son église, et <CHARNAME> aurait continué à être le centre d'événements étranges tout le long de leur vie. Bientôt également, leur fille, élevée par deux des plus grand héros des Royaumes, se forgerait une légende capable de rivaliser avec celle de sa mère. Mais ceci est une autre histoire...~
+@540  = ~En retournant à Amkethran, Balthazar commença à faire changer les choses pour le mieux. Il avait appris de son ami et parent le sens du mot "Bien". Il garda sa culpabilité dans son coeur, pour se rappeler de ne pas refaire les mêmes erreurs. Les éléments criminels restants furent reconduits en dehors de la ville, laquelle attirait de nouveaux gens et marchands. Au cours des années, Amkethran devint une cité de commerce et le centre culturel de la région, connue pour sa paix et sa compassion.   Balthazar joua un rôle capital dans la création d'une Garde Monastique; un groupe d'élite formé de moines et de paladins ayant juré de protéger les gens de la tyrannie sous toutes ses formes. Ses actes lui firent rapidement gagner le respect et la confiance de son peuple. Dans ses vieilles années, Balthazar, son travail terminé, était souvent surpris à regarder le ciel nocturne en se souvenant de <CHARNAME>. Plus tard, Balthazar quitta pour toujours Amkethran en vue d'un pèlerinage à Châteausuif... pour rendre un hommage final à la paix qu'il avait trouvée et voir de ses propres yeux l'humble commencement d'une légende.~
+@541  = ~Bodhi avait goûté à  la puissance divine à travers l'âme de <CHARNAME>. Tandis que les derniers vestiges de ceci disparaissaient avec le temps, elle commença à souhaiter plus, s'enfermant dans une haine amère et faisant de son obsession l'idée d'atteindre à nouveau une telle grandeur. Les gens à travers la Côte des Epées apprirent à craindre Bodhi ; alors qu'elle se baignait dans leur sang et satisfaisait sa soif de mort et de chaos. Les villages commencèrent à se vider de leurs habitants, assaillis par cette chose qui rôdait la nuit. Son nom devint synonyme de terreur, et de nombreux temples tentèrent en vain de la chasser. Nombre de puissants clercs furent retrouvés vidés de leur sang, une horrible agonie fixée sur leurs visages blêmes. Avec le temps, Bodhi sentit la froide poigne de la malédiction sur elle. Le désespoir et la peur s'inscrivant dans son corps. Son désir pour le chaos s'évanouit et elle lutta pour survivre une fois de plus. L'ambition, qui lui avait fait chuchoter des rêves de gloire à l'oreille de son frère, la ramenait maintenant vers le lieu qu'elle avait autrefois appelé son foyer, Suldanessalar. Ce fut aux portes qu'Ellesime l'accueillit. Aux portes que Bohdi dansa pour la dernière fois. La vengeance brûlait au plus profond de chacune d'entre elles et appelait le sang. Le pouvoir de l'Arbre de Vie avait attiré Bodhi, et la mémoire de Joneleth hurlait dans celle d' Ellesime. Les deux s'enlacèrent et ce fut la vengeance qui l'emporta tandis qu'un pieu perçait le coeur noir de Bodhi, qui avait été autant damnée dans la vie que dans la mort.~
+@542  = ~Cernd quitta la vie d'aventurier pour retourner à son bosquet au Téthyr, promettant de prendre ses responsabilités et d'élever son fils, Ahsdale, comme le devait un père. Cernd devint finalement le Grand Druide et se fit un nom à travers les Royaumes, non seulement en se battant pour l'harmonie de son bosquet mais aussi en protégeant la vie des gens dans tous les Royaumes. Cernd découvrit avec le temps, à son grand regret, que dans son attention pour son travail, il en avait oublié sa promesse à Ahsdale.  Son fils avait quitté le bosquet bien longtemps auparavant et Cernd apprit qu'Ahsdale était devenu un Sorcier mauvais et dérangé, commandant une force qui menaçait la Côte des Epées. Décidant qu'il était de son devoir de résoudre ceci, Cernd abdiqua en tant que Grand Druide et chercha son fils. Il se battit à maintes reprises avec les forces de son fils, utilisant la puissance de la nature avec une splendeur qui devint légendaire aux yeux de tous ceux qui y assistèrent. Cernd finit par être confronté à Ahsdale lui-même au plus profond de la forêt du Téthyr, et dans un effort final, tenta de la convaincre de revenir sur le droit chemin. Ashdale refusa, et Cernd combattit son fils unique dans un long et terrible duel qui s'acheva par un bain de sang dont aucun ne sortit vivant. Dans son dernier souffle, Cernd se traîna sur le sol pour prendre la main morte d'Ashdale, les larmes coulant sur ses joues tandis qu'il demandait le pardon à son fils. L'esprit de Cernd s'infiltra dans un grand chêne dans la forêt, et il est dit que ce chêne existe toujours. Autour a grandi un formidable bosquet d'une beauté incomparable qui est l'abri des plus rares créatures magiques des Royaumes. A chaque automne, le Grand Chêne et les bois alentours deviennent pourpres, pour nous rappeler que même les plus marqués d'entre nous peuvent finir par trouver la paix.~
+@543  = ~Haer'Dalis trouva que son association avec <CHARNAME> avait été une sympathique introduction aux Royaumes, et après que la compagnie se soit séparée, il eut envie d'en voir plus. Il visita des localités aussi variées qu'Eauprofonde, Padhiver et Thay, propageant les récits sur ses exploits en compagnie de <CHARNAME>... et trouvant toujours le moyen d'être pris au milieu de toutes les aventures qui se présentèrent à lui. Finalement Haer'Dalis fut pris dans des troubles locaux d'une façon ou d'une autre, ce qui le ramena une fois de plus sur les routes. Ce qui lui convenait tout à fait, bien que le Barde admit lui-même qu'il comprenait rarement certaines futilités du Monde Primaire, et aimait se souvenir de la grandeur des Plans. Il se lia d'amitié à une Cambion et l'accompagna dans les Abysses, où son intervention involontaire le mena à la tête d'une révolte contre certains "grands" des enfers. Par la suite, le Tieffelin fut amusé des histoires racontant qu'il avait forcé Graa'zt sur la table des négociations, une position surprenant pour un si grand Seigneur Démon... bien qu'Haer'Dalis n'ait jamais confirmé ou infirmé l'histoire. Peu de temps après, Haer'Dalis devint l'être le plus recherché des plans, mais ses ennemis ne purent jamais le capturer. Il échoua dans la ville de Sigil et rejoignit sa bien aimée Raelis ainsi que sa troupe d'acteurs, heureux de s'établir... enfin jusqu'au prochain quiproquo évidemment.~
+@544  = ~Et qu'en est-il d'Imoen, l'Enfant Eternelle ?  Elle connut bon nombre de choses au cours de ses voyages avec <CHARNAME>, des choses dont elle refusa de discuter plus tard, mais son esprit ne fut jamais brisé. Elle se sépara de ses compagnons pour rechercher sa propre destinée, et finit enfin par se faire un nom. Elle retourna tout d'abord à Châteausuif quelques temps, sa grande maîtrise de la magie lui donnant une meilleure compréhension des livres s'y trouvant.  Là-bas, elle se rappela les moments simples en compagnie de <CHARNAME> et Gorion, et se sentit heureuse d'avoir suivi les traces de son père adoptif. Bien qu'on lui demandât de rester, Imoen finit par trouver que Châteausuif était plus étroit que dans ses souvenirs et repartit sur les chemins. Nombreux sont les récits sur l'archimage qu'Imoen devint. Elle porta de nombreux noms au cours de sa vie, certains mystérieux et à rallonge, et d'autres étranges et courts comparés au pouvoir que cette femme possédait. N'importe qui l'ayant connu dans sa jeunesse l'aurait immédiatement reconnue quelque soit son nom cependant... ni l'âge, ni la sagesse ne purent éteindre l'étincelle malicieuse dans ses yeux, ou son sourire à la rencontre d'un ami. Elle devint la confidente de Khelben "Bâton Noir" Arunson, et fut fréquemment citée dans une histoire impliquant le grand Elminster, ayant paraît-il fouillé les poches du Mage et l'ayant ensuite entraîné dans une joyeuse course-poursuite magique à travers Féerune pendant quatre mois. La vérité exacte sur cette histoire est inconnue... mais ce ne serait pas surprenant de la part d'Imoen d'encourager un vieux mage à ne pas être si sédentaire, et l'amitié qu'elle eut ensuite avec Elminster fut réputée. Son influence grandit dans les Royaumes et elle aurait même fondé une guilde de voleurs qui opérait jusqu'à Padhiver, affronta les Voleurs de l'Ombre et le Zentharim et se battant même avec un dragon car (du moins c'est ce que dit l'histoire) il n'était pas 'sympathique'. Souvent, Imoen repensait à son ancien ami, <CHARNAME>, et souriait tristement... pour avoir ensuite une idée amusante qui l'amènerait vers son nouveau plan. Il semble que certaines personnes, fort heureusement, ne changent jamais.~
+@545  = ~Les évènements dont Jaheira fut le témoin privilégié l'affectèrent profondément. Elle se devait d'être la garante de l'harmonie, mais elle ne sut pas la conserver, et cette pensée la tourmenta de nombreuses années. Elle devint désabusée et acariâtre, se lamentant de longues semaines sur la futilité de la vie et la perte de ses anciens amis. Elle acquit le statut d'infatigable championne de la Balance, agissant quelquefois de concert avec les Ménestrels, et quelquefois non. Elle opérait calmement, apparaissant là où on avait besoin d'elle, et disparaissant lorsque sa présence n'était plus nécessaire. Nombres lui demandèrent de les mener, mais à chaque fois Jaheira refusa une telle tâche en disant qu'il y avait d'autres endroits où on avait besoin d'elle. Elle resta distante et renfermée, ne restant jamais très longtemps au même endroit. Il est dit qu'elle traversa entièrement les Royaumes à trois reprises, toujours en errance et à la recherche de quelque chose... jusqu'à ce qu'elle se demande quel était son but. Ce qu'il advint ensuite de Jaheira est assez mal connu. Certains disent qu'Elminster serait venu à elle et l'aurait convaincue de prendre place parmi les dirigeants des Ménestrels. D'autres disent qu'elle tomba au combat contre une Liche puissante qui menaçait les forêts du Nord. Et d'autres disent qu'elle partit à la recherche de <CHARNAME>, voyageant en des contrées inconnues. Quoi qu'il lui soit arrivé, Jaheira ne revint à la Côte des Epées ni au Thétyr.~
+@546  = ~Les années qui suivirent la conclusion de la quête de l'enfant de Bhaal furent douces à Jaheira. Mouvementées, mais heureuses, notamment grâce à sa relation avec <CHARNAME>. C'était une union solide, et même si le devoir ou l'aventure purent les séparer quelques fois pendant des années, ils retournèrent toujours l'un vers l'autre. Ses amis auraient été étonnés de voir comme Jaheira était devenue confiante, surtout en se rappelant sa réticence initiale, et elle frissonnerait à l'idée de se souvenir de ces jours de méfiance. Après tout, elle et <CHARNAME> étaient allés en enfer et en étaient revenus, et là où les dieux en personne ne pouvaient les séparer, qu'étaient de simples mois ou kilomètres ? Jaheira s'éleva haut dans les rangs des Ménestrels, faisant toujours prévaloir la sagesse et le sens de l'organisation. Elle devint renommée en tant que grande médiatrice et héroïne, bien que personne ne fût surpris qu'il lui arrivât de disparaître pendant de longues périodes, voyageant en compagnie de <CHARNAME> dans quelques contrées éloignées des Royaumes. Le couple fut aperçu à Padhiver, Rashemon, dans les grandes steppes du Sud et même dans la Jungle de Chult. Jaheira finit par quitter les ménestrels après une nouvelle brouille, et, n'ayant plus rien à faire avec eux, se consacra au nouveau fils de <CHARNAME>. <CHARNAME> revint souvent, appréciant la joie de la paternité... mais finissant toujours par se laisser rappeler par sa soif d'aventure. Jaheira ne fut pas toujours en compagnie de <CHARNAME>, et ne fut pas toujours présente pour partager ses victoires et réussites, mais elle n'en fut jamais vraiment séparée. Et le fils de <CHARNAME> ? Instruit par deux des plus grand héros des Royaumes, il se forgea une légende capable de rivaliser avec celle de son père. Mais ceci est une autre histoire...~
+@547  = ~Les périls que Mazzy Fentan connut aux côtés de <CHARNAME> ne firent qu'accentuer son goût pour l'aventure. Elle fonda d'ailleurs les Chevaliers de Fentan peu de temps après les évènements du Téthyr, un groupe disparate d'aventuriers, toujours prompts à faire naître des légendes dans les Royaumes. Mazzy citait bien souvent le nom de <CHARNAME> lorsqu'elle appelait ses camarades à faire preuve de bravoure, ou quand ils étaient en proie au doute ou à la tentation. <CHARNAME> fut la personne la plus fameuse que Mazzy ait jamais connu, et la petite femme sentait qu'il était de son devoir de porter l'héritage de son ancien ami. Ils combattirent ainsi une armée de trolls qui menaçait une ville, mirent en déroute des orques vindicatifs et défirent même un dragon dans son antre pour "faire un peu de ménage" d'après leurs dires. Leur légende les dépassa, particulièrement concernant Mazzy, et il fut dit à l'occasion que si la valeur se comptait en mètres, alors Mazzy mesurerait 5 mètres. Il est bien connu que le summum de la vie d'aventure de Mazzy fut le jour où elle devint Paladin dans le grand hall de l'Ordre du Coeur Radieux. Première semi-femme à être ainsi honorée, si ce n'est la première non-humaine. De calmes larmes de joie coulèrent des yeux de Mazzy ce jour-là tandis que le Prélat rendait les plus grands honneurs de l'Ordre sur ses épaules. Il est dit que Mazzy scruta souvent la foule durant la cérémonie, et de tous les anciens amis qu'elle cherchait, celui qu'elle désira le plus revoir était <CHARNAME>. Après toutes ces péripéties, Mazzy passa doucement à un âge avancé. Elle ne s'est jamais établie et n'eut jamais d'enfant, mais son histoire est de celles qui inspireront les générations à venir.~
+@548  = ~Nalia développa grandement ses pouvoirs au contact de <CHARNAME>. Elle continua à voyager, abreuvant sa soif de connaissances magiques au contact de quelques uns de plus grands mages des Royaumes. Elle chercha à utiliser un tel pouvoir pour apporter la justice, mais avec le temps se rendit compte que si son association avec <CHARNAME> lui avait appris une chose ; c'était qu'un tel pouvoir devait être utilisé avec sagesse, sans quoi il devenait inutile. Elle pouvait frapper le mal comme elle le voulait... cela n'aidait pas toujours les nécessiteux, contrairement à ce qu'elle espérait, et après un an d'aventure elle se souvint qu'il y avait de bien meilleures façons d'aider les gens. Nalia retourna en Amn et à sa demeure familiale du Donjon des de'Arnise. Elle le trouva aux mains du vil Isaea Roenal, mais n'était plus l'enfant effrayée qu'il s'attendait à revoir, tandis qu'elle lui donnait punition pour ses exactions. Elle s'auto-déclara héritière du titre Ducal de son père, et pour une fois il n'y eut aucune objection de la noblesse avoisinante. Ils la snobèrent, elle et sa magie, et se réjouirent lorsque les Mages Cagoulés tentèrent de lui retirer ses pouvoirs. Nalia leur montra qu'elle n'était pas le genre de personne avec qui il fallait jouer à ça, cependant, et les Mages Cagoulés apprirent à craindre son nom. Avec le temps, Nalia devint une régisseuse appréciée, une Archimage respectée, et gagna même un siège au Conseil des Six. La noblesse commença à suivre les conseils de Nalia, et elle devint une figure importante d'Amn pour de nombreuses années, se battant constamment pour le bien des gens simples, et se faisant des ennemis parmi la noblesse et les Mages Cagoulés. Nalia mourut de nombreuses années plus tard, entourée par une famille aimante... ses derniers mots furent pour remercier <CHARNAME> qui, bien longtemps avant, lui avait montrée le chemin qu'elle devait suivre.~
+@549  = ~Sarevok ne put s'établir nulle part dans les Royaumes pendant les années qui suivirent sa résurrection par <CHARNAME>. A lui seul il aurait mis en déroute une armée d'orques à Berdusk, mais sa puissance et sa férocité terrifièrent autant les habitants que les envahisseurs... puis il disparut calmement sans demander de récompense. Il arriva à Port-Ponant en conquérant, renversant tout sur son passage, avant de mystérieusement disparaître quelques semaines plus tard, laissant ses propres hommes surpris en proie à la foule déchaînée. Ses actes furent diversement interprétés, mais tous s'accordèrent à dire que Sarevok était une âme torturée, un homme qui ne se connaissait pas, à la limite de la vie et de la mort, incapable de fixer sa volonté sur l'un de ces deux états. Les gens qui connaissait bien Sarevok, donc peu de monde, dirent que le guerrier tourmenté maudissait le légendaire <CHARNAME> de lui avoir donné cette seconde chance... et ensuite le remerciait. La légende prétend qu'il serait alors parti seul à l'assaut des Abysses, à moins qu'il n'ait décidé de mettre un terme à ses souffrances. En vérité il se retira à Kara-Tur pour y enterrer Tamoko la guerrière, le seul amour de sa vie et n'en revint jamais... enfin d'après les légendes.~
+@550  = ~Après s'être séparé de <CHARNAME>, le Sarevok revenu de la tombe se montra fidèle à sa réputation. Il retourna dans les contrées qu'il connaissait, bien plus puissant qu'il ne l'avait jamais été. Ses anciens ennemis furent surpris par sa venue, mais jamais très longtemps, et c'est quelques mois plus tard que Sarevok monta un règne de terreur à la Porte de Baldur qui le placerait entièrement en charge de la cité. La résistance fut écrasée tandis que Sarevok commençait à lever une armée pour mener des conquêtes en son nom. S'il n'avait plus le pouvoir divin de son père, il avait toujours suffisamment de force pour satisfaire sa soif de pouvoir. Sarevok se servait des femmes comme il le voulait alors que son nom devenait une malédiction dans la bouche des citoyens de la Côte des Epées. Les premières victimes de son armée tombèrent aisément, et le pouvoir de Sarevok grandit. Le guerrier était furieux cependant de ne tirer aucun plaisir de ses victoires. Le pouvoir avait le goût de cendres, bien que Sarevok tentât à maintes reprises de se forcer à ressentir de la joie de ses conquêtes. Finalement son trône devint lourd à porter, et ce fut avec une sombre résignation qu'il guetta l'arrivée inévitable de héros venus le chasser un an après. Sarevok fuit dans la nuit, abandonnant la Porte de Baldur et ses rêves de pouvoir. Il devint un homme hanté par sa seconde chance, pourchassé par une ancienne vie qui n'avait jamais été et par une vie possible qui ne pourrait être. Sans destinée ou véritable âme, il erra à travers les Royaumes... apportant quelquefois la terreur, et d'autres fois ne traînant que son coeur las... et finalement il disparut pour de bon. Certains disent qu'il trouva le sens de sa vie dans le Grand Désert, forgeant un royaume qui durerait longtemps. D'autres prétendent qu'il aurait traversé les plans, lançant une campagne contre le Grand Mont Celestia. La vérité reste inconnue, bien que les légendes persistent.~
+@551  = ~Valygar continua à parcourir les chemins plusieurs années après avoir quitté l'Enfant de Bhaal, voyageant à travers les contrées sauvages du Nord de Féerune. Il resta ensuite longtemps dans les environs d'Eau-Profonde mais se retira à Athkatla pour y mener une vie de contemplation et enfin trouver la paix intérieure. Il fut pressé de prendre la charge de Prévôt de la ville, une responsabilité qu'il rejeta dans un premier temps. Mais la corruption rampante qui gangrenait la ville eut raison de son inflexibilité, et il accepta le poste. De nombreuses années, le nom de Valygar fut maudit par chaque criminel ou esclavagiste osant mettre un pied dans la cité. Valygar fut actif, transformant la garnison de la ville en une force dont même les voleurs les plus talentueux eurent à se méfier. Valygar et les Voleurs de l'Ombre furent aux prises plusieurs fois, atteignant même un point de respect mutuel... bien que plusieurs considèrent le rôdeur comme le gagnant final. A sa grande surprise, il se révéla être un dirigeant juste et efficace, ce qui lui permit de redorer le blason des Corthala. Il se maria et de son union naquit un fils, qui suivit les traces de son père : il fut nommé quelques années plus tard à la tête des Mages Cagoulés dont il devint un réformateur très apprécié, et pour une fois, Valygar fut fier de ses liens avec la magie. Se rappelant de l'homme qu'il fut, l'homme qui fuyait son histoire dans les bois sombres d'Amn, le Rôdeur rendit grâce à <CHARNAME> d'être entré dans sa vie et souhaita que son ancien ami se portât bien où qu’il fût.~
+@552  = ~Viconia, peu après avoir quitté <CHARNAME>, se retira à la splendide cité d'Eauprofonde où elle implanta un culte de Shar. Mais la trahison de l'un de ses disciples provoqua le massacre du culte entier par une Viconia furieuse. Shar admonesta vertement Viconia pour cette négligence et la priva de ses faveurs. Viconia refusa obstinément de s'excuser, ce qui la décida à repartir sur les routes des Royaumes. L'elfe noire devint une puissante et énigmatique figure tandis que les récits sur elle devenaient légion... et bien que l'on sache qu'elle avait cessé de vénérer Shar, il fut également su que ses pouvoirs de prêtresse restaient considérables. Qui la sombre dame révéra, cependant reste inconnu. Il est reporté qu'elle souleva une armée contre le Roi-sorcier Vaasan, tentant de lui disputer le contrôle de son royaume et ne fut défaite qu'après quelques erreurs militaires. Sa puissance lui permit de repousser une attaque des Chevaliers du Bouclier sur Calimport... seulement pour prendre le contrôle de la cité elle-même quelques jours plus tard et instituer un règne de terreur et de cruauté, dont on parle encore des années plus tard à voix basse. Viconia abandonna Calimport et il est dit qu'elle retourna en Ombreterre. Elle ne fut pas très bien accueillie cependant, tandis qu'elle réunissait des Drows à sa cause, donnant des soucis à Lloth elle-même. Elle avait l'expérience des deux mondes, disait-elle, et avait prouvé sa valeur. Elle promit de rendre les Drows plus forts, quelle que soit leur faiblesse actuelle. Ce qui est ensuite advenu de Viconia est inconnu et entouré de rumeur... mais il est dit que la Reine Araignée ne dort plus aussi tranquillement.~
+@553  = ~Viconia et <CHARNAME> poursuivirent leur vie aventureuse de nombreuses années après les évènements du Téthyr, acquérant une grande renommée après avoir joué des rôles importants dans deux guerres qui secouèrent la Côte des Epées. <CHARNAME> devint par la suite une figure importante des Royaumes, grâce aux conseils avisés de Viconia. Elle tomba enceinte de <CHARNAME> et sa vie en fut bouleversée, résultant en une brève séparation après de nombreuses disputes avec lui. La naissance de l'enfant, cependant, transforma Viconia à jamais. Elle revint avec <CHARNAME> et le convainquit de s'installer à la Porte de Baldur, se donnant entièrement à son fils et lui inculquant les principes des deux cultures, celle des elfes noirs et celle du peuple de <CHARNAME>,  et s'émerveillant du pouvoir dont l'enfant faisait déjà preuve. Bien qu'elle connût la joie de voir les yeux de son enfant se poser sur elle, Viconia n'eut malheureusement pas le temps de voir grandir son fils. Elle était une puissante prêtresse immunisée aux poisons communs, mais le venin de la Reine Araignée était beaucoup plus virulent. Une adepte de Lloth la retrouva et, déterminée à lui faire payer son revirement, l'empoisonna.
+<CHARNAME> bouillonna de rage alors que les magies les plus puissantes étaient inefficaces pour guérir sa femme alitée. Viconia chuchota ses dernier mots, restés inconnus, à <CHARNAME> en privé, avant de finalement succomber. L'histoire raconte comment <CHARNAME> tint le corps de sa bien-aimée contre lui, et sanglota ; tandis que la cité entière pleurait la disparition de quelqu'un dont ils n'avaient pas vraiment réalisé la valeur. <CHARNAME> furieux quitta alors la Porte de Baldur et éleva l'enfant seul, à l'écart du monde. Les histoires ensuite varient, certaines racontent qu'il serait parti en croisade contre les Drows d'Ombreterre, d'autres disent qu'il serait devenu un héros dans les lointains pays nordiques et d'autres encore clament avec certitude que <CHARNAME> s'engagea dans une guerre contre Lloth elle-même, les démons abyssaux, et autres Yochlols... mais toutes ces histoires s'accordent sur le fait que l'ancien Enfant de Bhaal a été à jamais changé par son amour pour la sombre elfe. Concernant son fils, il serait élevé par deux des plus puissants acteurs des Royaumes et serait sur la voie pour se forger une légende qui rivaliserait avec celle de son père. Ceci cependant est une autre histoire.~
+@554  = ~Viconia, peu après avoir quitté <CHARNAME>, continua à errer pendant un temps. Elle se confronta encore et toujours à l'ignorance et à la haine de ceux qui connaissaient sa race, mais Viconia était plus déterminée que jamais à se faire reconnaître comme étant séparée de son héritage Drow. Elle s'était rendue dans les plus profonds plans de l'Enfer et avait combattu aux côtés de <CHARNAME> alors qu'<PRO_HESHE> accédait à sa Divinité ... et elle ne cacherait plus son visage au monde de la surface. Même lorsque Shar, sa déesse des Ténèbres l'abandonna complètement, Viconia ne trahit la moindre émotion. Les récits sur elle grandirent alors qu'elle faisait sentir sa présence d'un pays à l'autre... souvent en tant que sauveuse, pour être souvent ingratement rejetée par la peur et la suspicion. Viconia continua de voyager seule, refusant la compagnie d'autres aventuriers ou compagnon, et ne réussit jamais vraiment à trouver un endroit qu'elle puisse appeler sa maison. Sa destinée lui appartenait, et elle la chercherait à sa façon. Ce qu'il est éventuellement advenu de Viconia est inconnu. Sa plus grande légende est étonnante, mais étant donné sa persistance, certainement vraie. Il est rapporté que Viconia aurait sauvé les elfes de Suldanessalar d'un complot du Zentharim, combattant vaillamment les agents de l'organisation... et à la fin se mettant elle-même en danger pour sauver la Reine Ellesime d'une flèche mortelle. Une fois remise sur pied, Viconia fut surprise de découvrir que cet acte avait appelé l'attention des elfes de Suldanessalar, et les avait amenés à enfin accepter et pardonner leur soeur Drow. la Reine Ellesime lui accorda les plus grands honneurs de la Seldarine, une récompense jamais octroyée auparavant à un elfe noir, et invita même Viconia à trouver son foyer près de l'Arbre de Vie. Viconia fut profondément touchée par ce geste, et il est dit qu'elle se serait même prosternée devant Ellesime avant de quitter Suldanessalar en silence pour toujours. On reste sans nouvelles d'elle depuis...~
+
+@600 = ~Abazigal ameliore~
+@610 = ~Demogorgon ameliore~
+@620 = ~Gromnir ameliore~
+@630 = ~Illasera amelioree~
+@640 = ~Yaga-Shura ameliore~
+
+//*****New Components******BPv181
+@650 = ~Sendai amelioree~
+@700 = ~Amelioration de Tolgerias et de Lavok~
+@750 = ~Ameliorations par BP de l'IA generale et des creatures~
+@800 = ~Interface graphique de BP (pour le mod GUI Switcher)~
+@810 = ~Les demons de la mer : amelioration des Sahuagins et des Kuo-Toas~
+@820 = ~Ameliorations des Trolls~
+@830 = ~Antre d'Horred~
+
+@990 = ~Big Picture vous est offert par Horred the Plague.~
+@991 = ~Dédicace spéciale à tous les modders et créateurs de mods qui ont rendu Big Picture possible !~
+@992 = ~N'oubliez pas de visiter l'Antre d'Horred dans vos grandioses aventures !
+(Les boules de feu sont-elles considérées comme un 'acceuil chaleureux' ?)~
+
+
+@1001 = ~Amelioration du Village Xvart, pour BGT-weidu~
+@1004 = ~Chaman Xvart~
+
+
+
+
+//********New in BPv181*********
+@15 = ~Afficher les cris des ennemis a l'ecran~
+@16 = ~Afficher les textes a l'ecran~
+@17 = ~Pas de textes affiches a l'ecran (defaut)~
+@18 = ~Ajout de la gestion des maladies par les scripts (en attendant que STATE_DISEASED puisse etre corrige)~
+
+
+@2006 = ~Composant principal de BP non detecte, le composant est saute.~
+@2008 = ~Composant principal de BP non detecte, requis pour l'ajout de l'Antre d'Horred.~
+@2009 = ~Composant principal de BP non detecte, requis pour l'Amelioration de Tolgerias et de Lavok.~
+@2010 = ~Composant principal de BP non detecte, requis pour l'Amelioration de Suldanessalar.~
+@2012 = ~Composant principal de BP non detecte, requis pour la Baguette d'Orcus.~
+@2013 = ~Vous devez installer le composant principal d'Ascension pour que ce composant fonctionne.~
+@2014 = ~Ce composant est deja installe avec TDD.~
+@2015 = ~Ce composant est deja installe avec RoT.~
+@2016 = ~Le composant principal de BP doit etre installe pour l'installation d'Ascension~
+
+
+// BP Series v0.3070 additions (for BPv181 & DS compatibility)
+@5003 = ~Detectable Stats deja... detecte. Saute le composant.~
+@5004 = ~BG2EE detecte, saut des ajouts a stats.ids et des sorts detectables~
+@5005 = ~Stats sur les armes ajoutes par SCS I/II. Saut des modifications...~
+@5006 = ~Ajouts de BP deja installes par un autre mod. Saut des modifications~
+
+
+@7002 = ~Nettoyage des IDS pour les Stats DS~
+@7003 = ~Correction pour STATE_DISEASED~
+@7004 = ~Corrections pour les Wivernes et autres 'Mages'~
+
+
+@7100 = ~Ajouts de BP a Detectable Spell~
+@7101 = ~Ajouts de BP aux regles IDS~
+
+
+@10001 = ~Modifications diverses~
+@10002 = ~Ajoute de sacs et de dagues magiques de lancer dans les magasins~
+@10003 = ~Personnalisation de Grande maitrise (avec des attaques supplementaires)~
+@10004 = ~Portee etendue des hallebardes et des lances~
+
+
+@10101 = ~Ameliorations des Creatures~
+@10102 = ~Animaux~
+@10103 = ~Spectateurs~
+@10104 = ~Demons et Diables~
+@10105 = ~Dragons~
+@10106 = ~Drow~
+@10107 = ~Amelioration de tous les duergars~
+@10108 = ~Amelioration des duergars dans le donjon d'Irenicus uniquement~
+@10109 = ~Ne pas toucher aux duergars du donjon d'Irenicus~
+@10110 = ~Elementaires~
+@10111 = ~Mages Generiques~
+@10112 = ~Pretres Generiques~
+@10113 = ~Voleurs Generiques~
+@10114 = ~Githyanki~
+@10115 = ~Golems~
+@10116 = ~Molosses sataniques~
+@10117 = ~Humanoides~
+@10118 = ~Chevaliers et Paladins~
+@10119 = ~Flagelleurs mentaux~
+@10120 = ~Brumes~
+@10121 = ~Toutes les ombres~
+@10122 = ~Uniquement le Seigneur de l'Ombre~
+@10123 = ~Ne pas toucher au Seigneur de l'Ombre~
+@10124 = ~Voleurs de l'Ombre~
+@10125 = ~Uniquement le sort d'Animation des arbres~
+@10126 = ~Trolls~
+@10127 = ~Mort-vivant (Excepte les Ombres/Necrophages/Vampires)~
+@10128 = ~Animaux-garous~
+@10129 = ~Traitement des creatures & scripts generiques~
+@10130 = ~Traitement des creatures & scripts comme il est exige. Soyez patient...~
+@10131 = ~Moins de cris visibles en jeu~
+@10132 = ~Duergars~
+@10133 = ~Ameliorations des Ombres et des Necrophages~
+@10134 = ~Vous devez installer le composant 'Traitement des creatures & scripts generiques' pour ceci~
+@10135 = ~Djinns, Efrits et Daos~
+
+
+@10201 = ~Ameliorations des rencontres~
+@10202 = ~Ameliorations des rencontres generiques~
+@10203 = ~Vous devez d'abord installer 'Traitement des creatures & scripts generiques'~
+@10204 = ~Culte de l'Oeil Aveugle~
+@10205 = ~Chapitre 3 (avec Bodhi)~
+@10206 = ~Chapitre 3 (sans Bodhi)~
+@10207 = ~Chapitre 6 (avec Bodhi)~
+@10208 = ~Chapitre 6 (sans Bodhi)~
+@10209 = ~Chapitres 3 et 6 (avec Bodhi)~
+@10210 = ~Chapitres 3 et 6 (sans Bodhi)~
+@10211 = ~Rencontres avec des Vampires~
+@10212 = ~Couronne de cuivre et esclavagistes~
+@10213 = ~Rencontre avec Drizzt (Chapitre 6)~
+@10214 = ~Bosquet aux druides (avec la rencontre des druides)~
+@10215 = ~Rencontre avec les druides (avec le sort Animation des arbres)~
+@10216 = ~Ameliorations des druides~
+@10217 = ~Rencontres sylvanesques~
+@10218 = ~Antre d'Horred~
+@10219 = ~Mae'Var~
+@10220 = ~Quetes de Nalia~
+@10221 = ~Rixe dans les tavernes (dans l'Antre des Sept Vaux)~
+@10222 = ~Prison planaire~
+@10223 = ~Ameliorations de la Sphere planaire (Tolgerias inclus)~
+@10224 = ~Ameliorations de Spellhold~
+@10225 = ~Ameliorations de l'Asile - Uniquement~
+@10226 = ~Ameliorations du chapitre 4 - Uniquement~
+@10227 = ~Ameliorations de l'Asile - Ensemble complet~
+@10228 = ~Quete du tanneur~
+@10229 = ~Ameliorations de Franc-Marche~
+@10230 = ~Ameliorations des Collines de Lancevent~
+@10231 = ~BGT n'est pas installe, passer ce composant~
+@10232 = ~Ce composant est deja installe avec DSotSC.~
+@10233 = ~Uniquement les vampires generiques~
+@10234 = ~Ameliorations de l'Asile uniquement et retrait des objets~
+@10235 = ~Ameliorations de l'ensemble complet et retrait des objets~
+@10236 = ~Amelioration du donjon d'Irenicus (excepte les duergars)~
+@10237 = ~Dragon brun, de Kensai Ryu~
+@10238 = ~Ajouts lors des epreuves des enfers~
+
+@10290 = ~Modder Contributions~
+@10291 = ~Ameliorations de Tactics Mod~
+
+
+@10301 = ~Ameliorations de ToB~
+@10302 = ~Enrichissements de la Tour de Garde~
+@10303 = ~Throne of Bhaal doit etre installe~
+@10304 = ~Enrichissements de ToB~
+
+
+
+
+
+//Brown Dragon Additions
+
+@10500 = ~Graine naturelle druidique~
+@10501 = ~L'énergie magique contenue dans cette bille la rend plus précise et plus légère lorsqu'elle file vers un adversaire. Mais bien davantage que la plupart des armes enchantées, cette bille dispose de capacités inhabituelles fournies par des druides dans le but de défendre leur bosquet contre d'éventuelles attaques.
+Chacune de ces billes rougeoie de la furie de la nature. Quand elles frappent l'ennemi d'un druide, les billes ont une chance de relâcher cette énergie sur la cible, le brûlant de la puissance du soleil, en appellant aux forces des plantes pour l'enchevêtrer, provoquant des gelures cassantes, ou concentrant une tempête d'éclairs sur la cible.
+
+PARAMÈTRES :
+
+Toujours considérée comme disposant d'un enchantement +2 pour déterminer ce qu'elle peut toucher
+
+Capacités de combat :
+  5 % de chance d'aveugler et d'infliger 2 points de dégâts de feu à la cible si elle rate un jet de sauvegarde contre les sorts
+  5 % de chance d'enchevêtrer la cible si elle rate un jet de sauvegarde contre les sorts (à +4)
+  5 % de chance d'inflier 2 points de dégâts de froid à la cible, et d'augmenter de 10 % de futurs dégâts si elle rate un jet de sauvegarde contre les souffles (à +2)
+  5 % de chance qu'un éclair de 4D6 frappe la cible (jet de sauvegarde contre les sorts pour moitié)
+  Note : tous les effets durent 12 secondes
+
+TAC0 : +1
+Dégâts : 1D4 +2
+Type de dégâts : projectile (perforant)
+Poids : 0
+Arme de jet : fronde
+Utilisable par :
+ Druide~
+@10502 = ~Fléau d'ombre~
+@10503 = ~Gourdin +5, Fléau d'ombre
+
+Créé par l'archidruide Jernd afin de combattre un Tyran dragon rouge : Woaha'aha.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+  +60 % de résistance au feu
+
+Capacités de combat :
+  25 % de chance de paralyser la cible pour 3 rounds
+  5 % de chance que la cible s'enfuit de terreur pour 3 rounds
+
+TAC0 : +5, +10 contre les morts-vivants
+Dégâts : 2D4 +5, +6 de dégâts de feu, +10 contre les morts-vivants, doublés contre les dragons
+Type de dégâts : contondant
+Poids : 5
+Facteur de vitesse : 2
+Type de compétence : gourdin
+Type : arme à une main
+Force requise : 7
+Non utilisable par :
+ Mage~
+@10504 = ~Dragon brun~
+
+
+// WeiDU prompts
+@-1000= "Le mod %TP2_FILE_NAME% contient"
+@-1001= "composants optionnels distincts.
+Pour gagner du temps, vous pouvez choisir ce que vous souhaitez faire d'eux
+au niveau general plutot que de repondre aux questions pour chacun.
+"
+@-1002= "Que faut-il faire de tous les composants qui NE sont PAS ENCORE installes ?
+Les [I]nstaller, les [S]auter, dem[A]nder pour chacun ? "
+@-1003= "Que faut-il faire de tous les composants qui sont DEJA installes ?
+Les [R]einstaller, les s[U]pprimer, les [S]auter, dem[A]nder pour chacun ? "
+
+@-1004= "S'IL VOUS PLAIT, envoyez par e-mail le fichier"
+@-1005= "a"
+
+@-1006= "Installer le composant ["
+@-1007= "] ?
+[R]einstaller, co[N]server, s[U]pprimer ou [Q]uitter ? "
+@-1008= "] ?
+[I]nstaller, [N]e pas installer ou [Q]uitter ? "
+
+@-1009= "Entrez une partie du nom du module : "
+
+@-1010= "Reinstallation du composant ["
+@-1011= "] "
+@-1012= "Reinstallation dans la langue"
+
+@-1013= "Suppression de l'ancienne installation de ["
+@-1014= "] au prealable..."
+@-1015= "SUPPRESSION REUSSIE DE L'ANCIEN"
+
+@-1016= "Installation en cours"
+@-1017= "ERREUR pendant l'installation de ["
+@-1018= "], retour a l'etat anterieur"
+@-1019= "INSTALLATION REUSSIE"
+@-1020= "Saute"
+@-1021= "Suppression de ["
+@-1022= "] (composant #"
+@-1023= ")"
+@-1024= "SUPPRESSION REUSSIE DE ["

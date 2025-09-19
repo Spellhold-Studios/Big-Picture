@@ -1,0 +1,162 @@
+@0    = ~So.  You have finally arrived.  I have been waiting for you.~ [SAREVO01]
+@1    = ~Sarevok?!  Didn't I kill you for the last time in Hell?~
+@2    = ~Where am I, Sarevok?  Why have you brought me here?!~
+@3    = ~You did, indeed...although that was no fault of mine.  It was you that summoned me, then, even if the words were my own.  I have done nothing but attempt to re-form myself, since.~
+@4    = ~Ah.  It is you, again.  What do you want now?~
+@5    = ~I?  I did not bring you here, fool.  It has taken me long enough to re-form since you last summoned me.  You do remember killing me, <PRO_BROTHERSISTER>, yes?~
+@6    = ~As you will recall, it is your will that shapes our father's realm...whether you are aware of what you do or not.  I myself am nothing, now, but the shadow you see before you.~
+@7    = ~Are you saying that I am in Hell once again?~
+@8    = ~That doesn't explain what you're doing here.~
+@9    = ~Well, shadow or not, I'll destroy you again!~
+@10   = ~You...you do not know where you are, do you?  You did not come here on purpose?~
+@11   = ~Ha ha!  What a bitter irony this is!  You who stumble about nearly blind to your true power continue to survive while I, Sarevok, am reduced to this.  Bah!  Very well, <CHARNAME>...I shall tell you where you are.~
+@12   = ~I wish to make a deal, naturally.  I have little to lose, dear '<PRO_BROTHERSISTER>'...and plenty to gain.  As do you.  And I have waited in your home a considerable time to parley with you.~
+@13   = ~My home?  What are you talking about?~
+@14   = ~Forget it, Sarevok.  I've no intention of dealing with you.~
+@15   = ~You cannot destroy me, <CHARNAME>, as I am nothing but a shade.  And I wager you don't possess the power to force me to leave your home.~
+@16   = ~What do you mean, 'home'?  I don't live here!~
+@17   = ~You are within our father's abyssal realm, <PRO_BROTHERSISTER>.  That plane once ruled by Bhaal and now shaped by the taint present in your soul...but no longer present in mine.  You have been here before.~
+@18   = ~This is a...a cocoon, of sorts.  A miniature version of our father's larger realm, sort of a plane-within-a-plane.  I assumed your mind formed it to protect you from the power of this place.  Rather ingenious, dear <PRO_BROTHERSISTER>...I wouldn't have thought you'd had it in you.~
+@19   = ~Regardless, I spotted it forming and guessed at its purpose.  So I came here and waited, knowing that eventually you would come...and that then we could discuss my...deal.~
+@20   = ~What kind of deal?  What could *you* want?~
+@21   = ~Tell me how to get out of here...that's all I want to know.~
+@22   = ~Meander about, then.  Search for your way out, if you must.  You'll be back.~
+@23   = ~Sarevok in Hell: Part 2
+
+An angel has brought me back to the Abyss to inform me, as far as I can tell, that my destiny as a Bhaalspawn is about to come to fruition.  But I am not quite ready, it seems.  My mind is not prepared to accept all the power of Bhaal's realm...and so it has created a demiplane of my very own, a cocoon by her description, in which I will have to prepare myself.
+
+There's no obvious way out...it's not a very large place.  And already uninvited guests from the neighbourhood are showing up.  My old enemy Sarevok, like a bad penny, turned up with a proposal...he will tell me how to get out of the demiplane, and whatever else he knows and is holding back, in return for the smallest slice of my soul to restore him to some semblance of life.  I don't know how prepared I am to do that...I've had enough soul exchanges to last me several lifetimes.  Perhaps I can find a way out on my own, we shall see.~
+@24   = ~And where would you go?  This is not a building, dear <PRO_BROTHERSISTER>, this is the *entire* plane.  And unless you've acquired plane-traveling abilities since last we met, there is only one way out of here.~
+@25   = ~I know what it is, but you do not.  Nor, I suspect, do you have the time or patience to learn on your own.  Accept my proposal, <CHARNAME>, and I will tell you.~
+@26   = ~Tell me your proposal, then.  What do you want?~
+@27   = ~Forget it.  I will find my own way out.~
+@28   = ~What do you think I would want, dear <PRO_BROTHERSISTER>?  I wish to exist...I wish to be alive again.  You can do that.~
+@29   = ~The smallest fraction of your soul, my <PRO_BROTHERSISTER>...given freely, with the taint of our dead father within it.  That would recreate my flesh, restore my mortality...Sarevok would live again!~
+@30   = ~And what would I be getting in return for this?~
+@31   = ~I killed you once before...what makes you think I would want to return you to life?~
+@32   = ~I do not come to the table empty-handed, <CHARNAME>.  You think me a fool?  You are stronger than me...I do not contest that.  But I can help you.  And that has its price.~
+@33   = ~And just how is it that you can help me?~
+@34   = ~There is the knowledge of how to leave this plane of yours, <CHARNAME>.  That is one thing I can give you, although I did not know that when I came here.~
+@35   = ~No, what I offer you is knowledge that is much more relevant.  Something that dates back to my mortal days when I was gaining power within the Iron Throne.  Something that you will find...most intriguing.~
+@36   = ~What say you?~
+@37   = ~And just how did you come by this supposed knowledge?~
+@38   = ~Knowledge?  That's all you're offering for a piece of my soul?~
+@39   = ~Uh-huh.  And what's to stop me from just killing you again after you tell me all this?~
+@40   = ~Tell me now and I'll judge whether your information is worth it.~
+@41   = ~Is there no other way of restoring you?~
+@42   = ~Forget it, Sarevok.  There is no way I'm trusting you.~
+@43   = ~And just what do you intend to do with your...new life?~
+@44   = ~Very well, I agree to your demands.~
+@45   = ~I gathered much of the old lore when I was alive, my <PRO_BROTHERSISTER>.  As you will recall, it was my goal to assume the mantle of our father.  I am dead, perhaps, but the lore still holds true...for you.~
+@46   = ~Bah!  Knowledge is more important than *anything*, fool.  And what I ask for is but a spark...a spark of the divine taint within you.  I will be no Bhaalspawn, my own taint long gone...but I will be alive again.~
+@47   = ~Nothing, perhaps.  Doing so would not return to you that which you freely gave, however.~
+@48   = ~And what would you kill me for?  Revenge?  You had your revenge.  Do you truly blame my old ambition?  I would do the same again, if I could.  I cannot, however, and you've nothing to fear in me.~
+@49   = ~I am no fool.  I struggled just to get here after you destroyed me last, and I know that events move on even as we speak.  You have no time to learn these things on your own...and I will never get another opportunity such as this.~
+@50   = ~I...do not know.  Avoid crossing you, dear <PRO_BROTHERSISTER>, certainly that.  My ambition was everything, once.  Now that the taint is gone, I...am unsure.  But I wish to live.~
+@51   = ~Perhaps there is.  Any divine spark will do, no matter which of Bhaal's children it comes from.  I truly doubt our other dear little sibling, here, has half the courage required, however.~
+@52   = ~Figured that out all on your own, did you?  While the thought of harboring a spark of your sugary sweet soul for eternity does not exactly fill me with joy...yes, it would provide just as well.~
+@53   = ~I killed far more than he, dear Imoen, in the course of my ambition.  Ask yourself how many you have killed...or <CHARNAME>.  Are you so innocent?  Was Gorion?  I ask for no forgiveness.~
+@54   = ~Ah, so <CHARNAME> finds someone to take the blow for <PRO_HIMHER>.  Are you sure, child?  You cannot turn about later and claim <CHARNAME> was using you.  It must be of your own free will.~
+@55   = ~With a spark of you within me, I have little doubt I'll be prancing gaily through flower fields before the season is over.  Regardless, I'll take that as a yes.~
+@56   = ~There is no other way, <CHARNAME>, unless you have another Bhaalspawn about that I am unaware of.  It is your spark or nothing.  Choose.~
+@57   = ~Very well.  Then I suppose I will allow Imoen to do it.~
+@58   = ~So be it.  I agree.~
+@59   = ~I have not decided, yet.~
+@60   = ~Forget it.  I don't trust you.~
+@61   = ~As you wish.  By all means, stroll about and examine what you will of your domain.  Time passes and events move with them.  I'm sure it will not take long even for you to realize the truth.~
+@62   = ~So I have cheated death!  Thank you, dear <PRO_BROTHERSISTER>...no gift could please me more.~
+@63   = ~Begone.  I wish to speak to <CHARNAME> only, and not one of <PRO_HISHER> hapless minions.  You can do nothing for me.~
+@64   = ~Well, if it isn't my dear little sister.  Tell me, little one...are you still prancing about, pretending that you are a thief?  Do you think yourself worthy of carrying Bhaal's blood in your veins?~ [SAREVO74]
+@65   = ~Oh?  I wouldn't know about that.  Spend your time in the Abyss, girl, dead and destroyed...and we'll see just what sorts of dreams you have then.  I'd wager you'd wilt like a flower in the heat.~
+@66   = ~So?  Have you discovered your way out, yet, <PRO_BROTHERSISTER>?  Have you figured out everything you wish, or have you decided to listen to reason?~
+@67   = ~I'll listen to your proposal, Sarevok.  Tell me what it is you want.~
+@68   = ~I'm not finished looking around, yet.~
+@69   = ~I've decided that we will do as you ask.  Imoen will restore you to life.~
+@70   = ~I've decided that I will do as you ask, Sarevok.  I will restore you.~
+@71   = ~I'd like to know first how you came by this knowledge of yours.~
+@72   = ~I don't know how willing I am to give up part of my soul for some information.~
+@73   = ~And what's to stop me from just killing you again after you tell me what you know?~
+@74   = ~Is there no other way to restore you?~
+@75   = ~I...live!  Flesh and blood and bone!  I am alive!  Ha ha!  I swore I would scratch and crawl my way back into the world of the living...and I have done it!~ [SAREVO76]
+@76   = ~Though my sword and armor have not appeared.  No matter.  Without the Bhaal essence to channel their powers, they are of little use.  I shall make do without them, as I once did.  Thank you, <CHARNAME>.  I am pleased.~
+@77   = ~Don't thank me.  Thank Imoen.~
+@78   = ~That's odd...I don't feel any different.~
+@79   = ~I held up my side of the bargain, Sarevok.  Now tell me what you know.~
+@80   = ~Whatever.  Now spill it or we start round three, you understand?~
+@81   = ~Certainly.  Thank you, little sister.  While it must gall you to no end, I shall treasure your tiny spark within me.~
+@82   = ~Did I not say it was only an insignificant portion?  I suspected that doing it here, in this place, it might work...but I was not sure.  It is good to see that I was correct after all.~
+@83   = ~You weren't *sure*?  That was quite a risk.~
+@84   = ~I did not get to where I did in life without risk, fool.  It was no bluff...I knew enough to suspect that it might work, since our heritage was the same.  But none of that is important.  I imagine you are eager to hear what I have to say.~
+@85   = ~The first thing I shall tell you of is how to leave this pocket plane that you have created.  It is an extension of your will, <CHARNAME>...it exists because you need it to exist.~
+@86   = ~It is this plane which creates the portal out, but it will not take you where you wish to go.  It takes you where you need to be.  Or, perhaps, where you believe you need to be.~
+@87   = ~But I cannot give you the ability to make this plane create such a portal.  There are many barred passages in this plane of yours that I know little of.  One, however, I can open...and beyond it lies what you seek.  Watch...~
+@88   = ~Enter that room and face your challenge, <CHARNAME>.  It will be difficult...you may not want to do it alone.  There is a...spirit...here which can summon those companions you require for your party, if you require such.~
+@89   = ~In my youth, I spent much of my time looking into the old lore of the dead Bhaal priesthood.  I unearthed one of the old prophecies from an uncooperative sect of Cyric...one that spoke extensively of this time now upon us.~ [SAREVO78]
+@90   = ~The Sword Coast will run red with blood, yes...but the battles will culminate in a great struggle within a city to the south, the Tethyrian city of Saradush.~ [SAREVO79]
+@91   = ~Sarevok in Hell: Part 2
+
+An angel brought me back to the Abyss to inform me that my destiny as a Bhaalspawn is about to come to fruition.  But I am not quite ready, it seems.  My mind is not prepared to accept all the power of Bhaal's realm...and so it has created a demiplane of my very own, a 'cocoon' by her description, in which I will have to prepare myself.
+
+None other than Sarevok himself turned up not moments after the angel's departure, and he had a deal in mind: in exchange for knowledge of how to leave the pocket plane as well as information on my destiny, he would be returned to life.  I had little choice but to agree.~
+@92   = ~It is there that you *must* go, where the first step of the prophecy will unfold.  Although, naturally, you must face your challenge first.~ [SAREVO80]
+@93   = ~And then what will happen?~
+@94   = ~The Challenges & the Fate Spirit
+
+Sarevok informed me of two important facets of my pocket plane.
+
+First are the challenges.  I am not certain what form these will take, but there are five corridors that lead off from the main room, and somehow I am sure that they will open up as I am ready to face what is beyond.  Sarevok implied that the challenges might be very difficult, and that I may want to consider acquiring back-up.
+
+Which leads me to the 'fate spirit'.  I am not sure how this spirit does what it does, but it seems I have some control over people whose fate is intertwined with my own.  The fate spirit will summon companions for me...not servants, but possible friends.  To talk to the spirit, I need only interact with it near the 'entrance' to the plane.~
+@95   = ~How do I know I can trust what you say?~
+@96   = ~Then I shall take my challenge now.~
+@97   = ~Aren't you still a Child of Bhaal?~
+@98   = ~Then the future begins.  Then we will all see just how much of a role you are to play in this conflict and if you can live up to our sire's heritage.~
+@99   = ~Then I shall go there now.~
+@100  = ~So are you still a Child of Bhaal or not?~
+@101  = ~Fine.  I've heard enough.~
+@102  = ~No.  Bhaal's essence left me as I died...and that which has been given to me now maintains my mortality only.  Some might still consider me a Bhaalspawn, but it is solely a matter of history and memory.~
+@103  = ~So what will happen after I go to Saradush?~
+@104  = ~Then I shall go to take my challenge now.~
+@105  = ~Of course you cannot trust me.  Why would you?  Take me with you, <CHARNAME>.~
+@106  = ~What?!~
+@107  = ~Before you go, I have one more thing to ask of you, <CHARNAME>.  Take me with you.~
+@108  = ~I once was sure that the old prophecies centered around me.  Even if that is no longer the case, I know more about them than perhaps anyone.  I can help you, <CHARNAME>.  With the challenge in that room and more.~
+@109  = ~Of course, I do this for no selfless reason.  There is power in your wake, <CHARNAME>. I am sure I am not the first to tell you this.  And there is no better opportunity for me elsewhere.~
+@110  = ~Besides...you defeated me long ago.  You have earned my respect. Think of it, <CHARNAME>!  Brother and <PRO_BROTHERSISTER>, side by side!~
+@111  = ~Forget it.  You're not my brother and I would never trust you at my back.~
+@112  = ~And what use might you be to me?~
+@113  = ~I might consider letting you join me...but you'd have to do exactly what I say.~
+@114  = ~I don't have room for you in my party, even if I wanted to take you.~
+@115  = ~I see.  So be it.  Our business is finished then, <CHARNAME>.  You have what you need and so do I.  Gather your companions for your challenge and be off.  May we not meet again.~
+@116  = ~Destiny's Next Stop
+
+According to Sarevok, the place I need to go next is the Tethyrian city of Saradush.  I may not have much of a choice, either... this pocket plane isn't a simple portal that takes me where I want to go.  It takes me where I need to be.~
+@117  = ~Aside from the knowledge I retain, I am a warrior of no small ability.  You fought me, <CHARNAME>, you would know.  I have only become stronger from my time in Hell.  Under one such as you, I could be greater, still.~
+@118  = ~Without your armor and your divine power, you're less than useless to me.  Begone.~
+@119  = ~And how would I know that you wouldn't turn on me as soon as it suited you?~
+@120  = ~I will take an oath to follow you, my <PRO_BROTHERSISTER>, if that will satisfy.  Here...in this place...such an oath would have power, like a geas.  I could not betray you.~
+@121  = ~No, you're too willing, somehow.  I don't trust you.  Forget it.~
+@122  = ~No, there's no need for an oath.  I'm satisfied.  Join me and let's go.~
+@123  = ~Alright.  If you swear an oath not to betray me...then you may join me.~
+@124  = ~I might return for you later.  Perhaps you can swear an oath then.~
+@125  = ~Then leave one of your lackeys here, in your plane, for you to return when you require them.  Or leave me in this place until I am needed.  I intend on seeing what occurs with you, so I will wait.~
+@126  = ~No, you're agreeing too easily.  I'll never trust you.  Forget it.~
+@127  = ~How would I know you wouldn't betray me at the first opportunity?~
+@128  = ~No, don't bother waiting here.  I won't let you join me, regardless.~
+@129  = ~You...will not require an oath?  An...odd...choice, <PRO_BROTHERSISTER>.  I would have required it of you.  If I had even let you live.  As you wish, then...let us attend to your challenge.  Remember...consider that you may need more companions to complete it.~
+@130  = ~Very well.  I, Sarevok, swear on the bitter ashes of my mother and the dead god that is my father, in the name of vengeance and the bitter bile that is my blood...I swear that I shall not betray <CHARNAME> so long as I live.~
+@131  = ~Fine.  Let's go.~
+@132  = ~Good enough.  I may return for you later, then...wait here.~
+@133  = ~I don't believe a word of it.  Your word is worth nothing to me, Sarevok.~
+@134  = ~Good!  Now it will be even easier to kill you a third time!~
+@135  = ~As you wish.  I shall wait for your return, <CHARNAME>.  Remember...the challenge may be difficult.  Consider summoning companions to your side.~
+@136  = ~You turn your hand against me?  I should have expected as much.  I would do the same.  I know how to leave this place on my own, however...may we not meet again, dear <PRO_BROTHERSISTER>.~
+@137  = ~Do you require my sword again?  It is ready to kill at your command.~ [SAREVO81]
+@138  = ~Yes, join with me now.~
+@139  = ~I think I will require an oath of loyalty from you, if I am to trust you.~
+@140  = ~No, continue waiting here.  I'll come back.~
+@141  = ~Begone.  I have nothing to say to you.  My business lies with <CHARNAME> only.~
+@142  = ~I know where your destiny lies, <CHARNAME>.  I know where you must go to find it.  Search about on your own and it will soon be too late...the time of the old prophecies is upon us.  Or upon *you*, at least.~
+@143  = ~Silence.  I have waited for <CHARNAME> and my words are for <PRO_HIMHER> only.~
+@144  = ~Aye, as you wish, my <PRO_BROTHERSISTER>.  Remember...the challenge must be faced in that cavern.  You may need to summon more aid from the spirit.~
+@145  = ~Regardless, once you have completed that challenge, you will be able to leave this plane of yours.  It does not, however, take you where you wish to go... it takes you where you need to be.  And I, as I said, know where that is.~

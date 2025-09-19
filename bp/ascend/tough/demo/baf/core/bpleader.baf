@@ -1,0 +1,48 @@
+IF
+  !Allegiance(Myself,ENEMY)
+  OR(2)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    HitBy([GOODCUTOFF],CRUSHING)
+THEN
+  RESPONSE #100
+    SetGlobal("GroupShout","LOCALS",1)
+    Shout(82)
+    Enemy()
+END
+
+IF
+  Global("GroupShout","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+  HitBy([GOODCUTOFF],CRUSHING)
+THEN
+  RESPONSE #100
+    SetGlobal("GroupShout","LOCALS",1)
+    Shout(82)
+END
+
+IF
+  Global("GroupShout","LOCALS",1)
+  HPPercentLT(Myself,50)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobal("GroupShout","LOCALS",2)
+    Shout(82)
+END
+
+IF
+  Global("GroupShout","LOCALS",2)
+  Global("BP_PlotMan","LOCALS",0)
+  HPPercentLT(Myself,20)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #90
+    SetGlobal("GroupShout","LOCALS",3)
+    Shout(82)
+    RunAwayFrom(NearestEnemyOf(Myself),30)
+  RESPONSE #10
+    SetGlobal("GroupShout","LOCALS",3)
+    Shout(2)
+    EscapeArea()
+END
+

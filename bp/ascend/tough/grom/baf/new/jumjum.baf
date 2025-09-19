@@ -1,0 +1,250 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(125)
+END
+
+IF
+  BreakingPoint()
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,49766)  // ~I can't take this~
+    Shout(124)
+  RESPONSE #100
+    DisplayStringHead(Myself,49767)  // ~No more~
+    Shout(124)
+  RESPONSE #100
+    DisplayStringHead(Myself,49768)  // ~Mercy!~
+    Shout(124)
+END
+
+IF
+  AttackedBy([GOODCUTOFF],DEFAULT)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Shout(125)
+    Enemy()
+END
+
+IF
+  ActionListEmpty()
+  See([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  Global("ShoutedAlert","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("ShoutedAlert","LOCALS",1)
+    Shout(125)
+    Continue()
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  See([EVILCUTOFF])
+  InMyGroup(LastSeenBy(Myself))
+  HPPercentLT(Myself,25)
+  HPGT(Myself,1)
+  !Range(LastSeenBy(Myself),8)
+  !GlobalTimerNotExpired("Whined","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Whined","LOCALS",6)
+    DisplayStringHead(Myself,46151)  // ~help!~
+    Shout(124)
+  RESPONSE #100
+    SetGlobalTimer("Whined","LOCALS",6)
+    DisplayStringHead(Myself,49763)  // ~I require assistance~
+    Shout(124)
+  RESPONSE #100
+    SetGlobalTimer("Whined","LOCALS",6)
+    DisplayStringHead(Myself,49764)  // ~Defend me!~
+    Shout(124)
+  RESPONSE #100
+    SetGlobalTimer("Whined","LOCALS",6)
+    DisplayStringHead(Myself,49765)  // ~Slay my attacker!~
+    Shout(124)
+END
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,50)
+  !GlobalTimerNotExpired("DrankPotionTimer","LOCALS")
+  HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+THEN
+  RESPONSE #100
+    SetGlobalTimer("DrankPotionTimer","LOCALS",6)
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("POTN55",Myself)  // ~Potion of Superior Healing~
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  See(NearestEnemyOf(Myself))
+  See([GOODCUTOFF.0.0.CLERIC_ALL])
+  HPPercentLT(Myself,35)
+  !GlobalTimerNotExpired("CalledForHealing","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("CalledForHealing","LOCALS",6)
+    DisplayStringHead(Myself,72808)  // ~I need healing!~
+    Shout(123)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  Heard([GOODCUTOFF],123)
+  InMyGroup(LastSeenBy(Myself))
+  HPGT(LastHeardBy(Myself),0)
+  HPPercentGT(Myself,75)
+  See(LastHeardBy(Myself))
+  Range(LastHeardBy(Myself),10)
+  !NumItemsGT("POTN55",LastHeardBy(Myself),0)
+  NumItemsGT("POTN55",Myself,1)
+  !GlobalTimerNotExpired("GaveAwayPotion","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GaveAwayPotion","LOCALS",12)
+    DisplayStringHead(Myself,72809)  // ~Here! Catch!~
+    GiveItem("POTN55",LastHeardBy(Myself))  // ~Potion of Superior Healing~
+    SmallWait(2)
+    ActionOverride(LastHeardBy(Myself),DisplayStringHead(Myself,73896))
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  See(NearestEnemyOf(Myself))
+  See([EVILCUTOFF.0.0.CLERIC_ALL])
+  HPPercentLT(Myself,35)
+  !GlobalTimerNotExpired("CalledForHealing","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("CalledForHealing","LOCALS",6)
+    DisplayStringHead(Myself,72808)  // ~I need healing!~
+    Shout(123)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Heard([EVILCUTOFF],123)
+  InMyGroup(LastSeenBy(Myself))
+  HPGT(LastHeardBy(Myself),0)
+  HPPercentGT(Myself,75)
+  See(LastHeardBy(Myself))
+  Range(LastHeardBy(Myself),10)
+  !NumItemsGT("POTN55",LastHeardBy(Myself),0)
+  NumItemsGT("POTN55",Myself,1)
+  !GlobalTimerNotExpired("GaveAwayPotion","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GaveAwayPotion","LOCALS",12)
+    DisplayStringHead(Myself,72809)  // ~Here! Catch!~
+    GiveItem("POTN55",LastHeardBy(Myself))  // ~Potion of Superior Healing~
+    SmallWait(2)
+    ActionOverride(LastHeardBy(Myself),DisplayStringHead(Myself,73896))
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  HPGT(LastSeenBy(Myself),0)
+  !StateCheck(LastSeenBy(Myself),STATE_STONE_DEATH)
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  AttackedBy([ANYONE],DEFAULT)
+  See(LastAttackerOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_STONE_DEATH)
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Range(NearestEnemyOf(Myself),4)
+  See(NearestEnemyOf(Myself))
+  HPGT(LastSeenBy(Myself),0)
+  !StateCheck(LastSeenBy(Myself),STATE_STONE_DEATH)
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+  See([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject([GOODCUTOFF])
+END
+
+IF
+  OR(2)
+    !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+    !See([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  ActionListEmpty()
+  !StateCheck(LastSeenBy(Myself),STATE_STONE_DEATH)
+  RandomNum(2,2)
+  !GlobalTimerNotExpired("basgaze","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("basgaze","LOCALS",6)
+    PlaySound("SIRIN06")
+    ReallyForceSpellRES("basilisk",LastSeenBy(Myself))  // ~Flesh to Stone~
+END
+
+IF
+  HPPercentLT(Myself,20)
+  OR(2)
+    HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+    Range([EVILCUTOFF],20)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    Shout(123)
+    RunAwayFrom(NearestEnemyOf(Myself),45)
+    SetInterrupt(TRUE)
+END
+
+IF
+  HPPercentLT(Myself,20)
+  !HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+  !Range([EVILCUTOFF],15)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,49767)  // ~No more~
+    EscapeArea()
+END
+
+IF
+  ActionListEmpty()
+  Range(NearestEnemyOf(Myself),10)
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    RunAwayFrom(NearestEnemyOf(Myself),45)
+END
+
+IF
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+

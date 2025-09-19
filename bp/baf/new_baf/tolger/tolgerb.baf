@@ -1,0 +1,12 @@
+IF
+  Allegiance(Myself,ENEMY)
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("CHE","LOCALS",FIVE_ROUNDS)
+    ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+    ReallyForceSpell(Myself,WIZARD_SPELL_TURNING)
+    SpellNoDec(Myself,WIZARD_SPELL_SHIELD)
+END
+

@@ -1,0 +1,103 @@
+IF
+  RandomNum(4,1)
+  OnCreation()
+  GlobalGT("RandomEncounters","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("OGREMA01",[488.558],10)
+    CreateCreature("OGRMAG01",[500.454],10)
+    CreateCreature("PLYOGRE",[552.476],10)
+    CreateCreature("OGRE01",[427.548],10)
+    CreateCreature("OGREMA01",[525.591],10)
+    CreateCreature("OGRMAG01",[585.542],10)
+    CreateCreature("PLYOGRE",[589.542],10)
+    CreateCreature("OGRE01",[592.542],10)
+    CreateCreature("OGRE01",[592.562],10)
+    CreateCreature("OGRE01",[592.582],10)
+    CreateCreature("OGRE01",[542.562],10)
+    CreateCreature("OGRE01",[542.582],10)
+END
+
+IF
+  RandomNum(4,2)
+  OnCreation()
+  GlobalGT("RandomEncounters","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("Troll01",[488.558],10)
+    CreateCreature("Troll01",[500.454],10)
+    CreateCreature("ORC05",[552.476],10)
+    CreateCreature("ORC03",[427.548],10)
+    CreateCreature("ORC04",[525.591],10)
+    CreateCreature("ORC05",[552.476],10)
+    CreateCreature("ORC03",[427.548],10)
+    CreateCreature("ORC04",[525.591],10)
+END
+
+IF
+  OnCreation()
+  RandomNum(4,3)
+  GlobalGT("RandomEncounters","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("UMBHUL01",[488.558],10)
+    CreateCreature("UMBHUL01",[500.454],10)
+    CreateCreature("ORC05",[552.476],10)
+    CreateCreature("UMBHUL01",[488.558],10)
+    CreateCreature("UMBHUL01",[500.454],10)
+    CreateCreature("ORC05",[427.548],10)
+    CreateCreature("ORC05",[592.542],10)
+    CreateCreature("ORC05",[427.548],10)
+    CreateCreature("ORC04",[592.542],10)
+END
+
+IF
+  DifficultyGT(EASY)
+  RandomNum(4,4)
+  OnCreation()
+  GlobalGT("RandomEncounters","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("ORC05",[488.558],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("ORC05",[488.558],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[525.591],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[589.542],10)
+    CreateCreature("SHADOW01",[592.542],10)
+    CreateCreature("SHADOW01",[592.542],10)
+    CreateCreature("REFIGH01",[525.591],10)
+    CreateCreature("REFIGH01",[525.591],10)
+END
+
+IF
+  DifficultyLT(NORMAL)
+  RandomNum(4,4)
+  OnCreation()
+  GlobalGT("RandomEncounters","GLOBAL",2)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("REINFORCEMENTS","GLOBAL",0)
+    SetGlobal("KR_SPAWNED_ONCE","GLOBAL",0)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("ORC05",[488.558],10)
+    CreateCreature("ORC05",[500.454],10)
+    CreateCreature("REFIGH01",[552.476],10)
+    CreateCreature("REFIGH01",[427.548],10)
+    CreateCreature("REFIGH01",[585.542],10)
+    CreateCreature("ORC05",[589.542],10)
+    CreateCreature("SHADOW01",[592.542],10)
+END
+

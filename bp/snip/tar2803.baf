@@ -1,0 +1,18 @@
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR2803",0)
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+THEN
+  RESPONSE #100
+    CreateCreature("DROW02",[355.535],0)
+    CreateCreature("DROW02",[230.490],0)
+    CreateCreature("DROW05",[305.405],0)
+    CreateCreature("DROW06",[240.265],0)
+    CreateCreature("DROW07",[530.240],0)
+    SetGlobal("BP_MoreStooges","AR2803",1)
+END
+

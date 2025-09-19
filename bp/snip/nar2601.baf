@@ -1,0 +1,33 @@
+IF
+  OnCreation()
+  Global("DrizztEncounter","AR2601",0)
+  Global("MetDrizztInForest","GLOBAL",0)
+THEN
+  RESPONSE #100
+    Explore()
+    SetEncounterProbability("AR2500","AR0020",0)
+    SetEncounterProbability("AR2500","AR1300",0)
+    SetEncounterProbability("AR2500","AR1304",0)
+    SetEncounterProbability("AR2500","AR1700",0)
+    SetGlobal("DrizztEncounter","AR2601",1)
+    SetGlobal("MetDrizztInForest","GLOBAL",1)
+    CreateCreature("c6drizz",[692.332],2)
+    CreateCreature("c6wulf",[673.256],2)
+    CreateCreature("c6catti",[752.294],2)
+    CreateCreature("c6bruen",[790.337],2)
+    CreateCreature("c6regis",[741.225],2)
+END
+
+IF
+  OnCreation()
+  Global("MetDrizztInForest","GLOBAL",1)
+THEN
+  RESPONSE #100
+    CreateCreature("RERAK01",[488.558],10)
+    CreateCreature("RERAK02",[500.454],10)
+    CreateCreature("RERAK03",[552.476],10)
+    CreateCreature("RERAK04",[427.548],10)
+    CreateCreature("RERAK05",[525.591],10)
+    CreateCreature("RERAK06",[585.542],10)
+END
+

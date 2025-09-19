@@ -1,0 +1,161 @@
+@0 = ~So! Endlich seid Ihr da. Ich habe auf Euch gewartet. ~ [SAREVO01]
+@1 = ~Sarevok?! Habe ich Euch nicht schon in der Hölle getötet? ~
+@2 = ~Wo bin ich, Sarevok? Warum habt Ihr mich hierher gebracht?! ~
+@3 = ~Das habt Ihr wohl... Allerdings war es nicht meine Schuld. Ihr habt mich damals beschworen, selbst wenn es mit meinen Worten geschehen ist. Seit jenem Tag habe ich nichts getan außer zu versuchen, mich neu zu bilden. ~
+@4 = ~Ah. Da seid Ihr ja wieder. Was kann ich diesmal für Euch tun? ~
+@5 = ~Ich? Ich habe Euch nicht hierher gebracht, Ihr Narr! Es hat mich genug Zeit und Energie gekostet, wieder meine Gestalt anzunehmen, seitdem Ihr mich zuletzt getötet habt. Ihr erinnert Euch doch daran, dass Ihr mich getötet habt, <BROTHERSISTER>, oder? ~ ~Ich? Ich habe Euch nicht hierher gebracht, Ihr Närrin! Es hat mich genug Zeit und Energie gekostet, wieder meine Gestalt anzunehmen, seitdem Ihr mich zuletzt getötet habt. Ihr erinnert Euch doch daran, dass Ihr mich getötet habt, <BROTHERSISTER>, oder? ~
+@6 = ~Wie Ihr Euch erinnern werdet, wird das Reich unseres Vaters durch Euren Willen geformt, und zwar unabhängig davon, ob Ihr Euch darüber bewusst seid, was Ihr tut oder nicht. Ich selbst bin inzwischen ein Nichts, nur noch der Schatten, den Ihr vor Euch seht. ~
+@7 = ~Wollt Ihr damit sagen, dass ich wieder in der Hölle bin? ~
+@8 = ~Das erklärt noch nicht, was Ihr hier tut. ~
+@9 = ~Nun, egal ob Ihr ein Schatten seid oder nicht, ich werde Euch einfach erneut zerstören! ~
+@10 = ~Ihr... Ihr wisst nicht wo Ihr seid, oder? Ihr seid nicht absichtlich hier? ~
+@11 = ~Haha! Was für eine bittere Ironie! Ihr, der Ihr von Eurer wahren Macht offenbar noch immer nichts wisst, stolpert noch immer durchs Leben, während ich, Sarevok, zu dem hier reduziert wurde! Pah! Nun gut, <CHARNAME>... Ich werde Euch verraten, wo Ihr seid. ~
+@12 = ~Natürlich möchte ich mit Euch einen Handel abschließen. Ich habe selbst wenig zu verlieren, "<BROTHERSISTER>"... und sehr viel zu gewinnen. Aber es soll Euer Schaden nicht sein. Ich habe hier in Eurem "Heim" lange Zeit auf Euch gewartet, um mit Euch verhandeln zu können. ~
+@13 = ~Mein Heim? Wovon redet Ihr? ~
+@14 = ~Vergesst es, Sarevok. Ich habe nicht vor, mit Euch einen Handel abzuschließen. ~
+@15 = ~Ihr könnt mich nicht zerstören, <CHARNAME>. Ich bin nicht mehr als nur ein Schatten, und ich wette, Ihr habt nicht die Macht, um mich dazu zu zwingen, Euer Heim zu verlassen. ~
+@16 = ~Was meint Ihr mit "Heim"? Ich lebe nicht hier! ~
+@17 = ~Ihr befindet Euch im abyssinischen Reich Eures Vaters, <BROTHERSISTER>. Das ist die Ebene, die einst von Bhaal regiert wurde und jetzt geprägt ist von dem Fluch, der auf Eurer Seele lastet... aber nicht mehr auf meiner. Ihr wart schon einmal hier. ~
+@18 = ~Das ist eine Art... Kokon. Eine verkleinerte Version des ursprünglich größeren Reichs Eures Vaters, eine Ebene in der Ebene, wenn Ihr so wollt. Ich nehme an, Euer Verstand hat ihr eine Form gegeben, die Euch vor der Macht dieses Ortes schützt. Ziemlich raffiniert, <BROTHERSISTER>... Ich hätte nicht gedacht, dass Ihr so etwas in Euch habt. ~ 
+@19 = ~Egal! Ich habe gesehen, wie sich dieses Gebilde geformt hat und seinen Zweck erraten. Deswegen kam ich hierher und wartete. Ich wusste, dass Ihr früher oder später kommen würdet... und dass wir dann unser kleines... Geschäft würden besprechen können. ~
+@20 = ~Was für ein Geschäft schlagt Ihr mir vor? Was könntet Ihr noch wollen oder fordern? ~
+@21 = ~Sagt mir, wie ich von hier wegkomme... Mehr will ich ja überhaupt nicht. ~
+@22 = ~Dann streunt halt ein wenig ziellos durch die Gegend. Sucht nach einem Weg nach draußen, wenn Ihr es nicht lassen könnt. Ihr werdet bald zu mir zurückkommen. ~
+@23 = ~Sarevok in der Hölle: Teil 2
+
+Ein Engel hat mich in den Abyss zurückgebracht und mich darüber informiert, so weit ich es sagen kann, dass meine Bestimmung als Kind Bhaals offenbar kurz vor der Erfüllung steht. Aber noch bin ich nicht bereit, wie es scheint. Noch ist mein Verstand nicht darauf vorbereitet, die ganze Macht von Bhaals Reich zu akzeptieren. Deshalb hat er eine Halbebene meiner selbst erschaffen, einen "Kokon" nach seiner eigenen Beschreibung, in dem ich mich vorzubereiten habe.
+
+Es gibt keinen eindeutigen Weg hinaus... der Ort ist nicht besonders groß. Und schon zeigen sich die ersten ungeladenen Gäste aus der Nachbarschaft. Mein alter Feind Sarevok, beispielsweise, wie eine Klette, kam gleich mit einem Vorschlag: Er erzählt mir, wie ich aus dieser Halbebene herauskomme und was er sonst noch so weiß und bisher zurück hält im Austausch gegen einen kleinen Fetzen meiner Seele, um ihn zu einer Art Leben wiederzuerwecken. Ich weiß nicht, ob ich für so etwas vorbereitet bin... Ich hatte so viele Seelentransfers, die reichen für mehrere Leben. Vielleicht finde ich ja einen eigenen Weg, wie ich hier herauskommen kann. Wir werden sehen. ~
+@24 = ~Und wo wollt Ihr hingehen? Das hier ist kein Gebäude, <BROTHERSISTER>. Das hier ist die "ganze" Ebene. Falls Ihr inzwischen nicht die Fähigkeit erlernt habt, durch die Ebenen zu reisen, gibt es nur eine Möglichkeit nach draußen für Euch. ~ 
+@25 = ~Ich kenne diesen Weg, aber Ihr kennt ihn nicht. Und ich denke nicht, dass Ihr die Zeit und die Geduld habt, ihn selbst in Erfahrung zu bringen. Nehmt meinen Vorschlag an, <CHARNAME>, und ich werde Euch helfen. ~
+@26 = ~Dann macht Euren Vorschlag. Was wollt Ihr? ~
+@27 = ~Vergesst es einfach. Ich werde selbst einen Weg hier herausfinden. ~
+@28 = ~Was glaubt Ihr wohl, was ich will, <BROTHERSISTER>? Ich möchte existieren... Ich möchte wieder leben. Es steht in Eurer Macht, das zu verwirklichen. ~ 
+@29 = ~Der kleinste Bruchteil Eurer Seele, <BROTHERSISTER>, würde ausreichen! Ihr müsst Ihn mir nur freiwillig geben, zusammen mit einem kleinen Teil unseres toten Vaters. Auf diesem Weg könnte mein Fleisch wieder entstehen. Ich würde meine Sterblichkeit wieder erlangen... Sarevok würde erneut leben! ~ 
+@30 = ~Und was würde ich als Gegenleistung dafür erhalten? ~
+@31 = ~Ich habe Euch bereits einmal getötet... Wie kommt Ihr auf die Idee, ich würde Euch zum Leben erwecken wollen? ~
+@32 = ~Ich komme ja nicht mit leeren Händen an den Verhandlungstisch, <CHARNAME>. Ihr glaubt wohl, ich wäre ein Narr! Ihr seid stärker als ich... Daran gibt es keinen Zweifel. Ich kann Euch helfen, aber meine Hilfe hat ihren Preis. ~
+@33 = ~Und wie meint Ihr, mir helfen zu können? ~
+@34 = ~Da wäre das Wissen, wie Ihr diese selbst erschaffene Ebene verlassen könnt, <CHARNAME>. Das ist eines der Dinge, das ich Euch geben kann, obwohl ich davon noch gar nichts wusste, als ich hierher kam. ~
+@35 = ~Aber was ich Euch wirklich biete, ist wesentlich wichtigeres Wissen. Ein Wissen aus meinen sterblichen Tagen, als ich beim Eisenthron Macht erlangte. Ein Wissen, das Ihr höchst... interessant finden werdet. ~
+@36 = ~Wie sieht es aus? ~
+@37 = ~Und wie habt Ihr dieses angebliche Wissen erlangt? ~
+@38 = ~Wissen? Das ist alles, was Ihr mir für einen Teil meiner Seele anbietet? ~
+@39 = ~So, so! Und was soll mich daran hindern, Euch einfach erneut zu töten, nachdem Ihr mir all dies verraten habt? ~
+@40 = ~Sagt mir, was Ihr wisst, und ich werde entscheiden, ob Eure Informationen einen derartigen Preis wert sind. ~
+@41 = ~Gibt es keine andere Möglichkeit, Euch wiederherzustellen? ~
+@42 = ~Vergesst es einfach, Sarevok. Ich werde Euch auf keinen Fall vertrauen. ~
+@43 = ~Und was plant Ihr mit Eurem neuen... Leben anzufangen? ~
+@44 = ~Nun gut. Ich bin mit Euren Forderungen einverstanden. ~
+@45 = ~Ich habe viel der alten Überlieferungen gesammelt, während ich noch lebte, <BROTHERSISTER>. Wie Ihr Euch sicherlich erinnern könnt, hatte ich das Ziel, das Erbe unseres Vaters anzutreten. Ich bin wohl tot, aber diese Überlieferung ist noch immer gültig... für Euch! ~ 
+@46 = ~Pah! Wissen hat mehr Bedeutung als ALLES andere, Narr! Und ich bitte nur um einen Funken... einen Funken der göttlichen Energie in Euch. Ich werde dadurch nicht erneut zur Bhaalbrut. Bhaals Essenz in mir ist längst vergangen, aber ich werde wieder leben. ~ ~Pah! Wissen hat mehr Bedeutung als ALLES andere, Närrin! Und ich bitte nur um einen Funken... einen Funken der göttlichen Energie in Euch. Ich werde dadurch nicht erneut zur Bhaalbrut. Bhaals Essenz in mir ist längst vergangen, aber ich werde wieder leben. ~
+@47 = ~Vermutlich nichts. Wenn Ihr es jedoch tun würdet, würde das, was Ihr mir aus freien Stücken gegeben habt, dennoch nicht zu Euch zurückkehren. ~
+@48 = ~Und warum wollt Ihr mich töten? Aus Rache? Ihr hattet Eure Rache bereits. Wollt Ihr mir wirklich meine Ambitionen längst vergangener Tage vorwerfen? Ich würde heute gleich handeln, wenn es mir möglich wäre. Da es jedoch nie mehr möglich sein wird, habt Ihr nichts von mir zu befürchten. ~
+@49 = ~Ich bin kein Narr. Ich musste kämpfen, nur um hierher zu gelangen, nachdem Ihr mich letztes Mal zerstört habt. Ich weiß, dass sich die Dinge unaufhaltsam weiterentwickeln. Selbst in jenen wenigen Minuten, die wir uns hier unterhalten. Ihr habt keine Zeit, dieses Wissen auf eigene Faust zu erfahren, und ich werde nie mehr eine Chance wie diese hier erhalten. ~
+@50 = ~Ich... ich weiß es nicht. Ich werde es auf jeden Fall vermeiden, Euch im Weg zu stehen, <PRO_BROTHERSISTER>. Einst haben meine Ambitionen mein ganzes Leben beherrscht, aber jetzt wo der Funken verflogen ist, jetzt... weiß ich es einfach nicht. Aber ich will leben! ~ 
+@51 = ~Vielleicht stimmt das ja. Ein Funken der göttlichen Energie raucht aus, egal von welchem Kind Bhaals er kommt. Ich zweifle jedoch daran, dass unser armes, kleines Geschwisterherz hier den Mut hat, der dazu notwendig wäre. ~
+@52 = ~Unglaublich! Ihr seid also von selbst darauf gekommen, was? Nun, der Gedanke, einen Teil Eurer herzigen, süßen Seele für alle Ewigkeit in mir zu haben, erfüllt mich zwar nicht gerade mit Entzücken... Aber ja, das würde auch gehen. ~
+@53 = ~Während ich meinen ehrgeizigen Plänen nachgegangen bin, habe ich wesentlich mehr Leute als nur ihn getötet. Stellt Euch doch einmal selbst die Frage, wie viele Leute Ihr getötet habt... oder <CHARNAME>. Seid Ihr so unschuldig? War es Gorion? Ich bitte ja auch nicht um Vergebung. ~
+@54 = ~Ah, <CHARNAME> hat also jemanden gefunden, der das Opfer für ihn erbringt. Seid Ihr Euch sicher, Kindchen? Wenn Ihr es später bereut, könnt Ihr nicht behaupten, dass <CHARNAME> Euch benutzt hätte. Es muss aus Eurem freien Willen heraus geschehen. ~
+@55 = ~Es gibt keine andere Möglichkeit, <CHARNAME>. Außer natürlich Ihr habt noch ein Kind Bhaals in Eurem Gefolge, von dem ich nichts weiß. Entweder Ihr gebt mir einen Teil der Essenz oder nicht. Entscheidet Euch! ~
+@57 = ~Nun gut, dann werde ich wohl Imoen gestatten, es zu tun. ~
+@58 = ~So sei es. Ich stimme zu. ~
+@59 = ~Ich habe mich noch nicht entschieden. ~
+@60 = ~Vergesst es einfach. Ich vertraue Euch nicht. ~
+@61 = ~Wie Ihr wünscht. Niemand hindert Euch daran, Euer Reich ein wenig zu erforschen. Die Zeit vergeht, und die Ereignisse überschlagen sich. Ich schätze, selbst Ihr werdet Euch die Wahrheit relativ bald eingestehen müssen. ~
+@62 = ~Somit habe ich den Tod betrogen! Ich danke Euch, <BROTHERSISTER>... Es gibt kein Geschenk, das mich mehr erfreuen könnte. ~ 
+@63 = ~Verschwindet. Ich möchte nur mit <CHARNAME> sprechen und nicht mit einem von <PRO_HISHER>en unglückseligen Schergen. Ihr könnt nichts für mich tun. ~
+@64 = ~Nun, wenn das mal nicht meine liebe kleine Schwester ist. Sagt mal Kleines... Stolziert Ihr noch immer durch die Gegend und gebt vor, eine Diebin zu sein?! Glaubt Ihr, Ihr wäret würdig, Bhaals Blut in Euch zu tragen? ~ [SAREVO74]
+@65 = ~ Oh?! Da wäre ich mir nicht so sicher. Verbringt mal ein wenig Zeit im Abyss, Mädel, wenn Ihr tot und zerstört seid... Wir wollen mal sehen, welche Träume Ihr dann habt. Ich schätze mal, Ihr würdet wie eine Blume in der Hitze verdorren.. ~
+@66 = ~So? Habt Ihr den Weg nach draußen schon gefunden, <BROTHERSISTER>? Habt Ihr alles, was Ihr wissen müsst, selbst in Erfahrung gebracht? Oder habt Ihr Euch doch dazu entschlossen, auf die Stimme der Vernunft zu hören? ~
+@67 = ~Ich will mir Euren Vorschlag anhören, Sarevok. Sagt mir, was Ihr von mir wollt. ~
+@68 = ~Ich habe mich noch nicht vollständig umgeschaut. ~
+@69 = ~Ich habe mich entschieden, Euren Wünschen nachzukommen. Imoen wird Euch wieder Euer Leben schenken. ~
+@70 = ~Ich habe mich entschieden, Euren Wünschen nachzukommen. Ich werde Euch neues Leben schenken. ~
+@71 = ~Ich würde gerne zuerst einmal wissen, wie Ihr dieses Wissen erlangt habt. ~
+@72 = ~Ich weiß nicht, ob ich dazu bereit bin, einen Teil meiner Seele für ein paar Informationen zu opfern. ~
+@73 = ~Und was soll mich daran hindern, Euch einfach erneut zu töten, nachdem Ihr mir all das verraten habt? ~
+@74 = ~Gibt es keine andere Möglichkeit, Euch wiederherzustellen? ~
+@75 = ~Ich... lebe! Fleisch und Blut und Knochen! Ich lebe! Haha! Ich habe geschworen, ich würde mit Klauen und Zähnen darum kämpfen, in die Welt der Lebenden zurückzukehren... Und ich habe es geschafft! ~ [SAREVO76]
+@76 = ~Hmm! Mein Schwert und meine Rüstung sind allerdings nicht aufgetaucht. Egal! Ohne die Essenz Bhaals könnte ich ihre Fähigkeiten ohnehin nicht nutzen. Ich werde ohne sie auskommen, wie ich es auch früher getan habe. Ich danke Euch, <CHARNAME>. Ich bin sehr zufrieden. ~
+@77 = ~Dankt nicht mir. Dankt Imoen. ~
+@78 = ~Das ist seltsam... Ich fühle mich nicht anders als vorher. ~
+@79 = ~Ich habe meinen Teil des Geschäfts erfüllt, Sarevok. Erzählt mir jetzt, was Ihr wisst. ~
+@80 = ~Schön, schön! Jetzt spuckt schon aus, was Ihr wisst, oder wir beginnen mit Runde 3, wenn Ihr versteht, was ich meine? ~
+@81 = ~Aber sicher doch! Ich danke Euch, kleine Schwester! Es wird Euch zwar zweifellos maßlos ärgern, aber ich werde den kleinen Lebensfunken von Euch, der jetzt in mir lebt, hätscheln und pflegen. ~
+@82 = ~Ich habe doch gesagt, es wäre nur ein unbedeutender Teil, oder? Ich habe vermutet, dass es hier an diesem Ort klappen könnte, war mir aber nicht sicher. Es ist schön zu sehen, dass ich Recht hatte. ~
+@83 = ~Ihr wart nicht SICHER? Ihr seid da ein ziemliches Risiko eingegangen. ~
+@84 = ~Ich bin im Leben nicht so weit gekommen, ohne Risiken einzugehen, Narr! Es war kein Bluff... Ich habe genug gewusst, um vermuten zu können, dass es funktionieren könnte, vor allem da wir das gleiche Erbe haben. Aber das spielt jetzt keine Rolle. Ich nehme an, Ihr drängt schon darauf, zu hören, was ich zu sagen habe. ~ ~Ich bin im Leben nicht so weit gekommen, ohne Risiken einzugehen, Närrin! Es war kein Bluff... Ich habe genug gewusst, um vermuten zu können, dass es funktionieren könnte, vor allem da wir das gleiche Erbe haben. Aber das spielt jetzt keine Rolle. Ich nehme an, Ihr drängt schon darauf, zu hören, was ich zu sagen habe. ~
+@85 = ~Zuerst will ich Euch verraten, wie Ihr dieses Einsprengsel verlassen könnt, das Ihr selbst erschaffen habt. Es stellt eine Erweiterung Eures Willens dar, <CHARNAME>... Es existiert, weil Ihr es benötigt. ~
+@86 = ~Diese Ebene erzeugt das Portal nach draußen, doch es wird Euch nicht dorthin führen, wo Ihr hinwollt. Statt dessen führt es Euch dorthin, wo Ihr sein müsst. Oder, was auch möglich wäre, wo Ihr glaubt, sein zu müssen. ~
+@87 = ~Doch die Fähigkeit, diese Ebene ein solches Portal erzeugen zu lassen, kann ich Euch nicht geben. In dieser Eurer Ebene gibt es viele gesperrte Durchgänge, von denen ich kaum etwas weiß. Einen davon kann ich jedoch öffnen... dahinter liegt das, wonach Ihr sucht. Passt auf... ~
+@88 = ~Betretet den Raum und stellt Euch Eurer Herausforderung, <CHARNAME>. Es wird schwierig werden... vielleicht wollt Ihr es ja nicht allein versuchen. Es gibt hier... einen Geist, der Euch die Begleiter heraufbeschwören kann, die Ihr für Eure Gruppe braucht... wenn es nötig sein sollte. ~
+@89 = ~In meiner Jugend habe ich viel Zeit damit verbracht, die alten Legenden der Priesterschaft des toten Bhaals zu studieren. Eine der alten Prophezeiungen habe ich aus den Mitgliedern einer nicht besonders kooperativen Sekte von Cyric herausgeholt... Eine davon handelte weitgehend von der Zeit, in der wir uns jetzt befinden. ~ [SAREVO78]
+@90 = ~Die Schwertküste wird vor Blut triefen, das stimmt wohl... Aber die Kämpfe werden ihren Höhepunkt in einer Stadt im Süden finden, in der Stadt Saradush in Tethyr. ~ [SAREVO79]
+@91 = ~Sarevok in der Hölle: Teil 2
+
+Ein Engel hat mich in den Abyss zurückgebracht und mich darüber informiert, dass meine Bestimmung als Kind Bhaals offenbar kurz vor der Erfüllung steht. Aber noch bin ich nicht bereit, wie es scheint. Noch ist mein Verstand nicht darauf vorbereitet, die ganze Macht von Bhaals Reich zu akzeptieren. Deshalb hat er eine Halbebene meiner selbst erschaffen, einen "Kokon" nach seiner eigenen Beschreibung, in dem ich mich vorzubereiten habe.
+
+Kurz nachdem der Engel mich verlassen hat, tauchte niemand anders als Sarevok in dieser Ebene auf. Er hat mir einen Vorschlag gemacht. Er würde mir verraten, wie ich das Einsprengsel verlassen kann und mir wichtige Informationen über mein Schicksal geben. Dafür sollte ich ihn sozusagen wiederbeleben. Ich hatte keine Wahl und stimmte zu. ~
+@92 = ~Dorthin MÜSST Ihr gehen. Dort werden sich die ersten Schritte der Prophezeiung entfalten. Obwohl Ihr natürlich Eurer Herausforderung zuerst gegenüberstehen müsst. ~ [SAREVO80]
+@93 = ~Und was wird dann geschehen? ~
+@94 = ~Die Herausforderungen & Der Geist des Schicksals
+
+Sarevok hat mich über zwei wichtige Aspekte des Einsprengsels informiert.
+
+Zuerst gibt es da die Herausforderungen. Es gibt fünf Gänge, die vom Hauptraum fortführen, und ich bin mir sicher, dass sie sich öffnen werden, wenn ich bereit bin, mich dem zu stellen, was dahinter auf mich wartet. Wie diese Herausforderungen aussehen werden, kann ich nicht sagen. Sarevok hat auf jeden Fall angedeutet, dass die Herausforderungen nicht einfach werden würden und dass ich mir auf jeden Fall Verstärkung besorgen sollte.
+
+Und damit sind wir auch schon beim "Geist des Schicksals". Ich weiß wirklich nicht, wie es dieser Geist des Schicksals bewerkstelligt, aber er scheint das Schicksal jener Leute kontrollieren zu können, deren Schicksal mit dem meinigen verbunden ist. Der Geist des Schicksals kann Gefährten für mich beschwören... Es sind keine Diener, aber vielleicht Freunde. Um mit dem Geist des Schicksals zu sprechen, muss ich ihn nur ansprechen. Er befindet sich nahe des "Eingangs" der Ebene. ~
+@95 = ~Wie kann ich wissen, ob Ich Euren Worten vertrauen kann? ~
+@96 = ~Dann werde ich jetzt die Herausforderung annehmen. ~
+@97 = ~Seid Ihr nicht noch immer ein Kind Bhaals? ~
+@98 = ~Dann wird die Zukunft ihren Anfang nehmen. Dann werden wir alle sehen, welche Rolle Ihr in diesem Konflikt spielt und ob Ihr dem Erbe unseres Vaters gerecht werden könnt. ~
+@99 = ~Dann werde ich jetzt dorthin aufbrechen. ~
+@100 = ~Seid Ihr jetzt noch immer ein Kind Bhaals oder nicht? ~
+@101 = ~Gut! Ich habe genug gehört. ~
+@102 = ~Nein! Die Essenz Bhaals ist aus mir geströmt, als ich starb... Das, was Ihr mir gegeben habt, sorgt nur dafür, dass ich mir meine Sterblichkeit bewahren kann. Manche würden mich wohl noch immer als Kind Bhaals bezeichnen, aber das trifft nur noch auf meine Erinnerung und auf meine Geschichte zu. ~
+@103 = ~Was wird geschehen, wenn wir nach Saradush kommen? ~
+@104 = ~Dann werde ich jetzt gehen und mich der Herausforderung stellen. ~
+@105 = ~Natürlich könnt Ihr mir nicht vertrauen. Warum solltet Ihr auch? Nehmt mich doch einfach mit, <CHARNAME>. ~
+@106 = ~Was?! ~
+@107 = ~Bevor Ihr geht, habe ich noch eine Bitte an Euch, <CHARNAME>. Lasst mich Euch begleiten. ~
+@108 = ~Einst war ich mir sicher, dass die alten Prophezeiungen um mich kreisen. Auch wenn das nicht mehr der Fall ist, so weiß ich immer noch mehr über diese Dinge als irgendjemand sonst. Ich kann Euch helfen, <CHARNAME>. Bei der Herausforderung in diesem Raum und anderen Dingen. ~
+@109 = ~Natürlich ist das kein selbstloses Angebot. Ihr zieht eine Spur der Macht hinter Euch her, <CHARNAME>. Ich bin sicherlich nicht der Erste, der Euch das verrät. Im Moment bietet sich mir keine bessere Gelegenheit als Euch zu begleiten. ~
+@110 = ~Außerdem habt Ihr mich schon vor langer Zeit besiegt. Ihr habt Euch meinen Respekt verdient. Lasst es Euch durch den Kopf gehen, <CHARNAME>! Ich, Euer Bruder, und Ihr, <BROTHERSISTER>, Seite an Seite! ~
+@111 = ~Vergesst es! Ihr seid nicht mein Bruder, und ich möchte Euch nicht in meinem Rücken haben. ~
+@112 = ~Und von welchem Nutzen könntet Ihr für mich sein? ~
+@113 = ~Ich bin fast versucht, Euch zu gestatten, Euch mir anzuschließen... Allerdings müsstet Ihr all meine Befehle genau befolgen. ~
+@114 = ~Ich habe im Moment keinen Platz für Euch in meiner Gruppe, selbst wenn ich Euch mitnehmen wollte. ~
+@115 = ~Ich verstehe. So soll es sein. Unser Geschäft ist erledigt, <CHARNAME>. Ihr habt alles, was Ihr braucht, und ich ebenfalls. Schart für die Herausforderung Eure Begleiter um Euch und verschwindet. Mögen wir uns niemals wieder sehen. ~
+@116 = ~Das Schicksal wartet
+
+Sarevok meint, dass mich mein nächster Weg nach Saradush, einer Stadt in Tethyr, führen wird. Ich habe offenbar keine Wahl... Der Ausgang aus dem Einsprengsel ist kein einfaches Portal, das mich dorthin bringt, wo ich hin will, sondern es bringt mich an den Ort, den mein Schicksal für mich vorgesehen hat. ~
+@117 = ~Abgesehen von meinem Wissen bin ich ein ziemlich fähiger Krieger. Ihr habt gegen mich gekämpft, <CHARNAME>, und Ihr wisst das nur zu gut. Während ich in der Hölle war, bin ich nur noch stärker geworden. Wenn ich jemandem wie Euch diene, könnte ich noch stärker und besser werden. ~
+@118 = ~Ohne Eure Rüstung und Eure göttliche Macht seid Ihr völlig nutzlos für mich. Verschwindet. ~
+@119 = ~Und woher soll ich wissen, dass Ihr mir nicht in den Rücken fallt, wenn es Euch passt? ~
+@120 = ~Ich werde den Schwur leisten, Euren Befehlen Folge zu leisten, <BROTHERSISTER>, wenn Euch das zufrieden stellt. Hier... an diesem Ort... hätte solch ein Schwur die gleiche Macht wie ein Geas. Ich könnte Euch nicht verraten. ~ 
+@121 = ~Nein, irgendwie kommt Ihr mir zu übereifrig vor. Ich vertraue Euch nicht. Vergesst es einfach. ~
+@122 = ~Nein, es ist nicht notwendig, dass Ihr einen derartigen Schwur leistet. Ich will Euch glauben. Schließt Euch mir an, und dann gehen wir. ~
+@123 = ~Einverstanden! Wenn Ihr schwört, dass Ihr mich nicht verraten werdet, dürft Ihr Euch anschließen. ~
+@124 = ~Ich kehre vielleicht später zurück und nehme Euch mit. Vielleicht könnt Ihr ja dann Euren Schwur leisten. ~
+@125 = ~Dann lasst doch einen Eurer Schergen in Eurer Ebene zurück, der darauf warten kann, dass Ihr ihn wieder abholt. Oder lasst meinetwegen mich in dieser Ebene zurück, bis ich benötigt werde. Ich möchte herausfinden, was geschehen wird, und werde daher warten. ~
+@126 = ~Nein! Ihr stimmt mir zu leichtfertig zu. Ich werde Euch nie vertrauen können. Vergesst es. ~
+@127 = ~Woher soll ich wissen, dass Ihr mich nicht bei der ersten sich bietenden Gelegenheit verraten werdet? ~
+@128 = ~Nein, macht Euch gar nicht die Mühe, hier zu warten. Ich werde nicht gestatten, dass Ihr Euch mir anschließt. ~
+@129 = ~Ihr... Ihr benötigt keinen Schwur? Eine... merkwürdige... Wahl, <BROTHERSISTER>. Ich hätte einen von Euch verlangt. Wenn ich Euch überhaupt hätte leben lassen. Nun, wie Ihr wollt... wir sollten uns jetzt um Eure Herausforderung kümmern. Denkt daran... Ihr werdet möglicherweise mehr Begleiter brauchen, um sie zu bestehen. ~
+@130 = ~Nun gut. Ich, Sarevok, schwöre auf die Asche meiner tragisch verstorbenen Mutter und auf den Namen des toten Gottes, der mein Vater ist. Ich schwöre im Namen der Rache, und ich schwöre auf die bittere, gallige Flüssigkeit, die mein Blut ist... Ich schwöre, dass ich <CHARNAME> nicht verraten werde, solange ich lebe. ~
+@131 = ~Gut! Dann gehen wir. ~
+@132 = ~Das reicht mir. Ich komme vielleicht später und hole Euch ab... Wartet hier. ~
+@133 = ~Ich glaube Euch kein einziges Wort. Was Ihr sagt, bedeutet mir nichts, Sarevok. ~
+@134 = ~Gut! Jetzt ist es noch einfacher, Euch zum dritten Mal zu töten! ~
+@135 = ~Wie Ihr wünscht. Ich warte also auf Eure Rückkehr, <CHARNAME>. Und vergesst nicht... die Herausforderung könnte schwierig werden. Beschwört Eure Begleiter herauf, auf dass sie Euch zur Seite stehen. ~
+@136 = ~Ihr erhebt Eure Hand gegen mich? Das hätte ich wohl erwarten sollen. Ich hätte ähnlich gehandelt. Allerdings weiß ich, wie ich diese Ebene verlassen kann... Möge das Schicksal geben, dass wir uns nicht wieder sehen, <BROTHERSISTER>. ~ 
+@137 = ~Benötigt Ihr erneut meinen starken Schwertarm! Er ist bereit, auf Euer Geheiß zu töten. ~ [SAREVO81]
+@138 = ~Ja, schließt Euch mir an. ~
+@139 = ~Ich denke, Ihr müsst mir erst einen Treueschwur leisten, bevor ich Euch mein Vertrauen schenken kann. ~
+@140 = ~Nein, wartet einfach weiter. Ich werde später wiederkommen. ~
+@141 = ~Verschwindet! Ich habe nichts mit Euch zu besprechen, einzig und allein mit <CHARNAME>. ~
+@142 = ~Ich weiß, wie Eure Bestimmung aussieht, <CHARNAME>. Ich weiß, wo Ihr hingehen müsst, um sie zu erfüllen. Versucht es nur selbst herauszufinden, aber es wird bald zu spät sein... Die Zeit der alten Prophezeiungen ist für uns gekommen. Besser gesagt, sie ist für "Euch" gekommen. ~
+@143 = ~Schweigt! Ich habe auf <CHARNAME> gewartet. Meine Worte sind nur für <PRO_HIMHER> bestimmt. ~
+@144 = ~In Ordnung, wie Ihr wünscht, <BROTHERSISTER>. Denkt daran... Ihr müsst Euch der Herausforderung in dieser Höhle stellen. Und möglicherweise wird Euch der Geist mehr Unterstützung beschwören müssen. ~
+@145 = ~Wie dem auch sei, wenn Ihr die Herausforderung bestanden habt, werdet Ihr in der Lage sein, diese Ebene zu verlassen. Aber denkt daran, Ihr könnt nicht gehen, wohin Ihr wollt - nur dorthin, wo Ihr sein müsst. Und ich, wie bereits erwähnt, weiß, wo das ist. ~

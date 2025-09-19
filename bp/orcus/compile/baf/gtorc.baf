@@ -1,0 +1,14 @@
+IF
+  OR(2)
+    Entered([ANYONE])
+    Opened([ANYONE])
+THEN
+  RESPONSE #100
+    DisplayString(LastTrigger,14381)  // ~Trap Sprung~ [AMB_D05C]
+    CreateCreature("DEMGLASU",[773.1061],4)  // ~Glabrezu~
+    CreateCreature("DEMNABSU",[727.1137],7)  // ~Nabassu~
+    CreateCreature("DEMNABSU",[705.1163],8)  // ~Nabassu~
+    CreateCreature("DEMGLASU",[775.1008],2)  // ~Glabrezu~
+    CreateCreature("DEMPITSU",[658.1163],9)  // ~Pit Fiend~
+END
+

@@ -1,0 +1,263 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  OnCreation()
+  Global("BPNymphoCounter","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPNT","LOCALS",150)
+    SetGlobal("BPNymphoCounter","LOCALS",1)
+END
+
+IF
+  Allegiance(LastSummonerOf(Myself),EVILCUTOFF)
+  Global("Nymph","LOCALS",0)
+THEN
+  RESPONSE #100
+    Enemy()
+    SetGlobal("Nymph","LOCALS",1)
+END
+
+IF
+  Allegiance(LastSummonerOf(Myself),GOODCUTOFF)
+  Global("Nymph","LOCALS",0)
+THEN
+  RESPONSE #100
+    Ally()
+    SetGlobal("Nymph","LOCALS",1)
+END
+
+IF
+  Allegiance(LastSummonerOf(Myself),NEUTRAL)
+THEN
+  RESPONSE #100
+    ChangeAIScript("NYMPH2",OVERRIDE)
+END
+
+IF
+  Global("BPCHARM","LOCALS",1)
+  !StateCheck(Myself,STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCHARM","LOCALS",0)
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_BARKSKIN)
+  See(NearestEnemyOf(Myself))
+  Global("prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,CLERIC_BARKSKIN)
+    SetGlobal("prep","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_MASS_CURE)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  OR(3)
+    HPPercentLT(Myself,75)
+    HPPercentLT(LastSummonerOf(Myself),75)
+    GlobalTimerExpired("BPNT","LOCALS")
+  Detect(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    MoveToObjectNoInterrupt(LastSummonerOf(Myself))
+    Spell(Myself,CLERIC_MASS_CURE)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  StateCheck(LastSummonerOf(Myself),STATE_CHARMED)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(LastSummonerOf(Myself),CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  StateCheck(Player1,STATE_CHARMED)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(Player1,CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  StateCheck(Player2,STATE_CHARMED)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(Player2,CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  StateCheck(Player3,STATE_CHARMED)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(Player3,CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  StateCheck(Player4,STATE_CHARMED)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(Player4,CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  StateCheck(Player5,STATE_CHARMED)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(Player5,CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  StateCheck(Player6,STATE_CHARMED)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(LastSummonerOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(Player6,CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  RandomNum(8,1)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  HaveSpell(WIZARD_HOLD_MONSTER)
+  See(NearestEnemyOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),WIZARD_HOLD_MONSTER)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  RandomNum(8,2)
+  HaveSpell(CLERIC_MENTAL_DOMINATION)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),CLERIC_MENTAL_DOMINATION)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  RandomNum(8,3)
+  HaveSpell(CLERIC_HOLD_PERSON)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),CLERIC_HOLD_PERSON)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  RandomNum(8,4)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  !StateCheck(NearestEnemyOf(Myself),STATE_CONFUSED)
+  See(NearestEnemyOf(Myself))
+  Global("castConfusion","LOCALS",0)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),NYMPH_CONFUSION)
+    SetGlobal("castConfusion","LOCALS",1)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  RandomNum(8,5)
+  AreaType(OUTDOOR)
+  HaveSpell(CLERIC_CALL_LIGHTNING)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  OR(3)
+    See(NearestEnemyOf(Myself))
+    See(SecondNearestEnemyOf(Myself))
+    See(ThirdNearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(LastSeenBy(Myself),CLERIC_CALL_LIGHTNING)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  RandomNum(8,6)
+  HaveSpell(CLERIC_CAUSE_SERIOUS_WOUNDS)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),CLERIC_CAUSE_SERIOUS_WOUNDS)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  RandomNumGT(8,6)
+  !GlobalTimerNotExpired("NymphoTime","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !Range(NearestEnemyOf(Myself),8)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),WIZARD_DIMENSION_DOOR)
+    SetGlobalTimer("NymphoTime","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    AttackReevaluate(NearestEnemyOf(Myself),45)
+END
+

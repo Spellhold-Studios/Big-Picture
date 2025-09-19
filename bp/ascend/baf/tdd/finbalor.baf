@@ -1,0 +1,508 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    ReallyForceSpellDeadRES("baldead",Myself)
+END
+
+IF
+  Global("CONTROL","LOCALS",1)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobal("CONTROL","LOCALS",0)
+    Enemy()
+END
+
+IF
+  Global("CONTROL","LOCALS",1)
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobal("CONTROL","LOCALS",0)
+END
+
+IF
+  !DifficultyLT(NORMAL)
+  !Allegiance(Myself,ENEMY)
+  GlobalTimerNotExpired("CommandMinions","AR6200")
+  Global("CommandCheck","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CommandCheck","LOCALS",1)
+    ReallyForceSpellRES("melspl5a",Myself) 
+END
+
+IF
+  OnCreation()
+  !GlobalTimerNotExpired("StartingDefense","LOCALS")
+  !DifficultyLT(NORMAL)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("StartingDefense","LOCALS",1000)
+    ApplySpellRES("melstone",Myself)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  AttackedBy([ANYONE],DEFAULT)
+  Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+  Global("LetItGoOnce","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("LetItGoOnce","LOCALS",1)
+    SetGlobalTimer("GetMadNow","LOCALS",6)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  AttackedBy([ANYONE],DEFAULT)
+  Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+  Global("LetItGoOnce","LOCALS",1)
+  GlobalTimerExpired("GetMadNow","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("LetItGoOnce","LOCALS",0)
+    Enemy()
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !See([ENEMY])
+  CombatCounter(0)
+  !Range(Player1,20)
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !See([ENEMY])
+  CombatCounter(0)
+  Range(Player1,20)
+THEN
+  RESPONSE #100
+END
+
+IF
+  Global("BP_BehTel","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    ForceSpell(Myself,3476)
+    SetGlobal("BP_BehTel","LOCALS",1)
+END
+
+IF
+  Range(NearestEnemyOf(Myself),2)
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(NearestEnemyOf(Myself),0,125)
+THEN
+  RESPONSE #80
+    RunAwayFrom(NearestEnemyOf(Myself),4)
+    ReallyForceSpell(NearestEnemyOf(Myself),3482)
+  RESPONSE #20
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  Allegiance(Myself,ENEMY)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  NumCreatureLT([ENEMY.0.DEMONIC],3)
+  HaveSpellRES("GATE5")
+  !Range(NearestEnemyOf(Myself),10)
+  OR(2)
+    NumInPartyAliveGT(2)
+    DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Spell","LOCALS",6)
+    SpellRES("GATE5",Myself)  // ~Gate~
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  HPPercentLT(Myself,15)
+  HPGT(Myself,0)
+  Range(NearestEnemyOf(Myself),10)
+  HPPercentGT(NearestEnemyOf(Myself),20)
+  Global("GateAway","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("GateAway","LOCALS",1)
+    SetGlobalTimer("Running","LOCALS",2)
+    CreateVisualEffectObject("SPSUMGTE",Myself)
+    SmallWait(8)
+    CreateVisualEffectObject("SPFLESHS",Myself)
+    DisplayString(Myself,14260)  // ~Gate~
+    DestroySelf()
+END
+
+IF
+  Range(NearestEnemyOf(Myself),30)
+  !Race(NearestEnemyOf(Myself),DEMONIC)
+  OR(2)
+    Range(SecondNearestEnemyOf(Myself),30)
+    RandomNum(2,1)
+  !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+  !CheckStatGT(NearestEnemyOf(Myself),0,178)
+  !GlobalTimerNotExpired("BalorFear","LOCALS")
+  DifficultyGT(EASY)
+THEN
+  RESPONSE #50
+    SetGlobalTimer("BalorFear","LOCALS",6)
+    PlaySound("TANAR01")
+    ReallyForceSpell(NearestEnemyOf(Myself),DEMON_FEAR)
+  RESPONSE #50
+    SetGlobalTimer("BalorFear","LOCALS",6)
+    ReallyForceSpell(NearestEnemyOf(Myself),DEMON_FEAR)
+END
+
+IF
+  Range(NearestEnemyOf(Myself),30)
+  !Race(NearestEnemyOf(Myself),DEMONIC)
+  OR(2)
+    Range(SecondNearestEnemyOf(Myself),30)
+    RandomNum(2,1)
+  !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+  !CheckStatGT(NearestEnemyOf(Myself),0,178)
+  !GlobalTimerNotExpired("BalorFear","LOCALS")
+  !DifficultyGT(EASY)
+THEN
+  RESPONSE #50
+    SetGlobalTimer("BalorFear","LOCALS",30)
+    PlaySound("TANAR01")
+    ReallyForceSpell(NearestEnemyOf(Myself),DEMON_FEAR)
+  RESPONSE #50
+    SetGlobalTimer("BalorFear","LOCALS",30)
+    ReallyForceSpell(NearestEnemyOf(Myself),DEMON_FEAR)
+END
+
+IF
+  !GlobalTimerNotExpired("DemTel","LOCALS")
+  RandomNumLT(5,4)
+  OR(5)
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.SORCERER])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.CLERIC_ALL])
+  !Range(LastSeenBy(Myself),8)
+THEN
+  RESPONSE #90
+    SetGlobalTimer("DemTel","LOCALS",18)
+    ActionOverride(LastSeenBy(Myself),ClearActions(Myself))
+    DisplayStringHead(Myself,~Telekinesis~)
+    ReallyForceSpell(LastSeenBy(Myself),3480)
+    AttackReevaluate(LastSeenBy(Myself),180)
+  RESPONSE #40
+    ChangeSpecifics(Myself,244)
+    FaceObject(LastSeenBy(Myself))
+END
+
+IF
+  HitBy([GOODCUTOFF],CRUSHING)
+  OR(2)
+    !Range(LastHitter(Myself),7)
+    !Range(LastAttackerOf(Myself),7)
+  OR(2)
+    See(LastHitter(Myself))
+    See(LastAttackerOf(Myself))
+  !TargetUnreachable(LastSeenBy(Myself))
+  !GlobalTimerNotExpired("RANG","LOCALS")
+THEN
+  RESPONSE #90
+    DisplayStringHead(Myself,~Come closer and fight me fair!~)
+    SetGlobalTimer("RANG","LOCALS",18)
+    SetGlobalTimer("DemTel","LOCALS",18)
+    ActionOverride(LastSeenBy(Myself),ClearActions(Myself))
+    ReallyForceSpell(LastSeenBy(Myself),3480)
+    AttackReevaluate(LastSeenBy(Myself),180)
+  RESPONSE #50
+    DisplayStringHead(Myself,~A ranged weapon? Try this!~)
+    ChangeSpecifics(Myself,244)
+    FaceObject(LastSeenBy(Myself))
+  RESPONSE #20
+    DisplayStringHead(Myself,~Knavish mortal! Slinging barbs at me.~)
+    SetGlobalTimer("RANG","LOCALS",6)
+  RESPONSE #50
+    DisplayStringHead(Myself,~Weakling! Come fight like a warrior...~)
+    SetGlobalTimer("RANG","LOCALS",30)
+    MoveToObject(LastSeenBy(Myself))
+    Wait(3)
+    AttackReevaluate(LastSeenBy(Myself),240)
+END
+
+IF
+  See(Nearest)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(31,21)
+  OR(8)
+    See(NearestEnemyOf(Myself))
+    See(MostDamagedOf)
+    See(WorstAC)
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+    See([0.0.0.0.0.0.LAWFUL_GOOD])
+    See([0.0.0.PALADIN_ALL])
+  RandomNumLT(27,22)
+  OR(3)
+    See([GOODCUTOFF.0.0.0.0.SUMMONED])
+    See([GOODCUTOFF.0.0.0.207])
+    See([GOODCUTOFF.0.0.0.0.ILLUSIONARY])
+  RandomNumLT(29,24)
+  OR(10)
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.RANGER_ALL])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.CLERIC_MAGE])
+    See([PC.0.0.CLERIC_RANGER])
+    See([PC.0.0.PALADIN_ALL])
+    See([PC.0.0.CLERIC.0.0.MASK_GOOD])
+  RandomNumLT(30,16)
+  See(Nearest)
+  RandomNumLT(26,14)
+  OR(3)
+    See([GOODCUTOFF.0.0.RANGER_ALL])
+    See([GOODCUTOFF.0.0.PALADIN_ALL])
+    See([GOODCUTOFF.0.0.CLERIC.0.0.MASK_GOOD])
+  RandomNumLT(28,10)
+  OR(3)
+    See([GOODCUTOFF.0.0.MONK])
+    See([GOODCUTOFF.0.0.THIEF_ALL])
+    See([GOODCUTOFF.0.0.BARD_ALL])
+  RandomNumLT(24,9)
+  OR(3)
+    See(StrongestOf)
+    See(BestAC)
+    See(LeastDamagedOf)
+  RandomNumLT(25,9)
+  See(WeakestOf)
+  RandomNumLT(23,8)
+  See(WorstAC)
+  RandomNumLT(22,8)
+  See(MostDamagedOf)
+  RandomNumLT(32,11)
+  See(TenthNearest([GOODCUTOFF.0.0.PALADIN_ALL]))
+  RandomNumLT(34,12)
+  See(TenthNearest([GOODCUTOFF.0.0.LONG_BOW]))
+  RandomNumLT(35,12)
+  See(TenthNearest([GOODCUTOFF.0.0.CLERIC_ALL]))
+  RandomNumLT(33,12)
+  See(TenthNearest([0.0.0.0.0.0.LAWFUL_GOOD]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  OR(8)
+    General(LastSeenBy(Myself),UNDEAD)
+    Race(LastSeenBy(Myself),DEMONIC)
+    Race(LastSeenBy(Myself),RAKSHASA)
+    Race(LastSeenBy(Myself),IMP)
+    Race(LastSeenBy(Myself),MEPHIT)
+    Gender(LastSeenBy(Myself),SUMMONED_DEMON)
+    CheckStatGT(LastSeenBy(Myself),0,117)
+    StateCheck(LastSeenBy(Myself),STATE_DEAD)
+THEN
+  RESPONSE #100
+END
+
+IF
+  !GlobalTimerNotExpired("DemTel1","LOCALS")
+  RandomNumLT(3,3)
+  OR(6)
+    Class(LastSeenBy(Myself),FIGHTER_ALL)
+    Class(LastSeenBy(Myself),RANGER_ALL)
+    Class(LastSeenBy(Myself),PALADIN_ALL)
+    Class(LastSeenBy(Myself),THIEF_ALL)
+    Class(LastSeenBy(Myself),MONK)
+    HPGT(LastSeenBy(Myself),50)
+  Range(LastSeenBy(Myself),10)
+THEN
+  RESPONSE #90
+    SetGlobalTimer("DemTel1","LOCALS",18)
+    DisplayStringHead(Myself,314)
+    ReallyForceSpell(LastSeenBy(Myself),3482)
+  RESPONSE #40
+    ChangeSpecifics(Myself,244)
+    FaceObject(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  !GlobalTimerNotExpired("Dispel","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,164)
+  CheckStat(LastSeenBy(Myself),0,177)
+  OR(13)
+    CheckStatGT(LastSeenBy(Myself),0,178)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICFIRE)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTMAGICCOLD)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTACID)
+    CheckStatGT(LastSeenBy(Myself),50,RESISTELECTRICITY)
+    CheckStatGT(LastSeenBy(Myself),0,126)
+    CheckStatGT(LastSeenBy(Myself),0,130)
+    CheckStatGT(LastSeenBy(Myself),0,163)
+    CheckStatGT(LastSeenBy(Myself),0,179)
+    CheckStatGT(LastSeenBy(Myself),0,181)
+    CheckStatGT(LastSeenBy(Myself),0,128)
+    CheckStatGT(LastSeenBy(Myself),3,STONESKINS)
+    CheckStatGT(LastSeenBy(Myself),0,SCRIPTINGSTATE5)
+  RandomNumLT(75,45)
+THEN
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobalTimer("Dispel","LOCALS",18)
+    ForceSpell(LastSeenBy(Myself),WIZARD_BREACH)
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobalTimer("Dispel","LOCALS",18)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_BREACH)
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  !GlobalTimerNotExpired("SymbolDeath","LOCALS")
+  HPLT(LastSeenBy(Myself),61)
+  !Range(LastSeenBy(Myself),5)
+  !CheckStatGT(LastSeenBy(Myself),0,SCRIPTINGSTATE2)
+  !CheckStat(LastSeenBy(Myself),2,162)
+  !CheckStatLT(LastSeenBy(Myself),0,SAVEVSDEATH)
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  RandomNumLT(50,32)
+THEN
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobalTimer("SymbolDeath","LOCALS",18)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_SYMBOL_DEATH)
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobalTimer("SymbolDeath","LOCALS",18)
+    ForceSpell(LastSeenBy(Myself),WIZARD_SYMBOL_DEATH)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(WIZARD_NPC_SYMBOL_STUN)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  !GlobalTimerNotExpired("SymbolStun","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,129)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  !Gender(LastSeenBy(Myself),SUMMONED)
+  !CheckStatLT(LastSeenBy(Myself),0,SAVEVSSPELL)
+  !CheckStatGT(LastSeenBy(Myself),50,RESISTMAGIC)
+  !CheckStat(LastSeenBy(Myself),2,162)
+  !CheckStatGT(LastSeenBy(Myself),0,119)
+  RandomNumLT(51,32)
+THEN
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobalTimer("SymbolStun","LOCALS",18)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_NPC_SYMBOL_STUN)
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobalTimer("SymbolStun","LOCALS",18)
+    ForceSpell(LastSeenBy(Myself),WIZARD_NPC_SYMBOL_STUN)
+END
+
+IF
+  HPPercentLT(Myself,25)
+  Range(LastHitter(Myself),10)
+  !GlobalTimerNotExpired("BPW","LOCALS")
+THEN
+  RESPONSE #30
+    SetGlobalTimer("BPW","LOCALS",10)
+    Shout(124)
+    RunAwayFrom(Nearest,90)
+  RESPONSE #30
+    SetGlobalTimer("BPW","LOCALS",10)
+    Shout(124)
+    EquipMostDamagingMelee()
+    Attack(LastHitter(Myself))
+  RESPONSE #40
+    SetGlobalTimer("BPW","LOCALS",FOUR_ROUNDS)
+    DisplayStringHead(Myself,314)
+    ReallyForceSpell(NearestEnemyOf(Myself),3482)
+    ReallyForceSpell(SecondNearestEnemyOf(Myself),3482)
+    ReallyForceSpell(ThirdNearestEnemyOf(Myself),3482)
+  RESPONSE #40
+    SetGlobalTimer("BPW","LOCALS",16)
+    Shout(123)
+    ReallyForceSpell(LastHitter(Myself),COM_PRIEST_GREATER_UNDEAD)
+END
+
+IF
+  HPPercentLT(Myself,21)
+  Range(NearestEnemyOf(Myself),5)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !Range(LastSeenBy(Myself),10)
+THEN
+  RESPONSE #90
+    SetGlobalTimer("BPT","LOCALS",3)
+    ForceSpell(TenthNearest([EVILCUTOFF]),2402)
+  RESPONSE #10
+    Continue()
+END
+
+IF
+  !Range(LastSeenBy(Myself),5)
+THEN
+  RESPONSE #60
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #90
+    ChangeSpecifics(Myself,244)
+    FaceObject(LastSeenBy(Myself))
+END
+
+IF
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #25
+    Continue()
+  RESPONSE #75
+    ReallyForceSpell(LastSeenBy(Myself),3482)
+END
+
+IF
+  !Range(LastSeenBy(Myself),8)
+THEN
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    AttackReevaluate(NearestEnemyOf(Myself),45)
+  RESPONSE #40
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  True()
+THEN
+  RESPONSE #60
+    AttackReevaluate(LastSeenBy(Myself),45)
+  RESPONSE #60
+    ChangeSpecifics(Myself,244)
+    FaceObject(LastSeenBy(Myself))
+  RESPONSE #45
+END
+

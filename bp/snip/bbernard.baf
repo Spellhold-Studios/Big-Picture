@@ -1,0 +1,8 @@
+IF
+  Global("BernieChill","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BernieChill","LOCALS",1)
+    SetGlobal("BP_PlotMan","LOCALS",1)
+END
+

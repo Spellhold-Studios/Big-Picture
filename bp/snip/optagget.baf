@@ -1,0 +1,12 @@
+IF
+  Dead("pbhunt01")
+  Dead("pbhunt02")
+  Dead("pbhunt03")
+  See([PC])
+  CombatCounter(0)
+  NumberOfTimesTalkedTo(0)
+THEN
+  RESPONSE #100
+    StartDialogNoSet([PC])
+END
+

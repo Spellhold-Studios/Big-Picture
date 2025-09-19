@@ -1,0 +1,9 @@
+IF
+  See(NearestEnemyOf(Myself))
+  HaveSpellRES("SPPR301")
+  NumCreatureLT([EVILCUTOFF.0.0.0.0.SUMMONED],7)
+THEN
+  RESPONSE #100
+    SpellRES("SPPR301",NearestEnemyOf(Myself))
+END
+

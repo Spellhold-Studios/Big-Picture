@@ -1,0 +1,9 @@
+IF
+  OnCreation()
+  Global("BP_WhyIsThis","AR1506",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_WhyIsThis","AR1506",1)
+    CreateCreature("ELETRO01",[1675.280],10)
+END
+

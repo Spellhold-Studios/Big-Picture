@@ -1,0 +1,33 @@
+
+IF
+  ActionListEmpty()
+  See([PC])
+  Allegiance(Myself,EVILCUTOFF)
+  !GlobalTimerNotExpired("DUE2","LOCALS")
+  GlobalLT("GROW","LOCALS",4)
+  Global("GIANT","LOCALS",0)
+  HPPercentGT(Myself,50)
+  RandomNumLT(100,41)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("DUE2","LOCALS",FOUR_ROUNDS)
+    IncrementGlobal("GROW","LOCALS",1)
+    DisplayStringHead(Myself,@0)
+    ReallyForceSpellRES("BPDUEGIA",Myself)  // @0
+    SetGlobal("GIANT","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    HPPercentLT(Myself,25)
+    GlobalTimerExpired("DUE2","LOCALS")
+  Global("GIANT","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("DUE2","LOCALS",FOUR_ROUNDS)
+    DisplayStringHead(Myself,@1)
+    ReallyForceSpellRES("BPILYICH",Myself)  // @1
+    SetGlobal("GIANT","LOCALS",0)
+    SetGlobal("BOLD","LOCALS",0)
+END

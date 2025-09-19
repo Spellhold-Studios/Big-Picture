@@ -1,0 +1,23 @@
+
+IF
+  OnCreation()
+  RandomNum(8,7)
+  Global("DruidStronghold","GLOBAL",1)
+  GlobalLT("Chapter","GLOBAL",4)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    CreateCreature("BPDRU8A",[488.558],10)
+    CreateCreature("BPDRU8B",[500.454],10)
+    CreateCreature("BPDRUFG1",[552.476],10)
+    CreateCreature("BPDRUFG2",[427.528],10)
+    CreateCreature("BPDRUDT1",[525.591],10)
+    CreateCreature("BPDRUMG1",[545.582],10)
+    CreateCreature("BPDRU10A",[560.595],10)
+    Wait(3)
+    DisplayStringHead("BPDRU10A",9310)
+    Wait(2)
+    DisplayStringHead("BPDRU10A",9613)
+    Wait(2)
+    EndCutSceneMode()
+END

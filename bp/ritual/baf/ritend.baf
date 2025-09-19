@@ -1,0 +1,111 @@
+IF
+  NumberOfTimesTalkedTo(0)
+  See([PC])
+THEN
+  RESPONSE #100
+    StartDialogNoSet(Player1)
+END
+
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("PrepTimer","LOCALS",0)
+    SetGlobalTimer("KaiTimer","LOCALS",0)
+END
+
+IF
+  GlobalTimerExpired("PrepTimer","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("PrepTimer","LOCALS",3600)
+    SetGlobalTimer("Cast","LOCALS",0)
+    GiveItemCreate("potn10",Myself,5,0,0)  // ~Potion of Invisibility~
+    GiveItemCreate("potn52",Myself,2,0,0)  // ~Potion of Extra Healing~
+    Continue()
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HaveSpell(WIZARD_STONE_SKIN)
+  CheckStatLT(Myself,1,STONESKINS)
+  GlobalTimerExpired("Cast","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    Spell(Myself,WIZARD_STONE_SKIN)
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  HasItem("potn10",Myself)  // ~Potion of Invisibility~
+  GlobalTimerExpired("Cast","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn10",Myself)  // ~Potion of Invisibility~
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  HaveSpell(WIZARD_INVISIBILITY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    Spell(Myself,WIZARD_INVISIBILITY)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  StateCheck(Myself,STATE_INVISIBLE)
+  !Range([ENEMY],28)
+  !Range([PC],28)
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !HasItem("potn10",Myself)  // ~Potion of Invisibility~
+  !HaveSpell(WIZARD_INVISIBILITY)
+  GlobalTimerExpired("Cast","LOCALS")
+  HaveSpell(WIZARD_TRUE_DISPEL_MAGIC)
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    Spell(Myself,WIZARD_TRUE_DISPEL_MAGIC)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,90)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  Delay(6)
+  True()
+THEN
+  RESPONSE #100
+    ReallyForceSpellRES("spcl542a",Myself)  // <Invalid Strref -1>
+END
+
+IF
+  Heard([ENEMY],ALERT)
+  !Detect([ENEMY])
+THEN
+  RESPONSE #100
+    MoveToObject(LastHeardBy(Myself))
+END
+

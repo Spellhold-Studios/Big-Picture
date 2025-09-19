@@ -1,0 +1,31 @@
+IF
+  See([PC])
+  Range([PC],20)
+  Global("duegabistalk","GLOBAL",0)
+THEN
+  RESPONSE #100
+    StartDialogNoSet([PC])
+    SetGlobal("duegabistalk","GLOBAL",1)
+END
+
+IF
+  HPLT(Myself,50)
+  See(NearestEnemyOf(Myself))
+  Range(NearestEnemyOf(Myself),15)
+  Global("duegabisa","GLOBAL",0)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),DEATHKNIGHT_FIREBALL)
+    SetGlobal("duegabisa","GLOBAL",1)
+END
+
+IF
+  HPLT(Myself,30)
+  Global("duegabisb","GLOBAL",0)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    ApplySpell(Myself,CLERIC_HEAL)
+    SetGlobal("duegabisb","GLOBAL",1)
+END
+

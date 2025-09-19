@@ -1,0 +1,11 @@
+IF
+  Global("BPPrep","LOCALS",0)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,CLERIC_IRONSKIN)
+    ApplySpell(Myself,CLERIC_CHAOTIC_COMMANDS)
+    ApplySpell(Myself,CLERIC_FREE_ACTION)
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    SetGlobal("BPPrep","LOCALS",1)
+    SetGlobalTimer("CHE","LOCALS",FIVE_ROUNDS)
+END

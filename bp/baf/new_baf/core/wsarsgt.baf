@@ -1,0 +1,1148 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  Global("BPCHARM","LOCALS",1)
+  !StateCheck(Myself,STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCHARM","LOCALS",0)
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  OR(2)
+    Heard([NEUTRAL],79)
+    Heard([EVILCUTOFF],79)
+  Allegiance(Myself,NEUTRAL)
+  !Global("BP_PlotMan","LOCALS",1)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  Global("BPCHARM","LOCALS",1)
+  !StateCheck(Myself,STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCHARM","LOCALS",0)
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !Allegiance(Myself,PC)
+  OR(2)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+THEN
+  RESPONSE #100
+    Enemy()
+    Shout(151)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !Allegiance(Myself,GOODCUTOFF)
+  OR(2)
+    HitBy([GOODCUTOFF],CRUSHING)
+    Allegiance(LastHitter(Myself),GOODCUTOFF)
+THEN
+  RESPONSE #100
+    Shout(151)
+    Enemy()
+END
+
+//////////////CLOUDLIKE  EFFECTS//////////////////////
+
+IF
+  CheckStat(Myself,11,180) // I'm in a stinking cloud
+  CheckStatGT(Myself,5,INT)
+  !StateCheck(Myself,STATE_SLEEPING) // not yet affected
+  CheckStatGT(Myself,4,SAVEVSSPELL) //and I got a reasonable chance of failing a save throw (25%+)
+  OR(2)
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStatGT(Myself,11,180) // I'm in a web,entangle, or grease spell
+  CheckStatLT(Myself,15,180)
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,1,131) // I don't have free action
+  CheckStatLT(Myself,1,WEB) //and not webbed up
+  CheckStatLT(Myself,1,ENTANGLE) //nor entangled --I can move
+  CheckStatGT(Myself,4,SAVEVSSPELL) //and I got a reasonable chance of failing a save throw (25%+)
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,15,180) // I'm in an Ice Storm
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTCOLD) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,16,180) // I'm in a Cloudkill or Death Fog
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTPOISON) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,17,180) // I'm in a Death Fog
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTACID) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,18,180) // Incendiary Cloud, Meteor Swarm or Fire Storm -- bad stuff
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTFIRE) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+// This is to try and keep them from going back in to whomp somebody
+IF
+  CheckStatLT(Myself,11,180) // No longer in the cloud effects
+  CheckStatGT(Myself,5,INT)
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  !Range(LastSeenBy(Myself),16)
+  Exists([EVILCUTOFF])
+  !Range(NearestEnemyOf(Myself),2)
+THEN
+  RESPONSE #100
+    EquipRanged()  //use your bow, then
+    SmallWait(3)
+    Continue()
+END
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+
+IF
+  OR(2)
+    !Allegiance(Myself,EVILCUTOFF)
+    !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+END
+
+IF
+  TargetUnreachable(LastSeenBy(Myself))
+  Delay(3)
+THEN
+  RESPONSE #100
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  Range(NearestEnemyOf(Myself),2)
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(NearestEnemyOf(Myself),0,125)
+THEN
+  RESPONSE #70
+    RunAwayFrom(NearestEnemyOf(Myself),4)
+  RESPONSE #30
+    Continue()
+END
+
+IF
+  HasItem("potn55",Myself)  // ~Potion of Superior Healing~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,60)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("potn55",Myself)  // ~Potion of Superior Healing~
+END
+
+IF
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,70)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  HasItem("scrl61",Myself)  // ~Cure Critical Wounds~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  CheckStatGT(Myself,11,INT)
+  HPPercentLT(Myself,70)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    UseItem("scrl61",Myself)  // ~Cure Critical Wounds~
+END
+
+IF
+  HasItem("POTN08",Myself)  // ~Potion of Healing~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,85)
+  RandomNumLT(201,80)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("POTN08",Myself)  // ~Potion of Healing~
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+END
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,35)
+  CheckStatGT(Myself,7,INT)
+  !HasItem("POTN55",Myself)
+  !HasItem("POTN52",Myself)
+  !GlobalTimerNotExpired("BPW","LOCALS")
+  Range([EVILCUTOFF],15)
+THEN
+  RESPONSE #80
+    SetGlobalTimer("BPW","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,72808)
+    Shout(123)
+  RESPONSE #20
+    Continue()
+END
+
+IF
+  StateCheck(Myself,STATE_POISONED)
+  HasItem("potn17",Myself)  // ~Elixir of Health~
+  !GlobalTimerNotExpired("POT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("potn17",Myself)  // ~Elixir of Health~
+END
+
+IF
+  StateCheck(Myself,STATE_POISONED)
+  HasItem("potn20",Myself)  // ~Antidote~
+  !GlobalTimerNotExpired("POT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("potn20",Myself)  // ~Antidote~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL08",Myself)  // ~Protection from Poison~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  OR(2)
+    StateCheck(Myself,STATE_POISONED)
+    Heard([ANYONE],83)
+  CheckStatGT(Myself,11,INT)
+  RandomNumLT(9,5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL08",Myself)  // ~Protection from Poison~
+END
+
+IF
+  ActionListEmpty()
+  StateCheck(Myself,STATE_POISONED)
+  CheckStatGT(Myself,7,INT)
+  Range([EVILCUTOFF],15)
+  !GlobalTimerNotExpired("POIS","LOCALS")
+  !HasItem("POTN17",Myself)
+  !HasItem("POTN20",Myself)
+THEN
+  RESPONSE #100
+    Shout(83)
+    DisplayStringHead(Myself,@1)
+    SetGlobalTimer("POIS","LOCALS",ONE_ROUND)
+END
+
+IF
+  ActionListEmpty()
+  HasItem("mage01",Myself)  // ~Ring of Invisibility ~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  !StateCheck(Myself,STATE_INVISIBLE)
+  RandomNum(3,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    UseItem("mage01",Myself)  // ~Ring of Invisibility ~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1H",Myself)  // ~Haste~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(5,3)
+  CheckStatGT(Myself,11,INT)
+  !StateCheck(Myself,STATE_HASTED)
+  CheckStat(Myself,0,IMPROVEDHASTE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    Spell(Myself,WIZARD_HASTE)
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1N",Myself)  // ~Protection From Normal Missiles~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStatGT(Myself,11,INT)
+  CheckStat(Myself,0,179)
+  OR(2)
+    !Range(NearestEnemyOf(Myself),6)
+    AttackedBy([GOODCUTOFF],RANGED)
+  RandomNumLT(7,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL1N",Myself)  // ~Protection From Normal Missiles~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1T",Myself)  // ~Ghost Armor~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStatGT(Myself,11,INT)
+  CheckStatLT(Myself,4,SCRIPTINGSTATE5)
+  CheckStatGT(Myself,2,ARMORCLASS)
+  RandomNumLT(11,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL1T",Myself)  // ~Ghost Armor~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("POTN06",Myself)  // ~Potion of Cloud Giant Strength~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  RandomNumLT(13,5)
+  CheckStatLT(Myself,23,STR)
+  OR(4)
+    Class(Myself,FIGHTER_ALL)
+    Class(Myself,PALADIN_ALL)
+    Class(Myself,RANGER_ALL)
+    Class(Myself,MONK)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("POTN06",Myself)  // ~Potion of Cloud Giant Strength~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL98",Myself)  // ~Strength~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(12,4)
+  CheckStatGT(Myself,11,INT)
+  CheckStatLT(Myself,2,SCRIPTINGSTATE6)
+  CheckStatLT(Myself,18,STR)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL98",Myself)  // ~Strength~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL96",Myself)  // ~Mirror Image~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(6,4)
+  CheckStatGT(Myself,11,INT)
+  OR(6)
+    Range([GOODCUTOFF.0.0.THIEF_ALL],4)
+    Range([GOODCUTOFF.0.0.FIGHTER_ALL],4)
+    Range([GOODCUTOFF.0.0.PALADIN_ALL],4)
+    Range([GOODCUTOFF.0.0.MONK],4)
+    Exists([GOODCUTOFF.0.0.RANGER_ALL])
+    HitBy([ANYONE],MISSILE)
+  !StateCheck(Myself,STATE_MIRRORIMAGE)
+  !StateCheck(Myself,STATE_BLUR)
+  !StateCheck(Myself,0x400010)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL96",Myself)  // ~Mirror Image~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL93",Myself)  // ~Luck~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStatGT(Myself,11,INT)
+  RandomNum(4,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL93",Myself)  // ~Luck~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1E",Myself)  // ~Dispel Magic~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(48,17)
+  !CombatCounter(0)
+  CheckStatGT(Myself,11,INT)
+  CheckStat(Myself,0,121)
+  CheckStat(Myself,0,122)
+  CheckStat(Myself,0,118)
+  CheckStat(Myself,0,131)
+  OR(8)
+    StateCheck([EVILCUTOFF],STATE_CONFUSED)
+    StateCheck([EVILCUTOFF],STATE_SILENCED)
+    StateCheck([EVILCUTOFF],STATE_HELPLESS)
+    StateCheck([EVILCUTOFF],STATE_BLIND)
+    StateCheck([EVILCUTOFF],STATE_STUNNED)
+    StateCheck([EVILCUTOFF],STATE_SLOWED)
+    StateCheck([EVILCUTOFF],STATE_SLEEPING)
+    StateCheck([EVILCUTOFF],STATE_FEEBLEMINDED)
+  OR(2)
+    !Range([EVILCUTOFF],15)
+    !HasImmunityEffects(Myself)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL1E",[EVILCUTOFF])  // ~Dispel Magic~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL5D",Myself)  // ~Protection from Evil 10' radius~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(8,3)
+  Exists([GOODCUTOFF.0.0.0.0.0.MASK_EVIL])
+  Range([EVILCUTOFF],10)
+  CheckStat(Myself,0,117)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL5D",Myself)  // ~Protection from Evil 10' radius~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL78",Myself)  // ~Protection From Evil~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNum(5,1)
+  Exists(NearestEnemyOfType([0.0.0.0.0.0.MASK_EVIL]))
+  CheckStat(Myself,0,117)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL78",Myself)  // ~Protection From Evil~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("POTN36",Myself)  // ~Potion of Master Thievery~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(14,4)
+  Class(Myself,THIEF_ALL)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    UseItem("POTN36",Myself)  // ~Potion of Master Thievery~
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+END
+
+
+IF
+  ActionListEmpty()
+  HitBy([GOODCUTOFF],CRUSHING)
+  CheckStatGT(Myself,7,INT)
+  !GlobalTimerNotExpired("RANG","LOCALS")
+  !StateCheck(Myself,STATE_POISONED)
+  OR(2)
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+  !Range(LastSeenBy(Myself),5)
+  !TargetUnreachable(LastSeenBy(Myself))
+  !InWeaponRange(LastSeenBy(Myself))
+  HPGT(LastSeenBy(Myself),0)
+THEN
+  RESPONSE #50
+    DisplayStringHead(Myself,@3)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #50
+    DisplayStringHead(Myself,@4)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #25
+    DisplayStringHead(Myself,@5)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #25
+    DisplayStringHead(Myself,@6)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #50
+    DisplayStringHead(Myself,@7)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+    MoveToObject(LastSeenBy(Myself))
+    AttackReevaluate(LastSeenBy(Myself),180)
+END
+
+IF
+  OR(3)
+    !Race(NearestEnemyOf(Myself),MORNINGSTAR)
+    !Class(NearestEnemyOf(Myself),FAIRY_NYMPH)
+    !Specifics(NearestEnemyOf(Myself),65)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(28,22)
+  OR(4)
+    See([GOODCUTOFF.0.0.0.0.SUMMONED_DEMON])
+    See([GOODCUTOFF.0.0.0.0.SUMMONED])
+    See([GOODCUTOFF.0.0.0.SIMULACRUM])
+    See([GOODCUTOFF.0.0.0.0.ILLUSIONARY])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(31,26)
+  OR(6)
+    See(NearestEnemyOf(Myself))
+    See(WeakestOf)
+    See(WorstAC)
+    See(MostDamagedOf)
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  OR(3)
+    Allegiance(LastSeenBy(Myself),ENEMY)
+    Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+    Allegiance(LastSeenBy(Myself),GOODBUTRED)
+THEN
+  RESPONSE #100
+END
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+THEN
+  RESPONSE #80
+    Continue()
+  RESPONSE #20
+END
+
+
+
+
+IF
+  ActionListEmpty()
+  StateCheck(Myself,0x00400010)
+  Class(Myself,THIEF_ALL)
+  HPPercentGT(Myself,25)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",12)
+    EquipMostDamagingMelee()
+    MoveToObject(LastSeenBy(Myself))
+    FollowObjectFormation(LastSeenBy(Myself),1,3)
+    SmallWait(5)
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  CheckStatGT(Myself,0,SCRIPTINGSTATE4)
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+
+
+IF
+  RandomNumLT(29,23)
+  OR(7)
+    See([PC.0.0.RANGER_ALL])
+    See([PC.0.0.PALADIN_ALL])
+    See([PC.0.0.BARD_ALL])
+    See([PC.0.0.DRUID_ALL])
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See([PC.0.0.SORCERER])
+  RandomNumLT(30,16)
+  See(Protagonist)
+  RandomNumLT(26,10)
+  OR(4)
+    See([GOODCUTOFF.0.0.RANGER_ALL])
+    See([GOODCUTOFF.0.0.DRUID_ALL])
+    See([GOODCUTOFF.0.0.PALADIN_ALL])
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+  RandomNumLT(27,10)
+  OR(3)
+    See([GOODCUTOFF.0.0.MONK])
+    See([GOODCUTOFF.0.0.BARD_ALL])
+    See([GOODCUTOFF.0.0.THIEF_ALL])
+  RandomNumLT(32,11)
+  OR(2)
+    See(TenthNearest([GOODCUTOFF.0.0.LONG_BOW]))
+    See(TenthNearest([GOODCUTOFF.0.0.SORCERER]))
+  RandomNumLT(20,8)
+  See(TenthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL9R",Myself)  // ~Time Stop~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(37,29)
+  CheckStatGT(Myself,11,INT)
+  HPPercentLT(Myself,70)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL9R",Myself)  // ~Time Stop~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL7H",Myself)  // ~Flesh to Stone~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(48,26)
+  CheckStat(LastSeenBy(Myself),0,129)
+  CheckStat(LastSeenBy(Myself),0,176)
+  CheckStatGT(LastSeenBy(Myself),5,SAVEVSSPELL)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL7H",LastSeenBy(Myself))  // ~Flesh to Stone~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1P",Myself)  // ~Skull Trap~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(48,30)
+  CheckStatGT(Myself,11,INT)
+  !Range(LastSeenBy(Myself),15)
+  OR(4)
+    !Exists(NearestMyGroupOfType)
+    Range(NearestMyGroupOfType,3)
+    CheckStatGT(NearestMyGroupOfType,49,RESISTMAGIC)
+    CheckStatGT(NearestMyGroupOfType,49,MAGICDAMAGERESISTANCE)
+  OR(4)
+    !Exists(SecondNearestMyGroupOfType)
+    !Range(SecondNearestMyGroupOfType,4)
+    CheckStatGT(SecondNearestMyGroupOfType,49,RESISTMAGIC)
+    CheckStatGT(SecondNearestMyGroupOfType,49,MAGICDAMAGERESISTANCE)
+  OR(4)
+    !Exists(ThirdNearestMyGroupOfType)
+    !Range(ThirdNearestMyGroupOfType,4)
+    CheckStatGT(ThirdNearestMyGroupOfType,49,RESISTMAGIC)
+    CheckStatGT(ThirdNearestMyGroupOfType,49,MAGICDAMAGERESISTANCE)
+  !StateCheck(LastSeenBy(Myself),0x400010)
+  CheckStatLT(LastSeenBy(Myself),76,MAGICDAMAGERESISTANCE)
+  CheckStatGT(LastSeenBy(Myself),5,SAVEVSSPELL)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL1P",LastSeenBy(Myself))  // ~Skull Trap~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("wand04",Myself)  // ~Wand of Paralyzation ~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(57,20)
+  CheckStatGT(Myself,8,INT)
+  !StateCheck(LastSeenBy(Myself),0x102029) // STATE_HARMLESS
+  CheckStatLT(LastSeenBy(Myself),1,131) // Free Action
+  CheckStatLT(LastSeenBy(Myself),1,HELD)
+  CheckStatLT(LastSeenBy(Myself),1,WEB)
+  CheckStatLT(LastSeenBy(Myself),1,ENTANGLE)
+  CheckStatGT(LastSeenBy(Myself),5,SAVEVSSPELL)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,31971)  // ~uses a wand~
+    UseItem("wand04",LastSeenBy(Myself))  // ~Wand of Paralyzation ~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1E",Myself)  // ~Dispel Magic~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+    RandomNumLT(177,129)
+  OR(2)
+    !Range(LastSeenBy(Myself),15)
+    !HasImmunityEffects(Myself)
+  OR(8)
+    StateCheck(LastSeenBy(Myself),STATE_HASTED)
+    StateCheck(LastSeenBy(Myself),STATE_BLESS)
+    StateCheck(LastSeenBy(Myself),STATE_CHANT)
+    StateCheck(LastSeenBy(Myself),STATE_DRAWUPONHOLYMIGHT)
+    StateCheck(LastSeenBy(Myself),STATE_LUCK)
+    StateCheck(LastSeenBy(Myself),STATE_AID)
+    StateCheck(LastSeenBy(Myself),STATE_MIRRORIMAGE)
+    StateCheck(LastSeenBy(Myself),STATE_BLUR)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL1E",LastSeenBy(Myself))  // ~Dispel Magic~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1F",Myself)  // ~Flame Arrow~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(113,63)
+  CheckStatGT(Myself,11,INT)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTFIRE)
+  CheckStatGT(LastSeenBy(Myself),5,SAVEVSSPELL)
+  CheckStatLT(LastSeenBy(Myself),1,129) // Spell Turning 
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL1F",LastSeenBy(Myself))  // ~Flame Arrow~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL1L",Myself)  // ~Monster Summoning I~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(51,26)
+  CheckStatGT(Myself,11,INT)
+  NumCreatureVsPartyLT([EVILCUTOFF.0.0.0.0.SUMMONED],7)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL1L",LastSeenBy(Myself))  // ~Monster Summoning I~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL89",Myself)  // ~Horror~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(116,59)
+  CheckStatGT(Myself,11,INT)
+  !StateCheck(LastSeenBy(Myself),STATE_PANIC)
+  CheckStat(LastSeenBy(Myself),0,178)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL89",LastSeenBy(Myself))  // ~Horror~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL97",Myself)  // ~Stinking Cloud~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(66,33)
+  CheckStatGT(Myself,11,INT)
+  !Range(LastSeenBy(Myself),15)
+  OR(4)
+    !Exists(NearestMyGroupOfType)
+    Range(NearestMyGroupOfType,4)
+    CheckStatGT(NearestMyGroupOfType,9,SAVEVSDEATH)
+    CheckStatGT(NearestMyGroupOfType,49,RESISTMAGIC)
+  OR(4)
+    !Exists(SecondNearestMyGroupOfType)
+    Range(SecondNearestMyGroupOfType,4)
+    CheckStatGT(SecondNearestMyGroupOfType,9,SAVEVSDEATH)
+    CheckStatGT(SecondNearestMyGroupOfType,49,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  !StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  CheckStatGT(LastSeenBy(Myself),5,SAVEVSDEATH)
+  !StateCheck(LastSeenBy(Myself),270381)
+  !StateCheck(LastSeenBy(Myself),0x80100000)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL97",LastSeenBy(Myself))  // ~Stinking Cloud~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL66",Myself)  // ~Grease~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(68,33)
+  !Range(LastSeenBy(Myself),15)
+  CheckStatGT(Myself,11,INT)
+  OR(4)
+    !Exists(NearestMyGroupOfType)
+    Range(NearestMyGroupOfType,4)
+    CheckStatGT(NearestMyGroupOfType,0,131)
+    CheckStatGT(NearestMyGroupOfType,49,RESISTMAGIC)
+  OR(4)
+    !Exists(SecondNearestMyGroupOfType)
+    Range(SecondNearestMyGroupOfType,4)
+    CheckStatGT(SecondNearestMyGroupOfType,0,131)
+    CheckStatGT(SecondNearestMyGroupOfType,49,RESISTMAGIC)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  !StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  CheckStatLT(LastSeenBy(Myself),1,GREASE)
+  CheckStatLT(LastSeenBy(Myself),1,ENTANGLE)
+  CheckStatLT(LastSeenBy(Myself),1,HELD)
+  CheckStatGT(LastSeenBy(Myself),14,180) //--similar/same effects as grease
+  !StateCheck(LastSeenBy(Myself),STATE_SLOWED)    
+  CheckStatGT(LastSeenBy(Myself),5,SAVEVSSPELL)
+  CheckStatLT(LastSeenBy(Myself),1,131) //Free Action
+  CheckStat(LastSeenBy(Myself),0,MINORGLOBE)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL66",LastSeenBy(Myself))  // ~Grease~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL83",Myself)  // ~Chromatic Orb~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(71,36)
+  CheckStatGT(Myself,10,INT)
+  CheckStat(LastSeenBy(Myself),0,129)
+  CheckStatGT(LastSeenBy(Myself),10,SAVEVSSPELL)
+  CheckStat(LastSeenBy(Myself),0,MINORGLOBE)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL83",LastSeenBy(Myself))  // ~Chromatic Orb~
+END
+
+IF
+  ActionListEmpty()
+  HasItem("SCRL69",Myself)  // ~Charm Person~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(118,60)
+  CheckStatGT(Myself,10,INT)
+  !StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+  CheckStat(LastSeenBy(Myself),0,129) //spell turn
+  CheckStat(LastSeenBy(Myself),0,119) //chaotic command
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46153)  // ~uses a scroll~
+    UseItem("SCRL69",LastSeenBy(Myself))  // ~Charm Person~
+END
+
+
+
+IF
+  RandomNumLT(24,9)
+  OR(3)
+    See(StrongestOf)
+    See(BestAC)
+    See(LeastDamagedOf)
+  RandomNumLT(25,9)
+  See(WeakestOf)
+  RandomNumLT(23,8)
+  See(WorstAC)
+  RandomNumLT(21,8)
+  See(MostDamagedOf)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(32,25)
+  OR(3)
+    Heard(ThirdNearestMyGroupOfType([EVILCUTOFF]),124)
+    Heard(SecondNearestMyGroupOfType([EVILCUTOFF]),124)
+    Heard(NearestMyGroupOfType([EVILCUTOFF]),124)
+  HPGT(LastHeardBy(Myself),1)
+  Range(LastHeardBy(Myself),20)
+  Exists(LastAttackerOf(LastHeardBy(Myself)))
+  !Allegiance(LastAttackerOf(LastHeardBy(Myself)),EVILCUTOFF)
+  !StateCheck(LastAttackerOf(LastHeardBy(Myself)),STATE_CHARMED)
+  OR(3)
+    !Race(LastAttackerOf(LastHeardBy(Myself)),MORNINGSTAR)
+    !Class(LastAttackerOf(LastHeardBy(Myself)),FAIRY_NYMPH)
+    !Specifics(LastAttackerOf(LastHeardBy(Myself)),65)
+  OR(3)  
+    !StateCheck(LastAttackerOf(LastHeardBy(Myself)),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  See(LastAttackerOf(LastHeardBy(Myself)))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(33,13)
+  HitBy([0],0x0000)
+  !Allegiance(LastHitter(Myself),EVILCUTOFF)
+  !StateCheck(LastHitter(Myself),STATE_CHARMED)
+  OR(3)
+    !Race(LastHitter(Myself),MORNINGSTAR)
+    !Class(LastHitter(Myself),FAIRY_NYMPH)
+    !Specifics(LastHitter(Myself),65)
+  OR(3)  
+    !StateCheck(LastHitter(Myself),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  See(LastHitter(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumGT(33,22)
+  AttackedBy([0],DEFAULT)
+  !Allegiance(LastAttackerOf(Myself),EVILCUTOFF)
+  !StateCheck(LastAttackerOf(Myself),STATE_CHARMED)
+  OR(3)
+    !Race(LastAttackerOf(Myself),MORNINGSTAR)
+    !Class(LastAttackerOf(Myself),FAIRY_NYMPH)
+    !Specifics(LastAttackerOf(Myself),65)
+  OR(3)  
+    !StateCheck(LastAttackerOf(Myself),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("BPW","LOCALS")
+  OR(2)
+    General(Myself,GIANTHUMANOID)
+    General(Myself,HUMANOID)
+  CheckStatGT(Myself,7,INT)
+  HPPercentLT(Myself,25)
+  Range(LastHitter(Myself),10)
+  OR(3)
+    !Race(LastHitter(Myself),MORNINGSTAR)
+    !Class(LastHitter(Myself),FAIRY_NYMPH)
+    !Specifics(LastHitter(Myself),65)
+THEN
+  RESPONSE #30
+    DisplayStringHead(Myself,49767)
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    RunAwayFrom(LastHitter(Myself),40)
+  RESPONSE #30
+    DisplayStringHead(Myself,49765)
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    AttackReevaluate(LastHitter(Myself),15)
+  RESPONSE #40
+    DisplayStringHead(Myself,49766)
+    Shout(123)
+    SetGlobalTimer("BPW","LOCALS",10)
+    AttackReevaluate(LastSeenBy(Myself),15)
+  RESPONSE #25
+    DisplayStringHead(Myself,@11)
+    SetGlobalTimer("BPW","LOCALS",10)
+    Attack(LastHitter(Myself))
+END
+
+IF
+  ActionListEmpty()
+  !GlobalTimerNotExpired("BPW","LOCALS")
+  !General(Myself,GIANTHUMANOID)
+  !General(Myself,HUMANOID)
+  CheckStatGT(Myself,7,INT)
+  HPPercentLT(Myself,25)
+  Range(LastHitter(Myself),10)
+  OR(3)
+    !Race(LastHitter(Myself),MORNINGSTAR)
+    !Class(LastHitter(Myself),FAIRY_NYMPH)
+    !Specifics(LastHitter(Myself),65)
+THEN
+  RESPONSE #30
+    DisplayStringHead(Myself,@8)
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    RunAwayFrom(LastHitter(Myself),40)
+  RESPONSE #30
+    DisplayStringHead(Myself,@9)
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    AttackReevaluate(LastHitter(Myself),15)
+  RESPONSE #25
+    DisplayStringHead(Myself,@10)
+    SetGlobalTimer("BPW","LOCALS",10)
+    Attack(LastHitter(Myself))
+END
+
+IF
+  ActionListEmpty()
+  CheckStatGT(LastSeenBy(Myself),10,180)
+  CheckStatLT(Myself,11,180)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  OR(3)
+    !Range(NearestEnemyOf(Myself),5)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #25
+    Continue()
+  RESPONSE #75
+END
+
+IF
+  ActionListEmpty()
+  !Range(LastSeenBy(Myself),8)
+  OR(3)
+    !Race(NearestEnemyOf(Myself),MORNINGSTAR)
+    !Class(NearestEnemyOf(Myself),FAIRY_NYMPH)
+    !Specifics(NearestEnemyOf(Myself),65)
+THEN
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END

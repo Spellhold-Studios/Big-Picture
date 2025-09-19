@@ -1,0 +1,18 @@
+IF
+  Dead("Illasera")  // ~Illasera~
+  Global("IllaseraDeadRun","LOCALS",0)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,66488)  // ~Let's get out of here!!!~
+    SetGlobal("IllaseraDeadRun","LOCALS",1)
+    EscapeArea()
+END
+
+IF
+  Global("IllaseraHostile","GLOBAL",1)
+  Allegiance(Myself,NEUTRAL)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+

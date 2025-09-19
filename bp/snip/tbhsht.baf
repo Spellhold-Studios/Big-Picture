@@ -1,0 +1,8 @@
+IF
+  !Allegiance(Myself,ENEMY)
+  Heard([ANYONE],99)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+

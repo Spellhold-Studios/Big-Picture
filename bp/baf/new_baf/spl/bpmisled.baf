@@ -1,0 +1,88 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  !Range(LastSeenBy(Myself),15)
+  !AttackedBy([ANYONE],DEFAULT)
+THEN
+  RESPONSE #100
+    MoveToObject(LastSeenBy(Myself))
+END
+
+IF
+  Range(NearestEnemyOf(Myself),5)
+THEN
+  RESPONSE #100
+    RunAwayFrom(NearestEnemyOf(Myself),45)
+END
+
+IF
+  OR(2)
+    AttackedBy([ANYONE],DEFAULT)
+    HitBy([ANYONE],CRUSHING)
+THEN
+  RESPONSE #100
+    RunAwayFrom(LastAttackerOf(Myself),45)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  Detect([GOODCUTOFF.0.0.MAGE_ALL])
+  !Range(LastSeenBy(Myself),23)
+THEN
+  RESPONSE #100
+    MoveToObject(LastSeenBy(Myself))
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Detect([EVILCUTOFF.0.0.MAGE_ALL])
+  !Range(LastSeenBy(Myself),15)
+  !Range([GOODCUTOFF],8)
+THEN
+  RESPONSE #100
+    MoveToObject(LastSeenBy(Myself))
+END
+  
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Detect([EVILCUTOFF])
+  !Range(LastSeenBy(Myself),15)
+  !Range([GOODCUTOFF],3)
+THEN
+  RESPONSE #100
+    MoveToObject([EVILCUTOFF])
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  !ActionListEmpty()
+  Allegiance(Myself,GOODCUTOFF)
+  !Clicked(Myself)
+  Delay(9)
+THEN
+  RESPONSE #100
+    ClearActions(Myself)
+	Continue()
+END
+
+IF
+  ActionListEmpty()
+  Allegiance(Myself,GOODCUTOFF)
+  Delay(6)
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+

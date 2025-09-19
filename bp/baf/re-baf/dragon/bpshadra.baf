@@ -1,0 +1,228 @@
+IF
+  Global("ThaxInit","LOCALS",0)
+THEN
+  RESPONSE #100
+    ForceSpell(Myself,DRAGON_STONE_SKIN)
+    SetGlobalTimer("ThaxStone","GLOBAL",TWO_HOURS)
+    SetGlobalTimer("SHADOWDRAGONBREATH","GLOBAL",THREE_ROUNDS)
+    SetGlobalTimer("Cast","LOCALS",0)
+    EquipMostDamagingMelee()
+    SetGlobal("ThaxInit","LOCALS",1)
+END
+
+IF
+  CheckStatLT(Myself,1,STONESKINS)
+  GlobalTimerExpired("ThaxStone","GLOBAL")
+THEN
+  RESPONSE #100
+    ForceSpell(Myself,DRAGON_STONE_SKIN)
+    SetGlobalTimer("ThaxStone","GLOBAL",TWO_HOURS)
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("SHADOWDRAGONBREATH","GLOBAL")
+  Range(NearestEnemyOf(Myself),30)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("SHADOWDRAGONBREATH","GLOBAL",THREE_ROUNDS)
+    ReallyForceSpell(NearestEnemyOf(Myself),SHADOW_DRAGON_BREATH)
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  Range(NearestEnemyOf(Myself),30)
+THEN
+  RESPONSE #100
+    ForceSpell(NearestEnemyOf(Myself),DRAGON_WING_BUFFET)
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  Allegiance(Myself,ENEMY)
+  Global("ThaxProt","LOCALS",0)
+  GlobalTimerExpired("Cast","LOCALS")
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec(Myself,PROTECTION_MAGIC_WEAPON_NOEFF)
+    SetGlobal("ThaxProt","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  Detect(StrongestOf)
+  Global("ThaxRemove","LOCALS",0)
+  GlobalTimerExpired("Cast","LOCALS")
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec(StrongestOf,WIZARD_REMOVE_MAGIC)
+    SetGlobal("ThaxRemove","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Detect([PC])
+  CheckStatLT([PC],9,LEVEL)
+  CheckStatLT([PC],9,LEVEL2)
+  CheckStatLT([PC],9,LEVEL3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec([PC],WIZARD_DEATH_SPELL)
+    SetGlobal("ThaxDeath","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Detect(StrongestOf)
+  Global("ThaxGreater","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec(StrongestOf,WIZARD_GREATER_MALISON)
+    SetGlobal("ThaxGreater","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  Detect(WeakestOf)
+  Global("ThaxFear","LOCALS",0)
+THEN
+  RESPONSE #100
+    ReallyForceSpell(WeakestOf,DRAGON_FEAR)
+    SetGlobal("ThaxFear","LOCALS",1)
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Detect(WeakestOf)
+  Global("ThaxChaos","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec(WeakestOf,WIZARD_CHAOS)
+    SetGlobal("ThaxChaos","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Detect([PC])
+  CheckStatGT([PC],6,SAVEVSSPELL)
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec([PC],WIZARD_CHROMATIC_ORB)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Detect(SecondNearest([PC]))
+  CheckStatGT(SecondNearest([PC]),6,SAVEVSSPELL)
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec(SecondNearest([PC]),WIZARD_CHROMATIC_ORB)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Detect(ThirdNearest([PC]))
+  CheckStatGT(ThirdNearest([PC]),6,SAVEVSSPELL)
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec(ThirdNearest([PC]),WIZARD_CHROMATIC_ORB)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  Global("ThaxHaste","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SetGlobalTimer("Cast","LOCALS",ONE_ROUND)
+    SpellNoDec(Myself,WIZARD_HASTE)
+    SetGlobal("ThaxHaste","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !Detect(NearestEnemyOf(Myself))
+  CombatCounter(0)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26703)  // ~Damn, where are they?~
+    ForceSpell(Myself,CLERIC_HEAL)
+    SetGlobal("ThaxRemove","LOCALS",0)
+    SetGlobal("ThaxDeath","LOCALS",0)
+    SetGlobal("ThaxGreater","LOCALS",0)
+    SetGlobal("ThaxFear","LOCALS",0)
+    SetGlobal("ThaxChaos","LOCALS",0)
+    SetGlobal("ThaxHaste","LOCALS",0)
+    SetGlobal("ThaxProt","LOCALS",0)
+    Attack(WeakestOf)
+    Attack(WeakestOf)
+END
+
+IF
+  ActionListEmpty()
+  Allegiance(Myself,ENEMY)
+  !GlobalTimerNotExpired("Feast","LOCALS")
+THEN
+  RESPONSE #100
+    DisplayString(Myself,61745)  // ~ I shall feast on your heart!~ [VAMPFX05]
+    SetGlobalTimer("Feast","LOCALS",TWO_ROUNDS)
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #100
+    AttackOneRound(NearestEnemyOf(Myself))
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #100
+    AttackOneRound(NearestEnemyOf(Myself))
+    AttackOneRound(NearestEnemyOf(Myself))
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #100
+    Attack(NearestEnemyOf(Myself))
+END
+
+IF
+  NumberOfTimesTalkedTo(0)
+  OR(3)
+    !PartyHasItem("MISC6P")  // ~Shadow Dragon Wardstone~
+    AttackedBy([ANYONE],DEFAULT)
+    SpellCastOnMe([GOODCUTOFF],0)
+THEN
+  RESPONSE #100
+    StartDialogNoSet([PC])
+    ChangeAIScript("shadra01",DEFAULT)
+    Enemy()
+END
+

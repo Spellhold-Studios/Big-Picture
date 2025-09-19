@@ -1,0 +1,16 @@
+IF
+  OnCreation()
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Global("BP_MoreStooges","AR2801",0)
+THEN
+  RESPONSE #100
+    CreateCreature("SURAKMAH",[330.430],15)
+    CreateCreature("SURAKSHA",[160.330],0)
+    CreateCreature("SURAKRUH",[265.470],14)
+    SetGlobal("BP_MoreStooges","AR2801",1)
+END
+

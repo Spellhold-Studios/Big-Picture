@@ -1,0 +1,18 @@
+IF
+  OR(3)
+    Opened([GOODCUTOFF])
+    Entered([GOODCUTOFF])
+    IsOverMe([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    DisplayStringHead(LastTrigger,14381)  // ~Trap Sprung~ [AMB_D05C]
+    PlaySound("GASTEM01")
+    SmallWait(5)
+    ForceSpell(LastTrigger,COM_STEAM)
+    PlaySound("GASTEM02")
+    SmallWait(1)
+    PlaySound("GASTEM03")
+    SmallWait(1)
+    PlaySound("GASTEM04")
+END
+

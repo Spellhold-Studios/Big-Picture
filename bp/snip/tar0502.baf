@@ -1,0 +1,14 @@
+IF
+  Global("TannerIsToDie","AR0502",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("TANTUGN1",[589.652],2)
+    CreateCreature("TANTUGN1",[708.518],2)
+    CreateCreature("TANTUGN1",[174.473],2)
+    CreateCreature("TANTUGN1",[522.541],2)
+    CreateCreature("TANTUGN1",[471.471],2)
+    CreateCreature("TANTUGN1",[783.528],2)
+    SetGlobal("TannerIsToDie","AR0502",1)
+END
+

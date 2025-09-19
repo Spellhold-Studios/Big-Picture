@@ -1,0 +1,52 @@
+IF
+	OnCreation()
+	Global("JustEntered","AR6005",0)
+THEN
+	RESPONSE #100
+		SetGlobal("JustEntered","AR6005",1)
+		CreateCreature("DRAKE01",[706.1084],0)
+		CreateCreature("DRAKE02",[1181.1096],0)
+		CreateCreature("DRAKE03",[1575.997],0)
+		CreateCreature("DRAKE04",[1618.669],0)
+		CreateCreature("ABAZDG02",[1224.1287],0)
+END
+
+IF
+	Global("DisableExit","AR6005",0)
+THEN
+	RESPONSE #100
+		SetGlobal("DisableExit","AR6005",1)
+		TriggerActivation("Tran6004",FALSE)
+		TriggerActivation("Info6004",TRUE)
+END
+
+IF
+	Dead("Abazigal")
+	CombatCounter(0)
+	Global("HadBhaal25Dream2","GLOBAL",0)
+THEN
+	RESPONSE #100
+		ClearAllActions()
+		TriggerActivation("Tran6004",TRUE)
+		TriggerActivation("Info6004",FALSE)
+		SetGlobal("HadBhaal25Dream2","GLOBAL",1)
+		StartCutSceneMode()
+		StartCutScene("cut234a")
+END
+
+IF
+	Dead("Abazigal")
+	Dead("Sendai")
+	CombatCounter(0)
+	Global("HadBhaal25Dream2","GLOBAL",1)
+	Global("HadBhaal25Dream3","GLOBAL",0)
+THEN
+	RESPONSE #100
+		ClearAllActions()
+		TriggerActivation("Tran6004",TRUE)
+		TriggerActivation("Info6004",FALSE)
+		SetGlobal("HadBhaal25Dream3","GLOBAL",1)
+		StartCutSceneMode()
+		StartCutScene("cut235a")
+END
+

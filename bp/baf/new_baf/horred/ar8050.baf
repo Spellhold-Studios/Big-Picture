@@ -1,0 +1,9 @@
+IF
+  AreaCheckObject("AR8050",Player1)
+  Global("BPArea8050Entered","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BPArea8050Entered","GLOBAL",1)
+    SetMasterArea("AR8050")
+END
+

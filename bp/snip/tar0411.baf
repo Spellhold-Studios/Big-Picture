@@ -1,0 +1,22 @@
+IF
+  !Difficulty(EASIEST)
+  Global("BP_MoreStooges","AR0411",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0411",1)
+    CreateCreature("golsto01",[1430.300],0)
+    CreateCreature("golcla01",[1650.600],5)
+END
+
+IF
+  !Difficulty(EASY)
+  Global("BP_MoreStooges","AR0411",1)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0411",2)
+    CreateCreature("golcla01",[1500.350],2)
+    CreateCreature("goliro01",[1650.600],3)
+    CreateCreature("obshal04",[425.700],0)
+    CreateCreature("obshal04",[600.725],0)
+END
+

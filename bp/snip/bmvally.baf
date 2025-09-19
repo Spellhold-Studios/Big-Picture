@@ -1,0 +1,21 @@
+IF
+  Global("MaeVarAllies","LOCALS",1)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("MaeVarAllies","LOCALS",2)
+    CreateCreatureOffScreen("THIEF8",0)
+    CreateCreatureOffScreen("THIEF8",0)
+END
+
+IF
+  Global("MaeVarAllies","LOCALS",2)
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("MaeVarAllies","LOCALS",3)
+    CreateCreatureOffScreen("DASSIN",0)
+    CreateCreatureOffScreen("DASSIN",0)
+END
+

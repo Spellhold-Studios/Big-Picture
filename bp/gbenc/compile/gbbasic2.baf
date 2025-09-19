@@ -1,0 +1,45 @@
+IF
+  OR(2)
+    Class(Myself,MAGE_ALL)
+    Class(Myself,CLERIC_ALL)
+  !InWeaponRange(NearestEnemyOf(Myself))
+  GlobalLT("GBMageLvl1","LOCALS",3)
+  GlobalLT("GBClericLvl1","LOCALS",4)
+THEN
+  RESPONSE #100
+END
+
+IF
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+  OR(2)
+    Range(LastSeenBy(Myself),8)
+    Class(Myself,THIEF_ALL)
+THEN
+  RESPONSE #75
+    DisplayStringHead(Myself,72409)  // ~Die!  For the Black Sun!!~
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #25
+    DisplayStringHead(Myself,72409)  // ~Die!  For the Black Sun!!~
+    EquipMostDamagingMelee()
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+  !Range(LastSeenBy(Myself),8)
+THEN
+  RESPONSE #75
+    DisplayStringHead(Myself,72409)  // ~Die!  For the Black Sun!!~
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #25
+    DisplayStringHead(Myself,72409)  // ~Die!  For the Black Sun!!~
+    EquipRanged()
+    Attack(LastSeenBy(Myself))
+END
+

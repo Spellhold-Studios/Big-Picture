@@ -1,0 +1,71 @@
+IF
+  OR(2)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    HitBy([GOODCUTOFF],CRUSHING)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Shout(151)
+    Enemy()
+END
+
+IF
+  !StateCheck(NearestEnemyOf(Myself),STATE_SLEEPING)
+  !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(4)
+    See(NearestEnemyOf(Myself))
+    See([GOODCUTOFF.0.0.FIGHTER_ALL])
+    See([GOODCUTOFF.0.0.RANGER_ALL])
+    See([GOODCUTOFF.0.0.PALADIN_ALL])
+  HaveSpell(PSIONIC_DOMINATION)
+  RandomNumLT(10,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),PSIONIC_DOMINATION)
+END
+
+IF
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See(MostDamagedOf)
+  HaveSpell(PSIONIC_DETONATE)
+  RandomNum(10,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),PSIONIC_DETONATE)
+END
+
+IF
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(4)
+    See(NearestEnemyOf(Myself))
+    See(Protagonist)
+    See(LastHitter(Myself))
+    See(StrongestOf)
+  !StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  HaveSpell(PSIONIC_EGOWHIP)
+  OR(2)
+    RandomNum(10,5)
+    RandomNum(10,6)
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),PSIONIC_EGOWHIP)
+END
+
+IF
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See(MostDamagedOf)
+  HaveSpell(PSIONIC_BALLISTIC)
+  RandomNum(10,7)
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),PSIONIC_BALLISTIC)
+END
+

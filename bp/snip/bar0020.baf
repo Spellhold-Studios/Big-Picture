@@ -1,0 +1,16 @@
+IF
+  !PartyHasItem("KEY60")
+  Global("BPArea8500Entered","GLOBAL",0)
+THEN
+  RESPONSE #100
+    TriggerActivation("TRAN8050",FALSE)
+END
+
+IF
+  PartyHasItem("KEY60")
+THEN
+  RESPONSE #100
+    TriggerActivation("TRAN8050",TRUE)
+    Continue()
+END
+

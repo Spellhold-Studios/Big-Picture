@@ -1,0 +1,24 @@
+IF
+  GlobalTimerExpired("BPWebBall","LOCALS")
+  GlobalLT("BPSpiderSpit","LOCALS",4)
+  OR(5)
+    Detect(NearestEnemyOf(Myself))
+    Detect(NearestEnemyOfType([0.0.0.THIEF_ALL]))
+    Detect(NearestEnemyOfType([0.0.0.CLERIC_ALL]))
+    Detect(NearestEnemyOfType([0.0.0.FIGHTER_ALL]))
+    Detect(NearestEnemyOfType([0.0.0.LONG_BOW]))
+THEN
+  RESPONSE #100
+    IncrementGlobal("BPSpiderSpit","LOCALS",1)
+    SetGlobalTimer("BPWebBall","LOCALS",60)
+    ForceSpell(LastSeenBy(Myself),FIGURINE_SPIDER_WEB)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    AttackOneRound(NearestEnemyOf(Myself))
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+END
+

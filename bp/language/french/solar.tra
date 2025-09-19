@@ -1,0 +1,180 @@
+@0    = ~Je te salue, enfant de Bhaal, toi qui es fait de sang divin. Je t'attendais.~ [SOLAR06]
+@1    = ~Qui es-tu ?~
+@2    = ~Où suis-je ? Je rêve ?~
+@3    = ~Pourquoi m'as-tu fait venir ici ? Réponds, ou tu vas subir ma colère !~
+@4    = ~J'existe depuis que la première ficelle du destin a été tissée, servante des dieux et de leurs voies. J'ai suivi la tienne avec une grande attention.~ [SOLAR07]
+@5    = ~Comment définirais-tu un rêve ? Comme un chemin éphémère sans véritable substance... alors ce n'est pas un rêve. Je t'ai fait venir ici, et ce lieu est réel.~ [SOLAR08]
+@6    = ~Qui es-tu ?~
+@7    = ~Pourquoi m'avoir fait venir ici ?~
+@8    = ~Notre serviteur mortel, Alaundo, a proclamé la vérité qui est devenue prophétie. Elle parle de ta venue et de tous les autres qui sont la progéniture de Bhaal.~ [SOLAR09]
+@9    = ~L'essence du divin repose dans tous les enfants de Bhaal, et le temps de leur réunion est proche. Je suis ici pour t'aider, enfant divin.~ [SOLAR10]
+@10   = ~M'aider ? Comment ?~
+@11   = ~Que sais-tu de la prophétie, exactement ?~
+@12   = ~Quel est cet endroit ?~
+@13   = ~Comment puis-je savoir qu'il ne s'agit pas d'une ruse ?!~
+@14   = ~La progéniture de Bhaal est nombreuse... et elle s'éteint très vite, sa flamme retournant à la source. C'est un événement d'une portée divine, enfant de Bhaal.~ [SOLAR11]
+@15   = ~Tu es au centre de cet événement. De nombreuses ficelles du destin émanent de toi ou te traversent. Je ne peux entrevoir la fin. Je dois veiller sur toi et te guider.~ [SOLAR12]
+@16   = ~Que peux-tu faire pour m'aider ?~
+@17   = ~Je ne peux interférer, je ne peux que te préparer... et achever ton éducation, toi qui n'est pas encore prêt à assumer ta destinée.~ ~Je ne peux interférer, je ne peux que te préparer... et achever ton éducation, toi qui n'est pas encore prête à assumer ta destinée.~ [SOLAR13]
+@18   = ~Que veux-tu dire, exactement ?~
+@19   = ~Cet endroit ? C'est le royaume abyssal sur lequel régnait autrefois ton seigneur Bhaal. Tu es déjà venu ici, mais ta vision était altérée par ta propre conscience.~ ~Cet endroit ? C'est le royaume abyssal sur lequel régnait autrefois ton seigneur Bhaal. Tu es déjà venue ici, mais ta vision était altérée par ta propre conscience.~ [SOLAR14]
+@20   = ~Tu as parlé de m'aider... mais comment ?~
+@21   = ~Comment puis-je être sûr qu'il ne s'agit pas d'une ruse ?!~ ~Comment puis-je être sûre qu'il ne s'agit pas d'une ruse ?!~
+@22   = ~Je ne suis ici ni pour te tromper ni pour te faire du mal, enfant de Bhaal. Je ne peux que t'enseigner, mais tu es libre de penser que mes paroles sont mensongères. Tu en assumeras seul les conséquences.~ [SOLAR15]
+@23   = ~De quelle manière peux-tu m'aider ?~
+@24   = ~Dis-moi ce que tu sais de la prophétie.~
+@25   = ~Dis-moi où nous sommes.~
+@26   = ~Je veux simplement dire que tu n'es pas préparé à ce qui t'attend. Ton esprit mortel ne comprend pas le pouvoir qui coule dans tes veines.~ ~Je veux simplement dire que tu n'es pas préparée à ce qui t'attend. Ton esprit mortel ne comprend pas le pouvoir qui coule dans tes veines.~ [SOLAR16]
+@27   = ~Quand tu es venu dans le royaume de ton seigneur, enfant de Bhaal, il était altéré par ta propre conscience malgré ta volonté. Tu n'es pas préparé pour ce pouvoir.~ ~Quand tu es venue dans le royaume de ton seigneur, enfant de Bhaal, il était altéré par ta propre conscience malgré ta volonté. Tu n'es pas préparée pour ce pouvoir.~ [SOLAR17]
+@28   = ~Tu dois être préparé. Ta présence détermine l'issue de la prophétie, mais je ne peux pas encore l'entrevoir. Quand le moment viendra, tu seras préparé... je m'en assurerai.~ ~Tu dois être préparée. Ta présence détermine l'issue de la prophétie, mais je ne peux pas encore l'entrevoir. Quand le moment viendra, tu seras préparée... je m'en assurerai.~ [SOLAR18]
+@29   = ~Que sais-tu de mon pouvoir ?~
+@30   = ~Que va-t-il se passer ?~
+@31   = ~Et si je ne veux pas de ton aide ?~
+@32   = ~J'exige que l'on me ramène d'où je viens immédiatement !~
+@33   = ~Le pouvoir vient avec la connaissance, enfant de Bhaal. Il viendra en son temps, au fil de ta destinée.~ [SOLAR19]
+@34   = ~Je te reverrai bientôt. D'ici là, protège ton coeur, et sache que tu n'es pas seul.~ ~Je te reverrai bientôt. D'ici là, protège ton coeur, et sache que tu n'es pas seule.~ [SOLAR20]
+@35   = ~Tu préfères avancer aveuglément, sans savoir ? Même si c'est le cas, tu n'as pas le choix.~ [SOLAR21]
+@36   = ~Tes exigences ont peu d'importance. Que tu le veuilles ou non, tu dois accepter ma présence, tout comme ta destinée.~ [SOLAR22]
+@37   = ~Je te salue, toi qui est de sang divin. Il est temps de poursuivre ton éducation.~ [SOLAR23]
+@38   = ~Pourquoi m'as-tu fait venir ici ?!~
+@39   = ~Le moment n'est pas très bien choisi.~
+@40   = ~Que veux-tu dire par 'mon éducation' ?~
+@41   = ~Très bien... je crois que je suis prêt.~ ~Très bien... je crois que je suis prête.~
+@42   = ~Je t'ai fait venir ici parce que le temps est venu, enfant de Bhaal.~ [SOLAR24]
+@43   = ~Tu as fait le premier pas vers l'accomplissement de ta destinée. Yaga Shura est mort de ta main, et les forces en présence avancent rapidement vers la conclusion.~ [SOLAR25]
+@44   = ~Tu dois maintenant te connaître toi-même et connaître ton passé pour dévoiler ton avenir. Ecoute et sois jugé.~ ~Tu dois maintenant te connaître toi-même et connaître ton passé pour dévoiler ton avenir. Ecoute et sois jugée.~ [SOLAR26]
+@45   = ~Je n'ai à être jugé ni par toi, ni par personne.~ ~Je n'ai à être jugée ni par toi, ni par personne.~
+@46   = ~Très bien... j'écoute.~
+@47   = ~Je ne suis pas juge aujourd'hui. Tu vas te mettre à l'épreuve.~ [SOLAR27]
+@48   = ~Pour pouvoir se regarder et se dire 'Qui suis-je ?', il faut connaître ses origines.~ [SOLAR28]
+@49   = ~Tes propres origines sont un mystère pour toi, enfant de Bhaal. Tu n'as pas de début, et sans début... comment pourrait-il y avoir de fin ?~ [SOLAR29]
+@50   = ~Que sais-tu de ta naissance ? Que sais-tu de ta mère, de ta vie avant que Gorion ne te ramène en sécurité à Château-Suif ?~ [SOLAR30]
+@51   = ~Je ne sais rien de ma vie avant Gorion.~
+@52   = ~Je ne sais rien, et je m'en moque bien .~
+@53   = ~Ton passé se dévoile. Tu dois le prendre très au sérieux.~ [SOLAR31]
+@54   = ~Ton passé est maintenant clair. Ta mère, prêtresse de Bhaal, tuée par Gorion.~ [SOLAR32]
+@55   = ~Et alors ? Ça ne veut rien dire pour moi.~
+@56   = ~C'est une surprise, mais je préfère que ce soit elle que moi.~
+@57   = ~Gorion m'a sauvé la vie. Il ne m'a jamais parlé de ces...~
+@58   = ~Je suis désolé pour ma mère. Gorion a fait ce qu'il devait faire.~ ~Je suis désolée pour ma mère. Gorion a fait ce qu'il devait faire.~
+@59   = ~C'était ma mère ? Quelle horreur ! Je comprends pourquoi Gorion ne m'en a jamais parlé !~
+@60   = ~Et ton frère Sarevok ? Si le destin n'était pas intervenu, si Gorion l'avait élevé au lieu de te choisir ? Serais-tu devenu comme lui ?~ [SOLAR33]
+@61   = ~Est-ce que Sarevok ne pourrait pas être à ta place aujourd'hui, sans ce coup de pouce du destin ? Reste-t-il encore une dette impayée entre vous ?~ [SOLAR34]
+@62   = ~S'il y avait une dette, c'était celle de Gorion... et elle a été payée.~
+@63   = ~Il n'y a pas de dette. Gorion n'avait pas le choix... et je n'aurais pas fini comme Sarevok.~
+@64   = ~Sarevok a choisi son destin. Gorion et moi n'en sommes pas responsables.~
+@65   = ~Sarevok a payé pour ses actes... maintenant, je ne sais pas... il reste peut-être une dette.~
+@66   = ~Oui, il y a une dette. J'aurais pu tout aussi facilement avoir vécu sa vie, et lui la mienne.~
+@67   = ~Nous en avons fini pour l'instant. Je te renvoie dans ton plan... une nouvelle voie te sera ouverte. Explore-la, si tu le souhaites.~ [SOLAR35]
+@68   = ~Réfléchis à ce que tu as appris aujourd'hui. Au revoir, enfant de Bhaal.~ [SOLAR36]
+@69   = ~Les révélations du solaire
+
+Le solaire m'a fait revenir dans mon Antichambre pour me faire d'intéressantes révélations sur mon passé. Lorsque Gorion a attaqué le temple Bhaaliste et tué ma mère, il aurait très bien pu emmener Sarevok à ma place. Nos chemins auraient-ils alors été très différents ?
+
+Ces révélations m'ont éclairé, mais il est difficile de dire quelle est leur importance dans ma situation actuelle. Le solaire était très mystérieux, comme toujours... mais a ouvert un nouveau couloir dans l'Antichambre, menant vers une nouvelle épreuve. Je vais devoir découvrir par moi-même ce qui m'attend là-bas.~
+@70   = ~Je te salue à nouveau, enfant de Bhaal. La seconde révélation t'attend.~ [SOLAR37]
+@71   = ~Quoi, encore des détails sur mon passé ?~
+@72   = ~Je t'écoute.~
+@73   = ~Je refuse d'être continuellement traîné jusqu'ici pour ces inepties.~ ~Je refuse d'être continuellement traînée jusqu'ici pour ces inepties.~
+@74   = ~J'espère que c'est important.~
+@75   = ~Tu ne t'es jamais interrogé sur tes origines, ou sur ton avenir ? Crois-tu vraiment que les êtres dotés de pouvoirs divins ne savent pas qui ils sont, et qu'ils agissent sans raison ?~ ~Tu ne t'es jamais interrogée sur tes origines, ou sur ton avenir ? Crois-tu vraiment que les êtres dotés de pouvoirs divins ne savent pas qui ils sont, et qu'ils agissent sans raison ?~ [SOLAR38]
+@76   = ~Quand les êtres tels que toi deviennent plus puissants, l'univers s'efforce de leur enseigner ce qu'ils doivent savoir. Des choix devront être faits. Sans préparation, tu auras l'éternité pour les regretter.~ [SOLAR39]
+@77   = ~Mais peu importe. Je t'ai déjà expliqué ces choses. Je ne me répéterai pas... Ecoute et apprends, ou refuse de le faire. A ta guise...~ [SOLAR40]
+@78   = ~Bien. J'espère que tu as réfléchi à tes origines, car un être doté de pouvoirs divins doit bien se connaître soi-même avant de trouver une raison à ses actes. Poursuivons...~ [SOLAR41]
+@79   = ~Cette fois ce n'est pas ton passé qui nous intéresse, enfant de Bhaal. Nous allons nous pencher sur ton présent. La prophétie va connaître son apogée, tu le sais bien.~ [SOLAR42]
+@80   = ~Ta place dans cette prophétie est peut-être la question. Tu trouveras cette fois la réponse par toi-même...~ [SOLAR43]
+@81   = ~Tu es ici pour te dévoiler la prophétie et la place que tu y occupes.~ [SOLAR44]
+@82   = ~Ma place dans une prophétie ? Cela ne veut rien dire pour moi.~
+@83   = ~Le fait de le savoir me donnera-t-il un avantage ?~
+@84   = ~Je connais ma place... je suis l'enfant de Bhaal qui fait couler le sang sur la Côte des Epées.~
+@85   = ~Je connais mon destin... Je dois succéder à mon père...~
+@86   = ~Je préfèrerais trouver un moyen de changer ma destinée, si je le pouvais.~
+@87   = ~Tu peux choisir d'avancer en trébuchant comme un aveugle, mais la connaissance de toi t'apportera le pouvoir... et le contrôle de ta destinée. Ecoute-toi parler.~ [SOLAR45]
+@88   = ~La connaissance de soi apporte le pouvoir, enfant de Bhaal... et le contrôle de sa destinée. Réfléchis aux avantages que cela peut t'apporter, si tu le souhaites. Ecoute-toi parler.~ [SOLAR46]
+@89   = ~Tu as peut-être raison, mais en partie seulement... La connaissance de soi apporte le pouvoir, enfant de Bhaal... et le contrôle de sa destinée. Ecoute-toi parler.~ [SOLAR47]
+@90   = ~On ne peut pas toujours changer sa destinée. Si tu veux avoir ton mot à dire sur la voie à choisir, écoute-toi parler.~ [SOLAR48]
+@91   = ~C'est une partie de toi. Peut-être d'un autre temps, d'une autre dimension... mais c'est pourtant toi. Parle-toi de la prophétie d'Alaundo. Je t'y invite.~ [SOLAR49]
+@92   = ~Tu as été conseillé par toi-même. Tu connais maintenant ton rôle dans ces événements, et tu sais pourquoi tu es ici. Toutes les âmes n'ont pas cette chance.~ ~Tu as été conseillée par toi-même. Tu connais maintenant ton rôle dans ces événements, et tu sais pourquoi tu es ici. Toutes les âmes n'ont pas cette chance.~ [SOLAR50]
+@93   = ~Hmpf. Je ne sais pas qui c'est, mais il n'a pas du tout la même voix que moi.~ ~Hmpf. Je ne sais pas qui c'est, mais elle n'a pas du tout la même voix que moi.~
+@94   = ~Merci, solaire.~
+@95   = ~Oui, cause toujours.~
+@96   = ~Cette partie de toi est présente comme dans un rêve, elle te parle comme dans un rêve. Pour l'instant, il ne reste plus qu'une question.~ [SOLAR51]
+@97   = ~Alors il ne reste plus qu'une question avant que tu puisses reprendre ta route.~ [SOLAR52]
+@98   = ~Quand tu te réveilleras, tu repartiras vers ton but... empêcher la prophétie de se réaliser. Ma question est... pourquoi le feras-tu ?~ [SOLAR53]
+@99   = ~Grrr ! Parce que je n'ai pas le choix, comme toujours !~
+@100  = ~Pour les empêcher de me tuer en premier, sinon pourquoi ?~
+@101  = ~Parce que l'autre enfant de Bhaal se tient debout entre moi et le siège légitime de mon pouvoir.~
+@102  = ~J'empêcherai la destruction du pays parce que c'est la meilleure chose à faire.~
+@103  = ~Plus vite j'en finirai avec cette destinée, et plus vite je pourrai commencer ma nouvelle vie.~
+@104  = ~Euh... peut-être parce que si l'enjeu n'était pas de taille, je m'ennuierais à  mourir...~
+@105  = ~Je n'ai pas l'intention de le faire, malgré ce que tu as dit.~
+@106  = ~Dans de telles circonstances, la vérité est dans la perception, enfant de Bhaal. Réfléchis à ce que tu as appris... adieu.~ [SOLAR54]
+@107  = ~Les révélations du solaire
+
+Encore une entrevue avec le solaire... cette fois pour me dire quelle était ma place dans la prophétie d'Alaundo. Je serais supposé être la personne dont Alaundo parlait, mais la personne qui est censée mettre fin à la destruction et au chaos engendré sur la Côte des Epées par les rejetons de Bhaal... et non celle qui en est responsable à elle toute seule. Je ne sais pas comment je dois prendre cette nouvelle, car mon rôle semble prédestiné. Si j'étais la créature la plus féroce des Royaumes, les autres enfants de Bhaal me considéreraient-ils toujours comme une menace ?
+
+Il semble que oui. Que je le veuille ou non, mon destin me mène tout droit vers une confrontation avec les autres enfants de Bhaal. Et il semble que ma victoire serait nettement préférable à la leur... en tout cas, en ce qui concerne la prophétie.
+
+Une nouvelle fois, le solaire a ouvert un autre couloir vers une nouvelle épreuve, dans l'Antichambre. Je crois que j'ai encore beaucoup de choses à apprendre sur moi-même.~
+@108  = ~Je te salue à nouveau, enfant de Bhaal. Tu approches de la dernière étape de ta destinée. Les choses vont devenir beaucoup plus compliquées.~ [SOLAR55]
+@109  = ~Pas plus compliquées que d'habitude...~
+@110  = ~C'est absurde. Ces rejetons de Bhaal ne peuvent rien contre moi.~
+@111  = ~Les morts ne compliquent plus les choses. Je régnerai bientôt sur tous.~
+@112  = ~Alors, ton aide sera la bienvenue.~
+@113  = ~J'espère seulement que je pourrais rester fidèle au Bien et à la Justice.~
+@114  = ~Nous verrons. Tu as combattu contre tes frères et soeurs... et tu as vaincu leurs forces liguées contre toi. C'est très bien.~ [SOLAR56]
+@115  = ~Les plus puissants des enfants de Bhaal se sont réunis il y a des années, formant cette Main que tu connais. Ensemble, ils espéraient détruire tous leurs autres frères et soeurs grâce à leurs pouvoirs.~ [SOLAR57]
+@116  = ~Mais tu ne sais pas pourquoi... tu ne connais pas la raison pour laquelle tes frères agissent ainsi. Tu t'en doutes peut-être... mais entends la vérité de la bouche même d'une de tes victimes...~ [SOLAR58]
+@117  = ~Tu vas expliquer à l'être qui t'a tué les vraies raisons de tes actes, esprit.~ [SOLAR59]
+@118  = ~Tu vas néanmoins répondre à nos questions sur la Main.~ [SOLAR60]
+@119  = ~Pour que Bhaal, le dieu défunt qui est ton père, renaisse comme il l'avait prévu avant sa mort.~ [SOLAR61]
+@120  = ~Alors, les membres de la Main ont voulu ressusciter ton père et devenir des demi-dieux. Quelle signification cela a-t-il pour toi, enfant de Bhaal ?~ [SOLAR62]
+@121  = ~Aucune. N'est-ce pas ce que tous ces enfants de Bhaal voulaient ? De toute manière, c'est fini maintenant.~
+@122  = ~Cela signifie que leur plan a échoué et que c'est moi qui vais hériter de la suprématie.~
+@123  = ~Cela signifie que leur plan a été déjoué... et que Bhaal restera comme il est : mort !~
+@124  = ~Je ne pensais pas que c'est ce qu'ils cherchaient, mais maintenant tout est terminé.~
+@125  = ~Le dernier doigt de la Main est encore vivant, enfant de Bhaal, et ton père s'impatiente. Que vas-tu faire ?~ [SOLAR63]
+@126  = ~Je vais affronter Balthazar. Et Bhaal aussi, si c'est nécessaire.~
+@127  = ~Balthazar ne pourra pas m'empêcher d'occuper la place qui me revient. Ni mon défunt père, d'ailleurs...~
+@128  = ~Je préférerais déguerpir, mais je crois que je n'ai pas le choix.~
+@129  = ~Si je peux tuer Balthazar avant qu'il ne réveille Bhaal, je préfère éviter d'affronter mon soi-disant 'père'.~
+@130  = ~Je peux servir mon père beaucoup mieux qu'eux.~
+@131  = ~Massacrer. Mutiler. Détruire. On verra bien.~
+@132  = ~Alors poursuis ta route, enfant de Bhaal. Je te reverrai bien assez tôt.~ [SOLAR64]
+@133  = ~Les révélations du solaire
+
+Les enfants de Bhaal les plus puissants contre lesquels je me suis battu, ceux qui traquaient sans merci les autres, se sont baptisés 'La Main de Bhaal'. Comme moi, ce sont les plus puissants de notre espèce, et ils possèdent une grande part de l'essence divine de Bhaal.
+
+Ils se sont alliés dans un seul but... comme ils étaient trop puissants pour se combattre entre eux, ils ont préféré unir leurs forces pour pourchasser les autres enfants de Bhaal. Ils voulaient faire revivre notre seigneur et devenir ses généraux sur cette terre. Ils ont assez bien réussi, mais 4 d'entre eux sont morts : Illasera, Yaga-Shura, Sendai et Abazigal.
+
+Le problème, c'est qu'ils ont accumulé tellement d'essence de Bhaal que le réveil du dieu défunt serait de plus en plus proche. C'est peut-être ce que compte faire maintenant Balthazar, le dernier des 5 doigts de la Main. Je n'ai pas le choix, je dois repartir à Amkethran pour l'arrêter. Alors, ce sera peut-être enfin terminé.
+
+La quatrième épreuve m'est maintenant accessible. Je trouve étrange, alors que je suis si proche de la fin, d'avoir encore une épreuve à surmonter après ceci.~
+@134  = ~La Main, dont les cinq doigts étaient les plus puissants des enfants de Bhaal, a été détruite. L'essence de Bhaal a presque entièrement rejoint sa source... ton voyage arrive à son terme.~ [SOLAR65]
+@135  = ~Mais la Main n'est pas détruite ! Il y a encore Mélissanne !~
+@136  = ~Bhaal est donc ressuscité, c'est ce que tu veux dire ?~
+@137  = ~Alors, que dois-je faire maintenant ?~
+@138  = ~C'est cela, oui... bon d'accord, finissons-en.~
+@139  = ~Celle que tu connais sous le nom de Mélissane n'a jamais été un véritable membre de la Main, enfant divin. Ce n'est pas une fille de Bhaal.~ [SOLAR66]
+@140  = ~Le Dieu mort, Bhaal, n'a pas été ressuscité, et ne le sera probablement jamais. Tu dois comprendre ce qui t'attend à la fin de ta quête, enfant divin... et ceci, celle que tu connais sous le nom de Mélissane va te l'expliquer d'elle-même.~ [SOLAR67]
+@141  = ~Tu es ici parce que je le tolère, esprit. Réponds à nos questions.~ [SOLAR68]
+@142  = ~Tu n'es pas encore une déesse, mortelle. La prophétie ne s'est pas encore réalisée.  ~ [SOLAR69]
+@143  = ~Alors, explique-toi. Si tu as raison, cela ne changera rien.~ [SOLAR70]
+@144  = ~Assez ! Un combat ici ne résoudra rien.~ [SOLAR71]
+@145  = ~Ta voie est tracée, enfant de Bhaal. Repars dans ton Antichambre... quand tout sera prêt, tu devras mettre un terme à son existence. Tu seras ensuite dans le Trône de Bhaal... et Mélissanne sera à ta portée.~ [SOLAR72]
+@146  = ~Elle n'a pas encore absorbé toute l'essence des enfants de Bhaal. Je te conseille d'être rapide. Voici venir le dernier acte de la prophétie.~ [SOLAR73]
+@147  = ~Les révélations du solaire
+
+Ma voie est tracée. Mon dernier ennemi m'a été révélé. Ce n'est pas Bhaal ressuscité, comme je le pensais... c'est en fait Mélissanne, et depuis le début.
+
+Elle était autrefois la grande prêtresse de Bhaal, au Temps des Troubles. C'était elle qui était chargée de tuer tous les enfants de Bhaal pour lui remettre leur essence... elle devait ressusciter Bhaal. Il lui faisait confiance, mais elle l'a trahi. Elle a manipulé la Main et a entraîné leur mort, m'a manipulé aussi, et elle cherche maintenant à s'emparer du pouvoir de son maître pour devenir une déesse.
+
+L'ultime épreuve est devant moi. Je dois l'affronter et détruire mon 'cocon protecteur', mon Antichambre, pour pouvoir entrer dans le Trône de Bhaal et arrêter Mélissanne avant qu'il ne soit trop tard. Je dois absolument l'empêcher d'atteindre son but.~
+@148  = ~Tu as parlementé avec Balthazar, le plus puissant des Descendants de Bhaal, en dehors de toi, enfant divin. Tu mérites le respect. Ta quête est presque terminée.~
+@149  = ~Attends... quel est le rôle de Balthazar dans tout ceci ? Tu savais que je ne le combattrais pas ?~
+@150  = ~Tu n'avais pas besoin de l'affronter. Le reste de la Main a été vaincu. Avec toi et Balthazar toujours vivants, toute l'essence de Bhaal n'est pas retournée à sa source, et Mélissane va chercher à la collecter. C'est le défi qui t'attend.~
+@151  = ~Mais... Mélissane fait partie de la main, non ?~
+@152  = ~Donc Mélissane n'a pas encore réuni suffisamment d'essence pour ressusciter Bhaal, n'est-ce pas ?~
+@153  = ~Ainsi Mélissane cherche à être la dernière des Enfants de Bhaal. Désire-t-elle ressusciter Bhaal ?~
+@154  = ~Un autre challenge. Bien, bien... je ferai avec.~
+@155  = ~Tu ne comprends pas encore tout. Mais tout finira par devenir clair.~

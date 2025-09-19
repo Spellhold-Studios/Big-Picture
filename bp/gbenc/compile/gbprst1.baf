@@ -1,0 +1,207 @@
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+END
+
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("Busy","LOCALS",8)
+    ReallyForceSpell(Myself,CLERIC_ANIMATE_DEAD)
+    ReallyForceSpell(Myself,CLERIC_ANIMATE_DEAD)
+    ReallyForceSpell("MaeVar",CLERIC_CHANT)
+    ReallyForceSpell("MaeVar",CLERIC_BLESS)
+    ReallyForceSpell("MaeVar",CLERIC_REMOVE_FEAR)
+    ReallyForceSpell("MaeVar",CLERIC_STRENGTH_OF_ONE)
+    ReallyForceSpell("MaeVar",CLERIC_PROTECTION_FROM_FIRE)
+END
+
+IF
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  HPPercentLT(Myself,75)
+  HaveSpell(CLERIC_SANCTUARY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    Spell(Myself,CLERIC_SANCTUARY)
+END
+
+IF
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  HPPercentLT(Myself,75)
+  HasItem("Potn52",Myself)  // ~Potion of Extra Healing~
+THEN
+  RESPONSE #100
+    UseItem("Potn52",Myself)  // ~Potion of Extra Healing~
+    SetGlobalTimer("Busy","LOCALS",8)
+END
+
+IF
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  Range(NearestEnemyOf(Myself),8)
+  HaveSpell(CLERIC_ARMOR_OF_FAITH)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    Spell(Myself,CLERIC_ARMOR_OF_FAITH)
+END
+
+IF
+  StateCheck("MaeVar",STATE_HELPLESS)  // ~Mae'Var~
+  See("MaeVar")  // ~Mae'Var~
+  !StateCheck("MaeVar",STATE_IMPROVEDINVISIBILITY)  // ~Mae'Var~
+  HaveSpell(CLERIC_REMOVE_PARALYSIS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    Spell("MaeVar",CLERIC_REMOVE_PARALYSIS)
+END
+
+IF
+  Heard([ANYTHING],123)
+  !HasItem("Potn10",LastHeardBy(Myself))  // ~Potion of Invisibility~
+  !StateCheck(LastHeardBy(Myself),STATE_INVISIBLE)
+  !StateCheck(LastHeardBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  GlobalLT("MassCure","LOCALS",2)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    IncrementGlobal("MassCure","LOCALS",1)
+    SpellNoDec(LastHeardBy(Myself),CLERIC_MASS_CURE)
+END
+
+IF
+  RandomNum(4,1)
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  See(NearestEnemyOf(Myself))
+  HaveSpell(CLERIC_DRAW_UPON_HOLY_MIGHT)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    Spell(Myself,CLERIC_DRAW_UPON_HOLY_MIGHT)
+END
+
+IF
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  !StateCheck(Myself,STATE_INVISIBLE)
+  See(ThirdNearestEnemyOf(Myself))
+  GlobalLT("HoldPerson","LOCALS",4)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    IncrementGlobal("HoldPerson","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_HOLD_PERSON)
+END
+
+IF
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  !StateCheck(Myself,STATE_INVISIBLE)
+  See(NearestEnemyOf(Myself))
+  GlobalLT("HoldPerson","LOCALS",4)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    IncrementGlobal("HoldPerson","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_HOLD_PERSON)
+END
+
+IF
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  !StateCheck(Myself,STATE_INVISIBLE)
+  See(ThirdNearestEnemyOf(Myself))
+  GlobalLT("Domination","LOCALS",2)
+  !StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    IncrementGlobal("Domination","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_MENTAL_DOMINATION)
+END
+
+IF
+  !GlobalTimerNotExpired("Busy","LOCALS")
+  !StateCheck(Myself,STATE_INVISIBLE)
+  See(NearestEnemyOf(Myself))
+  GlobalLT("Domination","LOCALS",2)
+  !StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Busy","LOCALS",8)
+    IncrementGlobal("Domination","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_MENTAL_DOMINATION)
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !Range(LastAttackerOf(Myself),8)
+  OR(5)
+    See(SecondNearestEnemyOf(Myself))
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See(WorstAC)
+    See(MostDamagedOf(Myself))
+  !Range(LastSeenBy(Myself),8)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  OR(5)
+    See(NearestEnemyOf(Myself))
+    See([PC.0.0.CLERIC_ALL])
+    See([PC.0.0.LONG_BOW])
+    See(WorstAC)
+    See(MostDamagedOf(Myself))
+  OR(2)
+    Range(LastSeenBy(Myself),8)
+    StateCheck(Myself,STATE_INVISIBLE)
+  !CheckStatGT(LastSeenBy(Myself),0,STONESKINS)
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  OR(3)
+    See(NearestEnemyOf(Myself))
+    See(WorstAC)
+    See(MostDamagedOf(Myself))
+  OR(2)
+    Range(LastSeenBy(Myself),8)
+    StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  See(FourthNearestEnemyOf(Myself))
+  !Range(LastAttackerOf(Myself),8)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  See(NearestEnemyOf(Myself))
+  Range(LastSeenBy(Myself),8)
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+

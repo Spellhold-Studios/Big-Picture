@@ -1,0 +1,11 @@
+IF
+  OnCreation()
+THEN
+  RESPONSE #100
+    AmbientActivate("FALL3PT1",TRUE)
+    AmbientActivate("FALL3PT2",TRUE)
+    AmbientActivate("FALL3PT3",TRUE)
+    AmbientActivate("FALL4TOP",TRUE)
+    AmbientActivate("FALL4BTM",TRUE)
+END
+

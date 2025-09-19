@@ -1,0 +1,18 @@
+IF
+  See([PC])
+  Global("duegskel","GLOBAL",0)
+  Range([PC],20)
+THEN
+  RESPONSE #100
+    StartDialogNoSet([PC])
+END
+
+IF
+  Global("duegskel","GLOBAL",0)
+  Delay(18)
+  !See([PC])
+THEN
+  RESPONSE #100
+    ForceSpellRES("SPDUEPRE",Myself)
+END
+

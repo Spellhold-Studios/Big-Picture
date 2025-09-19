@@ -1,0 +1,240 @@
+IF
+  Class(Myself,MAGE_ALL)
+  Global("GBPrep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("GBPrep","LOCALS",1)
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ApplySpell(Myself,WIZARD_MELF_METEOR)
+END
+
+IF
+  Class(Myself,CLERIC_ALL)
+  Global("GBPrep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("GBPrep","LOCALS",1)
+    ApplySpell(Myself,CLERIC_STRENGTH_OF_ONE)
+    ApplySpell(Myself,CLERIC_CHANT)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,LONG_BOW)
+  GlobalLT("GBMageLvl4","LOCALS",1)
+  CheckStatLT(Myself,2,STONESKINS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl4","LOCALS",1)
+    SpellNoDec(Myself,WIZARD_STONE_SKIN)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,LONG_BOW)
+  GlobalLT("GBMageLvl3","LOCALS",2)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_LIGHTNING_BOLT)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_FLAME_ARROW)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_HOLD_PERSON)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_DIRE_CHARM)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_SLOW)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,LONG_BOW)
+  GlobalLT("GBMageLvl2","LOCALS",3)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_AGANNAZAR_SCORCHER)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_GLITTERDUST)
+  RESPONSE #200
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_HORROR)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_MELF_ACID_ARROW)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_RAY_OF_ENFEEBLEMENT)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl2","LOCALS",1)
+    SpellNoDec(Myself,WIZARD_MIRROR_IMAGE)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,LONG_BOW)
+  GlobalLT("GBMageLvl1","LOCALS",3)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl1","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_BLINDNESS)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl1","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_CHARM_PERSON)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl1","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_CHROMATIC_ORB)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl1","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_LARLOCH_MINOR_DRAIN)
+  RESPONSE #200
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl1","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBMageLvl1","LOCALS",1)
+    SpellNoDec(Myself,WIZARD_SHIELD)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,CLERIC_ALL)
+  GlobalLT("GBClericLvl5","LOCALS",2)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #200
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl5","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_FLAME_STRIKE)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl5","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_2)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl5","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_GREATER_COMMAND)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCastNAttack","LOCALS")
+  Class(Myself,CLERIC_ALL)
+  GlobalLT("GBClericLvl4","LOCALS",3)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #200
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl4","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_MENTAL_DOMINATION)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl4","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_1)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl4","LOCALS",1)
+    SpellNoDec(Myself,CLERIC_CLOAK_OF_FEAR)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,CLERIC_ALL)
+  GlobalLT("GBClericLvl3","LOCALS",2)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_GLYPH_OF_WARDING)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_ANIMATE_DEAD)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_RIGID_THINKING)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl3","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_UNHOLY_BLIGHT)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,CLERIC_ALL)
+  GlobalLT("GBClericLvl2","LOCALS",3)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #200
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_HOLD_PERSON)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_CHARM_PERSON)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl2","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_SILENCE_15_FOOT)
+END
+
+IF
+  !GlobalTimerNotExpired("GBCast","LOCALS")
+  Class(Myself,CLERIC_ALL)
+  GlobalLT("GBClericLvl1","LOCALS",4)
+  OR(2)
+    See(NearestEnemyOf(Myself))
+    See([PC])
+THEN
+  RESPONSE #200
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl1","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_COMMAND)
+  RESPONSE #100
+    SetGlobalTimer("GBCast","LOCALS",6)
+    IncrementGlobal("GBClericLvl1","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),CLERIC_DOOM)
+END
+

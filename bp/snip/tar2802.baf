@@ -1,0 +1,14 @@
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR2802",0)
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+THEN
+  RESPONSE #100
+    CreateCreature("GOLADA01",[410.410],0)
+    SetGlobal("BP_MoreStooges","AR2802",1)
+END
+

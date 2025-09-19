@@ -1,0 +1,169 @@
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobalTimer("PrepTimer","LOCALS",0)
+    SetGlobalTimer("KaiTimer","LOCALS",0)
+END
+
+IF
+  GlobalTimerExpired("PrepTimer","LOCALS")
+  Allegiance(Myself,ENEMY)
+  !Gender(Myself,SUMMONED)
+  !Race(Myself,GOLEM)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("PrepTimer","LOCALS",3600)
+    SetGlobalTimer("Cast","LOCALS",0)
+    GiveItemCreate("potn52",Myself,3,0,0)  // ~Potion of Extra Healing~
+    Continue()
+END
+
+IF
+  OR(8)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+    See(WorstAC)
+    See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(SixthNearest([GOODCUTOFF]),0,STONESKINS)
+  !StateCheck(SixthNearest([GOODCUTOFF]),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(SixthNearest([GOODCUTOFF]),0,SANCTUARY)
+  See(SixthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(FifthNearest([GOODCUTOFF]),0,STONESKINS)
+  !StateCheck(FifthNearest([GOODCUTOFF]),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(FifthNearest([GOODCUTOFF]),0,SANCTUARY)
+  See(FifthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(FourthNearest([GOODCUTOFF]),0,STONESKINS)
+  !StateCheck(FourthNearest([GOODCUTOFF]),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(FourthNearest([GOODCUTOFF]),0,SANCTUARY)
+  See(FourthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(ThirdNearest([GOODCUTOFF]),0,STONESKINS)
+  !StateCheck(ThirdNearest([GOODCUTOFF]),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(ThirdNearest([GOODCUTOFF]),0,SANCTUARY)
+  See(ThirdNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(SecondNearest([GOODCUTOFF]),0,STONESKINS)
+  !StateCheck(SecondNearest([GOODCUTOFF]),STATE_IMPROVEDINVISIBILITY)
+  CheckStat(SecondNearest([GOODCUTOFF]),0,SANCTUARY)
+  See(SecondNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat([GOODCUTOFF],0,STONESKINS)
+  !StateCheck([GOODCUTOFF],STATE_IMPROVEDINVISIBILITY)
+  CheckStat([GOODCUTOFF],0,SANCTUARY)
+  See([GOODCUTOFF])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  CheckStat(WorstAC,0,STONESKINS)
+  !StateCheck(WorstAC,STATE_IMPROVEDINVISIBILITY)
+  CheckStat(WorstAC,0,SANCTUARY)
+  See(WorstAC)
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,90)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalTimerExpired("KaiTimer","LOCALS")
+  HaveSpell(BARBARIAN_RAGE)
+  Range([PC],10)
+THEN
+  RESPONSE #100
+    Spell(Myself,BARBARIAN_RAGE)
+    SetGlobalTimer("KaiTimer","LOCALS",60)
+    SetGlobalTimer("Cast","LOCALS",6)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalTimerExpired("KaiTimer","LOCALS")
+  HaveSpell(MONK_STUNNING_BLOW)
+  Range([PC],10)
+THEN
+  RESPONSE #100
+    Spell(Myself,MONK_STUNNING_BLOW)
+    SetGlobalTimer("KaiTimer","LOCALS",6)
+    SetGlobalTimer("Cast","LOCALS",6)
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  Heard([ENEMY],ALERT)
+  !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject(LastHeardBy(Myself))
+END
+

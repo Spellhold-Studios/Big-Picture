@@ -1,0 +1,12 @@
+IF
+  GlobalTimerExpired("TannerGuards","GLOBAL")
+  !GlobalGT("TannerExposed","GLOBAL",0)
+  Global("TannerGuard","AR0501",0)
+THEN
+  RESPONSE #100
+    SetGlobal("TannerGuard","AR0501",1)
+    CreateCreature("TANTUG01",[496.411],2)
+    CreateCreature("TANTUG02",[558.388],2)
+    CreateCreature("TANTUG03",[420.378],2)
+END
+

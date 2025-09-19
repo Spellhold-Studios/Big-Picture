@@ -1,0 +1,68 @@
+
+IF
+  Global("AsylumPlot","GLOBAL",41)
+  Global("BP_HardRoad","GLOBAL",1)
+  Global("BP_NastySurprise","AR1512",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_NastySurprise","AR1512",1)
+    SetGlobalTimer("BP_TroubleBrewin","AR1512",18)
+END
+
+IF
+  Global("BP_NastySurprise","AR1512",1)
+  GlobalTimerExpired("BP_TroubleBrewin","AR1512")
+THEN
+  RESPONSE #100
+    CreateCreatureOffScreen("BPSTHEF1",0)
+    CreateCreatureOffScreen("BPSTHEF2",0)
+    CreateCreatureOffScreen("BPSTHEF3",0)
+    CreateCreatureOffScreen("BPSTHMG1",0)
+    SetGlobal("BP_NastySurprise","AR1512",2)
+END
+
+IF
+  DifficultyGT(NORMAL)
+  Global("BP_NastySurprise","AR1512",2)
+  GlobalTimerExpired("BP_TroubleBrewin","AR1512")
+THEN
+  RESPONSE #100
+    CreateCreatureOffScreen("BPSTHEF1",0)
+    CreateCreatureOffScreen("BPSTHEF2",0)
+    CreateCreatureOffScreen("BPSTHEF3",0)
+    SetGlobal("BP_NastySurprise","AR1512",3)
+END
+
+IF
+  DifficultyGT(NORMAL)
+  Opened("DOOR05")
+  Global("BP_DoorCheck1","AR1512",0)
+THEN
+  RESPONSE #100
+    CreateCreature("BPSTHMG1",[2200.1200],10)
+    CreateCreature("BPSFIGHT",[2200.825],14)
+    CreateCreature("BPSFIGHT",[2700.1175],6)
+    SetGlobal("BP_DoorCheck1","AR1512",1)
+END
+
+IF
+  DifficultyGT(EASIEST)
+  Opened("DOOR05")
+  Global("BP_DoorCheck1","AR1512",0)
+THEN
+  RESPONSE #100
+    CreateCreature("BPSFIGHT",[2200.825],14)
+    CreateCreature("BPSFIGHT",[2700.1175],6)
+    SetGlobal("BP_DoorCheck1","AR1512",1)
+END
+
+IF
+  DifficultyGT(EASIEST)
+  Opened("DOOR01")
+  Global("BP_DoorCheck2","AR1512",0)
+THEN
+  RESPONSE #100
+    CreateCreature("BPRAKSHA",[300.450],1)
+    SetGlobal("BP_DoorCheck2","AR1512",1)
+END
+

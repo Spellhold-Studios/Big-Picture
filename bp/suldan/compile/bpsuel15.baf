@@ -1,0 +1,61 @@
+IF
+    AttackedBy([PC],DEFAULT)
+    Allegiance(Myself,NEUTRAL)
+THEN
+    RESPONSE #100
+        Enemy()
+END
+
+IF
+    Heard([0.0.ELF.0.SULDANESSALLAR],199)
+    Allegiance(Myself,NEUTRAL)
+THEN
+    RESPONSE #100
+        Enemy()
+END
+
+IF
+    Allegiance(Myself,ENEMY)
+THEN
+    RESPONSE #100
+        Shout(199)
+        EscapeArea()
+END
+
+IF
+    NumDead("sutroll",2)
+    Dead("suelfw5")
+    Dead("suelfw6")
+    Dead("suelfw12")
+    Global("Scene3","AR2800",1)
+THEN
+    RESPONSE #100
+        SetInterrupt(FALSE)
+        SetGlobal("Scene3","AR2800",2)
+        DisplayStringHead(Myself,4201) // Move out! The battle is far from over!
+        Wait(1)
+        EscapeArea()
+END
+
+IF
+    NumDead("sutroll",2)
+    OR(3)
+        !Dead("suelfw5")
+        !Dead("suelfw6")
+        !Dead("suelfw12")
+THEN
+    RESPONSE #100
+        SetInterrupt(FALSE)
+        Wait(1)
+        EscapeArea()
+END
+
+IF
+    See([ENEMY])
+    Global("Scene3","AR2800",1)
+THEN
+    RESPONSE #100
+        AttackReevaluate([ENEMY],45)
+END
+
+

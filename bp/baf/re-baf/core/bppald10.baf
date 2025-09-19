@@ -1,0 +1,1143 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  Global("BPCHARM","LOCALS",1)
+  !StateCheck(Myself,STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCHARM","LOCALS",0)
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  OR(2)
+    Heard([NEUTRAL],79)
+    Heard([EVILCUTOFF],79)
+  Allegiance(Myself,NEUTRAL)
+  !Global("BP_PlotMan","LOCALS",1)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  AttackedBy([GOODCUTOFF],DEFAULT)
+  !Allegiance(Myself,ENEMY)
+  !Allegiance(Myself,PC)
+THEN
+  RESPONSE #100
+    Enemy()
+    Shout(151)
+END
+
+IF
+  HitBy([GOODCUTOFF],CRUSHING)
+  !Allegiance(Myself,GOODCUTOFF)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Shout(151)
+    Enemy()
+END
+//////////////CLOUDLIKE  EFFECTS//////////////////////
+
+IF
+  CheckStat(Myself,11,180) // I'm in a stinking cloud
+  CheckStatGT(Myself,5,INT)
+  !StateCheck(Myself,STATE_SLEEPING) // not yet affected
+  CheckStatGT(Myself,4,SAVEVSSPELL) //and I got a reasonable chance of failing a save throw (25%+)
+  OR(2)
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStatGT(Myself,11,180) // I'm in a web,entangle, or grease spell
+  CheckStatLT(Myself,15,180)
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,1,131) // I don't have free action
+  CheckStatLT(Myself,1,WEB) //and not webbed up
+  CheckStatLT(Myself,1,ENTANGLE) //nor entangled --I can move
+  CheckStatGT(Myself,4,SAVEVSSPELL) //and I got a reasonable chance of failing a save throw (25%+)
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,15,180) // I'm in an Ice Storm
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTCOLD) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,16,180) // I'm in a Cloudkill or Death Fog
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTPOISON) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,17,180) // I'm in a Death Fog
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTACID) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+IF
+  CheckStat(Myself,18,180) // Incendiary Cloud, Meteor Swarm or Fire Storm -- bad stuff
+  CheckStatGT(Myself,5,INT)
+  CheckStatLT(Myself,100,RESISTFIRE) // Not Immune
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  Range(LastSeenBy(Myself),16)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    RunAwayFrom(LastSeenBy(Myself),30)
+    SetInterrupt(TRUE)
+END
+
+// This is to try and keep them from going back in to whomp somebody
+IF
+  CheckStatLT(Myself,11,180) // No longer in the cloud effects
+  CheckStatGT(Myself,5,INT)
+  OR(3)
+    Detect([0.0.MORNINGSTAR.FAIRY_NYMPH.65])
+    Detect(NearestEnemyOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+    Detect(NearestMyGroupOfType([0.0.MORNINGSTAR.FAIRY_NYMPH.65]))
+  !Range(LastSeenBy(Myself),16)
+  Exists([EVILCUTOFF])
+  !Range(NearestEnemyOf(Myself),2)
+THEN
+  RESPONSE #100
+    EquipRanged()  //use your bow, then
+    SmallWait(3)
+    Continue()
+END
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+IF
+  OR(2)
+    !Allegiance(Myself,EVILCUTOFF)
+    !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+END
+
+IF
+  Global("TURN","LOCALS",1)
+  OR(3)
+    GlobalTimerExpired("BPTurn","LOCALS")
+    HPPercentLT(Myself,51)
+    !See([GOODCUTOFF.UNDEAD])
+THEN
+  RESPONSE #100
+    SetGlobal("TURN","LOCALS",0)
+    SetGlobalTimer("BPTurn","LOCALS",0)
+    ClearActions(Myself)
+    SmallWait(5)
+    Continue()
+END
+
+IF
+  Range(NearestEnemyOf(Myself),2)
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(NearestEnemyOf(Myself),0,125)
+THEN
+  RESPONSE #80
+    RunAwayFrom(NearestEnemyOf(Myself),4)
+  RESPONSE #20
+    Continue()
+END
+
+IF
+  Global("TURN","LOCALS",1)
+  GlobalTimerNotExpired("BPTurn","LOCALS")
+  HPPercentGT(Myself,50)
+  See([GOODCUTOFF.UNDEAD])
+THEN
+  RESPONSE #100
+END
+
+IF
+  HaveSpell(PALADIN_LAY_ON_HANDS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  HPPercentLT(Myself,50)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,PALADIN_LAY_ON_HANDS)
+END
+
+IF
+  HaveSpell(INNATE_LAY_ON_HANDS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  HPPercentLT(Myself,50)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,INNATE_LAY_ON_HANDS)
+END
+
+IF
+  HasItem("potn55",Myself)  // ~Potion of Superior Healing~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,60)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("potn55",Myself)  // ~Potion of Superior Healing~
+END
+
+IF
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,70)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  HasItem("POTN08",Myself)  // ~Potion of Healing~
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,85)
+  RandomNumLT(201,80)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("POTN08",Myself)  // ~Potion of Healing~
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+END
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,35)
+  !GlobalTimerNotExpired("BPW","LOCALS")
+  See([EVILCUTOFF])
+  !HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+  !HasItem("POTN52",Myself)  // ~Potion of Extra Healing~
+  !HaveSpell(PALADIN_LAY_ON_HANDS)
+  !HaveSpell(INNATE_LAY_ON_HANDS)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPW","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,72808)  // ~I need healing!~
+    Shout(123)
+END
+
+IF
+  StateCheck(Myself,STATE_POISONED)
+  HaveSpell(CLERIC_SLOW_POISON)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_SLOW_POISON)
+END
+
+IF
+  StateCheck(Myself,STATE_POISONED)
+  HasItem("potn17",Myself)  // ~Elixir of Health~
+  !GlobalTimerNotExpired("POT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("potn17",Myself)  // ~Elixir of Health~
+END
+
+IF
+  StateCheck(Myself,STATE_POISONED)
+  HasItem("potn20",Myself)  // ~Antidote~
+  !GlobalTimerNotExpired("POT","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,46150)  // ~quaffs a potion~
+    UseItem("potn20",Myself)  // ~Antidote~
+END
+
+IF
+  ActionListEmpty()
+  StateCheck(Myself,STATE_POISONED)
+  !GlobalTimerNotExpired("POIS","LOCALS")
+  See([EVILCUTOFF])
+  !HasItem("POTN17",Myself)  // ~Elixir of Health~
+  !HasItem("POTN20",Myself)  // ~Antidote~
+  !HaveSpell(CLERIC_SLOW_POISON)
+THEN
+  RESPONSE #100
+    Shout(83)
+    DisplayStringHead(Myself,5236)  // ~ Please. . . that pack of gnolls . . .they poisoned me.  ~ [POISN01]
+    SetGlobalTimer("POIS","LOCALS",ONE_ROUND)
+END
+
+IF
+  TargetUnreachable(LastSeenBy(Myself))
+  Delay(3)
+THEN
+  RESPONSE #100
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,61)
+  HaveSpell(CLERIC_SANCTUARY)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("SNAFU","LOCALS",0)
+  CheckStat(Myself,0,SANCTUARY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPIP","LOCALS",15)
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_SANCTUARY)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(INQUIS_TRUE_SIGHT)
+  CheckStat(Myself,0,118)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Exists(LastAttackerOf(Myself))
+  CheckStatLT(Myself,61,194)
+  OR(9)
+    SpellCast([GOODCUTOFF],WIZARD_PROJECT_IMAGE)
+    SpellCast([GOODCUTOFF],WIZARD_MISLEAD)
+    StateCheck(NearestEnemyOfType([GOODCUTOFF]),0x60400010)
+    StateCheck(SecondNearestEnemyOfType([GOODCUTOFF]),0x60400010)
+    StateCheck(ThirdNearestEnemyOfType([GOODCUTOFF]),0x60400010)
+    StateCheck(FourthNearestEnemyOfType([GOODCUTOFF]),0x60400010)
+    StateCheck(FifthNearestEnemyOfType([GOODCUTOFF]),0x60400010)
+    StateCheck(SixthNearestEnemyOfType([GOODCUTOFF]),0x60400010)
+    NumCreatureGT([GOODCUTOFF.0.0.0.0.ILLUSIONARY],0)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,@1)
+    Spell(Myself,INQUIS_TRUE_SIGHT)
+END
+
+IF
+  ActionListEmpty()
+  HasItem("POTN06",Myself)  // ~Potion of Cloud Giant Strength~
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(15,11)
+  CheckStatLT(Myself,23,STR)
+  OR(4)
+    Class(Myself,FIGHTER_ALL)
+    Class(Myself,PALADIN_ALL)
+    Class(Myself,RANGER_ALL)
+    Class(Myself,MONK)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    UseItem("POTN06",Myself)  // ~Potion of Cloud Giant Strength~
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_DRAW_UPON_HOLY_MIGHT)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("SNAFU","LOCALS",0)
+  RandomNumLT(9,4)
+  CheckStatLT(Myself,4,SCRIPTINGSTATE6)
+  NumCreatureGT([GOODCUTOFF],2)
+  Range(ThirdNearestEnemyOf(Myself),10)
+  OR(3) // Be sure at least somebody offers a melee-worthy challenge
+    HPGT(NearestEnemyOfType([GOODCUTOFF]),40)
+    HPGT(SecondNearestEnemyOfType([GOODCUTOFF]),40)
+    HPGT(ThirdNearestEnemyOfType([GOODCUTOFF]),40)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_DRAW_UPON_HOLY_MIGHT)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_RESIST_FIRE)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(10,7)
+  OR(3)
+    HitBy([ANYONE],FIRE)
+    HitBy([ANYONE],COLD)
+    RandomNumLT(12,8)
+  OR(3)
+    CheckStatLT(Myself,41,RESISTFIRE)
+    CheckStatLT(Myself,41,RESISTCOLD)
+  !StateCheck(Myself,STATE_SILENCED)
+  CheckStatLT(Myself,61,SPELLFAILUREPRIEST)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,CLERIC_RESIST_FIRE)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_BLESS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("SNAFU","LOCALS",0)
+  RandomNumLT(9,3)
+  Range(SecondNearestMyGroupOfType,15)
+  CheckStatLT(SecondNearestMyGroupOfType,0,129)
+  !StateCheck(SecondNearestMyGroupOfType,STATE_BLESS)
+  !StateCheck(SecondNearestMyGroupOfType,STATE_CHANT)
+  !StateCheck(SecondNearestMyGroupOfType,0x400010)
+  OR(4) // Either nobody's close, or we're protected in some way from melee
+    !Range(NearestEnemyOf(Myself),3)
+    CheckStatGT(Myself,0,STONESKINS)
+    CheckStatGT(Myself,0,181)
+    CheckStatGT(Myself,0,128)      
+THEN
+    RESPONSE #100
+        SetGlobalTimer("SPL_CAST","LOCALS",6)
+        Spell(SecondNearestMyGroupOfType,CLERIC_BLESS)
+END
+
+IF
+  ActionListEmpty()
+  HitBy([GOODCUTOFF],CRUSHING)
+  !GlobalTimerNotExpired("RANG","LOCALS")
+  !StateCheck(Myself,STATE_POISONED)
+  OR(2)
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+  !Range(LastSeenBy(Myself),7)
+  !TargetUnreachable(LastSeenBy(Myself))
+  !InWeaponRange(LastSeenBy(Myself))
+  HPGT(LastSeenBy(Myself),0)
+THEN
+  RESPONSE #50
+    DisplayStringHead(Myself,@2)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #50
+    DisplayStringHead(Myself,@3)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #25
+    DisplayStringHead(Myself,@4)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #25
+    DisplayStringHead(Myself,@5)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+  RESPONSE #60
+    DisplayStringHead(Myself,@5)
+    SetGlobalTimer("RANG","LOCALS",ONE_ROUND)
+    MoveToObject(LastSeenBy(Myself))
+    AttackReevaluate(LastSeenBy(Myself),180)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(INQUIS_DISPEL_MAGIC)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !StateCheck(Myself,STATE_SILENCED)
+  CheckStatLT(Myself,61,194)
+  CheckStat(Myself,0,159)
+  Exists(SecondNearestMyGroupOfType)
+  Range(SecondNearestMyGroupOfType,15)
+  !StateCheck(SecondNearestMyGroupOfType,0x400010)
+  !StateCheck(SecondNearestMyGroupOfType,0x2208010)
+  !StateCheck(SecondNearestMyGroupOfType,0x62000000)
+  OR(8)
+    CheckStatGT(SecondNearestMyGroupOfType,0,HELD)
+    CheckStatGT(SecondNearestMyGroupOfType,0,ENTANGLE)
+    CheckStatGT(SecondNearestMyGroupOfType,0,GREASE)
+    CheckStatGT(SecondNearestMyGroupOfType,0,WEB)
+    StateCheck(SecondNearestMyGroupOfType,270381)
+    StateCheck(SecondNearestMyGroupOfType,0x80100000)
+    StateCheck(SecondNearestMyGroupOfType,STATE_SILENCED)
+    StateCheck(SecondNearestMyGroupOfType,STATE_SLOWED)
+  OR(4) // Either nobody's close, or we're protected in some way from melee
+    !Range(NearestEnemyOf(Myself),3)
+    CheckStatGT(Myself,0,STONESKINS)
+    CheckStatGT(Myself,0,181)
+    CheckStatGT(Myself,0,128)      
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),INQUIS_DISPEL_MAGIC)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_REMOVE_FEAR)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("SNAFU","LOCALS",0)
+  !StateCheck(ThirdNearestMyGroupOfType([EVILCUTOFF]),0x400010)
+  OR(6)
+    StateCheck(SixthNearestMyGroupOfType([EVILCUTOFF]),STATE_PANIC)
+    StateCheck(FifthNearestMyGroupOfType([EVILCUTOFF]),STATE_PANIC)
+    StateCheck(FourthNearestMyGroupOfType([EVILCUTOFF]),STATE_PANIC)
+    StateCheck(ThirdNearestMyGroupOfType([EVILCUTOFF]),STATE_PANIC)
+    StateCheck(SecondNearestMyGroupOfType([EVILCUTOFF]),STATE_PANIC)
+    StateCheck(NearestMyGroupOfType([EVILCUTOFF]),STATE_PANIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(ThirdNearestMyGroupOfType([EVILCUTOFF]),CLERIC_REMOVE_FEAR)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(INNATE_LAY_ON_HANDS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  OR(3)
+    Heard(ThirdNearest([EVILCUTOFF]),123)
+    Heard(SecondNearest([EVILCUTOFF]),123)
+    Heard([EVILCUTOFF],123)
+  HPGT(LastHeardBy(Myself),0)
+  HPPercentGT(Myself,75)
+  Range(LastHeardBy(Myself),10)
+  !Range([EVILCUTOFF.0.0.CLERIC_ALL],10)
+  !HasItem("POTN55",LastHeardBy(Myself))  // ~Potion of Superior Healing~
+  !HasItem("POTN52",LastHeardBy(Myself))  // ~Potion of Extra Healing~
+  CheckStatLT(Myself,61,194)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastHeardBy(Myself),INNATE_LAY_ON_HANDS)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(CLERIC_SLOW_POISON)
+  OR(3)
+    Heard(ThirdNearestMyGroupOfType([EVILCUTOFF]),83)
+    Heard(SecondNearestMyGroupOfType([EVILCUTOFF]),83)
+    Heard(NearestMyGroupOfType([EVILCUTOFF]),83)
+  Range(LastHeardBy(Myself),10)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("SNAFU","LOCALS",0)
+  StateCheck(LastHeardBy(Myself),STATE_POISONED)
+  !StateCheck(LastHeardBy(Myself),0x400010)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastHeardBy(Myself),CLERIC_SLOW_POISON)
+END
+
+
+IF
+  OR(3)
+    !Race(NearestEnemyOf(Myself),MORNINGSTAR)
+    !Class(NearestEnemyOf(Myself),FAIRY_NYMPH)
+    !Specifics(NearestEnemyOf(Myself),65)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(28,22)
+  OR(4)
+    See([GOODCUTOFF.0.0.0.0.SUMMONED_DEMON])
+    See([GOODCUTOFF.0.0.0.0.SUMMONED])
+    See([GOODCUTOFF.0.0.0.SIMULACRUM])
+    See([GOODCUTOFF.0.0.0.0.ILLUSIONARY])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(31,26)
+  OR(6)
+    See(NearestEnemyOf(Myself))
+    See(WeakestOf)
+    See(WorstAC)
+    See(MostDamagedOf)
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+
+IF
+  RandomNumLT(30,13)
+  OR(6)
+    See(NearestEnemyOfType([PC]))
+    See(SecondNearestEnemyOfType([PC]))
+    See(ThirdNearestEnemyOfType([PC]))
+    See(FourthNearestEnemyOfType([PC]))
+    See(FifthNearestEnemyOfType([PC]))
+    See(SixthNearestEnemyOfType([PC]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumGT(30,20)
+  OR(6)
+    See(NearestEnemyOfType([GOODCUTOFF]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF]))
+    See(FourthNearestEnemyOfType([GOODCUTOFF]))
+    See(FifthNearestEnemyOfType([GOODCUTOFF]))
+    See(SixthNearestEnemyOfType([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumGT(30,15)
+  RandomNumLT(30,19)
+  See(Protagonist)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+  
+IF
+  RandomNumLT(29,18)
+  OR(7)
+    See(NearestEnemyOfType([PC.0.0.RANGER_ALL]))
+    See(NearestEnemyOfType([PC.0.0.PALADIN_ALL]))
+    See(NearestEnemyOfType([PC.0.0.BARD_ALL]))
+    See(NearestEnemyOfType([PC.0.0.DRUID_ALL]))
+    See(NearestEnemyOfType([PC.0.0.CLERIC_ALL]))
+    See(NearestEnemyOfType([PC.0.0.LONG_BOW]))
+    See(NearestEnemyOfType([PC.0.0.SORCERER]))
+  OR(7)
+    See(SecondNearestEnemyOfType([PC.0.0.RANGER_ALL]))
+    See(SecondNearestEnemyOfType([PC.0.0.PALADIN_ALL]))
+    See(SecondNearestEnemyOfType([PC.0.0.BARD_ALL]))
+    See(SecondNearestEnemyOfType([PC.0.0.DRUID_ALL]))
+    See(SecondNearestEnemyOfType([PC.0.0.CLERIC_ALL]))
+    See(SecondNearestEnemyOfType([PC.0.0.LONG_BOW]))
+    See(SecondNearestEnemyOfType([PC.0.0.SORCERER]))
+  OR(7)
+    See(ThirdNearestEnemyOfType([PC.0.0.RANGER_ALL]))
+    See(ThirdNearestEnemyOfType([PC.0.0.PALADIN_ALL]))
+    See(ThirdNearestEnemyOfType([PC.0.0.BARD_ALL]))
+    See(ThirdNearestEnemyOfType([PC.0.0.DRUID_ALL]))
+    See(ThirdNearestEnemyOfType([PC.0.0.CLERIC_ALL]))
+    See(ThirdNearestEnemyOfType([PC.0.0.LONG_BOW]))
+    See(ThirdNearestEnemyOfType([PC.0.0.SORCERER]))
+  OR(7)
+    See(FourthNearestEnemyOfType([PC.0.0.RANGER_ALL]))
+    See(FourthNearestEnemyOfType([PC.0.0.PALADIN_ALL]))
+    See(FourthNearestEnemyOfType([PC.0.0.BARD_ALL]))
+    See(FourthNearestEnemyOfType([PC.0.0.DRUID_ALL]))
+    See(FourthNearestEnemyOfType([PC.0.0.CLERIC_ALL]))
+    See(FourthNearestEnemyOfType([PC.0.0.LONG_BOW]))
+    See(FourthNearestEnemyOfType([PC.0.0.SORCERER]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(26,12)
+  OR(12)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.SORCERER]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.SORCERER]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.SORCERER]))
+    See(FourthNearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(FourthNearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+    See(FourthNearestEnemyOfType([GOODCUTOFF.0.0.SORCERER]))
+  RandomNumLT(27,8)
+  OR(12)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.RANGER_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.PALADIN_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.DRUID_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.RANGER_ALL]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.PALADIN_ALL]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.DRUID_ALL]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.RANGER_ALL]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.PALADIN_ALL]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.DRUID_ALL]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+  RandomNumLT(32,10)
+  OR(9)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.MONK]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.THIEF_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.MONK]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.THIEF_ALL]))
+    See(SecondNearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.MONK]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.THIEF_ALL]))
+    See(ThirdNearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(23,14)
+  OR(3)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.SORCERER]))
+  RandomNumLT(24,11)
+  OR(4)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.RANGER_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.PALADIN_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.DRUID_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+  RandomNumLT(25,10)
+  OR(3)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.MONK]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.THIEF_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+  RandomNumLT(21,7)
+  OR(3)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.FIGHTER_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.RANGER_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.PALADIN_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(32,25)
+  OR(3)
+    Heard(ThirdNearestMyGroupOfType([EVILCUTOFF]),124)
+    Heard(SecondNearestMyGroupOfType([EVILCUTOFF]),124)
+    Heard(NearestMyGroupOfType([EVILCUTOFF]),124)
+  HPGT(LastHeardBy(Myself),1)
+  Range(LastHeardBy(Myself),20)
+  Exists(LastAttackerOf(LastHeardBy(Myself)))
+  !Allegiance(LastAttackerOf(LastHeardBy(Myself)),EVILCUTOFF)
+  !StateCheck(LastAttackerOf(LastHeardBy(Myself)),STATE_CHARMED)
+  OR(3)
+    !Race(LastAttackerOf(LastHeardBy(Myself)),MORNINGSTAR)
+    !Class(LastAttackerOf(LastHeardBy(Myself)),FAIRY_NYMPH)
+    !Specifics(LastAttackerOf(LastHeardBy(Myself)),65)
+  OR(3)  
+    !StateCheck(LastAttackerOf(LastHeardBy(Myself)),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  !Class(LastAttackerOf(LastHeardBy(Myself)),INNOCENT)
+  See(LastAttackerOf(LastHeardBy(Myself)))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(33,13)
+  HitBy([0],0x0000)
+  !Allegiance(LastHitter(Myself),EVILCUTOFF)
+  !StateCheck(LastHitter(Myself),STATE_CHARMED)
+  OR(3)
+    !Race(LastHitter(Myself),MORNINGSTAR)
+    !Class(LastHitter(Myself),FAIRY_NYMPH)
+    !Specifics(LastHitter(Myself),65)
+  OR(3)  
+    !StateCheck(LastHitter(Myself),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  See(LastHitter(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumGT(33,22)
+  AttackedBy([0],DEFAULT)
+  !Allegiance(LastAttackerOf(Myself),EVILCUTOFF)
+  !StateCheck(LastAttackerOf(Myself),STATE_CHARMED)
+  OR(3)
+    !Race(LastAttackerOf(Myself),MORNINGSTAR)
+    !Class(LastAttackerOf(Myself),FAIRY_NYMPH)
+    !Specifics(LastAttackerOf(Myself),65)
+  OR(3)  
+    !StateCheck(LastAttackerOf(Myself),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  OR(3)
+    Allegiance(LastSeenBy(Myself),ENEMY)
+    Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+    Allegiance(LastSeenBy(Myself),GOODBUTRED)
+THEN
+  RESPONSE #100
+END
+
+IF
+  Race(LastSeenBy(Myself),MORNINGSTAR)
+  Class(LastSeenBy(Myself),FAIRY_NYMPH)
+  Specifics(LastSeenBy(Myself),65)
+THEN
+  RESPONSE #100
+END
+
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+THEN
+  RESPONSE #80
+    Continue()
+  RESPONSE #20
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(PALADIN_PROTECTION_FROM_EVIL)
+  Alignment(LastSeenBy(Myself),MASK_EVIL)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(13,9)
+  CheckStat(Myself,0,117)
+  CheckStatLT(Myself,61,194)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,PALADIN_PROTECTION_FROM_EVIL)
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(INNATE_PROTECTION_FROM_EVIL)
+  Alignment(LastSeenBy(Myself),MASK_EVIL)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(13,9)
+  CheckStat(Myself,0,117)
+  CheckStatLT(Myself,61,194)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,INNATE_PROTECTION_FROM_EVIL)
+END
+
+IF
+  ActionListEmpty()
+  CheckStatGT(Myself,0,SCRIPTINGSTATE4)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),45)
+END
+
+
+IF
+  ActionListEmpty()
+  RandomNumLT(44,12)
+  General(LastSeenBy(Myself),UNDEAD)
+  Range(LastSeenBy(Myself),15)
+  !GlobalTimerNotExpired("BPTurn","LOCALS")
+  Global("TURN","LOCALS",0)
+  CheckStat(LastSeenBy(Myself),0,187) // Immune to Turn Undead
+  HPPercentGT(Myself,50)
+  !Range([EVILCUTOFF.UNDEAD],15)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPTurn","LOCALS",TWO_ROUNDS)
+    SetGlobal("TURN","LOCALS",1)
+    Turn()
+END
+
+IF
+  ActionListEmpty()
+  HaveSpell(INQUIS_DISPEL_MAGIC)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(48,31)
+  CheckStat(LastSeenBy(Myself),0,177)
+  !StateCheck(LastSeenBy(Myself),0x400010)
+  CheckStatLT(Myself,61,194)
+  OR(2)
+    !HasImmunityEffects(Myself)
+    !Range(LastSeenBy(Myself),15)
+  OR(2)
+    CheckStat(Myself,0,STONESKINS)
+    !Range(LastSeenBy(Myself),15)
+  OR(4)
+    StateCheck(LastSeenBy(Myself),580943904)
+    StateCheck(LastSeenBy(Myself),0x2208010)
+    StateCheck(LastSeenBy(Myself),0x62000000)
+    CheckStatGT(LastSeenBy(Myself),0,STONESKINS)
+THEN
+  RESPONSE #100
+    SetGlobal("BPT","LOCALS",6)
+    Spell(NearestEnemyOf(Myself),INQUIS_DISPEL_MAGIC)
+END
+
+
+
+IF
+  RandomNumLT(23,14)
+  OR(3)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.SORCERER]))
+  RandomNumLT(24,11)
+  OR(4)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.RANGER_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.PALADIN_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.DRUID_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+  RandomNumLT(25,10)
+  OR(3)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.MONK]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.THIEF_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.BARD_ALL]))
+  RandomNumLT(21,7)
+  OR(3)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.FIGHTER_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.RANGER_ALL]))
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.PALADIN_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(32,25)
+  OR(3)
+    Heard(ThirdNearestMyGroupOfType([EVILCUTOFF]),124)
+    Heard(SecondNearestMyGroupOfType([EVILCUTOFF]),124)
+    Heard(NearestMyGroupOfType([EVILCUTOFF]),124)
+  HPGT(LastHeardBy(Myself),1)
+  Range(LastHeardBy(Myself),20)
+  Exists(LastAttackerOf(LastHeardBy(Myself)))
+  !Allegiance(LastAttackerOf(LastHeardBy(Myself)),EVILCUTOFF)
+  !StateCheck(LastAttackerOf(LastHeardBy(Myself)),STATE_CHARMED)
+  OR(3)
+    !Race(LastAttackerOf(LastHeardBy(Myself)),MORNINGSTAR)
+    !Class(LastAttackerOf(LastHeardBy(Myself)),FAIRY_NYMPH)
+    !Specifics(LastAttackerOf(LastHeardBy(Myself)),65)
+  OR(3)  
+    !StateCheck(LastAttackerOf(LastHeardBy(Myself)),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  !Class(LastAttackerOf(LastHeardBy(Myself)),INNOCENT)
+  See(LastAttackerOf(LastHeardBy(Myself)))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(33,13)
+  HitBy([0],0x0000)
+  !Allegiance(LastHitter(Myself),EVILCUTOFF)
+  !StateCheck(LastHitter(Myself),STATE_CHARMED)
+  OR(3)
+    !Race(LastHitter(Myself),MORNINGSTAR)
+    !Class(LastHitter(Myself),FAIRY_NYMPH)
+    !Specifics(LastHitter(Myself),65)
+  OR(3)  
+    !StateCheck(LastHitter(Myself),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  See(LastHitter(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumGT(33,22)
+  AttackedBy([0],DEFAULT)
+  !Allegiance(LastAttackerOf(Myself),EVILCUTOFF)
+  !StateCheck(LastAttackerOf(Myself),STATE_CHARMED)
+  OR(3)
+    !Race(LastAttackerOf(Myself),MORNINGSTAR)
+    !Class(LastAttackerOf(Myself),FAIRY_NYMPH)
+    !Specifics(LastAttackerOf(Myself),65)
+  OR(3)  
+    !StateCheck(LastAttackerOf(Myself),0x00400010)
+    CheckStatGT(Myself,0,SEEINVISIBLE)
+    CheckStatGT(Myself,0,118)
+  See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  OR(3)
+    Allegiance(LastSeenBy(Myself),ENEMY)
+    Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+    Allegiance(LastSeenBy(Myself),GOODBUTRED)
+THEN
+  RESPONSE #100
+END
+
+IF
+  Race(LastSeenBy(Myself),MORNINGSTAR)
+  Class(LastSeenBy(Myself),FAIRY_NYMPH)
+  Specifics(LastSeenBy(Myself),65)
+THEN
+  RESPONSE #100
+END
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+THEN
+  RESPONSE #80
+    Continue()
+  RESPONSE #20
+END
+
+
+IF
+  ActionListEmpty()
+  HPPercentLT(Myself,25)
+  Range(LastHitter(Myself),10)
+  !GlobalTimerNotExpired("BPW","LOCALS")
+  OR(3)
+    !Race(LastHitter(Myself),MORNINGSTAR)
+    !Class(LastHitter(Myself),FAIRY_NYMPH)
+    !Specifics(LastHitter(Myself),65)
+THEN
+  RESPONSE #30
+    DisplayStringHead(Myself,49767)  // ~No more~
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    RunAwayFrom(LastHitter(Myself),40)
+  RESPONSE #30
+    DisplayStringHead(Myself,@6)
+    Shout(124)
+    SetGlobalTimer("BPW","LOCALS",10)
+    Attack(LastHitter(Myself))
+  RESPONSE #40
+    DisplayStringHead(Myself,49766)  // ~I can't take this~
+    Shout(123)
+    SetGlobalTimer("BPW","LOCALS",10)
+    AttackReevaluate(LastSeenBy(Myself),15)
+END
+
+IF
+  ActionListEmpty()
+  OR(3)
+    !Range(NearestEnemyOf(Myself),5)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #25
+    Continue()
+  RESPONSE #75
+END
+
+IF
+  ActionListEmpty()
+  !Range(LastSeenBy(Myself),8)
+  OR(3)
+    !Race(NearestEnemyOf(Myself),MORNINGSTAR)
+    !Class(NearestEnemyOf(Myself),FAIRY_NYMPH)
+    !Specifics(NearestEnemyOf(Myself),65)
+THEN
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    MoveToObjectNoInterrupt(LastSeenBy(Myself))
+    AttackReevaluate(LastSeenBy(Myself),135)
+END
+
+IF
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+

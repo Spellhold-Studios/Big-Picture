@@ -1,0 +1,183 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  Global("BPCHARM","LOCALS",1)
+  !StateCheck(Myself,STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCHARM","LOCALS",0)
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("DaoHaste","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    ApplySpell(Myself,WIZARD_IMPROVED_HASTE)
+    SetGlobal("DaoHaste","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("DaoSkins","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    ForceSpell(Myself,WIZARD_STONE_SKIN)
+    SetGlobal("DaoSkins","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("DaoStone","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    ForceSpell(NearestEnemyOf(Myself),WIZARD_FLESH_TO_STONE)
+    SetGlobal("DaoStone","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  Global("DaoInvis","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    ForceSpell(Myself,WIZARD_INVISIBILITY)
+    SetGlobal("DaoInvis","LOCALS",1)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  HaveSpell(WIZARD_GHOST_ARMOR)
+  CheckStatGT(Myself,2,ARMORCLASS)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !CheckStat(Myself,4,SCRIPTINGSTATE5)
+  RandomNumLT(3,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(Myself,WIZARD_GHOST_ARMOR)
+END
+
+IF
+  See(SixthNearestEnemyOf(Myself))
+  HaveSpell(WIZARD_LIGHTNING_BOLT)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  !Range(LastSeenBy(Myself),6)
+  LOS(LastSeenBy(Myself),25)
+  CheckStatLT(LastSeenBy(Myself),50,RESISTELECTRICITY)
+  CheckStatLT(Myself,75,SPELLFAILUREMAGE)
+  CheckStatGT(LastSeenBy(Myself),5,SAVEVSSPELL)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+  RandomNumLT(72,25)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),WIZARD_LIGHTNING_BOLT)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  HaveSpell(WIZARD_AGANNAZAR_SCORCHER)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(5,3)
+  CheckStatLT(LastSeenBy(Myself),50,RESISTMAGIC)
+  CheckStatLT(LastSeenBy(Myself),50,RESISTMAGICFIRE)
+  CheckStatLT(LastSeenBy(Myself),51,RESISTFIRE)
+  HPGT(LastSeenBy(Myself),10)
+  Range(LastSeenBy(Myself),15)
+  !Range(LastSeenBy(Myself),4)
+  !LOS(Player1,15)
+  !LOS(Player2,15)
+  !LOS(Player3,15)
+  !LOS(Player4,15)
+  !LOS(Player5,15)
+  !LOS(Player6,15)
+  CheckStatLT(Myself,26,SPELLFAILUREMAGE)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),WIZARD_AGANNAZAR_SCORCHER)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+  HaveSpell(WIZARD_MELF_ACID_ARROW)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(10,5)
+  CheckStatLT(LastSeenBy(Myself),50,RESISTMAGIC)
+  CheckStatLT(LastSeenBy(Myself),51,RESISTACID)
+  !HasBounceEffects(LastSeenBy(Myself))
+  CheckStatLT(Myself,75,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),WIZARD_MELF_ACID_ARROW)
+END
+
+IF
+  ActionListEmpty()
+  See(TenthNearestEnemyOf(Myself))
+  HaveSpell(WIZARD_STINKING_CLOUD)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  RandomNumLT(15,7)
+  !Range(LastSeenBy(Myself),12)
+  !StateCheck(LastSeenBy(Myself),STATE_HELPLESS)
+  !StateCheck(LastSeenBy(Myself),STATE_SLEEPING)
+  !StateCheck(LastSeenBy(Myself),STATE_OUT_OF_ACTION)
+  !General(LastSeenBy(Myself),UNDEAD)
+  CheckStatGT(LastSeenBy(Myself),7,SAVEVSDEATH)
+  CheckStatLT(LastSeenBy(Myself),76,RESISTMAGIC)
+  CheckStatLT(Myself,76,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),WIZARD_STINKING_CLOUD)
+END
+
+IF
+  ActionListEmpty()
+  See(ThirdNearestEnemyOf(Myself))
+  HaveSpell(WIZARD_MAGIC_MISSILE)
+  RandomNumLT(20,9)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  CheckStatLT(LastSeenBy(Myself),50,RESISTMAGIC)
+  CheckStatLT(LastSeenBy(Myself),50,MAGICDAMAGERESISTANCE)
+  !CheckStat(LastSeenBy(Myself),2,SCRIPTINGSTATE5)
+  !HasBounceEffects(LastSeenBy(Myself))
+  CheckStatLT(Myself,76,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    AttackReevaluate(NearestEnemyOf(Myself),30)
+END
+

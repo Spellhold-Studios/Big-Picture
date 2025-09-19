@@ -1,0 +1,10 @@
+IF
+  IsOverMe([ANYONE])
+  Global("EQUIPMENT","GLOBAL",1)
+  Global("BPGiveItBackNOW","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BPGiveItBackNOW","GLOBAL",1)
+    CreateCreatureObject("BPGOODYS",Player1,0,0,0)
+END
+

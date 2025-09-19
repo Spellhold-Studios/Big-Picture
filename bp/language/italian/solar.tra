@@ -1,0 +1,191 @@
+@0    = ~Ti saluto, figlio degli dei, nelle cui vene scorre sangue divino. Ti stavo aspettando.~ ~Ti saluto, figlia degli dei, nelle cui vene scorre sangue divino. Ti stavo aspettando.~ [SOLAR06]
+@1    = ~E tu chi saresti?~
+@2    = ~Dove sono? Sto sognando?~
+@3    = ~Perché mi hai portato qui? Rispondi o proverai la mia ira!~
+@4    = ~Io esisto fin da quando è stato intessuto il primo filo del destino; ho sempre servito gli dei e fatto la loro volontà. Ma ho anche seguito le tue vicende con grande attenzione.~ [SOLAR07]
+@5    = ~Come definiresti un sogno? Un sentiero fugace privo di ogni sostanza? Allora questo non è un sogno.... ti ho portato in questo posto, ed è reale.~ [SOLAR08]
+@6    = ~Chi sei?~
+@7    = ~Perché mi hai portato qui?~
+@8    = ~Uno dei nostri servitori, il mortale Alaundo, pronunciò alcune verità che divennero una profezia. Parlava della tua venuta, e di quella di tutti gli altri esseri che appartengono alla stirpe di Bhaal.~ [SOLAR09]
+@9    = ~La scintilla della divinità brucia dentro tutti i figli di Bhaal, e il tempo della loro fusione è ormai vicino. Io sono qui per aiutarti, figlio degli dei.~ ~La scintilla della divinità brucia dentro tutti i figli di Bhaal, e il tempo della loro fusione è ormai vicino. Io sono qui per aiutarti, figlia degli dei.~ [SOLAR10]
+@10   = ~Aiutarmi? come?~
+@11   = ~Che cosa sai della profezia, esattamente?~
+@12   = ~Che cos'è questo posto?~
+@13   = ~Come posso essere certo che questa non sia una specie di trappola?!~
+@14   = ~La progenie di Bhaal è numerosa... e si sta rapidamente estinguendo mentre la loro scintilla torna alla fonte. Questi eventi si tingono di profondi significati divini, figlio degli dei.~ ~La progenie di Bhaal è numerosa... e si sta rapidamente estinguendo mentre la loro scintilla torna alla fonte. Questi eventi si tingono di profondi significati divini, figlia degli dei.~ [SOLAR11]
+@15   = ~Tu sei centrale in questo Evento. Attraverso te passano molti dei fili del destino. Io non riesco a scorgerne la fine. Devo quindi guidarti attraverso questo processo al meglio delle mie possibilità.~ [SOLAR12]
+@16   = ~E cosa puoi fare per aiutarmi?~
+@17   = ~A me non è concesso interferire. Posso solo prepararti, figlio degli dei... aiutarti dandoti un'educazione adeguata, poiché non sei ancora pronto per affrontare il destino che ti attende.~ ~A me non è concesso interferire. Posso solo prepararti, figlia degli dei... aiutarti dandoti un'educazione adeguata, poiché non sei ancora pronta per affrontare il destino che ti attende.~ [SOLAR13]
+@18   = ~Che cosa vuoi dire con questo?~
+@19   = ~Questo? Questo è il piano dell'Abisso su cui un tempo regnava il tuo sire, Bhaal. Sei già stato qui, anche se a quel tempo lo alterasti con la tua coscienza.~ [SOLAR14]
+@20   = ~Hai menzionato di potermi aiutare... come?~
+@21   = ~Come posso essere certo che questa non sia una sorta di trappola?!~
+@22   = ~Non sono qui per deriderti o farti del male, figlio di Bhaal. Posso solo insegnarti qualcosa, e se desideri puoi sentirti libero di prendere in considerazione le mie parole o ritenerle false. Le conseguenze dovrai però affrontarle da solo.~ ~Non sono qui per deriderti o farti del male, figlia di Bhaal. Posso solo insegnarti qualcosa, e se desideri puoi sentirti libera di prendere in considerazione le mie parole o ritenerle false. Le conseguenze dovrai però affrontarle da sola.~ [SOLAR15]
+@23   = ~E quindi in pratica come potresti aiutarmi?~
+@24   = ~Dimmi che cosa sai della profezia.~
+@25   = ~Dimmi che cos'è questo posto.~
+@26   = ~Voglio dire che non sei preparato ad affrontare le possibilità che si aprono davanti a te. La tua mente mortale  non riesce ancora a comprendere il potere che si cela nel tuo sangue.~ ~Voglio dire che non sei preparata ad affrontare le possibilità che si aprono davanti a te. La tua mente mortale  non riesce ancora a comprendere il potere che si cela nel tuo sangue.~ [SOLAR16]
+@27   = ~Quando eri l'ultimo dei sudditi del reame cui appartenevi, figlio degli dei, esso veniva alterato dalla tua coscienza senza che tu neanche te ne accorgessi. Non sei pronto per tutto questo potere.~ ~Quando eri l'ultima dei sudditi del reame cui appartenevi, figlia degli dei, esso veniva alterato dalla tua coscienza senza che tu neanche te ne accorgessi. Non sei pronta per tutto questo potere.~ [SOLAR17]
+@28   = ~Devi essere preparato. Sarà la tua presenza a determinare il risultato della profezia, anche se tuttora io non riesco a prevederlo. Quando il tempo verrà, sarai pronto... mi assicurerò che tu lo sia.~ ~Devi essere preparata. Sarà la tua presenza a determinare il risultato della profezia, anche se tuttora io non riesco a prevederlo. Quando il tempo verrà, sarai pronta... mi assicurerò che tu lo sia.~ [SOLAR18]
+@29   = ~Che cosa sai del mio potere?~
+@30   = ~Che cosa succederà?~
+@31   = ~E se non volessi il tuo aiuto?~
+@32   = ~Pretendo che tu mi rimandi indietro immediatamente!~
+@33   = ~Il potere va di pari passo con la conoscenza, figlio degli dei. Capirai solo con il passare del tempo, man mano che il tuo destino si farà più chiaro.~ ~Il potere va di pari passo con la conoscenza, figlia degli dei. Capirai solo con il passare del tempo, man mano che il tuo destino si farà più chiaro.~ [SOLAR19]
+@34   = ~Ci vedremo presto. Ma fino ad allora, sii saldo nel cuore e sappi che non sei solo.~ ~Ci vedremo presto. Ma fino ad allora, sii salda nel cuore e sappi che non sei sola.~ [SOLAR20]
+@35   = ~Vorresti incontrare il tuo destino cieco e incosciente? Anche se le cose stessero così, non ti lascerò molta scelta in merito.~ ~Vorresti incontrare il tuo destino cieca e incosciente? Anche se le cose stessero così, non ti lascerò molta scelta in merito.~ [SOLAR21]
+@36   = ~Le tue richieste significano ben poco per me. Che tu sia disposto o meno, non hai molte scelte finché sei in mia presenza, proprio come non hai la possibilità di scegliere il tuo destino.~ ~Le tue richieste significano ben poco per me. Che tu sia disposta o meno, non hai molte scelte finché sei in mia presenza, proprio come non hai la possibilità di scegliere il tuo destino.~ [SOLAR22]
+@37   = ~Io ti saluto, tu che possiedi il sangue di un dio. È tempo che la tua istruzione continui.~ [SOLAR23]
+@38   = ~Perché mi hai portato qui?!~
+@39   = ~Il tuo tempismo è pessimo.~
+@40   = ~Che cosa intendi quando parli della "mia educazione"?~
+@41   = ~Molto bene... credo di essere pronto.~
+@42   = ~Sei stato portato in questo posto poiché sei pronto, figlio degli dei.~ ~Sei stata portato in questo posto poiché sei pronta, figlia degli dei.~ [SOLAR24]
+@43   = ~Hai compiuto il primo passo verso il compimento del tuo destino. Yaga-Shura è morto per tua mano, e le forze in gioco si avvicinano rapidamente ad una conclusione della vicenda.~ [SOLAR25]
+@44   = ~Ora, per capire quale sia il tuo futuro dovrai conoscere te stesso e il tuo passato. Ascolta, e verrai giudicato.~ ~Ora, per capire quale sia il tuo futuro dovrai conoscere te stessa e il tuo passato. Ascolta, e verrai giudicata.~ [SOLAR26]
+@45   = ~Non intendo venire giudicato da te o da nessun altro.~
+@46   = ~Molto bene... ti ascolto.~
+@47   = ~Quest'oggi non sono io il tuo giudice. Ti metterai alla prova da solo.~ ~Quest'oggi non sono io il tuo giudice. Ti metterai alla prova da sola.~ [SOLAR27]
+@48   = ~Per guardare al di là di se stesso e chiedersi "qual è la mia natura?" un uomo deve conoscere le proprie origini.~ ~Per guardare al di là di se stessa e chiedersi "qual è la mia natura?" una donna deve conoscere le proprie origini.~ [SOLAR28]
+@49   = ~Le tue origini sono un mistero anche per te, figlio degli dei. Non hai un inizio... e senza un inizio, come puoi avere una fine?~ ~Le tue origini sono un mistero anche per te, figlia degli dei. Non hai un inizio... e senza un inizio, come puoi avere una fine?~ [SOLAR29]
+@50   = ~Che cosa sai della tua nascita? Che cosa sai di tua madre e della tua vita prima che Gorion ti portasse al sicuro tra le mura di Candlekeep?~ [SOLAR30]
+@51   = ~Non so nulla della mia vita, prima di Gorion.~
+@52   = ~Non ne so nulla, né mi importa.~
+@53   = ~Ecco il passato che si spiega davanti ai tuoi occhi. Faresti bene ad osservarlo attentamente.~ [SOLAR31]
+@54   = ~Ed ecco spiegate le tue origini. Tua madre era una sacerdotessa di Bhaal che è stata uccisa da Gorion.~ [SOLAR32]
+@55   = ~E allora? Questo non significa nulla per me.~
+@56   = ~Una sorpresa, ma in definitiva meglio lei che io.~
+@57   = ~Gorion mi ha salvato la vita. Ma non mi ha mai parlato di nulla del genere...~
+@58   = ~Mi dispiace per mia madre. Ma Gorion ha fatto quello che andava fatto.~
+@59   = ~QUELLA era mia madre? Orribile! Non mi stupisco che Gorion non mi abbia mai detto niente in merito!~
+@60   = ~E cosa mi dici di tuo fratello, Sarevok? Che cosa sarebbe stato se il destino non fosse intervenuto, e Gorion avesse cresciuto lui invece di te? Saresti diventato come lui?~ ~E cosa mi dici di tuo fratello, Sarevok? Che cosa sarebbe stato se il destino non fosse intervenuto, e Gorion avesse cresciuto lui invece di te? Saresti diventata come lui?~ [SOLAR33]
+@61   = ~Sarevok sarebbe stato al tuo posto per uno scherzo del destino? C'è forse un debito fra voi che non è mai stato ripagato?~ [SOLAR34]
+@62   = ~Se c'era un debito, era di Gorion... ed è stato pagato.~
+@63   = ~Non c'è mai stato alcun debito. Gorion non aveva scelta... ed io non sarei mai diventato come Sarevok.~ ~Non c'è mai stato alcun debito. Gorion non aveva scelta... ed io non sarei mai diventata come Sarevok.~
+@64   = ~Sarevok ha scelto il suo destino. Né io né Gorion possiamo in alcun modo essere ritenuti responsabili per esso.~
+@65   = ~Sarevok ha pagato per ciò che aveva fatto... ora come ora, non so risponderti... forse un debito da ripagare c'è.~
+@66   = ~Si, un debito c'è. Potrei facilmente aver vissuto la sua vita, e lui la mia.~
+@67   = ~Abbiamo finito, per ora. Ritorna al tuo guscio planare... Lo troverai parzialmente aperto. Sentiti libero di esplorarlo a tuo piacimento.~ ~Abbiamo finito, per ora. Ritorna al tuo guscio planare... Lo troverai parzialmente aperto. Sentiti libera di esplorarlo a tuo piacimento.~ [SOLAR35]
+@68   = ~Ricordati di ciò che hai appreso qui oggi. Addio, figlio degli dei.~ ~Ricordati di ciò che hai appreso qui oggi. Addio, figlia degli dei.~ [SOLAR36]
+@69   = ~Le Rivelazioni della Solar
+
+La solar mi ha nuovamente richiamato al mio piano extradimensionale, rivelandomi alcuni interessanti eventi relativi al mio passato. Quando Gorion diede l'assalto al tempio di Bhaal e uccise mia madre, il mago avrebbe facilmente potuto prendere Sarevok al posto mio. Sarebbero stati diversi i nostri destini, mi domando?
+
+Anche se illuminante, è difficile dire quale rilevanza abbia per me una tale informazione, considerata la mia situazione attuale. La solar è stata enigmatica, come al solito... però ha aperto un altro dei passaggi nel piano extradimensionale che conduce ad una nuova sfida. Cosa si trova al di là  mi toccherà scoprirlo da solo.~ ~Le Rivelazioni della Solar
+
+La solar mi ha nuovamente richiamato al mio piano extradimensionale, rivelandomi alcuni interessanti eventi relativi al mio passato. Quando Gorion diede l'assalto al tempio di Bhaal e uccise mia madre, il mago avrebbe facilmente potuto prendere Sarevok al posto mio. Sarebbero stati diversi i nostri destini, mi domando?
+
+Anche se illuminante, è difficile dire quale rilevanza abbia per me una tale informazione, considerata la mia situazione attuale. La solar è stata enigmatica, come al solito... però ha aperto un altro dei passaggi nel piano extradimensionale che conduce ad una nuova sfida. Cosa si trova al di là  mi toccherà scoprirlo da sola.~
+@70   = ~Ti saluto ancora una volta, figlio degli dei. La seconda delle tue rivelazioni ti aspetta.~ ~Ti saluto ancora una volta, figlia degli dei. La seconda delle tue rivelazioni ti aspetta.~  [SOLAR37]
+@71   = ~Di che si tratta, altri dettagli sul mio passato?~
+@72   = ~Sono pronto.~ ~Sono pronta.~
+@73   = ~Mi rifiuto di venire trascinato qui ogni volta per ascoltare queste assurdità.~ ~Mi rifiuto di venire trascinata qui ogni volta per ascoltare queste assurdità.~
+@74   = ~C'è uno scopo per tutto questo, spero?~
+@75   = ~Ti sei mai posto domande sulle tue origini, e sul tuo futuro? Credi veramente che esseri dotati di potere divino possano non avere coscienza di sé, o agire senza uno scopo preciso?~ ~Ti sei mai posta domande sulle tue origini, e sul tuo futuro? Credi veramente che esseri dotati di potere divino possano non avere coscienza di sé, o agire senza uno scopo preciso?~ [SOLAR38]
+@76   = ~Man mano che una creatura come te aumenta il suo potere, l'universo si sforza di insegnarle qualcosa affinché sia pronta. Dovranno essere fatte delle scelte. Se non sarai preparato, ti aspetta un'eternità di rimorsi.~ ~Man mano che una creatura come te aumenta il suo potere, l'universo si sforza di insegnarle qualcosa affinché sia pronta. Dovranno essere fatte delle scelte. Se non sarai preparata, ti aspetta un'eternità di rimorsi.~ [SOLAR39]
+@77   = ~Ma non importa. Ti ho già spiegato queste cose. Non le ripeterò... per cui ascolta ed impara, oppure non farlo. La scelta è tua.~ [SOLAR40]
+@78   = ~Bene. Spero che tu abbia riflettuto a fondo sulle tue origini, perché qualunque essere di grande potere deve conoscere se stesso molto a fondo prima di dare un senso alle proprie azioni. Ma andiamo avanti.~ [SOLAR41]
+@79   = ~Questa volta non ci occuperemo del tuo passato, figlio degli dei. Ora osserveremo il tuo presente. La profezia si avvicina alla sua fine, come immagino tu sappia già.~ ~Questa volta non ci occuperemo del tuo passato, figlia degli dei. Ora osserveremo il tuo presente. La profezia si avvicina alla sua fine, come immagino tu sappia già.~ [SOLAR42]
+@80   = ~Probabilmente è il tuo posto all'interno della profezia ad essere ancora in gioco. A questa domanda, per una volta risponderai tu...~ [SOLAR43]
+@81   = ~Sei qui per rivelare a te stesso la profezia e il tuo ruolo in essa.~ ~Sei qui per rivelare a te stessa la profezia e il tuo ruolo in essa.~ [SOLAR44]
+@82   = ~Che mi importa del mio ruolo in qualche profezia? Per me non significa nulla.~
+@83   = ~Questa conoscenza mi procurerà qualche vantaggio?~
+@84   = ~Conosco il mio ruolo... Io sono la progenie di Bhaal che annega la Costa della Spada in un bagno di sangue.~
+@85   = ~So qual è il mio posto... mi prenderò il potere di mio padre...~
+@86   = ~Preferirei trovare un modo per sfuggire al mio destino, se potessi.~
+@87   = ~Puoi scegliere di continuare a vagare ciecamente, se vuoi, ma la conoscenza di te stesso ti donerà potere... e controllo sul tuo destino. Ascolta, mentre parli.~ ~Puoi scegliere di continuare a vagare ciecamente, se vuoi, ma la conoscenza di te stessa ti donerà potere... e controllo sul tuo destino. Ascolta, mentre parli.~ [SOLAR45]
+@88   = ~La conoscenza di te stesso ti conferirà potere, figlio degli dei... e il controllo del tuo destino. Medita i vantaggi che possono provenire da tutto questo, se non altro. Ascolta mentre parli.~ ~La conoscenza di te stessa ti conferirà potere, figlia degli dei... e il controllo del tuo destino. Medita i vantaggi che possono provenire da tutto questo, se non altro. Ascolta mentre parli.~ [SOLAR46]
+@89   = ~Forse hai ragione, almeno in parte... Ma non del tutto. La conoscenza di te stesso ti porterà potere, figlio degli dei... e il controllo del tuo destino. Ascolta mentre parli.~ ~Forse hai ragione, almeno in parte... Ma non del tutto. La conoscenza di te stessa ti porterà potere, figlia degli dei... e il controllo del tuo destino. Ascolta mentre parli.~ [SOLAR47]
+@90   = ~Non si può sfuggire per sempre al proprio destino. Se desideri avere una scelta nel percorrere il sentiero davanti a te, ascolta mentre parli.~ [SOLAR48]
+@91   = ~È un frammento di te stesso. Forse proviene da un altro tempo, o da un'altra dimensione. Ma sempre di te si tratta. Parla a te stesso della profezia di Alaundo, te lo ordino.~ ~È un frammento di te stessa. Forse proviene da un altro tempo, o da un'altra dimensione. Ma sempre di te si tratta. Parla a te stessa della profezia di Alaundo, te lo ordino.~ [SOLAR49]
+@92   = ~Hai ricevuto il consiglio da te stesso. Ora sei consapevole del tuo ruolo in questi eventi, e del perché sei qui. Non tutte le anime hanno questa opportunità.~ ~Hai ricevuto il consiglio da te stessa. Ora sei consapevole del tuo ruolo in questi eventi, e del perché sei qui. Non tutte le anime hanno questa opportunità.~ [SOLAR50]
+@93   = ~Hmph. Chiunque <PRO_HESHE> sia, non mi somiglia poi granché.~
+@94   = ~Grazie, solar.~
+@95   = ~Sì, sì, come vuoi tu.~
+@96   = ~Questo frammento di te stesso è qui come in un sogno, e parla come parlerai tu in sogno un giorno, non come parli da sveglio ora. Adesso rimane solo un'ultima domanda.~ ~Questo frammento di te stessa è qui come in un sogno, e parla come parlerai tu in sogno un giorno, non come parli da sveglia ora. Adesso rimane solo un'ultima domanda.~ [SOLAR51]
+@97   = ~Allora rimane solo un'ultima domanda prima che tu faccia ritorno al tuo cammino.~ [SOLAR52]
+@98   = ~Quando tornerai al mondo reale, continuerai ad avanzare verso il tuo destino... per impedire alla profezia di compiersi. La mia domanda è... perché lo farai?~ [SOLAR53]
+@99   = ~(Sbuffando) Perché sembra che non abbia altra scelta, tanto per cambiare!~
+@100  = ~Per impedire a loro di uccidere me per primi, perché se no?~
+@101  = ~Perché le altre progenie di Bhaal si frappongono tra me e il mio legittimo potere.~
+@102  = ~Impedirò la distruzione della terra perché è la cosa giusta da fare.~
+@103  = ~Prima adempio a questo mio 'destino', prima potrò cominciare ad avere una vita mia.~
+@104  = ~Errrr... Perché se non fosse per le profezie che sconvolgono il mondo la vita sarebbe noiosa?~
+@105  = ~Non ho intenzione di farlo, qualunque cosa tu dica.~
+@106  = ~Ciò che percepisci è la verità, in questo caso, figlio degli dei. Considera ciò che hai appreso... e addio.~ ~Ciò che percepisci è la verità, in questo caso, figlio degli dei. Considera ciò che hai appreso... e addio.~ [SOLAR54]
+@107  = ~Le Rivelazioni della Solar
+
+Altra comunicazione della Solar... questa volta riguarda il mio posto nella profezia di Alaundo. Si suppone che sia io quello di cui Alaundo ha parlato, ed egli mi descrive come colui che dovrà impedire alle altre progenie di Bhaal di portare caos e distruzione nella Costa della Spada... piuttosto che esserne semplicemente il responsabile. Non sono sicuro di come prendere la notizia, poiché il mio posto in questo schema appare predestinato. Potrei essere la belva più selvaggia dei Reami, e comunque le altre progenie di Bhaal mi considererebbero ancora come una minaccia?
+
+Tutto lo fa presupporre. Che mi piaccia o no, sono stato condotto su un sentiero in netto contrasto con il destino dei figli di Bhaal superstiti. E sembra che la mia vittoria sia di gran lunga preferibile alla loro... almeno per quel che riguarda la profezia.
+
+Ancora una volta la solar ha aperto un nuovo portale che conduce ad un'altra sfida nel piano extradimensionale. E sembra anche che io abbia ancora molto da apprendere su me stesso.~ ~Le Rivelazioni della Solar
+
+Altra comunicazione della Solar... questa volta riguarda il mio posto nella profezia di Alaundo. Si suppone che sia io quella di cui Alaundo ha parlato, ed egli mi descrive come colei che dovrà impedire alle altre progenie di Bhaal di portare caos e distruzione nella Costa della Spada... piuttosto che esserne semplicemente la responsabile. Non sono sicura di come prendere la notizia, poiché il mio posto in questo schema appare predestinato. Potrei essere la belva più selvaggia dei Reami, e comunque le altre progenie di Bhaal mi considererebbero ancora come una minaccia?
+
+Tutto lo fa presupporre. Che mi piaccia o no, sono stata condotta su un sentiero in netto contrasto con il destino dei figli di Bhaal superstiti. E sembra che la mia vittoria sia di gran lunga preferibile alla loro... almeno per quel che riguarda la profezia.
+
+Ancora una volta la solar ha aperto un nuovo portale che conduce ad un'altra sfida nel piano extradimensionale. E sembra anche che io abbia ancora molto da apprendere su me stessa.~
+@108  = ~Ti saluto ancora un volta, figlio degli dei. Ti avvicini al passo finale sulla via del tuo destino. Ben presto tutto diventerà incredibilmente complicato.~ ~Ti saluto ancora un volta, figlia degli dei. Ti avvicini al passo finale sulla via del tuo destino. Ben presto tutto diventerà incredibilmente complicato.~ [SOLAR55]
+@109  = ~Non meno complicato di quanto sia sempre stato.~
+@110  = ~Assurdo. Queste progenie di Bhaal non possono certo opporsi a me.~
+@111  = ~I morti non sono mai complicati. Dominerò ogni cosa, presto.~
+@112  = ~Qualunque aiuto potresti fornirmi verrebbe molto apprezzato.~
+@113  = ~Spero solo di essere in grado di aggrapparmi a tutto ciò che è buono e giusto.~
+@114  = ~Lo vedremo. Nei giorni scorsi hai dovuto combattere contro fratello e sorella... hai combattuto e vinto, mentre i tuoi nemici organizzavano le proprie forze contro di te. Ti sei comportato bene.~ [SOLAR56]
+@115  = ~I figli di Bhaal più potenti in assoluto si radunarono anni fa. Li conosci come i Cinque. Insieme, speravano che con il loro potere sarebbero riusciti a distruggere tutti gli altri della loro razza.~ [SOLAR57]
+@116  = ~Ma ciò che ancora ti sfugge è il perché... qual è lo scopo delle azioni dei tuoi fratelli. Puoi avere dei sospetti... ma ascolta la verità dalle labbra di uno di quelli che hai ucciso...~ [SOLAR58]
+@117  = ~Darai spiegazione delle tue azioni, spirito, a colui che ti ha ucciso.~ [SOLAR59]
+@118  = ~Ciò nonostante, tu risponderai alle nostre domande sui Cinque.~ [SOLAR60]
+@119  = ~In quanto a Bhaal, il dio morto tuo padre, intendeva risorgere in questo modo, come aveva progettato prima della sua morte.~ [SOLAR61]
+@120  = ~E così i Cinque tentarono di resuscitare tuo padre e diventare semidei. Cosa significa per te, questo, figlio degli dei?~ ~E così i Cinque tentarono di resuscitare tuo padre e diventare semidei. Cosa significa per te, questo, figlia degli dei?~ [SOLAR62]
+@121  = ~Ben poco. Non è ciò che volevano tutte quelle progenie di Bhaal? È finita, ora.~
+@122  = ~Significa che il loro piano è fallito e che invece sarò io a diventare un essere supremo.~
+@123  = ~Significa che il loro piano è fallito... E che Bhaal rimarrà com'è: morto!~
+@124  = ~Non era quello che pensavo volessero fare, ma ora è tutto finito, comunque.~
+@125  = ~L'ultimo dei Cinque è ancora in vita, figlio degli dei, e tuo padre si agita. Cosa farai?~ ~L'ultimo dei Cinque è ancora in vita, figlia degli dei, e tuo padre si agita. Cosa farai?~ [SOLAR63]
+@126  = ~Dovrò fermare Balthazar e anche Bhaal, se è necessario.~
+@127  = ~Balthazar non può impedirmi di prendere il posto che mi spetta. E nemmeno il mio defunto padre.~
+@128  = ~Preferirei andarmene, ma immagino di non avere scelta.~
+@129  = ~Se posso uccidere Balthazar prima che risvegli Bhaal, preferirei non dover trattare affatto col mio cosiddetto 'padrÈ.~
+@130  = ~Posso servire mio padre meglio di quanto abbiano mai fatto loro.~
+@131  = ~Uccidere. Mutilare. Distruggere. Qualsiasi cosa che mi viene naturale.~
+@132  = ~Allora continua sul tuo cammino, figlio degli dei. Ti rivedrò molto presto.~ ~Allora continua sul tuo cammino, figlia degli dei. Ti rivedrò molto presto.~ [SOLAR64]
+@133  = ~Le Rivelazioni della Solar
+
+Le potenti progenie di Bhaal che ho combattuto, coloro che senza pietà hanno cacciato tutti gli altri, chiamano se stessi 'i CinquÈ. Come me, essi sono i più potenti della nostra razza e possiedono una notevole parte dell'essenza divina di Bhaal.
+
+Sembra che si siano coalizzati per un unico scopo... dal momento che erano troppo potenti per combattersi tra loro, avrebbero unito le loro forze e dato la caccia alle restanti progenie di Bhaal. Quindi avrebbero fatto risuscitare il nostro progenitore e sarebbero divenuti i suoi generali sulla terra. Ci stavano decisamente riuscendo, ma quattro di loro adesso sono morti: Illasera, Yaga-Shura, Sendai e Abazigal.
+
+Il problema è che l'essenza di Bhaal in essi contenuta era in quantità tale che il dio potrebbe essere più prossimo che mai alla risurrezione. E forse è proprio questo l'intento dell'ultimo dei cinque, Balthazar. Non ho altra scelta se non ritornare ad Amkethran e fermarlo. Allora forse, si riuscirà a porre fine per sempre a tutto questo.
+
+La quarta stanza della sfida mi è stata aperta adesso. Se penso a quanto vicino mi trovo alla fine, mi sembra strano che vi sia un'altra prova da superare dopo questa.~
+@134  = ~I campioni della progenie di Bhaal, i Cinque, sono stati distrutti, figlio degli dei. Quasi tutta l'essenza del dio è tornata alla fonte... il tuo viaggio è quasi terminato.~ ~I campioni della progenie di Bhaal, i Cinque, sono stati distrutti, figlia degli dei. Quasi tutta l'essenza del dio è tornata alla fonte... il tuo viaggio è quasi terminato.~ [SOLAR65]
+@135  = ~Ma i Cinque non sono stati distrutti! Rimane Melissan!~
+@136  = ~E quindi vuoi dirmi che Bhaal sta per tornare in vita?~
+@137  = ~E quindi cosa dovrei fare ora?~
+@138  = ~Sì, sì. Facciamola finita con questa storia, allora.~
+@139  = ~Colei che conosci come Melissan non è mai stata un vero membro dei Cinque, figlio degli dei. Lei non è una figlia di Bhaal.~ ~Colei che conosci come Melissan non è mai stata un vero membro dei Cinque, figlia degli dei. Lei non è una figlia di Bhaal.~ [SOLAR66]
+@140  = ~Il dio morto, Bhaal, non è stato resuscitato e possa non esserlo mai. Devi comprendere ciò che ti aspetta ora alla fine del tuo viaggio, figlio degli dei... e per questo, colei che conosci come Melissan si spiegherà da sé.~ ~Il dio morto, Bhaal, non è stato resuscitato e possa non esserlo mai. Devi comprendere ciò che ti aspetta ora alla fine del tuo viaggio, figlia degli dei... e per questo, colei che conosci come Melissan si spiegherà da sé.~ [SOLAR67]
+@141  = ~Sei qui ai miei ordini, spirito. Tu risponderai alle nostre domande.~ [SOLAR68]
+@142  = ~Non sei ancora una dea, mortale. La profezia non si è ancora avverata.~ [SOLAR69]
+@143  = ~Allora spiegati. Se hai ragione, non farà differenza alla fine.~ [SOLAR70]
+@144  = ~Basta! Una battaglia qui non risolverà nulla.~ [SOLAR71]
+@145  = ~Il tuo destino è segnato, figlio degli dei. Ritorna al tuo piano extradimensionale... e, quando sarai pronto, avrai bisogno di porre fine alla sua esistenza. Allora sarai nel Trono di Sangue... e Melissan sarà lì.~ ~Il tuo destino è segnato, figlia degli dei. Ritorna al tuo piano extradimensionale... e, quando sarai pronta, avrai bisogno di porre fine alla sua esistenza. Allora sarai nel Trono di Sangue... e Melissan sarà lì.~ [SOLAR72]
+@146  = ~Ella non ha ancora finito di prendere l'essenza dei figli di Bhaal. Ti suggerisco di muoverti in fretta, figlio degli dei. L'atto finale della profezia attende.~ ~Ella non ha ancora finito di prendere l'essenza dei figli di Bhaal. Ti suggerisco di muoverti in fretta, figlia degli dei. L'atto finale della profezia attende.~ [SOLAR73]
+@147  = ~Le Rivelazioni della Solar
+
+Il mio destino è segnato. Il mio ultimo nemico mi è stato rivelato. Non si tratta di Bhaal riportato in vita, come avevo sospettato... altri non è se non la stessa Melissan, è stata lei per tutto il tempo.
+
+Una volta era la Somma Sacerdotessa di Bhaal, durante il Periodo dei Disordini. Spettava a lei il compito di sterminare tutte le progenie di Bhaal e restituirne l'essenza al dio... spettava a lei il compito di riportare in vita Bhaal. Il dio si è fidato di lei e lei lo ha tradito. Ha manipolato i Cinque fino a condurli alla morte, ha manipolato me, e persino ora cerca di sottrarre il potere del suo padrone e diventare una dea.
+
+L'ultima prova mi attende. Devo affrontarla e distruggere il 'guscio' protettivo che è il mio piano extradimensionale così da entrare nel Trono di Bhaal e fermare Melissan prima che riesca nel suo intento. Non DEVE riuscire.~
+@148  = ~Hai parlamentato con Balthazar, il più grande della prole di Bhaal insieme a te, figlio degli dei. Devi essere lodato. Il tuo viaggio è vicino alla fine.~ ~Hai parlamentato con Balthazar, il più grande della prole di Bhaal insieme a te, figlia degli dei. Devi essere lodata. Il tuo viaggio è vicino alla fine.~
+@149  = ~Aspetta... qual è la parte di Balthazar in tutto ciò? Sapevi che non avrei combattuto contro di lui?~
+@150  = ~Non hai bisogno di combattere contro di lui. Il resto dei Cinque è stato sconfitto. Con Balthazar e te entrambi in vita, non tutta l'essenza divina di Bhaal è ritornata alla sua fonte, e Melissan cercherà di raccoglierla. Questa è la sfida che ti attende.~
+@151  = ~Ma... Melissan fa parte dei Cinque, giusto?~
+@152  = ~Quindi Melissan non ha ancora raccolto abbastanza essenza per resuscitare Bhaal, giusto?~
+@153  = ~Quindi Melissan cerca di essere l'ultima dei figli di Bhaal. Ha anche pianificato di resuscitare Bhaal?~
+@154  = ~Un'altra sfida. Va bene, va bene... facciamola solo finita.~
+@155  = ~Ancora non comprendi. Ma tutto diverrà chiaro.~
+

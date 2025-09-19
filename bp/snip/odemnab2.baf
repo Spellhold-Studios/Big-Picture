@@ -1,0 +1,20 @@
+IF
+  OR(4)
+    See([ANYONE])
+    See([0.0.DEMONIC.0.0.0.LAWFUL_EVIL])
+    See([0.0.0.TANARI.0.0.LAWFUL_EVIL])
+    See([0.0.0.0.0.SUMMONED_DEMON])
+THEN
+  RESPONSE #70
+    AttackReevaluate(LastSeenBy(Myself),30)
+  RESPONSE #15
+    ForceSpell(LastSeenBy(Myself),TANARI_VAMPIRIC_TOUCH)
+    Wait(2)
+  RESPONSE #10
+    ForceSpell(LastSeenBy(Myself),TANARI_PARALYZE)
+    Wait(2)
+  RESPONSE #5
+    ForceSpell(LastSeenBy(Myself),TANARI_SILENCE)
+    Wait(2)
+END
+

@@ -1,0 +1,43 @@
+IF
+  OR(3)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Global("BP_DragonDrop","GLOBAL",0)
+  GlobalTimerExpired("BP_SST","AR2800")
+  Global("BP_SL","AR2800",0)
+  Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    SetGlobalTimer("BP_SST","AR2800",5)
+    SetGlobal("BP_SL","AR2800",2)
+    DisplayStringHead(Myself,@0)
+    Wait(2)
+    ReallyForceSpellRES("jwsiege",Myself)
+    ReallyForceSpellPoint([588.883],DRAGON_WING_BUFFET)
+    SetInterrupt(TRUE)
+END
+
+IF
+  OR(3)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Global("BP_DragonDrop","GLOBAL",0)
+  GlobalTimerExpired("SST","AR2800")
+  Global("BP_SL","AR2800",2)
+THEN
+  RESPONSE #30
+    SetGlobal("BP_SL","AR2800",0)
+    PlaySound("FIRKRA04")
+    SetGlobalTimer("BP_SST","AR2800",60)
+  RESPONSE #30
+    SetGlobal("BP_SL","AR2800",0)
+    PlaySound("FIRKRA04")
+    SetGlobalTimer("BP_SST","AR2800",80)
+  RESPONSE #30
+    SetGlobal("BP_SL","AR2800",0)
+    PlaySound("FIRKRA04")
+    SetGlobalTimer("BP_SST","AR2800",100)
+END

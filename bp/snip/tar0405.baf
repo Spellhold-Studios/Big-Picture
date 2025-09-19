@@ -1,0 +1,29 @@
+IF
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Global("BP_TheTroops","AR0405",0)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BP_ThreeStooges","AR0405",13)
+    SetGlobal("BP_TheTroops","AR0405",1)
+END
+
+IF
+  OR(4)
+    Difficulty(EASY)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Global("BP_TheTroops","AR0405",1)
+  GlobalTimerExpired("BP_ThreeStooges","AR0405")
+THEN
+  RESPONSE #100
+    SetGlobal("BP_TheTroops","AR0405",2)
+    CreateCreature("SLMAGE3",[1685.1165],0)
+    CreateCreature("SLGUARD1",[1650.1220],11)
+    CreateCreature("SLGUARD2",[1590.1240],13)
+END
+

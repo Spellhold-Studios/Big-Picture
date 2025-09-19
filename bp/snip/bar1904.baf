@@ -1,0 +1,21 @@
+IF
+  !Difficulty(EASIEST)
+  Global("BP_MoreStooges","AR1904",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1904",1)
+    CreateCreature("TROLSI01",[1275.630],0)
+    CreateCreature("TROLSP01",[810.590],0)
+END
+
+IF
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+  Global("BP_MoreStooges","AR1904",1)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1904",2)
+    CreateCreature("TROLSP01",[685.750],12)
+    CreateCreature("TROLSI01",[690.1050],12)
+END
+

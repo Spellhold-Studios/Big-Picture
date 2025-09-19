@@ -1,0 +1,8 @@
+IF
+  Global("BPCRWand","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCRWand","GLOBAL",1)
+    ActionOverride("Picture1",CreateItem("CLRANGBP",0,0,0))
+END
+

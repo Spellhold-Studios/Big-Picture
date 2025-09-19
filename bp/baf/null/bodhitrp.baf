@@ -1,0 +1,98 @@
+IF
+  CombatCounter(0)
+  Range([PC],20)
+  !Range("ShThDr01",30)  // ~Brannel~
+  !Difficulty(EASIEST)
+  RandomNumGT(10,3)
+  OR(2)
+    TimeGT(DUSK_START)
+    TimeLT(DAWN_START)
+  XPLT(Player1,1000001)
+  !GlobalTimerNotExpired("GBTrapsAll","GLOBAL")
+  !GlobalTimerNotExpired("GBTrap01","GLOBAL")
+THEN
+  RESPONSE #20
+    SetGlobalTimer("GBTrapsAll","GLOBAL",360)
+    SetGlobalTimer("GBTrap01","GLOBAL",1440)
+    CreateCreatureObjectOffScreen("GBBand1a",Player1,0,0,0)  // ~Bandit~
+    CreateCreatureObjectOffScreen("GBBand1a",Player1,0,0,0)  // ~Bandit~
+    CreateCreatureObjectOffScreen("GBBand1b",Player1,0,0,0)  // ~Bandit~
+    CreateCreatureObjectOffScreen("GBBand1c",Player1,0,0,0)  // ~Bandit~
+    CreateCreatureObjectOffScreen("GBBand1d",Player1,0,0,0)  // ~Bandit~
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre03","GBBand1a",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre03","GBBand1b",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre03","GBBand1c",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre03","GBBand1d",0,0,0)  // <Invalid Strref 9999999>
+  RESPONSE #80
+    SetGlobalTimer("GBTrapsAll","GLOBAL",360)
+    SetGlobalTimer("GBTrap01","GLOBAL",1440)
+END
+
+IF
+  CombatCounter(0)
+  Range([PC],20)
+  !Range("ShThDr01",30)  // ~Brannel~
+  !Difficulty(EASIEST)
+  RandomNumGT(10,3)
+  OR(2)
+    TimeGT(DUSK_START)
+    TimeLT(DAWN_START)
+  XPGT(Player1,1000000)
+  XPLT(Player1,2000001)
+  !GlobalTimerNotExpired("GBTrapsAll","GLOBAL")
+  !GlobalTimerNotExpired("GBTrap01","GLOBAL")
+THEN
+  RESPONSE #20
+    SetGlobalTimer("GBTrapsAll","GLOBAL",360)
+    SetGlobalTimer("GBTrap01","GLOBAL",1440)
+    CreateCreatureObjectOffScreen("GBEne01a",Player1,0,0,0)  // ~Fighter~
+    CreateCreatureObjectOffScreen("GBEne01b",Player1,0,0,0)  // ~Fighter~
+    CreateCreatureObjectOffScreen("GBEne01c",Player1,0,0,0)  // ~Fighter / Mage~
+    CreateCreatureObjectOffScreen("GBEne01d",Player1,0,0,0)  // ~Cleric~
+    CreateCreatureObjectOffScreen("GBEne01e",Player1,0,0,0)  // ~Assassin~
+    CreateCreatureObjectOffScreen("GBEne01f",Player1,0,0,0)  // ~Necromancer~
+    GiveItemCreate("RndTre04","GBEne01a",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre04","GBEne01b",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre04","GBEne01c",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre04","GBEne01d",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre04","GBEne01e",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre04","GBEne01f",0,0,0)  // <Invalid Strref 9999999>
+  RESPONSE #80
+    SetGlobalTimer("GBTrapsAll","GLOBAL",360)
+    SetGlobalTimer("GBTrap01","GLOBAL",1440)
+END
+
+IF
+  CombatCounter(0)
+  Range([PC],20)
+  !Range("ShThDr01",30)  // ~Brannel~
+  !Difficulty(EASIEST)
+  RandomNumGT(10,3)
+  OR(2)
+    TimeGT(DUSK_START)
+    TimeLT(DAWN_START)
+  XPGT(Player1,2000000)
+  !GlobalTimerNotExpired("GBTrapsAll","GLOBAL")
+  !GlobalTimerNotExpired("GBTrap01","GLOBAL")
+THEN
+  RESPONSE #20
+    SetGlobalTimer("GBTrapsAll","GLOBAL",360)
+    SetGlobalTimer("GBTrap01","GLOBAL",1440)
+    CreateCreatureObjectOffScreen("GBEne02a",Player1,0,0,0)  // ~Fighter~
+    CreateCreatureObjectOffScreen("GBEne02b",Player1,0,0,0)  // ~Berserker~
+    CreateCreatureObjectOffScreen("GBEne02c",Player1,0,0,0)  // ~Wizard Slayer~
+    CreateCreatureObjectOffScreen("GBEne02d",Player1,0,0,0)  // ~Shadow Druid~
+    CreateCreatureObjectOffScreen("GBEne02e",Player1,0,0,0)  // ~Bounty Hunter~
+    CreateCreatureObjectOffScreen("GBEne02f",Player1,0,0,0)  // ~Conjurer~
+    GiveItemCreate("RndTre05","GBEne02a",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre05","GBEne02b",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre05","GBEne02c",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre05","GBEne02d",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre05","GBEne02e",0,0,0)  // <Invalid Strref 9999999>
+    GiveItemCreate("RndTre05","GBEne02f",0,0,0)  // <Invalid Strref 9999999>
+  RESPONSE #80
+    SetGlobalTimer("GBTrapsAll","GLOBAL",360)
+    SetGlobalTimer("GBTrap01","GLOBAL",1440)
+END
+

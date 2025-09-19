@@ -1,0 +1,1568 @@
+@0     = ~Big Picture Haupt-Komponente (wird für fast alle Unterkomponenten benötigt)~ 
+@1     = ~Registering GUI...~
+@2    = ~Core Component (Required)~
+@3     = ~~ 
+@4     = ~"Tortured Souls"~
+@5     = ~%separator%"The Darkest Day"~ 
+@6     = ~%separator%"Shadows Over Soubar"~
+@7     = ~%separator%"Neverending Journey"~
+@8     = ~%separator%"Big Picture"~ 
+@9     = ~%separator%"Check The Bodies"~
+@10    = ~%separator%"Region Of Terror"~ 
+@12    = ~ Baldur's Gate<TM> und die Legenden der Schwertküste<TM> oder~
+@13    = ~%bgt%Schatten von Amn<TM>%separator2%%ts%%tdd%%sos%%nej%%ctb%%rot%%bp% spielen~
+@14    = ~ mit:~ 
+@15    = ~Verwende Ausrufe auf dem Bildschirm für Gegner~
+@16    = ~Verwende Textzeilen auf dem Bildschirm (Standard)~ 
+@17    = ~Keine Textzeilen auf dem Bildschirm~
+@18    = ~Füge Unterstützung der Krankheiten durch Skripte hinzu (bis STATE_DISEASED reparieren werden kann)~
+@21    = ~Patching STATS.IDS...~
+@22    = ~führe STATES aus...~ 
+@23    = ~Big Picture wird Euch von Horred the Plague präsentiert.~
+@24    = ~Ein besonderer Dank an all die Macher von Modifikationen, die Big Picture möglich machten!~ 
+@25    = ~Achtet darauf, in Horreds Lager bei Euren großartigen Abenteuern anzuhalten!
+
+(Werden Feuerkugeln als "herzliches Willkommen" betrachtet?)~ 
+@26    = ~%str_add%         -1~
+@27    = ~Lebensschutz~ 
+@28    = ~Chaotischer Kommandant~
+@29    = ~Ruft Schatten herbei~
+@30    = ~Telekinese~
+@31    = ~Schleudert Felsbrocken~
+@32    = ~Felsbrocken~
+@33    = ~Das ist die Art von Felsbrocken, die ein Riese auf die Unglücklichen schleudert. Er kann großen Schaden verursachen, ebenso gut wie er das Opfer bewusstlos machen kann. Ein Charakter mit der Stärke der Riesenklasse ist imstande, diese ebenso zu schleudern... 
+Reichweite: 70 m 
+Schaden: 3-18 
+
+Besonderheit: Rettungswurf gegen die Odemwaffe: -4, oder das Opfer wird für eine Runde bewusstlos geschlagen, und ist die folgende Runde betäubt. 
+Mindeststärke: 19~
+@34    = ~Das ist die Art von Felsbrocken, die ein Riese auf die Unglücklichen schleudert. Er kann großen Schaden verursachen, ebenso gut wie er das Opfer bewusstlos schlagen kann. Ein Charakter mit der Stärke der Riesenklasse ist imstande, diese ebenso zu schleudern... 
+
+Reichweite: 70 m 
+Schaden: 3-18 
+
+Besonderheit: Rettungswurf gegen die Odemwaffe: -4, oder das Opfer wird für eine Runde bewusstlos geschlagen, und ist die folgende Runde betäubt. 
+
+Mindeststärke: 19~
+@35    = ~Stiefel~
+@36    = ~Stiefel der Vergessenen~
+@37    = ~Stiefel sind normalerweise von Schuhmachern handgefertigt. Gewöhnlich werden Stiefel gemacht, indem eine Form verwendet wird, aber gute Stiefel werden für den Fuß einer bestimmten Person bemessen. 
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Gewicht: 4~
+@38    = ~Diese runzligen, rauen Stiefel wurden aus den Skalps von toten Ork-Schamanen vom Stamm der Stinkenden Tatze gemacht. Der machthungrige religiöse Führer des Stamms, Algrash "Der in der Finsternis zusieht", befahl seinen Untergebenen, die Stiefel zu machen, indem sie die Leichname seiner Vorgänger ausgruben. Algrash wurde getötet, als er einen Kampf mit einer Bande von Ogern provozierte. Seine Stiefel wurden an der Stelle des Kampfs verlassen.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Erlaubt dem Träger, zwei zusätzliche Zauber der ersten und zweiten Stufe und einen zusätzlichen Zauber der dritten Stufe zu wirken.
+
+Erhöht die Bewegungsgeschwindigkeit des Trägers aufs doppelte.
+
+Kann nur verwendet werden von:
+ Klerikern (einzel-, doppel- oder mehrklassig)
+ Druiden (einzel-, doppel- oder mehrklassig)~
+@39    = ~Stiefel des Fuchses~
+@40    = ~Diese farbenprächtigen rote und grüne Stiefel wurden von den Gauner Elpham von Perrywine getragen. Elpham war ein Taschendieb mit außergewöhnlichem Talent, der sein Glück aufs Spiel setzte, indem er seine Opfer kurz nach der Entwendung der Beute verhöhnte. Nachdem er das zweite mal gefangen wurde, investierte Elpham sein Geld in die Fertigung dieser Stiefel. Natürlich kam Elpham zu einem vorzeitigen Ende, als er aus der Tasche des notorisch übellaunigen Roten Zauberers von Thay, Xain Morobdel stahl. Elpham stahl einen Beutel voll mit Edelsteinen von Xains Hüfte und tanzte fort in die Menge, indem er schrie: "Warum versucht Ihr nicht, mich geradewegs nach Priador zurückzujagen? Ha ha!" Xain rief mit unterdrückter Wut sofort vier unsichtbare Pirschjäger herbei und befahl ihnen: "Tötet den Idioten in den roten und grünen Stiefeln."
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Erhöht die Bewegungsgeschwindigkeit des Trägers aufs doppelte.
+
+Rüstungsklassebonus +1~
+@41    = ~Ring~
+@42    = ~Edventars Geschenk~
+@43    = ~Ein Ring ist ein kleines Band aus wertvollem Metall, das als Schmuck am Finger getragen wird. Einige Ringe sind verzaubert und verleihen magische Fähigkeiten. Sie sind heiß begehrt, insbesondere von Menschen, deren Beruf das Abenteuer ist.~
+@44    = ~Komposit-Langbogen~
+@45    = ~Komposit-Langbogen +4: Verteidiger~
+@46    = ~Der Langbogen ist dem Kurzbogen sehr ähnlich. Der einzige Unterschied besteht darin, dass der Bogen fast so groß wie der Bogenschütze ist, normalerweise etwa 1,80 bis 2 m. Obwohl der Langbogen im Einsatz etwas langsamer ist als der Kurzbogen, hat er eine größere Reichweite und eine höhere Treffsicherheit. Ein Pfeil, der von einem Langbogenschützen abgeschossen wird, kann mühelos einen Plattenpanzer durchschlagen. 
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+ETW0: +1 Bonus
+Gewicht: 3
+Geschwindigkeitsfaktor: 7
+Waffenfertigkeit: Lange Bogen
+Waffentyp: beidhändig
+Mindeststärke: 6
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern
+ Dieben~
+@47    = ~Der Kompositbogen ist dem Langbogen ähnlich, außer dass der Schaft aus mehr als nur einer Materialart gefertigt ist und schwerer ist. Der Bogen ist fast so groß wie der Bogenschütze, normalerweise etwa 1,80 bis 2 m. Wenn auch der Kompositbogen ein bisschen langsamer als der Langbogen ist, hat er eine größere Reichweite und ist genauer. Dieser besondere Bogen wurde mit magischen Eigenschaften verbessert, die ihm einen Hauch von Vollkommenheit geben. Außerdem wird der schwere Schaft dieses Bogens aus magisch bezauberter Zeder und Cembra-Kiefer gemacht, der seinem Träger zusätzlichen Schutz gewährt.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: +4 (Fernkampf)
+ETW0: +4
+Rüstungsklassbonus: 2
+
+Besonderheit: 4 Angriffe pro Runde
+
+Geschwindigkeitsfaktor: 7
+Waffenfertigkeit: Bogen
+Waffentyp: beidhändig
+Mindestgeschicklichkeit: 17
+Mindeststärke: 17 
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern
+ Dieben~
+@48    = ~Rattenbiss~
+@49    = ~ <Kein Text>~
+@50    = ~Der Rundschild des Zauberers +2~
+@51    = ~Dessen überdrüssig, das Ziel von johlenden Bogenschützen einer rivalisierenden Familie zu sein, gab Balthester der Taschenspieler das Fertigen dieses Artikels in Auftrag. Nicht nur einen Rundschild, den ein Magier anlegen konnte, sondern der durch seine Bauweise auch Schutz vor Fernwaffen bot. Dies erlaubte ihm die freie Zeit die er brauchte, um jene Bogenschützen in die Reiche zu sprengen. Leider sah er den Dolch des Mörders hinter ihm nicht.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Rüstungsklassbonus: 3
+
+Besonderheit: 
+Kein Schutz vor Fernkampfwaffen/Durchstoßen
+Schild (ab der 10. Stufe) 3 mal am Tag
+Schutz vor normalen Fernkampfwaffen (ab der 10. Stufe) 3 mal am Tag
+
+Gewicht: 2
+Mindeststärke: 4~
+@52    = ~Umhang~
+@53    = ~Mithrans Umhang~
+@54    = ~Form und Stoff eines Umhangs können beliebig sein. Die herkömmlichste Form besteht aus einem kreisrunden Stück Stoff, in das in der Mitte ein Loch für den Kopf eingearbeitet wurde. Der Umhang wird mit einer Kette, Brosche, Kordel oder Nadel zusammengehalten.~
+@55    = ~Dieser Elfen Umhang, gewebt aus Seide und Wolle, wurde von einem starken Zauberer aus Mythos Nantar namens Mithran Leichtblatt getragen. Mithran war für seine Liebe am Reisen und seiner Anerkennung der "N'TelQuessir", oder "Nicht Leute" weithin bekannt, die nicht elfischen Leute der Welt. Der Umhang war wirklich die Ursache seines Schicksals, weil er von seiner Dunkelelf Geliebten, Rauva Vrinn, gewebt und verzaubert wurde. Der Stil des schwarzen und mitternachts-blauen Umhangs war so offensichtlich nicht elfisch, dass seine Partner misstrauisch wurden. 
+
+Schließlich entdeckte eine Bekanntschaft von Mithran, ein elfischer Drow-Jäger namens Gaedel, Rauvas abgelegenes Versteck in den Wäldern, die Mythos Nantar umgeben. Mit einer kleinen Gruppe von Kriegern stürmte Gaedel ihre Hütte und tötete sie schnell. Als Mithran entdeckte, was geschehen war, wurde er verrückt vor Wut. Der verrückte Magier griff die Jagdhütte von Gaedel und seinen Brüdern an, tötete sie alle und die ebnete Hütte ein. Gaedels Familie versuchte schließlich, Rache zu nehmen und tötete Mithran wegen dem Verlust des größten Teiles ihres Hauses. Der Umhang Mithrans wurde von seinem engen Freund, dem Zwergen Krieger Hael Bronzelake, wiedererlangt. Wäre das nicht gewesen, wäre er zusammen mit Mythos Nantar unter den Wellen verschlungen worden, als diese stolze Stadt im Meer der Gefallenen Sterne mehrere Jahre später ertränkt wurde.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Rüstungsklassbonus: 3
+
+Rettungswurf-Bonus: +2~
+@56    = ~Handschuhe~
+@57    = ~Handschuhe des Priesterlichen Waldläufers~
+@58    = ~Diese Handschuhe wurden viele Jahre lang von Hohepriester zu Hohepriester weitergereicht, bis im Kampf verloren gingen. Wie oder warum sie an solch einem fremden Platz auftauchten, ist ein großes Rätsel. Sie werden helfen, die Zauber klarer zu bestimmen, um besser für einen Kleriker/Waldläufer zu eignen.
+
+Anleitung: Rüstet sie nach Erlangung jeder Priesterstufe aus und behaltet sie bei.~
+@59    = ~Hellebarde~
+@60    = ~Contagons Scheibe~
+@61    = ~Die Hellebarde (auch als "Nachtwächterspieß" bekannt) ist nach dem Speer die älteste und am weitesten verbreitete Stangenwaffe. Eine Hellebarde lässt sich am besten als eine Kreuzung zwischen Speer und Axt beschreiben. Sie hat eine breite Klinge, die einem Henkersbeil ähnelt, das auf einen durchschnittlich 1,80 m langen Stab aufgesetzt ist. (Daher der Name Stangenbeil). Das Gewicht der Axtklinge wird durch einen Haken (Fluke) ausgeglichen. Am oberen Ende sitzt eine dornenförmige Stoßspitze. Zugeschlagen wird am wirkungsvollsten nicht mit der Beilschneide (diese neigt dazu, sich beim Schlag wegzudrehen), sondern mit dem gegenüberliegenden Haken. Der Haken wird außerdem genutzt, um Ritter vom Pferd zu ziehen; Beil oder Haken können dann zum Durchschlagen der Rüstung dienen. Die Stoßspitze kann ähnlich wie der Spieß in geschlossenen Formationen oder im Einzelkampf eingesetzt werden. Bei direktem Auftreffen kann damit jeder Ritterhelm tödlich durchschlagen werden. Dabei kann sich der Kämpfer außerhalb der Reichweite des gegnerischen Schwertes aufhalten. 
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D10
+Schadensart: durchbohren
+Gewicht: 15
+Geschwindigkeitsfaktor: 9
+Waffenfertigkeit: Hellebarde
+Waffentyp: beidhändig
+Mindeststärke: 13
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern
+ Dieben~
+@62    = ~Diese Stangenwaffe hat eine Scheibe, die scharf genug ist, um in sehr harte Rüstungen einzudringen, und krank genug ist, um einen Drachen umzufällen. Der Teller wimmelt von Krankheiten, und wenn sie ins Blut ziehen, werden nur die glücklichsten wird dem Toben entgehen, das sie bringe.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D10 + 2
+ETW0: +1 Bonus
+
+Besonderheit:
+
+ Chance von 33 % dass die Treffer eine Infektion verursachen werden. Wenn dem Ziel ein Rettungswurf misslingt, erhaltet Ihr -3 zu seiner Rüstungsklasse, Kraft, körperlichen Verfassung und THAC0 für 8 Runden. 
+
+Schadensart: durchbohren
+Gewicht: 14
+Geschwindigkeitsfaktor: 8
+Waffenfertigkeit: Hellebarde
+Waffentyp: beidhändig
+Mindeststärke: 13
+
+Kann nicht verwendet werden von:
+ Guten
+ Druiden
+ Klerikern
+ Magiern
+ Dieben~
+@63    = ~Wurfdolch +1~
+@64    = ~Der typische Wurfdolch hat eine spitze, normalerweise zweischneidige Klinge, anders als ein Messer, das eine einschneidige Klinge besitzt und ein bisschen kürzer ist als der Dolch. Im Gegensatz zum Dolch hat der Wurfdolch einen kürzeren Griff und ist anders ausbalanciert.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W4
+Schadensart: durchbohren
+Gewicht: 0
+Initiativefaktor: 2
+Mindeststärke: 3
+Fertigkeit: Dolch
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+ Klerikern~
+@65    = ~Wurfdolch +2~
+@66    = ~Der typische Wurfdolch hat eine spitze, normalerweise zweischneidige Klinge, anders als ein Messer, das eine einschneidige Klinge besitzt und ein bisschen kürzer ist als der Dolch. Im Gegensatz zum Dolch hat der Wurfdolch einen kürzeren Griff und ist anders ausbalanciert.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W4
+Schadensart: durchbohren
+Gewicht: 0
+Initiativefaktor: 2
+Mindeststärke: 3
+Fertigkeit: Dolch
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+ Klerikern~
+@67    = ~Schwere Stiefel~
+@68    = ~Stiefel der Schwerkraft~
+@69    = ~Diese schweren Stiefel sind aus einem sonderbaren, völlig fremden Material gemacht. Ihr habt nie etwas ähnliches vorher gesehen.~
+@70    = ~Der Träger wird finden, dass er sehr sichere Füße hat, außer Stande, durch solche Methoden wie Flügelschlag gestürzt oder durch magische Abstoßung beiseite geschoben zu werden. (Beachtet, dass dies nicht notwendigerweise vor anderen nachteiligen Beeinträchtigungen durch Zauber schützt, wie Betäubung/Bewusstlosigkeit bei Flügelschlag). Der Benutzer ist auch immun gegen Erdbeben Zauber, während diese Dinge getragen werden.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Der Benutzer ist immun gegen die Wirkungen des Flügelschlages, der Abstoßung, des Erdbebens, und andere umwerfende der Schwerkraft verwandte Schläge.
+
+Gewicht: 25
+
+Kann von jedem verwendet werden~
+@71    = ~Speer~
+@72    = ~Speer des Himmels~
+@73    = ~Speere zählen zu den ältesten Waffen der Geschichte. Schon die primitivsten Völker benutzten einfache Holzstangen, die an einem Ende angespitzt wurden. Nachdem die Menschen die Metallverarbeitung entdeckt hatten, begannen sie Speerköpfe aus Eisen und Stahl herzustellen. Waffenschmiede experimentierten bald mit unterschiedlichen Formen von Speerköpfen, was zur Entstehung verschiedener Arten von Stangenwaffen führte. Speere sind kürzer und leichter als Lanzen und werden daher auch als Wurfwaffe eingesetzt.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D6
+Schadensart: durchbohren
+Gewicht: 5
+Geschwindigkeitsfaktor: 6
+Waffenfertigkeit: Speer 
+Waffentyp: beidhändig
+Mindeststärke: 5
+
+Kann nicht verwendet werden von:
+ Klerikern
+ Magiern
+ Dieben~
+@74    = ~Diese Waffe hat völlig unbekannte Wurzeln. Jedoch, wer auch immer sie schuf, gab ihr die Fähigkeit, Elektrizität durch seinen Schaft auszustrahlen. Der Speer kann einen Gegner sowohl bei Berührung erschüttern als auch eine elektrische Ladung auf sein Ziel abfeuern. Die Waffe ist für einen Luftdruiden sehr nützlich, weil sie genug Immunität gegen Elektrizität haben, um sie sicher auszuüben, während andere seiner Macht erliegen können.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D6+2
+ETW0: +3
+
+Besonderheit: Chance von 50 % 1D4 elektrischen Schaden auszuüben
+
+Gewicht: 5
+Geschwindigkeitsfaktor: 6
+Waffenfertigkeit: Speer
+Waffentyp: beidhändig
+
+Kann nur verwendet werden von:
+ Druiden~
+@75    = ~Helm des Heiligen Lebens~
+@76    = ~Dieser reich verzierte Helm ist aus mit Eisen verstärktem Silber geschmiedet. Es bietet vollständigen Schutz des Gesichtes und Kopfs. Augenschlitze und Atemlöcher sind eine angenehme Ergänzung.~
+@77    = ~Dieser gesegnete Helm wurde vor Jahrhunderten von dem großen Erzbischof von Lathander, Exaultus das Fromme, geschmiedet. Er überreicht ihn an seinen einzigen Neffen, dem berühmten Paladin Exaultus der Reine, zusammen mit einer schrecklichen Suche.
+
+Exaultus sollte eine vampirhafte Hexenversammlung, angeführt durch einen besonders abscheulichen Leichenmeister genannt Scarvos die Fäule, ausrotten. Er marschierte tapfer in ihre stinkende Höhle. Seine einzige Begleitung war der vertrauensvolle Rächer, unberührte Pracht.
+
+Und mit seiner tapferen kriegerischen Heldentat, geschützt durch die mächtige Bezauberung des Helms, machte Der Paladin schnelle Arbeit der vampirischen Horde. Im Hauptvorzimmer jedoch änderte sich sein Glück drastisch.
+
+Exaultus der Reine wurde durch den wilden Leichenmeister und seinen dämonischen Gefährten überwältigt. Er fiel Scarvos gefürchtetem Zufälligen Verhaftungszauber zum Opfer und ist in den Reichen bis jetzt verloren gegangen. Wie der Helm einem ähnlichen Schicksal entkam, ist ein Rätsel, über das die Frommen grübeln.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Dauerhafter Schutz vor dem Übel
+(+4 Rüstungsklasse-Bonus gegen das Übel)
+Lebensschutz 4 Stunden pro Tag
+    (Immunität gegen Lebenskraftentzug)
+Chaotischer Gebieter 2 Stunden pro Tag
+   (Chaotische Befehle, Gruppe)
+Auferstehung 1 mal am Tag
+Immunität gegen Kritische Treffer
+
+Mindeststärke: 13
+Verstand: mindestens 13
+Charisma: mindestens 13
+
+Kann nur verwendet werden von:
+ Guten Charakteren
+ Kämpfertypen
+ Klerikern~
+@78    = ~Armschützer~
+@79    = ~Armschützer der Doppelböswilligkeit~
+@80    = ~Armschützer sind dicke Bänder aus Metall oder Leder, die mit Gurten oder Riemen an den Unterarmen befestigt werden. In der Regel kommt die magische Kraft, die die Armschützer besitzen, nur im Kampf zum Tragen, da die meisten Armschützer den Träger vor Verletzungen bewahren oder seine Chancen, den Gegner zu treffen, erhöhen. Es gibt jedoch Ausnahmen, auch wenn diese höchst selten sind.~
+@81    = ~Diese Armschützer wurden von den größten Zauberern gefertigt, um die Tapferkeit im Kampf des Nahkämpfers zu ergänzen. Ihr neuster Eigentümer, Adarion Kalvaras, ragte in der Kunst von doppelten Schwertkampfes hervor. Das Verzauberungen der Armschützer verbesserte weiter seine bereits eindrucksvolle Beherrschung der Doppelklingen.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Besondere Fähigkeiten: Gewährt dem Träger einen +3 THAC0 Bonus im Handgemenge-Kampf.
+
+Gewicht: 2
+
+Kann nur verwendet werden von: 
+ Adario Kalvaras~
+@82    = ~Kanalisationsschlüssel~
+@83    = ~Dieser sonderbar geformte Schlüssel sieht aus, als wäre er gemacht, um ein Abwasserleitungsgitter oder eine ähnliche Tür irgendwo zu öffnen. In den Kopf des Schlüssels ist das Bild eines Kranichs geätzt.~
+@84    = ~Dämonenkopf Schlüssel~
+@85    = ~Diese Art von Schlüssel scheint zu einer Abwasserleitungstür irgendwo in Athkatla zu passen.~
+@86    = ~Dieser Schlüssel ist mit einem winzigen, jedoch authentischen, Dämonenschädel gekrönt. Der Buchstaben "H" ist eingraviert, und er scheint nicht seinen Ursprung bei den Drow in zu haben.~
+@87    = ~Kuo-Toans haben ihre Bolzen mit einem speziellen Gift der Wasserquelle behandelt. Das Opfer muss einen Rettungswurf gegen Gift (an +2) ausführen, oder ist für zwei bis vier Runden betäubt.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Spezieller Schaden: Betäubt 2-4 Runden (Rettungswurf gegen Gift bei +2)
+Schaden: 1D8
+Gewicht: 0
+Schusswaffe: Armbrust~
+@88    = ~Kuo-Toa Harpune~
+@89    = ~Eine andere Huldigung an die Kunst der Kuo-Toan Speere zu fertigen. Dieser Wurfspeer mit Widerhaken wurde mit einer leichtgewichtigen, jedoch haltbaren Kette ausgerüstet. Sie reicht 6 m weit. Ein Opfer hat eine Chance, durch die Widerhaken eingefangen zu werden. Diejenigen, denen ein Rettungswurf gegen Tod (an +2) misslingt, werden vom Werfer aufgespult. Sie werden in der ersten Runde bäuchlings hingestreckt (wie betäubt behandelt), und werden einen Nachteil in der Geschicklichkeit von -4 für die folgenden vier Runden ertragen.
+
+Kampffähigkeit: Einhaken 25 % (Rettungswurf gegen Tod +2)
+Schaden: 1-6+2
+Geschwindigkeitsfaktor: 8 (auf 1 Angriff pro Runde gesetzt)
+Gewicht: 12
+Mindeststärke: 10
+
+Kann nicht verwendet werden von:
+ Klerikern
+ Magiern
+ Dieben~
+@90    = ~Eingefangen~
+@91    = ~Wie andere Wasserwesen, haben Kuo-Toans die Kunst Speere zu fertigen gemeistert. Ihre schlimme Waffe mit Widerhaken verursacht 3-10 Schadenspunkte pro Treffer. Außerdem haben sie es mit einem speziellen aus Seeanemonen zusammengebrauten Gift behandelt. Das Opfer muss einen Rettungswurf gegen Gift ausführen, oder es ist für zwei bis vier Runden verlangsamt.
+
+Kampffähigkeit: verlangsamt um 25% für 2-4 Runden (Rettungswurf gegen Gift)
+Schaden: 1-8+2
+Geschwindigkeitsfaktor: 6 
+Gewicht: 10
+Mindeststärke: 7
+
+Kann nicht verwendet werden von:
+ Klerikern
+ Magiern
+ Dieben~
+@92    = ~Robe~
+@93    = ~Mantel des Kommenden Sturms~
+@94    = ~Seit den Tagen von Nesseril haben Magier gelernt, alltägliche Objekte, die sie umgeben, mit den verschiedensten magischen Eigenschaften zu versehen. Einer der beliebtesten Gegenstände für die Anwendung von Zaubern ist die gemeine Robe. Sie ist leicht, erschwinglich und behält ihre Verzauberung gut bei, wodurch sie zur idealen Ausrüstung für einen Magier wird. Aufgrund ihres magischen Erbes dürfen jedoch nur Magier diese Roben tragen.~
+@95    = ~Diese scheinbar abgetragene Robe war auf Lysans Befehl "unwirksam" geworden, um sich nicht als Priesterin von Auril zu entlarven. Wenn so viel wie eine einzelne Schneeflocke auf die Robe fällt, verwandelt sie sich zu einem funkelnden weißen Umhang, der es dem Träger erlaubt, über Schneeverwehungen zu gleiten und sogar durch tobende Flüsse mit Leichtigkeit zu gehen. Die meisten Großhändler werden diesen Artikel nicht kaufen wollen, oder werden es zu einem sehr niedrigen Preis tun, weil sie darin einen heiligen Artikel von Auril der Frost-Jungfrau sehen, um wahrscheinlich ihre Anhänger... und ihr Missfallen auf sich zu ziehen.
+
+Während der Zeremonien des Kommenden Sturms (der Beginn des Winters) für Auril angefertigt, sind diese Roben besonders geschaffen, um Flammen zu widerstehen und dem Träger zu erlauben, jedem Versuch zu widerstehen, anzuhalten oder sie zu halten. Obwohl die Priesterinnen von Auril gegen die Kälte natürlich widerstandsfähig sind und sich durch den Schnee und eisige Flüsse mit Leichtigkeit bewegen können, verstärken diese Umhänge den Schutz der Göttin, indem sie dem Träger zusätzlichen Kältewiderstand erlauben (der einem gegen Kälte bereits geschützten Träger erlaubt, seine Macht zu fesseln), und sogar so weit gehen, dass sie die Hitze von auf den Träger gerichteten Feuerangriffen ausfiltern. Außerdem kann die Robe beschworen werden, um dem Träger zu erlauben, über oder durch jedes Hindernis zu gehen, das dafür entworfen ist, ihn zu halten, ob es nun Netzzauber, Lähmung durch Ghuls {Leichen fressende Dämonen}, "Person festhalten" und ähnliches ist.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Besonderheit: Wirft "Freie Handlung" (3 Ladungen)
+
+Rüstungsklassebonus: 1
+Widerstandsbonus:
+ Rettungswurf gegen Lähmung +1 
+ Kältewiderstand: +30 %
+ Feuerwiderstand: +30 %
+
+Gewicht: 1
+
+Kann nicht verwendet werden von:
+ Magiern (alle Klasen)~
+@96    = ~Simes Körper~
+@97    = ~Sime wurde von Bodhi festgenommen und mit Vampirismus angesteckt, was Euch zwang, sie zu töten. Es kann vielleicht einen Weg geben, sie wiederzubeleben, obwohl Ihr nicht wisst, was es sein könnte.~
+@98    = ~Opferübertragung~
+@99    = ~Opferübertragung (Nekromantie)
+
+Grad: 9
+Reichweite: Berührung
+Zeitaufwand: 10
+Wirkungsdauer: Permanent
+Wirkungsbereich: 1 Wesen
+Rettungswurf: Nein
+
+Dieser Zauber ist ein Opfer, das der Magier einem anderen Mitglied seiner Gruppe macht, um es zu bessern. Der Magier wird tatsächlich seine Lebensquelle anzapfen, und einen winzigen Abschnitt davon entfernen. Er leitet dann diese Energie an ein anderes Mitglied seiner Gruppe weiter. Der Zauber wird 1 Trefferpunkt der maximalen Trefferpunkte des Magiers dauerhaft entfernen, wird aber diesen an den Empfänger übertragen, der +1 Trefferpunkt zu seinem Maximum dazu gewinnen wird.~
+@100   = ~Adrenalinstoß~
+@101   = ~Ring der Zauberei: "Stete Erinnerung"
+
+Vor langer Zeit wurde von einem großartigen Zauberer von Amn gemunkelt, der den Mystras Beschränkungen der magischen Künste getrotzt hat. Die Legenden besagten, dass dieser Zauberer im Stande war, Zaubersprüche ohne die Beschränkung der Einprägung von Zaubern zu werfen. Am Ende wurde herausgefunden, dass seine Mächte von den mehreren magischen Ringen stammten, die er für sich selbst gemacht hatte. Sein öffentlich verkündigtes "immerwährendes Gedächtnis" war eine Falschmeldung, obwohl seine Ringe eine der meist gesuchten Artikel in den Reichen bleiben.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Zaubersprüche: verdoppelt die Anzahl der Zauber der 1. Stufe, sich ein Magier einprägen kann.
+
+Kann nur verwendet werden von:
+ Magiern~
+@102   = ~Bolzen~
+@103   = ~Lähmungsbolzen~
+@104   = ~Bolzen sind die Munition für Armbrüste, wobei die Größe der Waffe keine Rolle spielt.
+
+Dieser Gegenstand ist, wie die meisten Ausrüstungsgegenstände der Drow, aus einer Adamantit-Legierung hergestellt. Daher zerfällt sie zu Staub, wenn man sie aus dem Unterreich ins Sonnenlicht bringt.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D8
+Schadensart: mit Stichwaffe durchbohren (Fernkampf)
+Gewicht: 0
+Schusswaffe: Armbrust~
+@105   = ~Lähmungsbolzen
+
+Wird ein Gegner von diesem Bolzen getroffen, muss er einen Rettungswurf bestehen, oder er wird für zwei bis fünf Runden gelähmt.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1W10
+Schadensart: mit Stichwaffe durchbohren (Fernkampf)
+Gewicht: 1
+Waffe: Armbrust~
+@106   = ~Wurfnetz der Sahuagin~
+@107   = ~Die Sahuagin haben Stränge aus Seetang und anderer Wasserflora in ein verwickeltes, kreisförmiges Netz gewebt. Sie beschweren die Enden davon unten mit Muscheln und Korallen, so dass es eine wirksame Wurfwaffe ergibt. Sie weben Bartfäden, Zähne, und andere scharfe Gegenstände in das Netz ein, so dass sie die Opfer aufschneiden, wenn sie sich anstrengen, sich zu befreien.
+
+Diejenigen, die durch das Netz getroffen sind, werden eine volle Runde brauchen, um sich selbst entwirren (Entsprechend einem Netzzauber). Diejenigen, den ein Rettungswurf gegen Lähmung misslingt, werden zusätzliche 1-3 Runden verwirrt.
+
+Beachtet: Das Netz wird typischerweise im Verlauf des Entwirrens zerstört (nur gut für einen Wurf).
+
+Reichweite: 9 m
+Geschwindigkeit: 8 (zusätzlich zu einem Angriff pro Runde)
+Schaden: 2-4 pro Runde, während verfangen, 
+Waffenfertigkeit: Keule
+
+Besonderheit: Ziel wird für eine Runde verfangen, sowie zusätzliche 1-3 Runden, wenn ein Rettungswurf gegen Lähmung misslingt.~
+@108   = ~Verheddert~
+@109   = ~Sahuagin Speer~
+@110   = ~Die Sahuagin haben die Kunst von Waffen gemeistert, die gut in Unterwasserklima funktionieren. Der Speer hat ihnen immer gut gedient. Sie haben ihn mit mehreren Widerhaken in solcher Art verfeinert, dass er die Waffe aus Händen eines Gegners reißen kann. Es gewährt auch dem Benutzer etwas Schutz gegen andere durchbohrende und schneidende Waffen.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Spezieller Angriff: Entwaffnen 25 % (Rettungswurf gegen Stäbe bei -2)
+Schaden: 2D6
+Schadensart: durchbohren
+Gewicht: 10
+Geschwindigkeitsfaktor: 6
+Waffenfertigkeit: Speer
+Waffentyp: beidhändig
+Mindeststärke: 7
+Besonderheit: +4 Rüstungsklasse gegen durchbohren und aufschlitzen
+
+Kann nicht verwendet werden von:
+ Klerikern
+ Magiern
+ Dieben~
+@111   = ~Entwaffnender Schlag~
+@112   = ~Der Klerus der Sahuagin hat einige Anstrengung der Erhöhung des Leidens ihrer Gegner gewidmet. Dieser Stab hat beschwerte Enden, beschlagen mit Metall und umhüllt mit starken Gräten. Der Einfluss des Schlags ist derartig, dass das Opfer häufig unbewusst geschlagen wird.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Spezieller Angriff: Betäubung 2 Runden, 25 % (Rettungswurf gegen Stäbe bei -3)
+Schaden: 2d4
+Gewicht: 7
+Geschwindigkeitsfaktor: 5
+Waffentyp: beidhändig
+Mindeststärke: 7~
+@113   = ~Edelstein~
+@114   = ~Die Seekarten.~
+@115   = ~Laterne~
+@116   = ~Schatten Laterne~
+@117   = ~Diese sieht wie jede andere Laterne aus, die Ihr verwenden würdet, um die Nacht zu erleuchten. Die einzige eigenartige Qualität ist das Fehlen der Farben, und dass sie Magie ausstrahlt.~
+@118   = ~"Geschenk des Schattenfürsten"
+
+Dieser Gegenstand geht auf alte Tage zurück, so lange her, dass das als der Schattenfürst bekannte Wesen durch die Reiche als ein bloßer Sterblicher spazieren ging. Er war ein besonders scheußlicher Mann (ja, er war von menschlicher Abstammung), besessen von Finsternis und allem, was schlecht war. Ein mörderischer Größenwahnsinniger von Natur aus, er traute sich nie während der Tageslicht-Stunden hervor, er bevorzugte immer den Schutz des schattigen Zwielichtes für seine mörderischen Randale und das allgemeine Terrorisieren. Schließlich nahmen die dimensionalen Extrawesen, die im schattigen Bereich anderer Ebenen wohnen, Notiz von ihm (keiner erinnert sich wirklich an seinen sterblichen Namen, trotz alledem; nicht einmal Ellesime). Sie trafen ihn unter dem vollen Mondlicht, das sich mit dem schattigen Schleier kreuzt, der ihre Welten trennt. Sie boten ihm Halbunsterblichkeit als Entgelt für die Seelen seiner Opfer an und, wie so viele vor ihm und die noch zu kommen werden, akzeptierte er sogleich. Die Laterne wurde ihm als ein Symbol ihres Pakts überreicht; damit konnte er ihre Gunst erweisen und die eigentlichen Schatten um ihn herum zu Hilfe rufen, um sich an einem Fest des Gemetzels und des Leidens zu erfreuen.
+
+Im Laufe der Zeit begannen die Elemente seines Wesens, sich mit diesen Schatten zu verschmelzen, und sie wurden sich immer ähnlicher. Schließlich, im Verlauf von vielen normalen Lebensdauern, wurde er eins mit den Schatten, die er verehrte und erhielt das körperlose Dasein, das nur als der Schattenfürst bekannt war. 
+
+Fähigkeiten:
+
+Ruft Schatten 1 mal am Tag herbei
+(3-5 Schatten oder 1-2 Schattenteufel werden dem Träger für eine volle Runde zu Hilfe kommen)
+Wahrscheinlichkeit von 1 % pro Anwendung, der Kraft des Trägers fortwährend einen Punkt zu entziehen (wenn die Stärke 0 erreicht, ist der Träger "tot" - ist er/sie zur Ebene der Schatten hinübergegangen)
+Voraussetzungen:
+Weisheit 14
+
+Kann nicht verwendet werden von:
+ Guten Charakteren~
+@119   = ~Tundra-Hellebarde +4~
+@120   = ~Die Hellebarde (auch als "Nachtwächterspieß" bekannt) ist nach dem Speer die älteste und am weitesten verbreitete Stangenwaffe. Eine Hellebarde lässt sich am besten als eine Kreuzung zwischen Speer und Axt beschreiben. Sie hat eine breite Klinge, die einem Henkersbeil ähnelt, das auf einen durchschnittlich 1,80 m langen Stab aufgesetzt ist. (Daher der Name Stangenbeil). Das Gewicht der Axtklinge wird durch einen Haken (Fluke) ausgeglichen. Am oberen Ende sitzt eine dornenförmige Stoßspitze. Zugeschlagen wird am wirkungsvollsten nicht mit der Beilschneide (diese neigt dazu, sich beim Schlag wegzudrehen), sondern mit dem gegenüberliegenden Haken. Der Haken wird außerdem genutzt, um Ritter vom Pferd zu ziehen; Beil oder Haken können dann zum Durchschlagen der Rüstung dienen. Die Stoßspitze kann ähnlich wie der Spieß in geschlossenen Formationen oder im Einzelkampf eingesetzt werden. Bei direktem Auftreffen kann damit jeder Ritterhelm tödlich durchschlagen werden. Dabei kann sich der Kämpfer außerhalb der Reichweite des gegnerischen Schwertes aufhalten.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D10
+Schadensart: durchbohren
+Gewicht: 15
+Geschwindigkeitsfaktor: 9
+Waffenfertigkeit: Hellebarde
+Waffentyp: beidhändig
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern
+ Dieben~
+@121   = ~Wie die anderen ihrer Art besteht diese Hellebarde aus einer einem Hackmesser ähnlichen Klinge, die auf einen annähernd 1,80 m langen Stab aufgesetzt ist. Sie wurde jedoch auch mit einigen magischen Eigenschaften versehen, so dass sie im Kampf wirkungsvoller ist. Ihre scharfe Klinge wird, zum Beispiel, durch das Fleisch Eures Gegners abschneiden, um die Knochen zu finden, während ihre mit Widerhaken versehene Spitze Lücken in ihrer Rüstung ausfindig machen wird. 
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D10 +4
+ETW0: +4
+Schadensart: durchbohren
+Besonderheit: Chance von 50 % +2D3 Säureschaden
+Widerstandsbonus: Magischer Widerstand von +10 %
+Gewicht: 14
+Geschwindigkeitsfaktor: 8
+Waffenfertigkeit: Hellebarde
+Waffentyp: beidhändig
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern
+ Dieben~
+@122   = ~Katana~
+@123   = ~Katana
+
+Das Katana ist ein Schwert, dessen Klinge nur auf einer Seite scharf ist. Es ist leicht gekrümmt und endet in einer Spitze, die an die Spitze eines Meißels erinnert. Das Katana stellt vermutlich die aufwendigste Form des Schwertes dar. Seine Fertigung ist ein langer, aufwendiger und höchst geheimer Vorgang, den man schon fast als Kunstwerk bezeichnen müsste. Dieses Schwert spielt in der Kultur von Kara-Tur eine wichtige Rolle. Wenn man es wagt, das Katana eines Samurais zu berühren oder gar zu ziehen, beleidigt man den Samurai, dem es gehört, und zieht seinen Zorn auf sich. Es kommt nur äußerst selten vor, dass ein Gaijin, ein Fremder, in den Besitz einer derartigen Waffe kommt. Entweder handelt es sich bei diesem Gaijin dann um den geehrten Freund eines wichtigen Ministers oder um den Mörder eines Samurais.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+Schaden: 1D10
+Schadensart: aufschlitzen
+Gewicht: 6
+Geschwindigkeitsfaktor: 4
+Waffenfertigkeit: Katana
+Waffentyp: einhändig
+Mindeststärke: 
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern~
+@124   = ~Dak'kons Fließende Klinge~
+@125   = ~Dak'kons Fließende Klinge +2
+
+Dieses Schwert war die Waffe der Wahl des berühmten Githzerai Dak'kon führte. Dak'kon wurde von einer Verkörperung der Macht getötet, während er im Dienst eines mysteriösen Wesens stand, das nur als "Der Namenlose" bekannt war.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Ausgestattete Fähigkeiten:
+Rüstungsklasse-Bonus: +2
+Besonderheit: Der Träger kann sich zwei zusätzliche Zauber des 1., 2., 3. und 4. Grades am Tag einprägen.
+ETW0: +2 Bonus
+Schaden: 1D10 +2
+Schadensart: aufschlitzen
+Gewicht: 4
+Geschwindigkeitsfaktor: 2
+Waffenfertigkeit: Katana
+Waffentyp: einhändig
+Mindeststärke: 6
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern~
+@126   = ~Dak'kons Fließende Klinge +3
+
+Dieses Schwert war die Waffe der Wahl des berühmten Githzerai Dak'kon führte. Dak'kon wurde von einer Verkörperung der Macht getötet, während er im Dienst eines mysteriösen Wesens stand, das nur als "Der Namenlose" bekannt war.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Ausgestattete Fähigkeiten:
+Rüstungsklasse-Bonus: +3
+
+Besonderheit: Der Träger kann sich drei zusätzliche Zauber des 1., 2., 3. und zwei des 4. Grades am Tag einprägen.
+ETW0: +3 Bonus
+Schaden: 1D10 +3
+Schadensart: aufschlitzen
+Gewicht: 4
+Geschwindigkeitsfaktor: 2
+Waffenfertigkeit: Katana
+Waffentyp: einhändig
+Mindeststärke: 6
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern~
+@127   = ~Dak'kons Fließende Klinge +4
+
+Dieses Schwert war die Waffe der Wahl des berühmten Githzerai Dak'kon führte. Dak'kon wurde von einer Verkörperung der Macht getötet, während er im Dienst eines mysteriösen Wesens stand, das nur als "Der Namenlose" bekannt war.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Ausgestattete Fähigkeiten:
+Rüstungsklasse-Bonus: +3
+Besonderheit: Der Träger kann sich drei zusätzliche Zauber des 1., 2., 3. und 4. Grades sowie eines des 5. Grades am Tag einprägen.
+
+ETW0: +4 Bonus
+Schaden: 1D10 +4
+Schadensart: aufschlitzen
+Gewicht: 4
+Geschwindigkeitsfaktor: 2
+Waffenfertigkeit: Katana
+Waffentyp: einhändig
+Mindeststärke: 6
+
+Kann nicht verwendet werden von:
+ Druiden
+ Klerikern
+ Magiern~
+@128   = ~Diese symbolische Tatze stellt eine Kontrolle eines Gestaltwandler Druiden über Lykanthropie dar. Während die Tatze gehandhabt wird, wird der Gestaltwandler zum Werwolf. Wenn die Tatze entfernt wird, kehrt der Gestaltwandler zu seiner menschlichen Form zurück. Die Tatzen eines Werwolfs zählen als +2 Waffen.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Attribute: 19 STR, 16 DEX, 15 BETRÜGERISCH
+Grundrüstungsklasse: 1
+Widerstände: magischer Widerstand von 20 %, Immunität gegen nichtmagische Waffen
+Angriffe Pro Runde: 2
+Schaden: 1D12
+Schadensart: aufschlitzen
+Geschwindigkeitsfaktor: 3
+Waffenfertigkeit: Dolch 
+Waffentyp: einhändig
+
+Kann nur verwendet werden von: 
+ Gestaltwandlern~
+@129   = ~Diese symbolische Tatze stellt eine äußerste Kontrolle eines Gestaltwandler Druiden über Lykanthropie dar. Während die Tatze gehandhabt wird, wird der Gestaltwandler zum Größeren Werwolf. Wenn die Tatze entfernt wird, kehrt der Gestaltwandler zu seiner menschlichen Form zurück. Die Tatzen eines Werwolfs zählen als +3 Waffen.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Attribute: 21 STR, 20 DEX, 25 BETRÜGERISCH
+Grundrüstungsklasse: -6
+Grundrettungswurf: 1/1/1/2/1
+Widerstände: magischer Widerstand von 40 %, elementarer Widerstand von 50 %, Immunität gegen nichtmagische Waffen
+Regeneration: 3 Trefferpunkte pro Sekunde
+Angriffe Pro Runde: 3
+Grundtatze ETW0: 6 
+Schaden: 2D8
+Schadensart: aufschlitzen
+Geschwindigkeitsfaktor: 3
+Waffenfertigkeit: Dolch 
+Waffentyp: einhändig
+
+Kann nur verwendet werden von: 
+ Gestaltwandlern~
+@130   = ~Ausbessern aller existierenden angeborenen Zauber, Stufe auf eins setzend.....~
+@131   = ~Duergar-Verminderung~
+@132   = ~Duergar-Vergrößerung~
+@133   = ~Geheilt~
+@134   = ~Finger des Todes~
+@135   = ~Finger des Todes (Geisterbeschwörung) 
+
+Grad: 7
+Reichweite: Sehanblick des Streuers 
+Wirkungsdauer: Permanent
+Zeitaufwand: 5
+Wirkungsbereich: 1 Wesen
+Rettungswurf: Nein
+
+Der Zauber Finger der Todes löscht die Lebenskraft des Opfers aus. Der Wirker zeigt seinen Finger auf das Opfer, nachdem die Beschwörungsformel abgeschlossen ist, das Leben wirkungsvoll aus seinem Körper reißend, außer ein Rettungswurf gegen Zauber bei -2 gelingt. Ein Wesen, das sich erfolgreich rettet, erhält 2d8 +1 Schadenspunkte.~
+@136   = ~Schockgriff~
+@137   = ~Schockgriff (Veränderung) 
+
+Grad: 1
+Reichweite: Berührung
+Wirkungsdauer: Speziell 
+Zeitaufwand: 1 
+Wirkungsbereich: Berührtes Wesen 
+Rettungswurf: Nein
+
+Wenn der Magier einen Gegner im Nahkampf berührt, während der Zauber aktiv ist, erleidet der Gegner einen Schaden durch Elektrizität von 1W8 +1 pro Stufe des Ausübenden. Der Zauber hat nur eine Ladung, und wenn der Gegner berührt wird, entlädt sich diese vollständig. Wenn der Magier daneben trifft, ist der Zauber verschwendet. Der Zauberer hat 1 Runde pro Stufe, um den Gegner zu berühren..~
+@138   = ~Schützt vor Negativer Ebene für eine Dauer von vier Stunden.~
+@139   = ~Dies strahlt die Wirkungen eines Chaotische Befehle Zaubers auf die ganze Gruppe für eine Dauer von zwei Stunden aus.~
+@140   = ~Kugel der Finsternis~
+@141   = ~Kugel der Finsternis (Ungeschult/Unbestimmt) 
+
+Grad: 1
+Reichweite: Sichtweite 
+Wirkungsdauer: 1 Runde pro zwei Stufen des Anwenders
+Zeitaufwand: 2
+Wirkungsbereich: Ein Ziel
+Rettungswurf: Nein
+
+Diese angeborene Fähigkeit der Dunkelelfen verursacht Blindheit bei dem Ziel für eine Dauer von einer Runde pro jeweils zwei Stufen des Anwenders, oder bis der Zauber gebannt wird.~
+@142   = ~Verbesserte Kugel der Finsternis~
+@143   = ~Verbesserte Kugel der Finsternis (Ungeschult/Unbestimmt)
+
+Grad: 1
+
+Reichweite: Sichtweite
+Wirkungsdauer: 1 Runde pro zwei Stufen des Anwenders
+Zeitaufwand: 2
+Wirkungsbereich: Ein Ziel
+Rettungswurf: Nein
+
+Diese angeborene Fähigkeit der Dunkelelfen verursacht Blindheit auf einem Ziel, das für eine Runde für alle zwei Niveaus des Streuers, oder bis zerstreut, dauert.~
+@144   = ~Feenfeuer~
+@145   = ~Feenfeuer (Ungeschult/Unbestimmt) 
+
+Grad: 1
+Bereich: Kampf 
+Reichweite: 0 
+Wirkungsdauer: 6 Runden
+Zeitaufwand: 1 
+Wirkungsbereich: Ein Ziel 
+Rettungswurf: Nein 
+
+Dieser Zauber umreißt das Ziel mit einem weißen Glühen, das der Rüstungsklasse -2 gibt.~
+@146   = ~Tanzende Lichter~
+@147   = ~Tanzende Lichter (Ungeschult/Unbestimmt) 
+
+Grad: 1
+Reichweite: Sichtweite 
+Wirkungsdauer: 3 Runden
+Zeitaufwand: 2
+Wirkungsbereich: Ein Ziel
+Rettungswurf: Nein
+
+Diese angeborene Fähigkeit der Dunkelelfen verursacht Verwirrung bei einem Ziel für 3 Runden.~
+@148   = ~Unter den Auswirkungen der Tanzenden Lichter.~
+@149   = ~Verwirrt.~
+@150   = ~Feind ruft Düsterschrecken herbei~
+@151   = ~Lebendiger Baum~
+@152   = ~Lebendiger Baum (Verzauberung/Bezauberung)
+
+Grad: 7
+Reichweite: 30 Yards
+Wirkungsbereich: Speziell
+Wirkungsdauer: 2 Runden
+Rettungswurf: Nein
+
+Mittels dieses Zaubers ist der Druide im Stande, die Hilfe von einem oder zwei großen Bäumen aufzufordern, um ihn/sie für die Dauer des Zaubers zu verteidigen. Diese Bäume werden wie ältere Baumhirten kämpfen, 4-24 Schadenspunkte pro Treffer ausübend; zweimal pro Runde angreifend. Indem sie nicht die Bäume herbeirufende Fähigkeit eines echten Baumhirten erlangen werden sie nötigenfalls zum Tod kämpfen. Der Druide muss im Freien sein, in natürlicher Umgebung, damit dieser Zauber wirkt.~
+@153   = ~Gauth herbeirufen~
+@154   = ~Horreds Böses Ebenbild~
+@155   = ~Schattenteufel herbeirufen~
+@156   = ~Himmelsfeuer~
+@157   = ~Athach~
+@158   = ~Grüner Abishai~
+@159   = ~Shargrailar~
+@160   = ~Barbazu~
+@161   = ~Schreckgespenst~
+@162   = ~Efreeti~
+@163   = ~Edler Efreeti~
+@164   = ~Dschinn~
+@165   = ~Edler Dschinn~
+@166   = ~Giblan~
+@167   = ~Arabischer Verbrecher~
+@168   = ~Wächter des Ladens~
+@169   = ~Priester von Waukeen~
+@170   = ~Werratte~
+@171   = ~Araber~
+@172   = ~Händler~
+@173   = ~Gefangene Frau~
+@174   = ~Topas-Drachen~
+@175   = ~Farbiger Drache~
+@176   = ~Dalhaleitkazyyr~
+@177   = ~Magier Konstruktion~
+@178   = ~Roter Kristallgolem~
+@179   = ~Zyklop~
+@180   = ~Dunkler Nebel~
+@181   = ~Balor~
+@182   = ~Nabassu~
+@183   = ~Grubenteufel~
+@184   = ~Rylock~
+@185   = ~Nizidramanii'yt~
+@186   = ~Gnoll~
+@187   = ~Roter Drache~
+@188   = ~Thaxll'ssillyia~
+@189   = ~Silberner Drache~
+@190   = ~Topas-Drachen~
+@191   = ~Icebraniken~
+@192   = ~Drow Krieger~
+@193   = ~Drow~
+@194   = ~Drow Priesterin~
+@195   = ~Grüner Abishai Wächter~
+@196   = ~Duergar~
+@197   = ~Duergar Magier~
+@198   = ~Duergar Skelettzauberkünstler~
+@199   = ~Drow Zauberer~
+@200   = ~Höherer Luftelementar~
+@201   = ~Höherer Feuer Elementar~
+@202   = ~Höherer Wasserelementar~
+@203   = ~Elminster~
+@204   = ~Errtu~
+@205   = ~Elfenhaar Feuerbart~
+@206   = ~Firkraag~
+@207   = ~Söldner~
+@208   = ~Frostriese~
+@209   = ~Frostwurm~
+@210   = ~Gandar~
+@211   = ~Gargoyle~
+@212   = ~Gelugon~
+@213   = ~Genie~
+@214   = ~Höherer Glabrezu~
+@215   = ~Düsterschrecken~
+@216   = ~Gibberling-Mutter~
+@217   = ~Eisgolem~
+@218   = ~Höherer Zombie~
+@219   = ~Lucette~
+@220   = ~Hasuno~
+@221   = ~Schwarm-Mutter~
+@222   = ~Horred die Plage~
+@223   = ~Horred~
+@224   = ~Wasserelementar~
+@225   = ~Eistroll~
+@226   = ~Goblin~
+@227   = ~Goblin Hauptmann~
+@228   = ~Mykonid~
+@229   = ~Gibberling~
+@230   = ~Kobold~
+@231   = ~Wächter~
+@232   = ~Grabwächter~
+@233   = ~Skelett~
+@234   = ~Jarlaxle~
+@235   = ~Kalvassa~
+@236   = ~Karan~
+@237   = ~Keris~
+@238   = ~Khelben~
+@239   = ~Kiotsi~
+@240   = ~Oger~
+@241   = ~Knord~
+@242   = ~Lavaelementar~
+@243   = ~Blitzelementar~
+@244   = ~Lulu Hashimoto~
+@245   = ~Lulu~
+@246   = ~Madeel~
+@247   = ~Mae'Var~
+@248   = ~Masaki Hayashi~
+@249   = ~Schattendieb~
+@250   = ~Schattendieb~
+@251   = ~Todestyrann~
+@252   = ~Michio Nakanishi~
+@253   = ~Michio~
+@254   = ~Minotaurus~
+@255   = ~Elfenkrieger~
+@256   = ~Elfenzauberer~
+@257   = ~Elfenmörder~
+@258   = ~Höhlenbewohner~
+@259   = ~Momoko Nakanishi~
+@260   = ~Momoko~
+@261   = ~Montaron~
+@262   = ~Mumie~
+@263   = ~Alte Nachthexe~
+@264   = ~Nachtwanderer~
+@265   = ~Nakanishi-Wächter~
+@266   = ~Untoter Samurai~
+@267   = ~Nakanishi Gehilfe~
+@268   = ~Ogi Hashimoto~
+@269   = ~Ogi~
+@270   = ~Ork~
+@271   = ~Ork Bogenschütze~
+@272   = ~Oger~
+@273   = ~Ork Priester~
+@274   = ~Sklave~
+@275   = ~Orgoth~
+@276   = ~Otako Hashimoto~
+@277   = ~Otako~
+@278   = ~Phlydia~
+@279   = ~Pibble~
+@280   = ~Branthor~
+@281   = ~Geisterhafte Erscheinung~
+@282   = ~Scharlachrote Sendung~
+@283   = ~Schatten Albtraum~
+@284   = ~Beghael~
+@285   = ~Orfa~
+@286   = ~Deneron~
+@287   = ~Carval~
+@288   = ~Wolf~
+@289   = ~Sendung~
+@290   = ~[MALE GREETING 5] Hallo Ihr da.~ [GENMG05]
+@291   = ~[MALE TOWNSFOLK 5]~ [VILLM05]
+@292   = ~[MALE TOWNSFOLK 6]~ [MTOWN06]
+@293   = ~[POE THE BARD HOSTILE] Meine Worte wahrscheinlich umsonst bei solchen dicken Schädeln wie Euren. Verlasset mich.~
+@294   = ~[POE THE BARD POST] Ich muss mich entschuldigen, wenn ich grob scheine, aber ich muss um Ungestörtheit bitten. Ich muss diese Änderungen für mein Epos beenden.~
+@295   = ~Mächtiger Herr der Dunklen Ritter~
+@296   = ~Purang Berserker~
+@297   = ~Hurgan~
+@298   = ~Makan~
+@299   = ~Chobenhaar~
+@300   = ~Laras~
+@301   = ~Reno~
+@302   = ~Riesentroll~
+@303   = ~Reingard~
+@304   = ~Norin~
+@305   = ~Ronar~
+@306   = ~Rugnar~
+@307   = ~Hammel~
+@308   = ~Roter Abishai~
+@309   = ~Rezak der Waffenmaster~
+@310   = ~Renal Blutskalp~
+@311   = ~Gorrek~
+@312   = ~Ork Magier~
+@313   = ~Sandrain Durion~
+@314   = ~Kämpfer~
+@315   = ~Sasaki Hashimoto~
+@316   = ~Sasaki~
+@317   = ~Pookey~
+@318   = ~Shakar~
+@319   = ~Stammeskrieger~
+@320   = ~Halb Quallian Krieger~
+@321   = ~Stammesschamane~
+@322   = ~Tyrian~
+@323   = ~Hoarax~
+@324   = ~Skelettkrieger~
+@325   = ~Blutgeschwür~
+@326   = ~Yuan-Ti Magier~
+@327   = ~Yuan-Ti Magier~
+@328   = ~Größerer Yuan-Ti~
+@329   = ~Schlingenfalle~
+@330   = ~Besondere Schlingenfalle~
+@331   = ~Speerfalle~
+@332   = ~Sprengfalle~
+@333   = ~Zeitfalle~
+@334   = ~Tanar'ri~
+@335   = ~Tethtoril~
+@336   = ~Tormentest~
+@337   = ~Calimport Wächter~
+@338   = ~Calimport Erzmagier~
+@339   = ~Verrotteter Eistroll~
+@340   = ~Adalon~
+@341   = ~Erdkolossen~
+@342   = ~Aran Linvail~
+@343   = ~Lebendige Rüstung~
+@344   = ~Virdei Schmiedebrandmal~
+@345   = ~Eris Elenaak~
+@346   = ~Priester von Selune~
+@347   = ~Winthrop~
+@348   = ~Winterwolf~
+@349   = ~Thorknar~
+@350   = ~Bärwer~
+@351   = ~Höherer Bärwer~
+@352   = ~Mitglied der Mannschaft~
+@353   = ~Yochlol~
+@354   = ~Marilith~
+@355   = ~Zombie~
+@356   = ~Drinne Kleriker~
+@357   = ~Drinne Kämpfer~
+@358   = ~Drinne Zauberer~
+@359   = ~Höherer Düsterschrecken~
+@360   = ~Kuo-Toan Bogenschütze~
+@361   = ~Kuo-Toa Priester~
+@362   = ~Echsenmensch König~
+@363   = ~Echsenmensch Schamane~
+@364   = ~Pyro-Tyugh~
+@365   = ~Sumatraratte~
+@366   = ~Gekreuzte Schädelknochen~
+@367   = ~Schädel~
+@368   = ~Baumhirte~
+@369   = ~Anführer der Baumhirten~
+@370   = ~Älterer der Baumhirten~
+@371   = ~Umwandlung von Geschöpfen zum BP Schriften-System. Das wird einige Zeit dauern...~
+@372   = ~ %new_script %~
+@373   = ~Gestaltung des Zaubersystems der Wesen...~
+@374   = ~Gestaltung des Fähigkeitensystems der Wesen ...~
+@375   = ~Verbesserter Suldanessallar~
+@376   = ~Verbesserter Spellhold~
+@377   = ~Zauberstab des Orcus Zusatzfunktion~
+@378   = ~Die Glocke schwingt lautlos, scheinbar unterstützt durch unsichtbare Kraft. Eine Beschreibung auf der Wand zeigt an:
+
+Hütet Euch o Sterblicher, und beachtet diese Worte
+Behaltet wohl das Ritual, und noch wird die Glocke sitzen
+Aber, sollte der Gefangene Eine seine Fesseln brechen, 
+Soll diese Glocke die Warnung nach Helm läuten. 
+Er soll wissen, dass Ihr bei Eurer Aufgabe versagt habt 
+Und Seine Wut wird wie die Mittagsonne brennen.~
+@379   = ~Großer Stab~
+@380   = ~Zauberstab von Orcus~
+@381   = ~Herbeirufen durch Orcus~
+@382   = ~Der Prinz der Toten hat alle Arten von scheußlichen Freunden....~
+@383   = ~Dunkelheit, 4,5 m Radius~
+@384   = ~Dunkelheit, 4,5 m Radius
+
+Level: 5
+Bereich: Trugbild/Gespenst
+Reichweite: Sichtweite des Anwenders
+Zeitaufwand: 5
+Wirkungsdauer: 1 Runde
+Rettungswurf: Nein
+Wirkungsbereich: 9 m Bereich
+
+Dieser Zauber quält das Gebiet mit Lichtlosigkeit; die Wirkung soll alle darinnen für die Dauer des Zaubers blenden. Obwohl es keinen Rettungswurf gibt, findet magischer Widerstand Anwendung, und er kann durch irgendwelche herkömmlichen Mittel zerstreut werden.~
+@385   = ~Dunkelheit~
+@386   = ~Diese Keule erfüllt den Beschauer mit einem Gefühl der Vorahnung. Der Schaft ist aus unbekanntem Metall geschmiedet. Der Schädel, der an der Spitze dieses Knüppels steht, scheint obwohl menschenähnlich, von "außerirdischer" Herkunft. Ihr könnt das Gefühl nicht abschütteln, dass Ihr lieber anderswo sein möchtet (zum Beispiel irgendwo, wo die Keule NICHT IST!!)...
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1D6
+Schadensart: zertrümmern
+Gewicht: 20
+Geschwindigkeitsfaktor: 5
+Waffenfertigkeit: Keule
+Waffentyp: einhändig
+Mindeststärke: 5
+
+Kann nicht verwendet werden von:
+ Magiern~
+@387   = ~Diese Keule erfüllt den Beschauer mit einer bangen Ahnung. Der Schaft ist aus einem unbekanntem Metall geschmiedet. Der Schädel, der auf diesem Knüppel sitzt, obwohl menschlisch, scheint fremden Ursprungs wie "Auserirdischer". Ihr könnt das Gefühl nicht abschütteln, dass Ihr lieber woanders sein möchtet (zum Beispiel, irgendwo, wo die Keule NICHT WAR!!) ...
+
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Schaden: 1W6
+Schadensart: zertrümmern
+Gewicht: 20
+Geschwindigkeitsfaktor: 5
+Waffenfertigkeit: Keule
+Waffentyp: Einhändig
+Mindeststärke: 5
+
+Kann nicht verwendet werden von:
+ Magiern~
+@388   = ~Stab von Orcus: der Türsteher des Todes
+
+Diese grässliche Waffe ist das Eigentum des Dämonen-Prinzen Orcus, aber zuweilen wird gesagt, dass er seinem Stab erlauben wird, ins Materielle Hauptebene zu gehen, um Verwirrung und Übel auf alle Wesen dort auszuüben.... Der Träger des Stabs hat nicht die volle Tode verteilende Macht des Geräts, das Opfer seines Schlags hat einen Rettungswurf gegen die [Death] Magie, um Tod oder Vernichtung zu vermeiden (Götter, Gottheiten, Dämonen-Fürsten, größere Teufel, Heilige, und Halbgötter [Excluding Bhaalspawn] sind natürlich überhaupt nicht betroffen). Jedoch verleiht der Stab von Orcus diese Mächte/Wirkungen auf den Benutzer :
+
+KAMPFFÄHIGKEITEN:
+
+Chance von 15 % pro Treffer, sofortigen Tod herbeizuführen 
+ (Rettungswurf gegen Todesmagie bei -2)
+Chance von 15 % pro Treffer, Verwirrung bei dem Opfer zu verursachen
+ (Rettungswurf gegen Zauber bei -4)
+Chance von 5 % pro Treffer, beim Anwender für 2 Runden Blindheit/Taubheit zu verursachen
+ (Rettungswurf gegen. Tod/Versteinerung bei -2)
+Chance von 5 % pro Treffer, einen Dämon herbeizurufen 
+ (Magischer Schutz nicht eingeschlossener)
+Chance von 1 % pro Treffer, Orcus selbst herbeizurufen 
+ (Vielleicht kommt er, um Euch wegen Euren Kenntnissen mit seinem Stab zu gratulieren?)
+
+BESONDERE FÄHIGKEITEN:
+
+Immunität GEGEN Todesmagie/Irrgarten/Haft
+ (Während er gehalten wird)
+Finsternis 9 m Radius 3 mal am Tag
+ (Verursacht Blindheit bei allen innerhalb seines Radius, 
+  kein Rettungswurf - Dauer eine Runde)
+Ruft Grubenteufel 1 mal am Tag herbei
+ (Wieder wird kein Schutz angeboten; 
+  hat eine Chance von 5 % pro Anwendung, Orcus stattdessen herbeizurufen)
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+ETW0: +5
+Schaden: 2d6 + 5
+Schadensart: zertrümmern
+Gewicht: 20
+Geschwindigkeitsfaktor: 6
+Waffenfertigkeit: Keule
+Voraussetzungen: 
+Stärke: 14
+Weisheit: 12
+körperliche Verfassung: 15
+
+Kann nicht verwendet werden von:
+ Magiern
+ Gerechten Charaktere
+ Guten Charakteren~
+@389   = ~Orcus~
+@390   = ~~ [DEMOG02]
+@391   = ~~ [DEMOG03]
+@394   = ~Ihr wagt es, Euch zu nähern, Sterblicher?~ [DEMOG01] ~Ihr wagt es, Euch zu nähern, Sterbliche?~ [DEMOG01]
+@395   = ~Verbesserter Pass über die Kleinen Zähne, von Kensai Ryu~
+@396   = ~Verbesserte Kangaxx Begegnung, von Kensai Ryu~
+@397   = ~Verbesserter Gruftkönig, von Kensai Ryu~
+@398   = ~Gnomischer Kämpfer/Illusionist im Hafenviertel, von Kensai Ryu~
+@399   = ~Verbesserte Zufällige Begegnungen, von Gebhard Blucher und Kensai Ryu~
+@400   = ~Gebhard Bluchers Leiche im Hafenviertel~
+@401   = ~Rotes Wappen, feindliche Begegnung mit Gift, von Westley Weimer~
+@402   = ~Bitterschlange~
+@403   = ~Blutwirker~
+@404   = ~Brachnebel~
+@405   = ~Rotspitze~
+@406   = ~Blutspeer~
+@407   = ~Blutbann +5~
+@408   = ~Blutbann +5: Wurfspeer
+Diese fleischfarbene Lanze wurde bei der Leiche eines Wesens gefunden, das <CHARNAME> angriff und sich selbst als "Avatar des Gifts" bezeichnete. Der Speer fühlt sich heiß an und scheint leicht unter Euren Fingern zu zittern, als ob er im Stakkatorhythmus eines unregelmäßigen Pulses schlagen würde. Der Effekt ist ziemlich unangenehm, aber doch bedeutend günstiger, als am anderen Ende des Speers zu stecken. Die von der Waffe durchbohrten Opfer erleiden oft lähmende Anfälle, wenn die Magie versucht, das Blut in ihren Adern zum Stocken zu bringen.
+
+Im Gegensatz zu allen anderen Speeren, die Ihr gesehen habt, wurde dieser Speer geschaffen, um geworfen zu werden. Er kehrt nach jedem Angriff sofort in die Hand seines Trägers zurück. Blutbann kann jedoch auch im Nahkampf verwendet werden.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Besondere Fähigkeiten: 1 zusätzlicher Angriff pro Runde
+Jeder erfolgreiche Treffer verursacht 6 Schadenspunkte durch Gift im Laufe von 6 Sekunden (kein Rettungswurf) und lähmt das Ziel für 10 Sekunden, wenn ihm ein Rettungswurf -4 gegen Odemwaffen misslingt.
+ETW0: -5
+Schaden: 1W6 +5 (Stichwaffe)
+Gewicht: 5
+Initiativefaktor: 0
+Waffenfertigkeit: Speer
+Waffentyp: Beidhändig
+
+Kann nicht verwendet werden von:
+ Klerikern
+ Magiern
+ Dieben~
+@409   = ~Kuroisan der Säure Kensai, von Westley Weimer~
+@410   = ~Kuroisan~
+@411   = ~Säurestoß~
+@412   = ~Sanchuudoku +4~
+@413   = ~Sanchuudoku +4: Säurekatana
+Diese grüne Klinge wurde von Wu Jen aus Kara-Tur als Geschenk für seinen verrückten Herrn geschmiedet; sein Name bedeutet "Vergiftung durch Säure". Bei der Verzauberung des Schwertes wurde das frische Blut eines schwarzen Drachens verwendet, und die Heftwehr wurde mit Knochenstücken eines Wolfwers verziert. Die Klinge heilt die Wunden ihres Trägers in atemberaubender Geschwindigkeit, und ätzende Säure scheint aus ihr zu spritzen, wenn ihr Träger angegriffen wird.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Besondere Fähigkeiten: Regeneration (1 Trefferpunkt alle 2 Sekunden), gewährt Immunität gegen Säure; jeder, der den Träger angreift oder auf ihn zaubert, erleidet einen Säurestoß.
+Jeder Treffer senkt die Säureresistenz des Opfers für 18 Sekunden um 25% und verursacht 2W4 Säureschaden.
+ETW0: -4
+Schaden: 1W10 +4 (Klingenwaffe)
+Gewicht: 8
+Initiativefaktor: 0
+Waffenfertigkeit: Katana
+Waffentyp: Einhändig
+
+Kann nicht verwendet werden von:
+ Klerikern
+ Druiden
+ Magiern~
+@414   = ~Das Ritual, von Westley Weimer~
+@415   = ~Theurgeon des Rituals~
+@416   = ~Schlachtenwüter des Rituals~
+@417   = ~Gräfin Merentha~
+@418   = ~Totemist des Rituals~
+@419   = ~Ira'kiou'dneg~
+@420   = ~Ender, Hauptmann des Rituals~
+@421   = ~Einheit Null~
+@422   = ~Einheit Eins~
+@423   = ~Einheit Zwei~
+@424   = ~Beschwörung~
+@425   = ~Vryce, Inquisitor des Rituals~
+@426   = ~Kampfmagier des Rituals~
+@427   = ~Schattenläufer des Rituals~
+@428   = ~Nummer Zehn Ochse, Mönch des Rituals~
+@429   = ~Pontifex~
+@430   = ~Li Kao, Wu Jen des Rituals~
+@431   = ~Chanur, Gestaltwandler des Rituals~
+@432   = ~Schädel des Rituals~
+@433   = ~Magierkiller des Rituals~
+@434   = ~Schützende Stiefel~
+@435   = ~Schützende Stiefel: “Zauberfreund”
+Diese mit Magie geschaffenen Stiefel sind alleine nutzlos, wenn sie aber von einem mächtigen Magier getragen werden, entfalten sie ihre ganzen Eigenschaften. Die Schützenden Stiefel gewähren ihrem Träger Immunität gegenüber den meisten Magie bannenden Effekten. Zum Beispiel gegen Khelben's Peitsche, die mächtige Bresche, den alles sehenden Wahren Blick und das Magie bannen eines Inquisitors. Sie schützen aber nicht vom Magier geschaffene Waffen (wie Melf's Magische Meteoriten) vor diesen Zaubern. Man beachte, dass auch ein freundlich gemeintes Magie bannen von den Stiefeln verhindert wird, wenn beispielsweise der Träger von Bezauberung oder Verwirrung betroffen ist. Zudem ist der Träger auch gegen einen Hinterhältigen Angriff immun. 
+
+EIGENSCHAFTEN: Immunität gegen Magie bannen und Hinterhältigen Angriff
+
+Gewicht: 3
+Kann von allen benutzt werden~
+@436   = ~Lillith Amulett~
+@437   = ~Amulett der Lillih
+Dieses verfluchte Amulett riecht förmlich nach Blut und Staub. Es ist während Eurer Beteiligung an dieser Begebenheit das Ritual betreffend in Euren Besitz gelangt. Sowohl das Ritual als auch dieses Amulett sind in Mysterien verborgen, aber Ihr könnt einige der Kräfte des Amuletts verstehen. Es scheint seinem Träger die magischen Immunitäten und den magischen Schutz zu gewähren, die man von einem jungen Vampir kennt: Regeneration; Widerstand gegen Kälte und Elektrizität; Immunität gegen Gift, Furcht, Schlafzauber, Entzug von Lebensenergie, Festhalten, Bezauberung und nicht-magische Waffen. Wesen mit einem ehrlichen Herzen können die Last des Amuletts nicht ertragen und ohne die Hilfe eines Klerikers kann es nicht wieder abgenommen werden. Ihr seid Euch sicher, dass die Kräfte dieses Amuletts einen furchtbaren Preis fordern, aber Ihr könnt keinen Hinweis darauf entdecken. Tatsächlich fühlt sich das Amulett irgendwie passend an und tief in Eurem Inneren fühlt Ihr Euch an etwas erinnert.
+
+*VERFLUCHTER GEGENSTAND*
+
+EIGENSCHAFTEN:
+
+Gewährt den Schutz, wie ihn Vampire haben
+Kann nicht benutzt werden von: Paladinen~
+@438   = ~Gelbe Drachenrüstung~
+@439   = ~Gelbe Drachenrüstung
+Diese Rüstung ist aus übereinander gelegten Gelben Drachenschuppen gefertigt. Gelbe Drachen sind für ihre heftigen Sandangriffe bekannt und ihren Widerstand gegen Stichwaffen. Diese spezielle Rüstung erlangte <CHARNAME> während <PRO_HESHE> das Ritual untersuchte. Die Rüstung ist sehr leicht und behindert nicht die Bewegung. 
+
+EIGENSCHAFTEN:
+
+Bonusse: +50% Widerstand gegen Stichwaffen und Geschosswaffen
+RK: -1
+Gewicht: 10
+Mindeststärke: 6
+Kann nicht benutzt werden von:
+ Magiern~
+@440   = ~ihr Anteil am vollendeten Ritual~
+@441   = ~Level-50 Regelset (Code von King Diamond)~
+@442   = ~Ihr habt TDD installiert, daher habt Ihr diesen bereits~
+@443   = ~Regelset reparieren (2DA, IDS) ...~
+@444   = ~%cnt%      10  10  10  10  10  9   8~
+@445   = ~%cnt%      11  10  10  10  10  9   9~
+@446   = ~%cnt%      11  10  10  10  10  10  9~
+@447   = ~%cnt%      11  11  10  10  10  10  9~
+@448   = ~%cnt%      11  11  11  10  10  10  9~
+@449   = ~%cnt%      11  11  11  10  10  10  10~
+@450   = ~%cnt%      11  11  11  11  10  10  10~
+@451   = ~%cnt%      11  11  11  11  11  10  10~
+@452   = ~%cnt%      6   6   5   5~
+@453   = ~%cnt%      6   6   6   5~
+@454   = ~%cnt%      7   6   6   5~
+@455   = ~%cnt%      7   7   6   5~
+@456   = ~%cnt%      7   7   6   6~
+@457   = ~%cnt%      8   7   6   6~
+@458   = ~%cnt%      7   7   6~
+@459   = ~%cnt%      8   7   6~
+@460   = ~%cnt%      8   8   6~
+@461   = ~%cnt%      8   8   7~
+@462   = ~%cnt%      9   9   8   8   8   7   7   7   5~
+@463   = ~%cnt%      10  9   9   8   8   7   7   7   5~
+@464   = ~%cnt%      10  9   9   8   8   8   7   7   5~
+@465   = ~%cnt%      10  10  9   9   8   8   7   7   5~
+@466   = ~%cnt%      11  10  10  9   8   8   8   7   6~
+@467   = ~%cnt%      11  10  10  9   9   8   8   7   6~
+@468   = ~%cnt%      9   9   8   8   8   8   8   7   7~
+@469   = ~%cnt%      9   9   9   8   8   8   8   7   7~
+@470   = ~%cnt%      10  9   9   9   8   8   8   8   7~
+@471   = ~%cnt%      10  9   9   9   9   8   8   8   7~
+@472   = ~%cnt%      10  10  9   9   9   9   8   8   7~
+@473   = ~%cnt%      10  10  10  9   9   9   9   8   7~
+@474   = ~%cnt%      11  10  10  10  9   9   9   8   8~
+@475   = ~%cnt%      11  11  10  10  10  9   9   9   8~
+@476   = ~%cnt%      11  11  11  10  10  10  9   9   8~
+@477   = ~%cnt%      12  11  11  10  10  10  9   9   8~
+@478   = ~%cnt%      17500~
+@479   = ~%cnt%      18000~
+@480   = ~%cnt%      18500~
+@481   = ~%cnt%      19000~
+@482   = ~%cnt%      19500~
+@483   = ~%cnt%      20000~
+@484   = ~%cnt%      20500~
+@485   = ~%cnt%      21000~
+@486   = ~%cnt%      21500~
+@487   = ~%cnt%      22000~
+@488   = ~%cnt%      100~
+@489   = ~%cnt%      105~
+@490   = ~%cnt%      110~
+@491   = ~%cnt%      115~
+@492   = ~%cnt%      120~
+@493   = ~%cnt%      125~
+@494   = ~%cnt%      130~
+@495   = ~%cnt%      135~
+@496   = ~%cnt%      140~
+@497   = ~%cnt%      99~
+@498   = ~%cnt%      9   9   9   9   9   9   9   8   8~
+@499   = ~%cnt%      9   9   9   9   9   9   9   9   9~
+@500   = ~Ascension für BP~
+@501   = ~Babau~
+@502   = ~Schwert des Chaos +4~
+@503   = ~Sarevoks Schwert des Chaos
+
+Die Klinge von Sarevok, <CHARNAME>s Bruder, die er im Kampf im fernen Baldurs Tor benutzte. <CHARNAME> siegte, vereitelte Sarevoks Pläne und bewahrte die Schwertküste vor einem Krieg. Nun kämpft Sarevok an <CHARNAME>s Seite, und die Klinge wurde ihm zurückgegeben. Sarevok bezeichnet die Waffe als Klinge eines Todesbringers und hat etwas von ihrer alten Macht wiederhergestellt. Ohne dass die Essenz der Bhaalbrut durch sie fließt, verfügt sie zwar nicht über ihre früheren Fähigkeiten; dennoch ist sie eine tödliche Waffe... und Sarevok warnt, dass sie schwer zu führen sein wird für einen, der kein Todesbringer ist - wenn er sie überhaupt tragen kann.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Besondere Fähigkeiten: jeder Treffer raubt dem Opfer einen bis fünf Trefferpunkte und überträgt ihn auf den Träger des Schwertes. Dadurch kann er aber nicht mehr Trefferpunkte als sein Maximum erhalten.
+
+Die Klinge gewährt zusätzlich +10% Magieresistenz, wenn sie getragen wird.
+Schaden: 1W10 +4 (Klingenwaffe)
+ETW0: -4
+Gewicht: 10
+Initiativefaktor: 8
+Waffenfertigkeit: Zweihänder
+Waffentyp: Beidhändig
+Mindeststärke: 14, Konstitution 18
+
+Kann nicht verwendet werden von:
+ Klerikern
+ Magiern
+ Paladinen
+ Waldläufern
+ Druiden
+ Charakteren ohne chaotische Gesinnung~
+@504   = ~Sendais Heiltrank~
+@505   = ~Sendais Heiltrank
+
+Womöglich von Sendai selbst gebraut, ist dieses ein ungeheuer mächtiger Heiltrank, der die kompletten Trefferpunkte desjenigen, der ihn zu sich nimmt, wiederherstellt.~
+@506   = ~Schockwelle~
+@507   = ~Aura der Blitze~
+@508   = ~Ihr bleibt NOCH! Rrrr... Ich zerquetsche Euren Kopf!~
+@509   = ~Widerstände wechseln~
+@510   = ~Dämon beherrschen~
+@511   = ~Fokus~
+@512   = ~Göttlicher Schutzmantel~
+@513   = ~Macht aufnehmen~
+@514   = ~Göttlicher Zauberschild~
+@515   = ~Dämon kommandieren~
+@516   = ~Verbannen~
+@517   = ~Entfesseln~
+@518   = ~Rückmeldung~
+@519   = ~Göttliche Genesung~
+@520   = ~Göttliche Reinigung~
+@521   = ~Melissan: Rufe die Diener der Unendlichkeit~
+@522   = ~Aura der Lähmung~
+@523   = ~Verwandlung zum Zerstörer~
+@524   = ~Verwandlung in eine Fledermaus~
+@525   = ~Verliert Kraft~
+@526   = ~Symbol: Verlangsamen~
+@527   = ~Lava Bombe~
+@528   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat die folgende Fähigkeit erhalten, die einmal am Tag eingesetzt werden kann:
+
+Gruppenheilung (Nekromantie)
+Reichweite: Sichtweite des Zaubernden
+Wirkungsdauer: Permanent
+Zeitaufwand: 5
+Wirkungsbereich: 9 m Radius
+Rettungswurf: Nein
+
+Wenn das Kind Bhaals diese Fähigkeit einsetzt, stellt es sich die Gesichter seiner Gruppenmitglieder vor und konzentriert sich auf die Einheit in der Gruppe. Sobald der Zauber gewirkt wurde, erhält jedes Gruppenmitglied innerhalb 9 m Radius 2W8 +2 Trefferpunkte pro Stufe des Zaubernden zurück. Der Zauber heilt außerdem Erschöpfung, Vergiftung, Krankheiten, Blindheit und Taubheit.~
+@529   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat die folgende Fähigkeit erhalten, die einmal am Tag eingesetzt werden kann:
+
+Regeneration (Nekromantie)
+Reichweite: Berührung
+Wirkungsdauer: 1 Runde pro 2 Stufen
+Zeitaufwand: 7
+Wirkungsbereich: Das berührte Wesen
+Rettungswurf: Nein
+
+Mit Hilfe dieser mächtigen Fähigkeit verleiht das Bhaalkind einem Wesen die Fähigkeit, zu regenerieren. Erlittene Verletzungen heilen, und selbst verlorene Gliedmassen bilden sich neu. Die Fähigkeit regeneriert 3 Trefferpunkte pro Sekunde. Die Wirkung hält an für eine Runde pro zwei Stufen des Bhaalsprosses oder bis sie gebannt wird. Auf Stufe 14 regeneriert ein Charakter beispielsweise sieben Runden lang jeweils 18 Trefferpunkte.~
+@530   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat die folgende Fähigkeit erhalten, die einmal am Tag eingesetzt werden kann:
+
+Heilige Macht entlehnen (Anrufung)
+Reichweite: 0
+Wirkungsdauer: 1 Phase
+Zeitaufwand: 1
+Wirkungsbereich: Der Zaubernde
+Rettungswurf: Nein
+
+Das Kind Bhaals zapft die Energien des Blutes von <PRO_HISHER> an, um so für kurze Zeit außergewöhnliche Macht zu erlangen. Wenn <PRO_HESHE> das tut, werden <PRO_HISHER> Kraft, körperliche Verfassung und Geschicklichkeit alle um +1 Punkt für je 3 Stufen des Zaubernden erhöht. Ein Zaubernder der 3. Stufe würde <PRO_HISHER> Fähigkeiten um 1 erhöhen, während ein Zaubernder der 12. Stufe alle <PRO_HISHER> Fähigkeiten um +4 erhöhen würde.~
+@531   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat die folgende Fähigkeit erhalten, die einmal am Tag eingesetzt werden kann:
+
+Dunkle Essenz aussenden (Nekromantie)
+Reichweite: 6 m
+Wirkungsdauer: 1 Phase
+Zeitaufwand: 1
+Wirkungsbereich: 1 Wesen
+Rettungswurf: Keine Wirkung
+
+Mit Hilfe dieses Zaubers kann das Kind Bhaals die dunkle Essenz seines bösen Vaters aus seinem Körper strömen lassen und dadurch ein Ziel vergiften, wenn diesem ein Rettungswurf gegen Tod misslingt. Die Auswirkungen hängen von der Zauberstufe ab und sind wie folgt:
+
+7. bis 9. Stufe: 2W8 +2 Schadenspunkte pro Runde, Verlangsamung für 12 Sekunden, Rettungswurf -2
+
+10. bis 12. Stufe: 3W8 + 3 Schadenspunkte pro Runde, Verlangsamung für 12 Sekunden, Rettungswurf -2
+
+13. bis 14. Stufe: 4W8 + 4 Schadenspunkte pro Runde, Verlangsamung für 12 Sekunden, Rettungswurf -2
+
+15. bis 16. Stufe: 6W8 + 5 Schadenspunkte pro Runde, Verlangsamung für 24 Sekunden, Rettungswurf -2
+
+17. bis 21. Stufe: 8W8 + 6 Schadenspunkte pro Runde, Verlangsamung für 24 Sekunden, Rettungswurf -4
+
+25. Stufe: 8W8 + 6 Schadenspunkte pro Runde, Verlangsamung für 36 Sekunden, Rettungswurf -4, betrifft eine ganze Gruppe von Gegnern~
+@532   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat einen permanenten Schutz vor Lebenskraftentzug sowie 5% Magieresistenz erhalten.~
+@533   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat die folgende Fähigkeit erhalten, die einmal am Tag eingesetzt werden kann:
+
+Hand des Mordes (Nekromantie)
+Reichweite: Zaubernder
+Wirkungsdauer: 1 Runde pro 5 Stufen
+Zeitaufwand: 1
+Wirkungsbereich: Der Zaubernde
+Rettungswurf: Keiner
+
+Wenn ein Kind Bhaals diese Fähigkeit einsetzt, erhöht sich der Schaden, den es im Nahkampf anrichtet, egal mit welcher Waffe es zuschlägt (beispielsweise mit Schwert oder Faust). Die dunkle Energie des Kindes von Bhaal strömt durch die Waffe in den Gegner und entreißt ihm Lebenskraft. So richtet jeder Schlag zusätzlichen Schaden an und heilt das Kind Bhaals.
+
+Die Auswirkungen hängen von der Stufe ab:
+
+Ab der 10. Stufe: 2 Runden, +4 Schadenspunkte pro Schlag, Kind Bhaals heilt 4 Trefferpunkte
+
+Ab der 15. Stufe: 3 Runden, +6 Schadenspunkte pro Schlag, Kind Bhaals heilt 6 Trefferpunkte
+
+Ab der 20. Stufe: 4 Runden, +8 Schadenspunkte pro Schlag, Kind Bhaals heilt 8 Trefferpunkte
+
+Ab der 25. Stufe: 5 Runden, +10 Schadenspunkte pro Schlag, Kind Bhaals heilt 10 Trefferpunkte
+
+Ab der 30. Stufe: 6 Runden, +12 Schadenspunkte pro Schlag, Kind Bhaals heilt 12 Trefferpunkte~
+@534   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat die folgende Fähigkeit erhalten, die einmal am Tag eingesetzt werden kann:
+
+Auferstehung (Nekromantie)
+Reichweite: Berührung
+Wirkungsdauer: Permanent
+Zeitaufwand: 1 Phase
+Wirkungsbereich: Das berührte Wesen
+Rettungswurf: Nein
+
+Dieser Zauber ähnelt dem Zauber des 5. Grades, Tote erwecken. Allerdings heilt Auferstehung den wiederbelebten Charakter auch gleich vollständig, so dass er sich sofort wieder ins Abenteuer stürzen kann.~
+@535   = ~Bhaalspross-Fähigkeiten
+
+<CHARNAME> hat einen 25%igen widerstand gegenüber körperlichen Schaden (also Schaden durch Stich-, Hieb-, Wucht- und Geschosswaffen) erhalten.~
+@536   = ~Nachdem sich Aeries und <CHARNAME>s Wege getrennt hatten, setzte sie ihre Reisen noch jahrelang fort. Öfters war sie in einer größeren Gruppe unterwegs, doch manchmal auch kämpfte sie alleine und benutze ihre ungeheure Macht im Kampf gegen die Sklaverei in den Reichen. Ihr Mitgefühl wurde jedoch durch das Bedürfnis nach Rache verdorben, Rache für das, was man ihr als Sklavin genommen, und was niemals wieder zurückgegeben werden konnte. Sie hätte sich vermutlich ganz in ihren Rachegedanken verloren, hätte nicht eines Tages das Glück auf sie herabgelächelt. Die Legenden erzählen, dass Aerie, erfüllt von ungeheurer Wut, vollkommen alleine eine Enklave der Sklavenhändler in den nördlichen Hügeln von Cormyr zerstörte. Sehr überrascht entdeckte sie eine kleine Gruppe Avariel, welche hier gefangen gehalten wurden. Nach ihrer Befreiung luden diese sie ein, ihre lange schon verloren geglaubte Heimat Faenya-Dail zu besuchen. In ihrer Zeit dort lernte sie viel, am wichtigsten aber war, dass sie lernte, nicht wirklich mehr eine der Avariel zu sein und fortan aufhörte, ihre verlorenen Flügel herbei zu sehnen. Faenya-Dail war nicht mehr ihre Heimat, und mit gemischten Gefühlen sagte sie Lebewohl. Aerie wurde schließlich zu einer Hohepriesterin in Unterstein, einem Gnomendorf, von dem ihr Mentor Quayle oft gesprochen hatte. Er war ihre wahre Familie und dort fand sie schließlich Glück und die Familie, nach der sie sich so gesehnt hatte. Ebenso wird erzählt, dass Aerie jede Nacht, wenn die Sterne am Himmel erschienen, für ihren alten Freund <CHARNAME> betete. Sie hoffte aufrichtig, dass ihr Freund glücklich genug war, den Frieden zu finden, den sie fand... denn ohne <CHARNAME> wäre dieses niemals möglich gewesen.~ ~Nachdem sich Aeries und <CHARNAME>s Wege getrennt hatten, setzte sie ihre Reisen noch jahrelang fort. Öfters war sie in einer größeren Gruppe unterwegs, doch manchmal auch kämpfte sie alleine und benutze ihre ungeheure Macht im Kampf gegen die Sklaverei in den Reichen. Ihr Mitgefühl wurde jedoch durch das Bedürfnis nach Rache verdorben, Rache für das, was man ihr als Sklavin genommen, und was niemals wieder zurückgegeben werden konnte. Sie hätte sich vermutlich ganz in ihren Rachegedanken verloren, hätte nicht eines Tages das Glück auf sie herabgelächelt. Die Legenden erzählen, dass Aerie, erfüllt von ungeheurer Wut, vollkommen alleine eine Enklave der Sklavenhändler in den nördlichen Hügeln von Cormyr zerstörte. Sehr überrascht entdeckte sie eine kleine Gruppe Avariel, welche hier gefangen gehalten wurden. Nach ihrer Befreiung luden diese sie ein, ihre lange schon verloren geglaubte Heimat Faenya-Dail zu besuchen. In ihrer Zeit dort lernte sie viel, am wichtigsten aber war, dass sie lernte, nicht wirklich mehr eine der Avariel zu sein und fortan aufhörte, ihre verlorenen Flügel herbei zu sehnen. Faenya-Dail war nicht mehr ihre Heimat, und mit gemischten Gefühlen sagte sie Lebewohl. Aerie wurde schließlich zu einer Hohepriesterin in Unterstein, einem Gnomendorf, von dem ihr Mentor Quayle oft gesprochen hatte. Er war ihre wahre Familie und dort fand sie schließlich Glück und die Familie, nach der sie sich so gesehnt hatte. Ebenso wird erzählt, dass Aerie jede Nacht, wenn die Sterne am Himmel erschienen, für ihre alte Freundin <CHARNAME> betete. Sie hoffte aufrichtig, dass ihre Freundin glücklich genug war, den Frieden zu finden, den sie fand... denn ohne <CHARNAME> wäre dieses niemals möglich gewesen.~
+@537   = ~Aerie und <CHARNAME> wurden unzertrennlich und setzen ihr Abenteurerleben eine ganze Zeit lang fort. Aeries Lust am Reisen brachte das Paar bis an die Grenzen Faerûns und weit darüber hinaus. Ihr junger Sohn war immer mit dabei und wenn er mit weit aufgerissenen Augen die Wunder dieser Welt bestaunte, so zauberte dieses ein Lächeln auf <CHARNAME>s Gesicht. Schließlich ließ sich das Paar nieder, eine wunderschöne Tochter wurde geboren, welche die zweite Freude ihres Lebens wurde. Selten nur brachte Ärger <CHARNAME> und Aerie dazu, ihre ungeheure Macht aufzubringen, um das Böse der Welt in seine Schranken zu weisen, trotzdem aber sollten ihre Kämpfe Legende werden. Ihre späteren Jahre sollten ein letztes großes Abenteuer bereithalten, als Aerie wieder die Traurigkeit aus der Zeit der Sklaverei und dem Verlust ihrer Flügel spürte. Zusammen mit <CHARNAME> suchte sie die Avariel von Faenya-Dail auf, ihr Volk der geflügelten Elfen, dem sie vor so langer Zeit entrissen wurde. Und sie fand nicht nur ihr Volk sondern auch ihre lieben Eltern, die Jahre mit der Suche nach ihrem verlorenen Kind verbracht hatten. So fand Aerie schließlich doch noch ihre Familie. Jetzt, da es keine Verwirrung und keine Rätsel mehr für Aerie gab, konnten Sie und <CHARNAME> endlich dort oben in den Wolken heiraten. Ihre Vermählung, so sagt man, wurde durch die Anwesenheit sowohl von Aerdrie Faenya als auch Baervan Wildwanderer gesegnet. Und das Leben der Kinder von <CHARNAME> und Aerie, aufgezogen von zwei der mächtigsten Wesen in den Reichen, wurde ebenfalls zur Legende, welche sich nicht hinter der ihres Vaters verstecken musste...~
+@538   = ~Nachdem sich die Wege von Anomen und seinen Kameraden getrennt hatten, stieg er in der Hierarchie der Kirche Helms weit auf und erreichte schließlich den Rang eines Hohewachenden. Er blieb jedoch ruhelos und unzufrieden, erinnerte sich an die Zeiten als Abenteurer zusammen mit <CHARNAME>... und obwohl viele Freunde ihm anderes einzureden versuchten, fühlte Anomen, dass die Kirche nicht sein wahres Zuhause sei. Er blieb in seiner Position für über ein Jahr, bis er es jedoch nicht mehr aushalten konnte. Er gab seine aktiven Pflichten in der Kirche auf und wanderte als Missionar durch das neue Land Maztica. Anomen blieb eine aufgewühlte Seele, niemals zufrieden, obwohl sein Können ihm großen Respekt von seinen neuen Freunden einbrachte. Als jedoch der mächtige und böse Priester Yamash eine Horde Dämonen in der Absicht herbeirief, sämtliches Leben in Maztica zu vernichten, fand Anomen schließlich seine Aufgabe. Er alleine machte aus einem zerlumpten Haufen amnischer Soldaten und maztikische Einheimischen eine schlagkräftige Armee, die dem dunklen Priester Widerstand leistete. In der folgenden großen Schlacht wurde Anomen gesehen, wie er alleine sich in den Kampf gegen Yamash stürzte. Er hatte weder <CHARNAME> noch einen anderen Kameraden bei sich: alleine stand er der Flut des Bösen gegenüber und er wurde dieser Aufgabe gerecht. Ein letztes Mal wurde er aus der Ferne gesehen, wie er Yamash nachjagend Tränen der Freude vergoss und Helms Namen rief, während er einen blendenden Blitzschlag kanalisierte. Als sich die Rauchwolken verzogen, waren sowohl Anomen als auch der Priester verschwunden. Der Kampf war gewonnen und Maztica war gerettet. Fortan und für alle Zeiten wurde Anomen als Held angesehen und inspirierte die Gründung eines Ritterordens mit seinem Namen. Ein neuer Orden für ein neues Land.~
+@539   = ~Anomen und <CHARNAME> führten ihr Abenteurerleben fort, bis sie schließlich überall, wohin sie auch kamen, bekannt waren. Die großartigen Geschichten um den strahlenden Ritter und die völlige Hingabe zu seiner großen Liebe waren zahlreich. <CHARNAME>s Vergangenheit als Bhaalbrut war für immer vergessen, als neue Taten die alten ersetzten und eine Legende geschaffen wurde, welche die durch göttliches Blut gewährte bei weitem überflügeln sollte. Ihr Leben war derart ausgefüllt, dass der vorgesehene Termin für ihre Hochzeit ein ums andere Mal verschoben werden musste, weil einer der beiden eine drohende Krise abwenden oder ein einzigartiges Abenteuer bestehen wollte. Schließlich jedoch nahte der Tag, den sich sowohl <CHARNAME> als auch ihr Geliebter gesetzt hatten, und das groß angekündigte Ereignis zog Helden und Würdenträger aus ganz Faerûn nach Baldurs Tor. Das Brautpaar hatte das Leben vieler in irgendeiner Art beeinflusst, und sie kamen in Scharen, als Elminster selbst die beiden in der großartigsten Zeremonie, die Baldurs Tor jemals gesehen hatte, vereinigte. Kurze Zeit später zogen sich Anomen und <CHARNAME> aus dem öffentlichen Leben zurück, um die Geburt ihrer Tochter zu feiern. Falls aber die Legenden stimmen, sie haben ihre Abenteuer niemals wirklich geendet. Anomen stieg im Laufe seines Lebens hoch auf in der Hierarchie seiner Kirche, und <CHARNAME> stand noch oft im Mittelpunkt seltsamer Ereignisse. Und auch ihre Tochter, großgezogen von zwei der größten Helden in den Reichen, formte eine Legende, die der ihrer Mutter in nichts nachstehen sollte. Dieses aber ist eine vollkommen andere Geschichte...~
+@540   = ~Nach seiner Rückkehr nach Amkethran, begann Balthasar sofort mit Veränderungen zum Besseren. Von seinem Freund und Bruder hatte er die Bedeutung des Wortes "Gut" wohl gelernt. Als Erinnerung, niemals wieder die gleichen Fehler zu machen, trug er seine Schuld immer mit sich. Die verbliebenen kriminellen Elemente waren schnell aus Amkethran vertrieben, eine Tatsache, die neue Siedler und Händler anzog. Über die Jahre wuchs Amkethran zu einer prächtig gedeihenden Stadt und dem kulturellen Zentrum der ganzen Region, wohl bekannt für ihren Frieden und ihre Wohltaten. Balthasar selbst war auch einer der Mitbegründer der Mönchsgarde, einer Elitegruppe von Paladinen und Mönchen, die sich dem Schutze der einfachen Leute vor Tyrannei in jeglicher Form verschrieben hatte. Seine Taten brachten ihm schnell den Respekt und das Vertrauen der Bevölkerung ein. Es wird erzählt, dass man Balthasar in seinen späteren Jahren, als sein Lebenswerk vollendet war, öfters den nächtlichen Himmel betrachtend und an <CHARNAME> denkend finden konnte. Später dann verließ Balthasar Amkethran für immer und begab sich auf eine Pilgerreise nach Kerzenburg... um ein letztes Mal zu danken für den Frieden, den er fand, und um selbst die bescheidenen Anfänge einer Legende zu sehen.~ ~Nach seiner Rückkehr nach Amkethran, begann Balthasar sofort mit Veränderungen zum Besseren. Von seiner Freundin und Schwester hatte er die Bedeutung des Wortes "Gut" wohl gelernt. Als Erinnerung, niemals wieder die gleichen Fehler zu machen, trug er seine Schuld immer mit sich. Die verbliebenen kriminellen Elemente waren schnell aus Amkethran vertrieben, eine Tatsache, die neue Siedler und Händler anzog. Über die Jahre wuchs Amkethran zu einer prächtig gedeihenden Stadt und dem kulturellen Zentrum der ganzen Region, wohl bekannt für ihren Frieden und ihre Wohltaten. Balthasar selbst war auch einer der Mitbegründer der Mönchsgarde, einer Elitegruppe von Paladinen und Mönchen, die sich dem Schutze der einfachen Leute vor Tyrannei in jeglicher Form verschrieben hatte. Seine Taten brachten ihm schnell den Respekt und das Vertrauen der Bevölkerung ein. Es wird erzählt, dass man Balthasar in seinen späteren Jahren, als sein Lebenswerk vollendet war, öfters den nächtlichen Himmel betrachtend und an <CHARNAME> denkend finden konnte. Später dann verließ Balthasar Amkethran für immer und begab sich auf eine Pilgerreise nach Kerzenburg... um ein letztes Mal zu danken für den Frieden, den er fand, und um selbst die bescheidenen Anfänge einer Legende zu sehen.~
+@541   = ~Bodhi hatte durch <CHARNAME>s Seele göttliche Macht kennen gelernt. Als die letzten Spuren davon mit der Zeit vergingen, begann sie mehr zu verlangen und wurde von bitterem Hass erfüllt, besessen davon, erneut zu solchen Höhen aufzusteigen. Die Menschen entlang der Schwertküste zitterten vor Angst, als Bodhi im Blut badete und ihren Durst nach Chaos und Tod sättigte. Manche Dörfer begannen, Menschen gefesselt am Straßenrand zurückzulassen, als ein Opfer für das Ding, das durch die Nacht schlich. Ihr Name wurde ein Synonym für Schrecken, Tempel in Nah und Fern versuchten vergeblich, sie zur Strecke zu bringen. Viele mächtige Kleriker fand man später, blutleer, Schmerz auf die bleichen Gesichter geschrieben. Mit der Zeit fühlte Bodhi, wie der eisige Griff des Fluches sie immer stärker erfasste. Verzweiflung und Angst griffen nach jeder Faser ihres Wesens. Das Verlangen nach Chaos ließ nach, und wieder kämpfte sie ums Überleben. Der Ehrgeiz, der sie einst dazu gebracht hatte, Träume der Macht in die Ohren ihres Bruders zu flüstern, brachte sie jetzt zurück an den Ort, der ihr vor langer Zeit einmal Heimat gewesen war: Suldanessallar. Dort an den Toren traf sie Ellesime. An den Toren tanzte Bodhi ein letztes Mal. Der Durst nach Rache brannte heiß in beiden und rief nach Blut. Die Macht des Baums des Lebens trieb Bodhi voran, die Erinnerung an Joneleth schrie in Ellesime. Eine in den Armen der anderen, war die Rache der Sieger, als der Pflock das schwarze Herz Bodhis durchstach - die verdammt war im Leben als auch im Tode.~
+@542   = ~Cernd nahm Abschied vom Abenteurerleben, kehrte zu seinem Hain in Tethyr zurück und versprach, seiner Verantwortung nachzukommen und seinen Sohn Ahsdale so aufzuziehen, wie es ein Vater seiner Meinung nach tun sollte. Jahre später errang Cernd den Titel des Obersten Druiden und machte sich überall in den Reichen einen Namen, indem er nicht nur für das Gleichgewicht in seinem Hain kämpfte, sondern indem er auch die Heiligkeit des Lebens in allen Teilen der Reiche und in all seinen Bewohnern schützte. Zu seinem Bedauern aber musste er nach einiger Zeit feststellen, dass die Aufmerksamkeit seinen Pflichten gegenüber ihn sein Versprechen gegenüber Ahsdale hatte vernachlässigen lassen. Sein Sohn hatte den Hain schon lange vorher verlassen und war zu einem bösen und verdorbenen Magier geworden, der mit seinen Armeen die Schwertküste bedrohte. Cernd beteiligte sich an vielen Kämpfen gegen die Kräfte seines Sohnes, indem er über die Mächte der Natur mit einer so großen Entschlossenheit gebot, dass dieses von allen, die es sahen, als geradezu legendär angesehen wurde. Schließlich stellte Cernd seinen Sohn tief in den Wäldern von Tethyr und machte einen letzten Versuch, ihn vom Pfad des Bösen abzubringen. Ahsdale lehnte dieses jedoch ab, und die Auseinandersetzung, die schließlich zwischen Cernd und Ahsdale tobte, überlebte keiner von beiden. Selbst tödlich verwundet schleppte sich Cernd zu seinem toten Sohn, ergriff dessen Hand und Tränen flossen über sein Gesicht, als er Ahsdale um Verzeihung bat. Cernds Geist verschmolz mit dem einer großen alten Eiche mitten im Wald, und es wird erzählt, dass diese unsterbliche Eiche immer noch stehen würde. Und um sie herum hätte sich wundersamer Hain von unglaublicher Schönheit gebildet, welcher das Heim der seltensten magischen Kreaturen in den Reichen sei. Und jedes Mal im Herbst färbten sich die Blätter der großen Eiche und des gesamten Hains blutrot, als Zeichen, dass selbst die am meisten Fehlerhaften unter uns schließlich doch ihren Ausgleich finden.~
+@543   = ~Für Haer'Dalis waren die Reisen mit <CHARNAME> nur ein erster Einblick in die faszinierende Welt der vergessenen Reiche gewesen. Nachdem sich ihre Wege getrennt hatten, drängte es ihn, mehr zu sehen. Er besuchte die unterschiedlichsten Orte, wie Tiefwasser, Niewinter und Thay, verbreitete die Geschichten seiner Erlebnisse mit <CHARNAME>... doch irgendwie verlor er sich nach kurzer Zeit immer in einem seiner zahlreichen Abenteuer. Jeder seiner Besuche in einer neuen Gegend endete mit einer wilden Flucht, nachdem er es geschafft hatte, sich dank seiner unschuldigen Neugier in die örtlichen Streitigkeiten zu verwickeln. Obwohl der Barde anmerkte, nur einige der Eigenheiten der materiellen Ebene missverstanden zu haben, so sehnte er sich doch nach den Weiten der anderen Ebenen. Kurze Zeit später freundete er sich mit einem weiblichen Cambion an und begleitete sie in den Abyss, nur um kurz darauf als General wider Willen eine Revolte anzuführen, die mehrere Ebenen der Hölle erfasste. Äußerst amüsiert lauschte der Tiefling Geschichten, er hätte den großen Graa'zt an den Verhandlungstisch gezwungen, eine wahrlich peinliche Situation für einen so großen Dämonenlord, bestätigt aber hat er dieses nie. Einige Zeit lang war Haer'Dalis der gejagteste Mann in den Ebenen, doch gegen seine unbändige Wanderlust kam selbst der Zorn seiner zahlreichen Feinde nicht an. Nachdem er kreuz und quer durch die Ebenen gereist war, kam er praktisch unverletzt nach Sigil zurück. Dort schloss er sich wieder Raelis' Schauspielgruppe an. Er war froh, endlich einen Ort gefunden zu haben, an dem er sich niederlassen konnte. Natürlich nur bis zum nächsten Missverständnis...~
+@544   = ~Und was wurde aus Imoen, dem ewigen Kind? Sie hatte viel durchgemacht auf ihren Reisen mit <CHARNAME>, Dinge, über die zu reden sie später ablehnte; ihr Geist aber wurde nie gebrochen. Sie trennte sich von ihren Gefährten, um aus dem Schatten ihres Bruders zu treten. Für kurze Zeit kehrte sie nach Kerzenburg zurück, und als mächtige Magierin lernte sie die Werke dort erst richtig schätzen. Hier konnte sie an einfachere Zeiten mit <CHARNAME> und Gorion zurückdenken, und zufrieden sein, dass sie dem Vorbild ihres Stiefvaters gefolgt war. Obwohl sie gebeten wurde zu bleiben, beschloss sie schließlich, dass Kerzenburg viel kleiner war, als sie es in Erinnerung hatte, und verließ es, um anderswo Abenteuer zu suchen.
+
+Über die Erzmagierin Imoen werden viele Geschichten erzählt. Sie trug viele andere Namen in ihrem Leben, manche geheimnisvoll und voller Vorbedeutung, andere seltsam und schrullig im Vergleich zu der Macht, die diese große Frau besaß. Jeder, der Imoen in ihrer Jugend gekannt hatte, konnte sie jedoch unter jedem Namen sofort wieder erkennen... Alter und Weisheit konnten das schelmische Zwinkern in den Augen oder das Grinsen verbergen, mit dem sie einen Freund begrüßte. Sie wurde die Vertraute von Khelben "Schwarzstab" Arunson und wurde oft mit einer Geschichte über den großen Elminster in Verbindung gebracht: Angeblich habe sie den Weisen eines Tages bestohlen und in einer lustigen magischen Jagd für vier Monate quer durch Faerûn geführt. Wie weit diese Geschichte der Wahrheit entspricht, ist nicht bekannt... obwohl es zu Imoen passt, einem alten Knacker zu sagen, er solle nicht so ein Griesgram sein, und ihre spätere Freundschaft mit Elminster ist gut verbürgt. Spätere Berichte behaupten, Imoen habe eine Diebesgilde gegründet, die bis nach Niewinter hinauf operiert, und sie habe sich mit den Schattendieben und den Zhentarim angelegt und sich sogar mit einem Drachen duelliert, "weil er (so heißt es) unhöflich war". Manchmal dachte Imoen an ihren alten Freund <CHARNAME> zurück, und lächelte traurig... und wurde sofort von einem besonders lustigen Gedanken ergriffen, der ihren nächsten Plan hervorbrachte - glücklicherweise scheint es, als änderten sich manche Menschen nie.~ ~ Und was wurde aus Imoen, dem ewigen Kind? Sie hatte viel durchgemacht auf ihren Reisen mit <CHARNAME>, Dinge, über die zu reden sie später ablehnte; ihr Geist aber wurde nie gebrochen. Sie trennte sich von ihren Gefährten, um aus dem Schatten ihrer Schwester zu treten. Für kurze Zeit kehrte sie nach Kerzenburg zurück, und als mächtige Magierin lernte sie die Werke dort erst richtig schätzen. Hier konnte sie an einfachere Zeiten mit <CHARNAME> und Gorion zurückdenken, und zufrieden sein, dass sie dem Vorbild ihres Stiefvaters gefolgt war. Obwohl sie gebeten wurde zu bleiben, beschloss sie schließlich, dass Kerzenburg viel kleiner war, als sie es in Erinnerung hatte, und verließ es, um anderswo Abenteuer zu suchen.
+
+Über die Erzmagierin Imoen werden viele Geschichten erzählt. Sie trug viele andere Namen in ihrem Leben, manche geheimnisvoll und voller Vorbedeutung, andere seltsam und schrullig im Vergleich zu der Macht, die diese große Frau besaß. Jeder, der Imoen in ihrer Jugend gekannt hatte, konnte sie jedoch unter jedem Namen sofort wieder erkennen... Alter und Weisheit konnten das schelmische Zwinkern in den Augen oder das Grinsen verbergen, mit dem sie einen Freund begrüßte. Sie wurde die Vertraute von Khelben "Schwarzstab" Arunson und wurde oft mit einer Geschichte über den großen Elminster in Verbindung gebracht: Angeblich habe sie den Weisen eines Tages bestohlen und in einer lustigen magischen Jagd für vier Monate quer durch Faerûn geführt. Wie weit diese Geschichte der Wahrheit entspricht, ist nicht bekannt... obwohl es zu Imoen passt, einem alten Knacker zu sagen, er solle nicht so ein Griesgram sein, und ihre spätere Freundschaft mit Elminster ist gut verbürgt. Spätere Berichte behaupten, Imoen habe eine Diebesgilde gegründet, die bis nach Niewinter hinauf operiert, und sie habe sich mit den Schattendieben und den Zhentarim angelegt und sich sogar mit einem Drachen duelliert, "weil er (so heißt es) unhöflich war". Manchmal dachte Imoen an ihre alte Freundin <CHARNAME> zurück, und lächelte traurig... und wurde sofort von einem besonders lustigen Gedanken ergriffen, der ihren nächsten Plan hervorbrachte - glücklicherweise scheint es, als änderten sich manche Menschen nie.~
+@545   = ~Die Ereignisse der Zeit der Bhaalbrut hatten Jaheira stark beeinflusst. Es war ihre Pflicht, das Gleichgewicht in allen Dingen zu beschützen, aber in den Jahren die folgten, musste sie feststellen, dass dieser Kampf in immer größerem Ausmaß in ihrem Kopf stattfand. Sie hatte große Veränderungen in <CHARNAME>s Gegenwart gesehen und gemerkt, wie flüchtig doch das Leben war. Der Verlust ihres Geliebten nagte an ihr. Sie wurde als eine unermüdliche Streiterin für das Gleichgewicht bekannt. Manchmal kämpfte sie auf Seiten der Harfner, und manchmal agierte sie gegen sie. Jaheira arbeitete im stillen, sie erschien, wenn sie gebraucht wurde, und verschwand, wenn nicht. Viele riefen sie als Führungsperson, immer aber bestritt Jaheira, dass sie geeignet sei, und sagte, dass irgendwo andere wären, die ihre Hilfe mehr benötigten. Sie blieb immer distanziert und vorsichtig, blieb niemals lange an einem Ort. Man sagt, sie habe die vergessenen Reiche wohl mindestens dreimal durchstreift, immer auf Wanderschaft, immer auf der Suche... bis sie sich schließlich selbst fragte, wonach sie eigentlich suchte.
+
+Was in Jaheiras späterem Leben passierte, ist nicht bekannt. Manche sagen, dass Elminster sie überredete, einen Platz unter den führenden Köpfen der Harfner einzunehmen. Andere sagen, sie fiel im Kampf gegen einen mächtigen Leichnam, der versuchte, die nördlichen Wälder zu schänden. Wiederum andere sagen, sie begab sich auf die Suche nach <CHARNAME> und reiste in Länder weit weg von den unseren. Was auch immer mit ihr geschah, Jaheira kehrte nie nach Tethyr oder an die Schwertküste zurück.~
+@546   = ~Die Jahre nach dem Ende der Zeit der Bhaalbrut waren gute Jahre für Jaheira. Man kann sie wohl wahrhaft nicht als friedliche Jahre bezeichnen, aber ihre Beziehung zu <CHARNAME> überstand alles. Die Treue zwischen ihnen war unerschütterlich. Obwohl die Pflichten des Abenteurerlebens sie manchmal sogar Jahre voneinander fernhielten, kehrten sie doch immer wieder zueinander zurück. Ihre Freunde wunderten sich, wie sicher Jaheira in dieser Beziehung doch geworden war, vor allem, wenn man ihre anfängliche Zurückhaltung bedachte. Jaheira jedoch lächelte nur amüsiert, wenn sie an diese erste Zeit zurückdachte. Schließlich waren Sie und <CHARNAME> im wahrsten Sinne des Wortes durch die Hölle gegangen. Wenn die Götter sie nicht trennen konnten, was waren dann schon ein paar Monate oder etliche hundert Kilometer? Jaheira stieg weit auf in der Hierarchie der Harfner, immer die Stimme der Weisheit und Vernunft. Sie war berühmt als Heldin und Vermittlerin, aber niemand war überrascht, wenn sie für große Zeitspannen verschwand, um mit <CHARNAME> in die entlegensten Ecken der Reiche zu reisen. Das Paar wurde gesichtet in Niewinter, in Rashemen, in den großen südlichen Steppen und sogar in den Urwäldern von Chult. Nach einem Streit schließlich verließ Jaheira die Harfner, war erleichtert, mit diesen abgeschlossen zu haben, und sah es nun als ihre Aufgabe an, <CHARNAME>s Sohn aufzuziehen. <CHARNAME> besuchte sie oft, genoss seine Vaterschaft, doch sein Fernweh führte ihn immer wieder in die Welt hinaus. Jaheira war nicht immer mit <CHARNAME> zusammen, und nicht alle seine Siege und Verdienste teilte sie, doch waren sie auch niemals wirklich getrennt. Und <CHARNAME>s Sohn? Aufgezogen von zwei der mächtigsten Wesen in den Reichen, schmiedete er seine eigenen Legenden, die denen seines Vaters in nichts nachstanden. Aber dies ist eine andere Geschichte...~
+@547   = ~Die Gefahren, die Mazzy Fentan an der Seite von <CHARNAME> überstanden hatte, taten Ihrer Lust am Abenteuer keinen Abbruch. Nicht lange nach den Ereignissen in Tethyr begründete sie die Fentan-Ritter, eine tapfere Gruppe von Helden, von deren Taten überall in den Reichen erzählt wurde. Und immer rief sie den Namen von <CHARNAME>, wenn sie ihre Kameraden zur Tapferkeit anhielt, oder wenn sie Zweifel und Verlockungen bekämpften. <CHARNAME> war der beste Mann, den Mazzy jemals kannte, und die Halbling-Ritterin sah es als ihre Pflicht an, dem Ruf ihres alten Freundes gerecht zu werden. Die Fentan-Ritter kämpften gegen Trolle, um bedrohte Städte zu retten, warfen Armeen von Orks zurück, um alte Wälder zu schützen, und besiegten einen Amok laufenden Drachen in seiner eigenen Lagerstätte, nur um die Welt zu einem besseren Ort zu machen. Die Legenden, die sich um sie rankten, machten sie zu etwas Größerem, und ein Erzähler fand den treffenden Vergleich, dass Mazzy wohl mindestens 6 Meter groß wäre, wenn man Mut in Zentimetern messen würde. Bekanntermaßen war die Krönung von Mazzy´s Leistungen der Tag, an welchem sie als erster Halbling, ja sogar als erster Nicht-Mensch, zum Ehrenpaladin in der großen Halle im Orden des Strahlenden Herzens ernannt wurde. Stille Tränen des Stolzes flossen über Mazzy´s Wangen, als der alte Prälat die größten Ehren des Ordens über ihre Schultern legte. Man sagt, dass Mazzy während der Zeremonie öfters die Menge der Anwesenden musterte, und von den Gesichtern der alten Freunden, welche dem Ereignis beiwohnen konnten, war es das Gesicht <CHARNAME>s, welches sie am meisten suchte. Trotz all der Risiken, die sie einging, lebte Mazzy bis ins hohe Alter und starb in Frieden. Sie setzte sich nie zur Ruhe und sie hatte keine Kinder, aber ihr Vermächtnis würde weiterhin ihr Volk für Generationen anregen, zu kommen.~ ~Die Gefahren, die Mazzy Fentan an der Seite von <CHARNAME> überstanden hatte, taten Ihrer Lust am Abenteuer keinen Abbruch. Nicht lange nach den Ereignissen in Tethyr begründete sie die Fentan-Ritter, eine tapfere Gruppe von Helden, von deren Taten überall in den Reichen erzählt wurde. Und immer rief sie den Namen von <CHARNAME>, wenn sie ihre Kameraden zur Tapferkeit anhielt, oder wenn sie Zweifel und Verlockungen bekämpften. <CHARNAME> war die beste Frau, die Mazzy jemals kannte, und die Halbling-Ritterin sah es als ihre Pflicht an, dem Ruf ihrer alten Freundin gerecht zu werden. Die Fentan-Ritter kämpften gegen Trolle, um bedrohte Städte zu retten, warfen Armeen von Orks zurück, um alte Wälder zu schützen, und besiegten einen Amok laufenden Drachen in seiner eigenen Lagerstätte, nur um die Welt zu einem besseren Ort zu machen. Die Legenden, die sich um sie rankten, machten sie zu etwas Größerem, und ein Erzähler fand den treffenden Vergleich, dass Mazzy wohl mindestens 6 Meter groß wäre, wenn man Mut in Zentimetern messen würde. Bekanntermaßen war die Krönung von Mazzy´s Leistungen der Tag, an welchem sie als erster Halbling, ja sogar als erster Nicht-Mensch, zum Ehrenpaladin in der großen Halle im Orden des Strahlenden Herzens ernannt wurde. Stille Tränen des Stolzes flossen über Mazzy´s Wangen, als der alte Prälat die größten Ehren des Ordens über ihre Schultern legte. Man sagt, dass Mazzy während der Zeremonie öfters die Menge der Anwesenden musterte, und von den Gesichtern der alten Freunden, welche dem Ereignis beiwohnen konnten, war es das Gesicht <CHARNAME>s, welches sie am meisten suchte. Trotz all der Risiken, die sie einging, lebte Mazzy bis ins hohe Alter und starb in Frieden. Sie setzte sich nie zur Ruhe und sie hatte keine Kinder, aber ihr Vermächtnis würde weiterhin ihr Volk für Generationen anregen, zu kommen.~
+@548   = ~Nalia wurde nach der Zeit, die sie mit <CHARNAME> verbracht hatte, sehr mächtig. Zuerst reiste sie durchs Land, stillte ihren Durst an magischem Wissen, indem sie sich den größten Magiern in den Reichen anschloss. Mit ihrer großen Macht wollte sie Gerechtigkeit ins Land bringen, aber schließlich fand sie heraus, dass ihre Zeit mit <CHARNAME> sie zumindest eines gelehrt hatte, nämlich dass Macht immer auch mit Weisheit verknüpft sein muss, oder aber sie ist nutzlos. Sie konnte das Böse nach Belieben vernichten... nicht immer aber half es den Bedürftigen so, wie sie es gedacht hatte, und nach etwa einem Jahr stellte sie fest, dass es bessere Wege gab, ihren Leuten zu helfen.
+
+Nalia kehrte nach Amn zurück, und zwar zur Festung ihrer Familie de'Arnise. Dort musste sie jedoch feststellen, dass die Festung von niemand anders als Isaea Roenal kontrolliert wurde. Allerdings war sie nicht mehr das arme, verschreckte Mädchen, das von Zuhause weggelaufen war und mit dem er gerechnet hatte. Sie sorgte dafür, dass ihm Gerechtigkeit für seine Verbrechen zuteil wurde und erklärte sich selbst zur Erbin des Herzogtitels ihres Vaters. Mit dem örtlichen Adel konnte Nalia jedoch keinerlei Einigung erzielen, und so ignorierten diese sie mitsamt ihrer Magie, und frohlockten, als die verhüllten Magier versuchten, ihr ihre Macht zu nehmen. Nalia jedoch zeigte allen, dass mit ihr nicht zu spaßen sei, und die verhüllten Magier lernten ihren Namen zu fürchten. Mit der Zeit wurde sie zu einer vom Volk geliebten Herrscherin und einer respektierten und anerkannten Erzmagierin. Ja, es gelang ihr sogar, einen Sitz im Rat der Sechs von Amn zu erlangen. Nalia wurde in Amn zu einer Gestalt, die viele Jahre eine zentrale Rolle spielte. Sie kämpfte beständig für das Wohlergehen des einfachen Mannes auf der Straße und machte sich im Verlauf dieser Zeit viele Feinde unter den Reihen der Adligen und bei den Verhüllten Magiern, deren Pläne sie jedoch ein ums andere Mal vereiteln konnte. Viele Jahre später starb Nalia inmitten ihrer geliebten Familie... ihre letzten Worte waren ein Dank an <CHARNAME> dafür, dass <PRO_HESHE> ihr vor langer Zeit den wahren Weg gezeigt hat, den sie gehen musste.~
+@549   = ~Die Jahre nach seiner Wiedererweckung durch <CHARNAME> verbrachte Sarevok mit Wanderungen durch die vergessenen Reiche, blieb jedoch nie lange an einem Ort. Man sagt, dass er in Berdusk eine Invasionsarmee der Orks in die Flucht schlug und dabei so fürchterlich wütete, dass die verängstigte Bevölkerung sich nicht mehr sicher war, wen sie mehr fürchten sollte. Er verschwand, ohne eine Belohnung abzuwarten. Nach Westtor kam er als Eroberer, setzte mit äußerster Brutalität seinen Willen durch und verschwand dann wenige Monate später wieder unter mysteriösen Umständen. Er verhielt sich wie ein Mann, der sich selbst nicht kennt. Alle Geschichten sind sich darüber einig, dass Sarevok eine gequälte Seele ist und ständig zwischen Leben und Tod balanciert, ohne eine der beiden Welten erreichen zu können. Diejenigen, die Sarevok am besten kannten - und das waren nur wenige - sagten, dass der gequälte Krieger den sagenhaften <CHARNAME> für seine zweite Chance verfluchte... um <PRO_HIMHER> im gleichen Atemzug dafür zu danken. Irgendwann verschwand er, und manche Geschichten sagen, dass er den Abyss gestürmt oder Selbstmord begangen hat. In Wahrheit jedoch reiste er nach Kara-Tur, um die einzige Liebe seines Lebens, die Kriegerin Tamoko, dort zu begraben. Er kehrte nie zurück, aber die Geschichten über ihn werden beständig weitererzählt.~ ~Die Jahre nach seiner Wiedererweckung durch <CHARNAME> verbrachte Sarevok mit Wanderungen durch die vergessenen Reiche, blieb jedoch nie lange an einem Ort. Man sagt, dass er in Berdusk eine Invasionsarmee der Orks in die Flucht schlug und dabei so fürchterlich wütete, dass die verängstigte Bevölkerung sich nicht mehr sicher war, wen sie mehr fürchten sollte. Er verschwand, ohne eine Belohnung abzuwarten. Nach Westtor kam er als Eroberer, setzte mit äußerster Brutalität seinen Willen durch und verschwand dann wenige Monate später wieder unter mysteriösen Umständen. Er verhielt sich wie ein Mann, der sich selbst nicht kennt. Alle Geschichten sind sich darüber einig, dass Sarevok eine gequälte Seele ist und ständig zwischen Leben und Tod balanciert, ohne eine der beiden Welten erreichen zu können. Diejenigen, die Sarevok am besten kannten - und das waren nur wenige - sagten, dass der gequälte Krieger die sagenhafte <CHARNAME> für seine zweite Chance verfluchte... um <PRO_HIMHER> im gleichen Atemzug dafür zu danken. Irgendwann verschwand er, und manche Geschichten sagen, dass er den Abyss gestürmt oder Selbstmord begangen hat. In Wahrheit jedoch reiste er nach Kara-Tur, um die einzige Liebe seines Lebens, die Kriegerin Tamoko, dort zu begraben. Er kehrte nie zurück, aber die Geschichten über ihn werden beständig weitererzählt.~
+@550   = ~Nachdem sich seine und <CHARNAME>s Wege getrennt hatten, bewies der wiedergeborene Sarevok seine Fähigkeiten mit dem Schwert so sehr es nur ging. Er kehrte in die Länder zurück, die er einst kannte, jedoch weitaus mächtiger als zuvor. Alte Feinde wurden durch seine Besuche aufgeschreckt, aber diese Zeit währte nicht lange, und einige Monate später startete Sarevok eine Schreckensherrschaft in Baldurs Tor, die ihm die vollständige Kontrolle über die Stadt einbrachte. Jeglicher Widerstand wurde niedergeschlagen, als Sarevok begann, eine Armee für seine eigenen Eroberungen aufzustellen. Wenn er auch nicht die göttliche Macht seines Vaters besaß, so hatte er doch genügend irdische Macht, um sein Verlangen zu befriedigen. Sarevok nahm sich eine Frau nach der anderen und sein Name hinterließ einen bitteren Beigeschmack auf den Zungen der Bewohner der Schwertküste. Die ersten Siege seiner Schreckensarmee fielen leicht, und Sarevoks Macht wuchs. Verrückt aber machte den Krieger die Tatsache, dass all die Siege ihm keine Erregung brachten, ihm eigentlich nichts bedeuteten. Die Macht schmeckte wie Asche, obwohl er sich oftmals in einen Freudentaumel über das Erreichte zu bringen versuchte. Und so - seine Position war immer mächtiger geworden - begrüßte er letztlich die unvermeidliche Ankunft von Helden, die ihn nach nur einem Jahr Schreckensherrschaft absetzten, mit absoluter Gelassenheit. Sarevok floh in die Nacht, sowohl Baldurs Tor als auch seine Träume der Macht hinter sich zurücklassend. Er wurde ein Mann, gejagt von seiner zweiten Chance, gejagt von seinem früheren Leben, das niemals war, und einem zukünftigen Leben, das niemals sein würde. Ohne Bestimmung oder eine eigene Seele streifte er durch die Reiche... manchmal brachte er Terror, manchmal brachte er nichts außer seinem müden Herzen, und nicht viel später war er für immer verschwunden. Manche sagen, er hätte seine Erfüllung in der großen Wüste gefunden, ein Königreich begründend, welches ein Leben andauert. Andere sagen, er reise durch die Ebenen, einen Krieg gegen den großen Berg Celestia führend. Die Wahrheit ist unbekannt, aber die Geschichten über ihn bleiben bestehen.~
+@551   = ~Nachdem sich seine und <CHARNAME>s Wege getrennt hatten, setzte Valygar seine Abenteuer viele Jahr fort, bereiste das nördliche Faerûn und wurde vor allem in der Gegend um Tiefwasser häufig gesehen. Schließlich zog er sich nach Athkatla zurück und beschloss, sich mit einem ruhigen Leben auf dem Anwesen seiner Familie zu begnügen, wie er es immer gewünscht hatte. Die Bewunderer aus den Reihen des Adels gönnten ihm jedoch seine Ruhe nicht. Man drängte ihn dazu, die Position eines Hauptkommissars zu übernehmen. Er wollte die Position zwar nicht, doch die Korruption in der Stadt erregte ihn bald so, dass er einschlug. Für viele Jahre war es Valygars Name, der bei Kriminellen und Sklavenhändlern, die einen Fuß in die Stadt zu setzen wagten, am meisten gefürchtet war. Couragiert verwandelte er die Stadtwachen in eine Kraft, die auch der selbstbewussteste Dieb respektierte. Valygar und die Schattendiebe bekämpften sich viele Male, bis sie schließlich einen Punkt gegenseitigen Respekts erreichten... obwohl viele jedoch den Waldläufer als Sieger ansahen. Valygar stellte den guten Ruf der Corthalas in Athkatla wieder her und heiratete. Sein einziger Sohn und ganzer Stolz, nahm sich die Lektionen, die sein Vater gelernt hatte, zu Herzen. Er wurde später zum Anführer der Verhüllten Magier und zur treibenden Kraft zahlreicher, positiver Reformen in ihren Reihen, und zum ersten Male in seinem Leben war Valygar stolz. In Erinnerung an den Mann, der er einst gewesen, der vor seinem Schicksal in die tiefsten Wälder Amns geflohen war, war er <CHARNAME> dankbar, dass <PRO_HESHE> in sein Leben getreten war und wünschte seinem alten Freund auf ewig alles Gute.~ ~Nachdem sich seine und <CHARNAME>s Wege getrennt hatten, setzte Valygar seine Abenteuer viele Jahr fort, bereiste das nördliche Faerûn und wurde vor allem in der Gegend um Tiefwasser häufig gesehen. Schließlich zog er sich nach Athkatla zurück und beschloss, sich mit einem ruhigen Leben auf dem Anwesen seiner Familie zu begnügen, wie er es immer gewünscht hatte. Die Bewunderer aus den Reihen des Adels gönnten ihm jedoch seine Ruhe nicht. Man drängte ihn dazu, die Position eines Hauptkommissars zu übernehmen. Er wollte die Position zwar nicht, doch die Korruption in der Stadt erregte ihn bald so, dass er einschlug. Für viele Jahre war es Valygars Name, der bei Kriminellen und Sklavenhändlern, die einen Fuß in die Stadt zu setzen wagten, am meisten gefürchtet war. Couragiert verwandelte er die Stadtwachen in eine Kraft, die auch der selbstbewussteste Dieb respektierte. Valygar und die Schattendiebe bekämpften sich viele Male, bis sie schließlich einen Punkt gegenseitigen Respekts erreichten... obwohl viele jedoch den Waldläufer als Sieger ansahen. Valygar stellte den guten Ruf der Corthalas in Athkatla wieder her und heiratete. Sein einziger Sohn und ganzer Stolz, nahm sich die Lektionen, die sein Vater gelernt hatte, zu Herzen. Er wurde später zum Anführer der Verhüllten Magier und zur treibenden Kraft zahlreicher, positiver Reformen in ihren Reihen, und zum ersten Male in seinem Leben war Valygar stolz. In Erinnerung an den Mann, der er einst gewesen, der vor seinem Schicksal in die tiefsten Wälder Amns geflohen war, war er <CHARNAME> dankbar, dass <PRO_HESHE> in sein Leben getreten war und wünschte seiner alten Freundin auf ewig alles Gute.~
+@552   = ~Nachdem sich Viconias Wege von denen <CHARNAME>s getrennt hatten, wanderte sie lange Zeit umher. Sie erfuhr immer noch Unwissenheit und Hass von denen, die von ihrem Volk wussten, aber Viconia war nun mehr denn je entschlossen, sich vom Ruf der Dunkelelfen zu distanzieren. Sie war in den tiefsten Ebenen der Hölle gewesen und hatte Seite an Seite mit <CHARNAME> gekämpft, als <PRO_HESHE> zum Gott wurde... und sie verbarg ihr Gesicht auf der Oberfläche nicht länger. Selbst als Shar, ihre Göttin der Dunkelheit und des Verlustes, sie völlig fallen ließ, bereute Viconia nicht. Geschichten wurden über sie erzählt, während sie ein Land nach dem anderen ihre Gegenwart spüren ließ... oft als Retter, aber ohne Dank von Misstrauen und Angst vertrieben. Dennoch reiste Viconia weiter, lehnte die Gesellschaft anderer Reisender und Abenteurer ab, und sie fand keinen Ort, an dem sie wirklich zu Hause war. Ihr Schicksal gehörte ihr selbst, und sie würde es zu ihren eigenen Bedingungen finden.
+
+Was schließlich aus Viconia wurde, ist nicht bekannt. Die größte Legende, die sich um sie rankt, ist zugleich auch die unglaubwürdigste - obwohl die Hartnäckigkeit, mit der sich die Geschichte hält, für sie spricht. Es heißt, Viconia hätte die Elfen von Suldanessallar vor einem Plan der Zhentarim gerettet, indem sie tapfer gegen die Agenten dieser Organisation kämpfte... und sich am Ende selbst opferte, um Königin Ellesime vor einem tödlichen Pfeil zu retten. Als sie wiederbelebt wurde, war sie überrascht zu sehen, dass die Elfen von Suldanessallar aufgrund dieser letzten Tat sie endlich annahmen und ihrer dunklen Schwester vergaben. Königin Ellesime ließ ihr die höchsten Ehren der Seldarin zuteil werden: Viconia war die erste Drow, die diese Auszeichnung erhielt, und ihr wurde angeboten, wieder eine Heimat im Baum des Lebens zu finden. Viconia war sichtlich bewegt von dieser Geste... und während sie über das Angebot der Königin nachdachte, heißt es, habe sie sich schließlich nur tief vor Ellesime verbeugt und Suldanessallar dann schweigend für immer verlassen. Viconia wurde nie wieder gesehen.~ ~Nachdem sich Viconias Wege von denen <CHARNAME>s getrennt hatten, wanderte sie lange Zeit umher. Sie erfuhr immer noch Unwissenheit und Hass von denen, die von ihrem Volk wussten, aber Viconia war nun mehr denn je entschlossen, sich vom Ruf der Dunkelelfen zu distanzieren. Sie war in den tiefsten Ebenen der Hölle gewesen und hatte Seite an Seite mit <CHARNAME> gekämpft, als <PRO_HESHE> zur Göttin wurde... und sie verbarg ihr Gesicht auf der Oberfläche nicht länger. Selbst als Shar, ihre Göttin der Dunkelheit und des Verlustes, sie völlig fallen ließ, bereute Viconia nicht. Geschichten wurden über sie erzählt, während sie ein Land nach dem anderen ihre Gegenwart spüren ließ... oft als Retter, aber ohne Dank von Misstrauen und Angst vertrieben. Dennoch reiste Viconia weiter, lehnte die Gesellschaft anderer Reisender und Abenteurer ab, und sie fand keinen Ort, an dem sie wirklich zu Hause war. Ihr Schicksal gehörte ihr selbst, und sie würde es zu ihren eigenen Bedingungen finden.
+
+Was schließlich aus Viconia wurde, ist nicht bekannt. Die größte Legende, die sich um sie rankt, ist zugleich auch die unglaubwürdigste - obwohl die Hartnäckigkeit, mit der sich die Geschichte hält, für sie spricht. Es heißt, Viconia hätte die Elfen von Suldanessallar vor einem Plan der Zhentarim gerettet, indem sie tapfer gegen die Agenten dieser Organisation kämpfte... und sich am Ende selbst opferte, um Königin Ellesime vor einem tödlichen Pfeil zu retten. Als sie wiederbelebt wurde, war sie überrascht zu sehen, dass die Elfen von Suldanessallar aufgrund dieser letzten Tat sie endlich annahmen und ihrer dunklen Schwester vergaben. Königin Ellesime ließ ihr die höchsten Ehren der Seldarin zuteil werden: Viconia war die erste Drow, die diese Auszeichnung erhielt, und ihr wurde angeboten, wieder eine Heimat im Baum des Lebens zu finden. Viconia war sichtlich bewegt von dieser Geste... und während sie über das Angebot der Königin nachdachte, heißt es, habe sie sich schließlich nur tief vor Ellesime verbeugt und Suldanessallar dann schweigend für immer verlassen. Viconia wurde nie wieder gesehen.~
+@553   = ~Viconia reiste nur noch für kurze Zeit umher, nachdem sie von <CHARNAME> getrennt wurde, und begründete schließlich einen Orden Shars in der großen Stadt Tiefwasser. Einer ihrer Anhänger wandte sich gegen sie, und die rasende Viconia löschte den gesamten Orden mit eigenen Händen aus. Shar vergab Viconia diese Übertretung nicht und nahm ihr alle Fähigkeiten. Viconia verweigerte sich stur jeder Reue und verließ Tiefwasser, um durch die Reiche zu wandern. Die Geschichten über sie beschrieben die Dunkelelfe als rätselhafte und mächtige Person... und obwohl sie Shar nicht mehr verehrte, war auch bekannt, dass sie noch über große priesterliche Fähigkeiten verfügte. Wen die dunkle Dame jetzt verehrte, hielt sie jedoch geheim. Es hieß, sie habe eine Armee gegen den Hexenkönig Vaasan aufgestellt und habe hinterlistig versucht, sein Königreich an sich zu reißen, sei aber nach einigen militärischen Fehlschlägen knapp besiegt worden. Viconia verhinderte einen Versuch der Ritter des Schildes, Calimhafen zu übernehmen... nur um einige Tage später die Stadt selbst zu übernehmen und eine Herrschaft von Schrecken und Grausamkeit aufzurichten, von der man Jahre später noch mit Schaudern spricht. Viconia verließ Calimhafen und kehrte, wie es hieß, ins Unterreich zurück, woher sie gekommen war. Ihre Rückkehr war jedoch nicht problemlos, denn sie wurde zu einer einflussreichen Macht unter den Drow, die selbst Lolth zu denken gab. Sie sei in beiden Welten geprüft worden, meinte Viconia, und habe die Prüfung bestanden. Sie würde die Drow stark machen, während sie jetzt schwach seien. Was schließlich aus Viconia wurde, ist unbekannt und hinter Gerüchten verborgen... aber es heißt, selbst die große Spinnenkönigin ruhe nicht mehr ohne Sorgen. ~
+@554   = ~Viconia und <CHARNAME> zogen noch einige Zeit gemeinsam auf Abenteuer aus und erlangten großen Ruhm, als sie in zwei Kriegen an der Schwertküste eine zentrale Rolle spielten. <CHARNAME>s Einfluss in den Reichen wurde mit der Zeit größer, und seine dunkle Frau war immer an seiner Seite. Schließlich wurde Viconia schwanger mit <CHARNAME>s Kind, was zwischen beiden viel Streit und Zank hervorbrachte und für kurze Zeit dazu führte, dass sie sich trennten. Die Geburt ihres Sohnes jedoch veränderte Viconia für immer. Sie kehrte zu <CHARNAME> zurück und überzeugte ihn, sich endlich in Baldurs Tor niederzulassen, wo sie sich völlig der Aufgabe widmete, ihren Sohn zu erziehen. Sie brachte ihm das Wissen der Drow sowie das von <CHARNAME>s Volk bei und staunte über die Macht, die ihr Sohn schon als Junge bewies. Sie freute sich stets, wie verständnisvoll die Augen ihres Sohnes sie anblickten, doch sie sollte nie erleben dürfen, wie er aufwuchs. Viconia war eine mächtige Priesterin und beinahe immun gegen alle gebräuchlichen Gifte, aber dem Gift der Rache der Spinnenkönigin kann man nicht widerstehen, und ihr Arm reicht weit. Viconia wurde von einer Dienerin der Göttin Lolth vergiftet, und <CHARNAME> tobte vor Wut, als selbst die stärkste Magie seine kranke Frau nicht heilen konnte. Ihre letzten Worte sind unbekannt, denn sie flüsterte sie <CHARNAME> zu, ohne Zeugen, bevor sie starb... aber die Geschichten erzählen, dass <CHARNAME> ihren dunklen Körper fest umarmt hielt und weinte, und die ganze Stadt weinte mit ihm über den Verlust eines wertvollen Schatzes, von dem sie kaum gewusst hatten, dass sie ihn besaßen. Der zornige <CHARNAME> verließ Baldurs Tor und zog seinen Sohn im Geheimen in der Ferne auf. Die Geschichten über ihn sind verschieden; einige sagen, er habe einen Kreuzzug gegen die Drow im Unterreich begonnen, einige, dass er ein Held in den weit entfernten Nordländern wurde... und einige behaupten sogar mit Sicherheit, dass <CHARNAME> gegen Lolth selbst in den Dämonennetzgruben der Abyss gekämpft habe... aber alle stimmen darin überein, dass der frühere Sohn des Bhaal durch seine Liebe zu der dunklen Frau für immer verändert wurde. Und der Sohn, aufgezogen von zwei der mächtigsten Wesen in den Reichen? Er schmiedete seine eigene Legende, die der seines Vaters Konkurrenz machte. Das allerdings ist eine andere Geschichte...~
+@600   = ~Verbesserter Abazigal~
+@610   = ~Verbesserter Demogorgon~
+@620   = ~Verbesserter Gromnir~
+@630   = ~Verbesserte Illasera~
+@640   = ~Verbesserter Yaga-Shura~
+@650   = ~Verbesserte Sendai~
+@700   = ~Verbesserter Tolgerias und Lavok~
+@750   = ~BP Allgemeine KI und Verbesserung der Geschöpfe~
+@800   = ~BP GUI (für GUI Switcher Mod)~
+@810   = ~Seeteufel: Sahuagin und Kuo-Toan Verbesserungen~
+@820   = ~Troll Verbesserungen~
+@830   = ~Horreds Lager~
+@990   = ~Big Picture wird Euch von Horred the Plague präsentiert..~
+@991   = ~Ein besonderer Dank an all die Macher von Modifikationen, die Big Picture möglich machten!~
+@992   = ~Achtet darauf, bei Horreds Lager auf Euren großartigen Abenteuern anzuhalten!
+
+(Werden Feuerkugeln als "herzliches Willkommen" betrachtet?)~
+@1001  = ~Verbessertes Xvart Dorf, für BGT-weidu~
+@1004  = ~Xvart Schamane~
+@2006  = ~BP Hauptkomponente nicht gefunden, die Komponente wird übersprungen.~
+@2008  = ~BP Hauptkomponente nicht gefunden, wird für Horreds Lager Zusatz benötigt.~
+@2009  = ~BP Hauptkomponente nicht gefunden, wird für Verbesserter Tolgerias und Lavok benötigt.~
+@2010  = ~BP Hauptkomponente nicht gefunden, wird für Verbessertes Suldanessallar benötigt.~
+@2012  = ~BP Hauptkomponente nicht gefunden, wird für Zauberstab des Orcus Komponente benötigt.~
+@2013  = ~Ihr müsst Ascension Hauptkomponente installieren, damit diese Komponente funktioniert.~
+@2014  = ~Diese Komponente wurde bereits mit TDD installiert.~
+@2015  = ~Diese Komponente wurde bereits mit RoT installiert.~
+@2016  = ~BP Hauptkomponente muss installiert sein, um Ascension zu installieren.~
+@5003  = ~Detectable Stats already...detected. Skipping component.~
+@5004  = ~BG2EE Detected, skipping stats.ids and detectable spells additions~
+@5005  = ~Weapon stats added by SCS/II. Skipping....~
+@5006  = ~BP Additions already installed by another mod. Skipping~
+@7002  = ~DS Stats IDS-Säuberung~
+@7003  = ~Fix für STATE_DISEASED~
+@7004  = ~Fix für Wyverns und andere "Magier"~
+@7100  = ~BP Detectable Spell Ergänzungen~
+@7101  = ~BP IDS Regel-Ergänzungen~
+@10001 = ~Verschiedene Feineinstellungen~
+@10002 = ~Füge den Läden Taschen und magische Wurfdolche hinzu~
+@10003 = ~Maßgeschneiderte Großmeisterschaft (mit zusätzlichen Angriffen)~
+@10004 = ~Vergrößerte Reichweiten von Hellebarden und Speeren~
+@10101 = ~Verbesserungen der Kreaturen~
+@10102 = ~Tiere~
+@10103 = ~Betrachter~
+@10104 = ~Dämonen und Teufel~
+@10105 = ~Drachen~
+@10106 = ~Drow~
+@10107 = ~Duergar: das volle Programm~
+@10108 = ~Duergar: nur Ergänzungen zu Irenicus Kerker~
+@10109 = ~Duergar: Irenicus Kerker unberührt lassen~
+@10110 = ~Elementare~
+@10111 = ~Allgemeine Magier~
+@10112 = ~Allgemeine Priester~
+@10113 = ~Allgemeine Diebe~
+@10114 = ~Githyanki~
+@10115 = ~Golems~
+@10116 = ~Höllenhunde~
+@10117 = ~Menschenähnliche~
+@10118 = ~Ritter und Paladine~
+@10119 = ~Gedankenschinder~
+@10120 = ~Nebel~
+@10121 = ~Schatten - das volle Programm~
+@10122 = ~Schatten - nur den Schattenfürst~
+@10123 = ~Schatten - den Schattenfürst unberührt lassen~
+@10124 = ~Schattendiebe~
+@10125 = ~Nur den Baumhirten-Zauber herbeirufen~
+@10126 = ~Trolle~
+@10127 = ~Untote (außer Schatten/Todesalben/Vampiren)~
+@10128 = ~Wer-Tiere~
+@10129 = ~Allgemeine Kreaturen & Skripte verarbeiten~
+@10130 = ~Benötigte Skripte und Kreaturen werden verarbeitet. Seid bitte geduldig.....~
+@10131 = ~Weniger Ausrufe auf dem Bildschirm~
+@10132 = ~Duergare~
+@10133 = ~Schatten und Todesalben Ergänzugen~
+@10134 = ~Ihr müsst hierzu die Allgemeine Kreaturen & Skripte verarbeiten installieren.~
+@10135 = ~Djinni, Efreet, & Dao~
+@10201 = ~Erweiterte Begegnungen~
+@10202 = ~Allgemeine Erweiterte Begegnungen~
+@10203 = ~Ihr müsst zuerst Allgemeine Kreaturen & Skripte installieren~
+@10204 = ~Betrachter-Kult~
+@10205 = ~Kapitel 3 (mit Bodhi)~
+@10206 = ~Kapitel 3 (ohne Bodhi)~
+@10207 = ~Kapitel 6 (mit Bodhi)~
+@10208 = ~Kapitel 6 (ohne Bodhi)~
+@10209 = ~Kapitel 3 und 6 (mit Bodhi)~
+@10210 = ~Kapitel 3 und 6 (ohne Bodhi)~
+@10211 = ~Vampir-Begegnungen~
+@10212 = ~Kupferkrone und Sklavenhalter~
+@10213 = ~Drizzt-Begegnung (Kapitel 6)~
+@10214 = ~Druidenhain (mit Druiden-Begegnungen)~
+@10215 = ~Druiden-Begegnungen (mit Baumhirten-Zauber)~
+@10216 = ~Druiden Verbesserungen~
+@10217 = ~Baumhirten-Begegnungen~
+@10218 = ~Horreds Lager~
+@10219 = ~Mae Var~
+@10220 = ~Nalia-Aufgaben~
+@10221 = ~Wirtshaus-Rauferei (In der Höhle der Sieben Schleier)~
+@10222 = ~Dimensionsgefängnis~
+@10223 = ~Sphäre der Ebenen-Verbesserungen (einschließlich Tolgerias)~
+@10224 = ~Verbesserte Zauberfeste~
+@10225 = ~Nur Zauberfeste-Erweiterungen~
+@10226 = ~Nur Kapitel vier-Erweiterungen~
+@10227 = ~Zauberfeste-Erweiterungen - Komplettes Paket~
+@10228 = ~Tanners Aufgabe~
+@10229 = ~Handelstreff-Erweiterungen~
+@10230 = ~Windspeer Hügel-Erweiterungen~
+@10231 = ~Ihr habt BGT nicht installiert; diese Komponente wird übersprungen.~
+@10232 = ~Diese Komponente wurde bereits DSotSC installiert.~
+@10233 = ~Nur allgemeine Vampire~
+@10234 = ~Nur Zauberfeste mit Wegnahme der Gegenstände~
+@10235 = ~Das kompltette Paket mit Wegnahme der Gegenstände~
+@10236 = ~Irenicus Kerker Erweiterungen (ausser Duergar)~
+@10237 = ~Kensai Ryu's Brauner Drachen~
+@10238 = ~Höllenprüfung Ergänzungen~
+@10290 = ~Modder Contributions~
+@10291 = ~Tactics Mod Additions~
+@10301 = ~TdB-Erweiterungen~
+@10302 = ~Wachende Festung Verbesserungen~
+@10303 = ~Ihr müsst Throne des Bhaal installiert haben.~
+@10304 = ~TdB Verbesserungen~
+@10500 = ~Druidiische Natur-Saat~
+@10501 = ~Im Inneren dieser Kugel fließen magische Ströme, die dafür sorgen, dass die Kugel scheinbar etwas stabiler und leichter auf den Gegner zufliegt. Aber mehr noch als die meisten verzauberten Waffen zeigt diese Kugel ungewöhnliche, von den Druiden verliehene Fähigkeiten, um ihren Hain vor Angriffen zu verteidigen.
+Jede dieser Kugeln glüht vor der Wut der Natur. Wenn sie den Gegner eines Druiden treffen, haben die Kugeln eine Gelegenheit, diese Energie über ihrem Ziel freizusetzen und es mit der Kraft der Sonne zu verbrennen, Pflanzen aufzufordern, es festzuhalten, es zu spröden Eis zu gefrieren oder einen Gewittersturm auf das Ziel zu lenken.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Sie gilt immer als +2 Verzauberung bei der Bestimmung, was sie treffen kann.
+Kampffähigkeiten: 
+    5% Wahrscheinlichkeit, dass das Ziel geblendet und ihm 2 Fuerschäden versetzt werden, wenn ihm ein Rettungswurf gegen Zauber misslingt
+5% Wahrscheinlichkeit dass das Ziel umschlungen wird, wenn ihm ein Rettungswurf gegen Zauber mit einem Bonus von +4 misslingt
+    5% Wahrscheinlichkeit, dass dem Ziel 2 Kälteschaden und zukünftig um 10% zunehmender Schaden zugefügt wird, wenn ihm ein Rettungswurf gegen Odemwaffen bei +2 misslingt
+    5% Wahrscheinlichkeit, dass ein 4W6 Blitzstrahl das Ziel trifft (Rettungswurf gegen Zauber für halben Schaden)
+    HINWEIS: Alle Effekte dauern 12 Sekunden
+Schaden:  1W4 + 2
+ETWO:  +1
+Schadensart: durchbohren
+Gewicht: 0
+Schusswaffe:  Schleuder
+
+Kann nur verwendet werden von:
+ Druiden~
+@10502 = ~Schattenbane~
+@10503 = ~Keule +5, Schattenbane: Hergestellt von dem Erz-Druiden Jernd, um einen roten Tyrant Drachen zu bekämpfen: Woaha'aha.
+
+SPEZIFISCHE EIGENSCHAFTEN:
+
+Ausgestattete Fähigkeiten:
+  Feuerwiderstand: +60%
+
+Kampffähigkeiten:
+   25%-ige Chance, das Ziel zu lähmen - 3 Runden lang
+   5%-ige Chance, dass das Ziel aus Angst flieht - 3 Runden lang
+
+ETW0: +5 Bonus, +10 gegen Untote
+Schaden: 2W4 +5, +6 Feuerschaden, +10 gegen Untote, doppelter gegen Drachen
+Schadensart: Zertrümmern
+Gewicht: 5
+Geschwindigkeitsfaktor: 2
+Waffenfertigkeit: Keule
+Waffentyp: einhändig
+Mindeststärke: 7
+
+Kann nicht verwendet werden von:
+  Magiern~
+@10504 = ~Brauner Drachen~

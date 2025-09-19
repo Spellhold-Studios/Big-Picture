@@ -1,0 +1,35 @@
+IF
+  Global("CopperGuards","GLOBAL",1)
+  Global("CopperExtraGuards","AR0406",0)
+  DifficultyGT(EASIEST)
+THEN
+  RESPONSE #100
+    CreateCreature("ccguard1",[2338.412],14)
+    CreateCreature("ccguard2",[2318.457],14)
+    CreateCreature("ccguard1",[2749.793],6)
+    CreateCreature("ccguard2",[2791.831],6)
+    CreateCreature("ccguard1",[1981.762],14)
+    SetGlobal("CopperGuards","AR0406",1)
+END
+
+IF
+  DifficultyGT(EASY)
+  Global("CopperGuards","GLOBAL",1)
+  Global("CopperExtraGuards","AR0406",1)
+THEN
+  RESPONSE #100
+    CreateCreature("ccguard1",[1286.1500],14)
+    CreateCreature("ccguard2",[1160.1379],14)
+    CreateCreature("ccguard1",[893.1224],6)
+    CreateCreature("ccguard2",[776.1295],6)
+    CreateCreature("ccguard1",[1412.1303],14)
+    CreateCreature("ccguard1",[1901.1120],14)
+    CreateCreature("ccguard2",[2370.796],14)
+    CreateCreature("ccguard1",[2983.843],6)
+    CreateCreature("ccguard2",[2718.637],6)
+    CreateCreature("ccguard1",[2449.493],14)
+    CreateCreature("ccguard1",[1398.1519],14)
+    CreateCreature("ccguard1",[1372.1508],14)
+    SetGlobal("CopperExtraGuards","AR0406",2)
+END
+

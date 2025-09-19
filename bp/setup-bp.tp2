@@ -1,0 +1,961 @@
+BACKUP ~bp/backup~
+AUTHOR ~www.shsforums.net/forum/192-big-picture/~
+VERSION ~v181-b4611~
+
+// MODDER setup_tra none area_variables warn missing_extern warn missing_resref warn overwriting_file none
+//Change overwriting_file none to overwriting_file warn when it's fixed in a future WeiDU
+
+AUTO_TRA ~bp/language/%s~
+
+LANGUAGE ~English~
+         ~english~
+         ~bp/language/english/setup.tra~
+
+LANGUAGE ~Deutsch~
+         ~german~
+         ~bp/language/english/setup.tra~
+         ~bp/language/german/setup.tra~
+
+LANGUAGE ~Francais~
+         ~french~
+         ~bp/language/english/setup.tra~
+         ~bp/language/french/setup.tra~
+
+LANGUAGE ~Espanol~
+         ~spanish~
+         ~bp/language/english/setup.tra~
+         ~bp/language/spanish/setup.tra~
+
+LANGUAGE ~Italiano~
+         ~italian~
+         ~bp/language/english/setup.tra~
+         ~bp/language/italian/setup.tra~
+
+LANGUAGE ~Russian~
+         ~russian~
+         ~bp/language/english/setup.tra~
+         ~bp/language/russian/setup.tra~
+
+
+
+/////////////////////////////////////////////////////////////
+//                  BIG PICTURE MOD CORE                   //
+/////////////////////////////////////////////////////////////
+
+
+
+BEGIN @0 DESIGNATED 0 //Big Picture AI/Enhancement Mod core component
+GROUP @2
+
+
+
+///////////// COPYING BASIC FILES ////////////////////////
+COPY ~bp/sfx/core~ ~override~
+
+
+OUTER_SPRINT path ~bp/ds~ 
+INCLUDE ~%path%/ds.tph~
+INCLUDE ~bp/lib/bp.tph~
+INCLUDE ~bp/lib/bp_main.tph~
+INCLUDE ~bp/lib/bp_processing.tph~
+
+
+// These will crash DS if left in place
+LAF zero_byte_files END
+
+ACTION_IF GAME_IS ~bg2ee~ BEGIN
+  PRINT ~BG2EE Detected. Just adding spells.~ 
+  LAF ee_setup END
+  ACTION_IF NOT FILE_EXISTS ~override/ds_setup.mrk~ AND NOT FILE_EXISTS ~override/dw#setup.mrk~ BEGIN 
+    LAF detectable_spells STR_VAR path table = ~cddetect.2da~ END
+  END
+END ELSE ACTION_IF GAME_IS ~bgee~ BEGIN
+  PRINT ~BGEE Detected~
+  LAF ee_setup END
+  ACTION_IF NOT FILE_EXISTS ~override/ds_setup.mrk~ AND NOT FILE_EXISTS ~override/dw#setup.mrk~ BEGIN 
+    LAF detectable_spells_setup STR_VAR path END 
+    LAF detectable_spells STR_VAR path table = ~cddetect.2da~ END 
+  END ELSE BEGIN
+    PRINT @5003
+  END
+END ELSE BEGIN
+  ACTION_IF NOT FILE_EXISTS ~override/ds_setup.mrk~ AND NOT FILE_EXISTS ~override/dw#AIsetup.mrk~ BEGIN  
+    LAF detectable_spells_setup STR_VAR path END 
+    LAF detectable_spells STR_VAR path table = ~cddetect.2da~ END 
+  END
+END
+
+
+
+ACTION_IF NOT FILE_EXISTS ~override/bpstats.mrk~ BEGIN
+
+  COPY_EXISTING ~sw1h01.itm~ ~override/bpstats.mrk~
+
+  PRINT @7100
+  LAF detectable_spells STR_VAR path table = ~bpdetect.2da~ END // BPSeries Detectable Spells Additions
+  LAF fix_cloud_detection END
+  PRINT @7101
+  
+  PRINT @7003
+  LAF fix_state_diseased END // Fix for BG2 and BGEE STATE_DISEASED (now on stats.ids #134)
+  PRINT @7004
+  LAF fix_wyvern_mages END // Fix for BG2 and BGEE
+
+END
+
+ACTION_IF NOT FILE_EXISTS ~override/bprules.mrk~ BEGIN
+
+  COPY_EXISTING ~sw1h01.itm~ ~override/bprules.mrk~
+
+  ACTION_IF NOT FILE_EXISTS ~override/dw#AIsetup.mrk~ BEGIN 
+    LAF detectable_weapon_enchantment END
+  END ELSE BEGIN
+    PRINT @5005
+  END
+
+  ACTION_IF NOT FILE_EXISTS ~override/bpseries.mrk~ BEGIN
+    LAF ids_additions END // BP IDS rule additions (code from BPSeries)
+  END
+  
+  LAF ids_additions_bp END
+  LAF 2da_additions_bp END
+
+    // Script fix, crashes weidu in the innate fixer stage
+  ACTION_IF FILE_EXISTS_IN_GAME ~sarvie01.bcs~ AND FILE_EXISTS_IN_GAME ~OHB_101.bcs~ BEGIN
+    COPY_EXISTING ~sarvie01.bcs~ ~override~
+      DECOMPILE_BCS_TO_BAF
+        REPLACE_TEXTUALLY ~Allegiance(Myself,ANYONE)~ ~Allegiance(Myself,EVILCUTOFF)~
+      COMPILE_BAF_TO_BCS
+    BUT_ONLY
+  END
+
+END ELSE BEGIN
+  PRINT @5006
+END
+
+  PRINT @7002
+  LAM reorder_stats_ids  // DS cleanup macro
+
+
+
+///////////////////////////////////////////////////
+//                 IDENTIFIERS                   //
+///////////////////////////////////////////////////
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~moraleai.ids~ BEGIN
+  COPY ~bp/rule/moraleai.ids~ ~override/moraleai.ids~
+END
+
+ACTION_IF FILE_EXISTS ~script compiler/AICompile.exe~ BEGIN
+  COPY_EXISTING ~stats.ids~   ~script compiler~
+END
+ 
+ COPY ~bp/pic~ ~override~
+ COPY ~bp/sfx~ ~override~
+ COPY ~bp/tis~ ~override~
+ COPY ~bp/wed~ ~override~
+ 
+ 
+ LAF process_items  END
+ LAF process_spells END
+ 
+ COMPILE ~bp/d~
+ 
+ //stripped down, just used for NPC storage (not used in-game, so screw all the work)
+ COPY ~bp/are/ar0086.are~ ~override~
+ 
+
+/////////////////////////////////////////////////////////////////////////////
+
+BEGIN @130 DESIGNATED 10 // Level One Innates
+GROUP @2
+
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+FORBID_COMPONENT ~setup-bpseries.tp2~ ~10~ @5006
+
+INCLUDE ~bp/lib/bp.tph~
+
+LAF level_one_innates END
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+BEGIN @800 DESIGNATED 25 // BP's GUI Switcher
+GROUP @10001
+INCLUDE ~bp/lib/bp_gui.tph~
+
+LAF install_gui END
+ 
+
+/////////////////////////////////////////////////////////////
+//     Add magic Bags and Throwing Daggers to Stores       //
+/////////////////////////////////////////////////////////////
+
+BEGIN @10002 DESIGNATED 35
+GROUP @10001
+INCLUDE ~bp/lib/bp_processing.tph~
+
+LAF process_stores END
+ 
+  
+  
+//////////////LEVEL FIFTY RULES//////////////////////////////////
+
+BEGIN @441 DESIGNATED 50 // Level 50 Rules
+GROUP @10001
+//----- FUNCTIONS TO EXTEND THE TABLES UP TO LEVEL 50 -----//
+REQUIRE_PREDICATE NOT FILE_EXISTS_IN_GAME ~dd6000.are~ @2014
+REQUIRE_PREDICATE NOT FILE_EXISTS_IN_GAME ~ra4000.are~ @2015
+
+INCLUDE ~bp/lib/level50.tph~
+
+
+OUTER_SET toadd=0
+
+//first: change XP limit
+
+COPY_EXISTING ~XPCAP.2DA~ ~override~
+  REPLACE_TEXTUALLY ~[1-9][0-9]+~ ~20000000~  //numbers >10 only, otherwise, it changes 2DA as well!
+BUT_ONLY_IF_IT_CHANGES
+
+PRINT @443
+
+LAF level_50_rules END
+
+
+/////////////////////////////////////////////////////////////
+//             Custom Grandmastery                         //
+/////////////////////////////////////////////////////////////
+BEGIN @10003 DESIGNATED 60
+GROUP @10001
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF 2da_grandmastery_bp END
+
+
+/////////////////////////////////////////////////////////////
+//             Halberds and Spears - Range 3               //
+/////////////////////////////////////////////////////////////
+BEGIN @10004 DESIGNATED 75
+GROUP @10001
+
+INCLUDE ~bp/lib/bp_main.tph~
+
+LAF halberds_spears END
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+//                  Creature Processing                                 //
+//////////////////////////////////////////////////////////////////////////
+
+
+BEGIN @10102 DESIGNATED 325
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF animals END
+
+BEGIN @10103 DESIGNATED 350
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF beholders END
+
+
+BEGIN @10104 DESIGNATED 375
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF demons END
+
+
+BEGIN @10135 DESIGNATED 390
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF djinni END
+
+BEGIN @10105 DESIGNATED 400
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF dragons END
+
+BEGIN @10106 DESIGNATED 425
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF drow END
+
+BEGIN @10107 DESIGNATED 440
+GROUP @10101
+SUBCOMPONENT @10132
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF duergar_irenicus END
+LAF duergar END
+
+BEGIN @10108 DESIGNATED 450
+GROUP @10101
+SUBCOMPONENT @10132
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF duergar_irenicus END
+
+BEGIN @10109 DESIGNATED 460
+GROUP @10101
+SUBCOMPONENT @10132
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF duergar END
+
+BEGIN @10110 DESIGNATED 475
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF elementals END
+
+BEGIN @10111 DESIGNATED 500
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_npcs.tph~
+
+LAF generic_mages END
+
+BEGIN @10112 DESIGNATED 525
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_npcs.tph~
+
+LAF generic_priests END
+
+BEGIN @10113 DESIGNATED 550
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_npcs.tph~
+
+LAF generic_thieves END
+
+BEGIN @10114 DESIGNATED 575
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF githyanki END
+
+BEGIN @10115 DESIGNATED 600
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF golems END
+
+BEGIN @10116 DESIGNATED 625
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF hellhound_madness END
+
+BEGIN @10117 DESIGNATED 650
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+COPY ~bp/bam/lizard~ ~override~
+COPY ~bp/bam/orcmage~ ~override~
+
+LAF humanoids END
+
+BEGIN @10118 DESIGNATED 675
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_npcs.tph~
+
+LAF knights_saints END
+
+BEGIN @10119 DESIGNATED 700
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF mind_flayers END
+
+BEGIN @10120 DESIGNATED 725
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF mists END
+
+BEGIN @810 DESIGNATED 750 // Sea Devils: Sahuagin and Kuo Tao Enhancements
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+ 
+LAF sea_devils END
+
+BEGIN @10121 DESIGNATED 760
+GROUP @10101
+SUBCOMPONENT @10133
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF shadelord END
+LAF shadows   END
+
+BEGIN @10122 DESIGNATED 770
+GROUP @10101
+SUBCOMPONENT @10133
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF shadelord END
+
+BEGIN @10123 DESIGNATED 780
+GROUP @10101
+SUBCOMPONENT @10133
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF shadows   END
+
+BEGIN @10124 DESIGNATED 800
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF shadow_thieves END
+
+
+BEGIN @10126 DESIGNATED 875
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF trolls END
+
+BEGIN @10127 DESIGNATED 900
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF undead END
+
+BEGIN @10128 DESIGNATED 925
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF wereanimals END
+
+
+//////////////////////////////////////////////////////////////
+//         GENERIC CREATURE &  SCRIPT PROCESSING            //
+//////////////////////////////////////////////////////////////
+
+
+BEGIN @10129 DESIGNATED 150
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+
+// Major Script processing
+INCLUDE ~bp/lib/bp_main.tph~
+INCLUDE ~bp/lib/bp_scripts.tph~
+INCLUDE ~bp/lib/bp_generic.tph~
+INCLUDE ~bp/lib/bp_processing.tph~
+
+PRINT @10130
+
+LAF enemy_bard END
+LAF beholder_rules END
+LAF drow_rules END
+LAF undead_rules END
+
+LAF bp_scripts_init END
+
+LAF generic_creatures_init END
+
+LAF shout_string_check END
+
+LAF bp_scripts END
+
+LAF generic_creatures_round2 END
+
+LAF bp_scripts_round2 END
+
+
+
+////ENEMY SHOUTS////////
+// Some form of these will be needed for most subcomponents
+// But here we'll give the option for on-screen reports (string heads) or not
+////////////////////////
+
+BEGIN @10131 DESIGNATED 175
+GROUP @10101
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~150~ @10134
+
+// Major Script processing
+INCLUDE ~bp/lib/bp_scripts.tph~
+  LAF bp_no_strings END
+
+
+
+////////////////////////////////////////////////////////////
+//              Encounter   Enhancements                  //
+////////////////////////////////////////////////////////////
+
+
+
+BEGIN @10202  DESIGNATED 1000
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~150~ @10203
+
+INCLUDE ~bp/lib/bp_generic.tph~
+
+LAF bp_generic_encounters END
+
+
+BEGIN @10204 DESIGNATED 1020
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF beholder_cult END
+
+
+
+BEGIN @10205 DESIGNATED 1030
+GROUP @10201
+SUBCOMPONENT @10211
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF vampires END
+LAF vampire_chapter_3 END
+LAF bodhi_chapter_3 END
+
+BEGIN @10206 DESIGNATED 1040
+GROUP @10201
+SUBCOMPONENT @10211
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF vampires END
+LAF vampire_chapter_3 END
+
+BEGIN @10207 DESIGNATED 1050
+GROUP @10201
+SUBCOMPONENT @10211
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF vampires END
+LAF vampire_chapter_6 END
+LAF bodhi_chapter_6 END
+
+BEGIN @10208 DESIGNATED 1060
+GROUP @10201
+SUBCOMPONENT @10211
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF vampires END
+LAF vampire_chapter_6 END
+
+BEGIN @10209 DESIGNATED 1070
+GROUP @10201
+SUBCOMPONENT @10211
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF vampires END
+LAF vampire_chapter_3 END
+LAF bodhi_chapter_3 END
+LAF vampire_chapter_6 END
+LAF bodhi_chapter_6 END
+
+BEGIN @10210 DESIGNATED 1080
+GROUP @10201
+SUBCOMPONENT @10211
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF vampires END
+LAF vampire_chapter_6 END
+LAF vampire_chapter_3 END
+
+BEGIN @10233 DESIGNATED 1090
+GROUP @10201
+SUBCOMPONENT @10211
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF vampires END
+
+
+
+BEGIN @10212 DESIGNATED 1100
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF coronet_slavers END
+
+
+
+BEGIN @10213 DESIGNATED 1130
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF drizzt END
+
+
+BEGIN @10214 DESIGNATED 1140
+GROUP @10201
+SUBCOMPONENT @10216
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF druids_grove END
+
+
+BEGIN @10215 DESIGNATED 1150
+GROUP @10201
+SUBCOMPONENT @10216
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF druid_encounter END
+
+
+BEGIN @10125 DESIGNATED 1160
+GROUP @10201
+SUBCOMPONENT @10216
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_creatures.tph~
+
+LAF treant_spell END
+
+
+BEGIN @10217 DESIGNATED 1170
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF treant_encounter END
+
+BEGIN @10238 DESIGNATED 1190 // Hell Trial Additions
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2008
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF hell_trials END
+
+
+BEGIN @10218 DESIGNATED 1200
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2008
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF horreds_lair END
+
+
+BEGIN @10236 DESIGNATED 1210
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF irenicus_dungeon END
+
+BEGIN @10219 DESIGNATED 1300
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF maevar END
+
+BEGIN @10220 DESIGNATED 1315
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF nalia_quests END
+
+BEGIN @10221 DESIGNATED 1330
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF tavern_brawl END
+
+BEGIN @10222 DESIGNATED 1350
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF planar_prison END
+
+BEGIN @10223 DESIGNATED 1375
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2009
+INCLUDE ~bp/lib/bp_tolgerias.tph~
+
+LAF tolgerias_sphere END
+
+///////Spellhold Grouping////////
+BEGIN @10225 DESIGNATED 1550
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+SUBCOMPONENT @10224
+INCLUDE ~bp/lib/bp_spellhold.tph~
+
+LAF spellhold END
+
+BEGIN @10226 DESIGNATED 1560
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+SUBCOMPONENT @10224
+INCLUDE ~bp/lib/bp_spellhold.tph~
+
+LAF chapter_four END
+
+BEGIN @10227 DESIGNATED 1570
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+SUBCOMPONENT @10224
+INCLUDE ~bp/lib/bp_spellhold.tph~
+
+LAF spellhold END
+LAF chapter_four END
+
+//////////////////////////////////
+
+
+BEGIN @375 DESIGNATED 1600  // Improved Suldanessallar
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2010
+INCLUDE ~bp/lib/bp_suldan.tph~
+
+LAF suldanessalar END
+
+
+BEGIN @10228 DESIGNATED 1625
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF tanners END
+
+BEGIN @10229 DESIGNATED 1650
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF trademeet END
+
+
+BEGIN @377 DESIGNATED 1675 //Wand of Orcus Add-In
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2012
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF wand_of_orcus END
+
+
+BEGIN @10230 DESIGNATED 1700
+GROUP @10201
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_windspear.tph~
+
+LAF windspear_hills END
+
+
+BEGIN @1001 DESIGNATED 1725 //Xvart Village for BGT
+GROUP @10201
+REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~aram00.are~  @10231
+REQUIRE_PREDICATE NOT FILE_EXISTS_IN_GAME ~dsc001.are~ @10232
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF xvart_village END
+
+
+BEGIN @399 DESIGNATED 1400 //Improved Random Encounters, by Gebhard Blucher and Kensai Ryu
+GROUP @10290
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF random_encounters END
+
+BEGIN @10237 DESIGNATED 1110 // Brown Dragon (restored!)
+GROUP @10290
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF brown_dragon END
+
+BEGIN @397 DESIGNATED 1120 // Crypt King
+GROUP @10290
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF crypt_king END
+
+BEGIN @398 DESIGNATED 1175 // Gnome Fighter/Illusionist
+GROUP @10290
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF gnome_fighter_illusionist END
+
+BEGIN @396 DESIGNATED 1225 // Kangaxx
+GROUP @10290
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF kangaxx END
+
+
+BEGIN @400 DESIGNATED 1275 // Lich in the Docks
+GROUP @10290
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF lich_in_docks END
+
+BEGIN @395 DESIGNATED 1525 //Small Teeth Pass
+GROUP @10290
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF small_teeth_pass END
+
+
+
+BEGIN @409 DESIGNATED 1250 // Kuroisan
+GROUP @10291
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF kuroisan END
+
+BEGIN @401 DESIGNATED 1425 // Red Badge
+GROUP @10291
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF red_badge END
+
+
+BEGIN @414 DESIGNATED 1450 // The Ritual
+GROUP @10291
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+LAF ritual END
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////   ToB Improvements   //////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+
+BEGIN @10302 DESIGNATED 1750
+GROUP @10301
+REQUIRE_PREDICATE GAME_IS ~tob bgt bg2ee~ @10303
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF watchers_keep END
+
+
+BEGIN @10304 DESIGNATED 1800
+GROUP @10301
+REQUIRE_PREDICATE GAME_IS ~tob  bg2ee~ @10303
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF tob_improvements END
+
+
+
+
+
+
+BEGIN @500 DESIGNATED 2000 //Ascension for BP
+GROUP @10301
+REQUIRE_PREDICATE GAME_IS ~tob bgt bg2ee~ @10303
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2016
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF bp_ascension END
+
+
+BEGIN @600 DESIGNATED 2100 //Improved Abazigail
+GROUP @10301
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~2000~ @2013
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF abazigail END
+
+
+
+BEGIN @610 DESIGNATED 2200 //Improved Demogorgon
+GROUP @10301
+REQUIRE_PREDICATE GAME_IS ~tob bgt bg2ee~ @10303
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~0~ @2006
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF demogorgon END
+
+
+
+BEGIN @620 DESIGNATED 2300 //Improved Gromnir
+GROUP @10301
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~2000~ @2013
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF gromnir END
+
+
+
+
+BEGIN @630 DESIGNATED 2400 //Improved Illasera
+GROUP @10301
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~2000~ @2013
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF illasera END
+
+
+BEGIN @650 DESIGNATED 2500 //Improved Sendai
+GROUP @10301
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~2000~ @2013
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF sendai END
+
+
+BEGIN @640 DESIGNATED 2600 //Improved Yaga-Shura
+GROUP @10301
+REQUIRE_COMPONENT ~setup-bp.tp2~ ~2000~ @2013
+INCLUDE ~bp/lib/bp_tob.tph~
+
+LAF yagashura END
+
+

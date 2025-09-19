@@ -1,0 +1,16 @@
+IF
+  Global("Image","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Image","LOCALS",1)
+    MoveToPointNoInterrupt([1000.1450])
+END
+
+IF
+  Global("Image","LOCALS",1)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+

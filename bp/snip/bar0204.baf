@@ -1,0 +1,21 @@
+IF
+  Global("BP_MoreStooges","AR0204",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0204",1)
+    CreateCreature("BEHOLD01",[3850.2095],2)
+END
+
+IF
+  Global("BP_MoreStooges","AR0204",1)
+  LevelGT(Player1,11)
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR0204",2)
+    CreateCreature("BEHDIR01",[4065.2300],6)
+    CreateCreature("BEHSPE01",[4030.2265],6)
+END
+

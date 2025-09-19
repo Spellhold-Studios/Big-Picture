@@ -1,0 +1,8 @@
+IF
+  See(NearestEnemyOf(Myself))
+  StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+END
+

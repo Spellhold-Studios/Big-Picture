@@ -1,0 +1,1526 @@
+@0     = ~Big Picture, core component (required for most subcomponents)~
+@1    = ~Registering GUI...~
+@2    = ~Core Component (Required)~
+@3    = ~ ~
+@4    = ~"Tortured Souls"~
+@5    = ~%separator%"The Darkest Day"~
+@6    = ~%separator%"Shadows Over Soubar"~
+@7    = ~%separator%"Neverending Journey"~
+@8    = ~%separator%"Big Picture"~
+@9    = ~%separator%"Check The Bodies"~
+@10   = ~%separator%"Region Of Terror"~
+@12   = ~ Baldur's Gate<TM> and the Tales of the Sword Coast<TM> or play ~
+@13   = ~Play%bgt%Shadows of Amn<TM>%separator2%%ts%%tdd%%sos%%nej%%ctb%%bp%~
+@14   = ~ with the new expansion(s):~
+
+
+// New in BPv181
+@15   = ~Use On-screen shouts for opponents~
+@16   = ~Use strings on screen (Default)~
+@17   = ~No on-screen strings~ 
+@18   = ~Adding Scripting Support of Diseases (Until STATE_DISEASED can be fixed)~
+
+
+@21   = ~Patching STATS.IDS...~
+@22   = ~Implementing STATES...~
+@23   = ~Big Picture is brought to you by Horred the Plague.~
+@24   = ~A special thanks to all the modders and modmakers that made Big Picture possible!~
+@25   = ~Be sure to stop through Horred's Lair on your grand adventures!
+(Are fireballs considered 'warm welcomes'?)~
+@26   = ~%str_add%         -1~
+@27   = ~Life Protection~
+@28   = ~Chaotic Commander~
+@29   = ~Summon Shadows~
+@30   = ~Telekinesis~
+@31   = ~Hurl Boulder~
+@32   = ~Boulder~
+@33   = ~This is the type of rock that a giant hurls at the unfortunate. It can cause great damage, as well as render the victim unconscious. A character of giant-class strength is able to hurl these as well...Range: 80 yardsDamage: 3-18Special: Save vs. Breath Weapon at -4, or be knocked unconscious for one round,              and stunned for the next round.Requires: 19 Strength~
+@34   = ~This is the type of rock that a giant hurls at the unfortunate. It can cause great damage, as well as knock the victim unconscious. A character of giant-class strength is able to hurl these as well...Range: 80 yardsDamage: 3-18Special: Save vs. Breath Weapon at -4, or be knocked unconscious for one round,              and stunned for the next round.Requires: 19 Strength~
+@35   = ~Boots~
+@36   = ~Boots of the Forgotten Ones~
+@37   = ~Boots are normally hand-made by cobblers.  Common boots are made by using a form, but good boots are designed for the foot of an individual. 
+
+STATISTICS:
+
+Weight:  4~
+@38   = ~These wrinkled, rough boots were made from the scalps of dead orc shamans from the Stinking Paw tribe.  The power hungry religious leader of the tribe, Algrash Who-Watches-In-Darkness, ordered his underlings to make the boots by digging up the corpses of his predecessors.  Algrash was killed when he provoked a fight with a gang of ogres.  His boots were left at the scene of the battle.
+
+STATISTICS:
+
+Allows the wearer to cast 2 extra first and second level spells and 1 extra third level spell.
+Increases twice the wearer's movement rate.
+Only usable by:
+ Cleric (single, dual, & multi-class)
+ Druid (single, dual, & multi-class)~
+@39   = ~Boots of the Fox~
+@40   = ~These gaudy red and green boots were worn by the rogue Elpham of Perrywine.  Elpham was a pickpocket of exceptional talent who pressed his luck by taunting his victims shortly after taking their loot.  After being caught twice, Elpham invested his money in having these boots made.  Of course, Elpham came to an untimely end when he picked the pocket of the notoriously ill-tempered Red Wizard of Thay, Xain Morobdel.  Elpham stole a pouch full of gems off of Xain's waist and danced off into the crowd shouting, "Why don't you try to chase me back to the Priador, baldy?  Ha ha!"  Xain, quietly fuming, promptly summoned four invisible stalkers and commanded them to, "Kill the idiot in the red and green boots."
+
+STATISTICS:
+
+Increases twice the wearer's movement rate.
++1 Bonus to Armor Class~
+@41   = ~Ring~
+@42   = ~Edventar's Gift~
+@43   = ~A ring is a small band of precious metal that is used as jewelry.  Some rare rings have had enchantments placed upon them that confer various magical abilities.  These rings are highly sought after, especially by those of the adventuring profession.~
+@44   = ~Composite Long Bow~
+@45   = ~Composite Long Bow +4: Defender~
+@46   = ~The long bow is similar to the short bow, except that the staff is about as high as the archer is, usually 6 to 6.5 feet.  It has two advantages over the short bow: better range and hence, it is much more accurate.  
+
+STATISTICS:
+
+THACO:  +1 bonus
+Weight: 3
+Speed Factor: 7
+Proficiency Type: Long Bow
+Type:  2-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+@47   = ~The composite bow is similar to the long bow, except that the staff being made from more than one type of material is heavier, and about as high as the archer is, usually 6 to 6.5 feet. Even though the composite bow is slightly slower then the long bow, it has more range and is more accurate. This particular bow has been enhanced with magical properties, giving it an air of perfection. Moreover the heavy staff of this bow is made of magically enhanted cedar and cembra pine, which grants additional protection to its wielder.
+
+STATISTICS:
+
+Damage:  +4 (missile)
+THAC0: +4
+Armor Class Bonus: 2
+Special: 4 attacks per round
+Speed Factor: 7
+Proficiency Type: Bow
+Type:  2-handed
+Minimum Dexterity of 17 required
+Minimum Strength of 17 required
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+@48   = ~Rat Bite~
+@49   = ~<No Text>~
+@50   = ~Wizard's Buckler +2~
+@51   = ~Sick of being the target of jeering archers from a rival family, Balthester the Prestidigitator commisioned the crafting of this item. Not only a buckler that a mage could don, but that offered missile protection of a fashion. It allowed him the free time he needed to blast those archers to the Realms. Unfortunately, he did not see the assassin's dagger behind him.
+
+STATISTICS:
+
+Armor Class Bonus:  3
+Special:  No Missile/Piercing Attack Protection
+Special:  Shield (at 10th level) 3/day
+Special: Protection from Normal Missiles (10th lvl) 2/day
+Weight:  2
+Requires: 4 Strength~
+@52   = ~Cloak~
+@53   = ~Mithran's Cloak~
+@54   = ~The cloak can be made in every possible shape with just about every type of fabric.  The most common forms are a circular piece of fabric with a hole in the center for the head, and fabric draped from neck, connected by a chain, brooch, cord, or pins.  ~
+@55   = ~This elven cloak, woven from silk and wool, was worn by a powerful wizard from Myth Nantar named Mithran Lightpetal.  Mithran was well known for his love of travel and his acceptance of the "N'TelQuessir," or "not people," the non-elven people of the world.  The cloak was actually the cause of his doom, for it was woven and enchanted by his dark elf lover, Rauva Vrinn.  The style of the black and midnight-blue cloak was so obviously non-elven that his associates became suspicious.  
+
+Eventually, an acquaintance of Mithran, an elven drow-hunter named Gaedel, discovered Rauva's secluded hiding spot in the forests surrounding Myth Nantar.  With a small band of warriors, Gaedel stormed her hut and quickly killed her.  When Mithran discovered what had happened, he went berserk with fury.  The mad mage assaulted the hunting lodge of Gaedel and his brothers, killing them all and leveling the lodge.  Gaedel's family eventually attempted to take vengeance for the act, killing Mithran at loss of most of their house.  Mithran's cloak was recovered by his close friend, the dwarven warrior Hael Bronzelake.  Had it not been, it would have been swallowed up under the waves with Myth Nantar when that proud city was drowned in the Sea of Fallen Stars several years later.
+
+STATISTICS:
+
+Armor Class Bonus: 3
+Saving Throw Bonus: +2~
+@56   = ~Gloves~
+@57   = ~ Gloves of the Priestly Ranger~
+@58   = ~   These gloves were passed down from high priest to high priest for many years until lost in battle. How or why they turned up in such a strange place is a complete mystery. They  will help define the spells to better suit a Cleric/Ranger's needs.
+
+Instructions: Equip after gaining any priestly level, and keep  it around.~
+@59   = ~Halberd~
+@60   = ~Contagon's Disk~
+@61   = ~By far the oldest and most often used pole-arm, the halberd consists of a cleaver-like axe blade mounted on a staff averaging six feet in length.  The axe blade is balanced at the rear with a fluke, and surmounted by a sharp spike, usually of quadrangular design.  The fluke is sometimes replaced by a hook used to dismount cavalry.  A halberd can be best described as a cross between a spear and an axe.  
+
+STATISTICS:
+
+Damage:  1D10
+Damage type:  piercing
+Weight: 15
+Speed Factor: 9
+Proficiency Type: Halberd
+Type:  2-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+@62   = ~This pole arm has a disk that is sharp enough to penetrate adamantite plate and is diseased enough to drop a dragon. The plate is crawling with disease and if it draws blood, only the most fortunate will avoid the bluster it brings.
+
+STATISTICS:
+
+Damage:  1D10 + 2
+THACO:  +1 bonus
+Special:
+ 33% chance of hits will cause infection. If the target fails save, they receive a -3 to his AC, strength, constitution and THAC0 for 8 rounds. 
+Damage type:  piercing
+Weight: 14
+Speed Factor: 8
+Proficiency Type: Halberd
+Type:  2-handed
+Requires: 13 Strength
+Not Usable By:
+ Good
+ Druid
+ Cleric
+ Mage
+ Thief~
+@63   = ~Throwing Dagger +1~
+@64   = ~The typical throwing dagger has a pointed, usually double-edged blade, as opposed to a knife, which has a single edge and is a bit shorter than the dagger. Unlike a dagger, this one has a smaller handle and is balanced differently.
+
+STATISTICS:
+
+Damage: 1D4+1
+Damage type: missile (piercing)
+Weight: 1
+Speed Factor: 2
+Proficiency Type: Dagger
+Type: 1-handed
+Requires:
+- 7 Strength
+- 10 Dexterity
+Unusable By:
+Cleric
+Beastmaster~
+@65   = ~Throwing Dagger +2~
+@66   = ~The typical throwing dagger has a pointed, usually double-edged blade, as opposed to a knife, which has a single edge and is a bit shorter than the dagger. Unlike a dagger, this one has a smaller handle and is balanced differently.
+
+STATISTICS:
+
+Damage: 1D4+2
+Damage type: missile (piercing)
+Weight: 1
+Speed Factor: 2
+Proficiency Type: Dagger
+Type: 1-handed
+Requires:
+- 7 Strength
+- 10 Dexterity
+Unusable By:
+Cleric
+Beastmaster~
+@67   = ~Heavy Boots~
+@68   = ~Boots of Gravity~
+@69   = ~These heavy boots are made of some odd, totally foreign material.  You have never seen their likes before.~
+@70   = ~These heavy boots are made of some odd, totally foreign material. Once donned, they feel light as a feather to the wearer. The wearer will find that he has very sure feet, unable to be toppled over by such methods as Wing Buffet, or pushed aside by magical Repulsion. (Note that this does not necessarily protect against other adverse spell effects, such as stunning/unconsciousness for 
+Wing Buffets).The user is also immune to Earthquake spells while these devices are worn.
+
+Statistics:
+
+Equipped Abilities:
+
+The user is immune to the effects of Wing Buffet, Repulsion, Earthquake, and other knock-over,  gravity-related effects.
+
+Weight: 25
+Unusable By: None~
+@71   = ~Spear~
+@72   = ~Spear of the Heavens~
+@73   = ~One of man's earliest weapons, dating back to the most primitive of times, the first spears were simply wooden poles or sticks sharpened at one end.  When man mastered metals, spearheads were made from iron and steel.  Having reached this end, weaponeers began experimenting with different types of spear heads, thus leading to the development of certain polearm types.
+
+STATISTICS:
+
+Damage:  1D6
+Damage Type:  piercing
+Weight: 5
+Speed Factor: 6
+Proficiency Type: Spear 
+Type:  2-handed
+Requires: 5 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~
+@74   = ~This weapon has completely unknown roots.  However, whoever created it gave it the ability to radiate electricity through its shaft. The spear can  both shock an opponent on touch but also fire an electric charge to fire at a target. The weapon is very useful to an Aerial Druid as they have enough immunity to electricity to wield it safely where as others may succumb to its power.
+
+STATISTICS:
+
+Damage: 1D6+2
+THAC0: +3
+Special: 50% chance of 1D4 electrical damage
+Weight: 5
+Speed Factor: 6
+Proficiency Type: Spear
+Type:  2-handed
+Usable by:
+ Druids~
+@75   = ~Helm of Sacred Life~
+@76   = ~     This ornate helmet is forged from silver reinforced with iron. It offers complete protection of the face and head. Eye slits and breathing holes are a welcome addition.~
+@77   = ~     This blessed helmet was forged centuries ago by the great Archbishop of Lathander, Exaultus the Pious. He presented it to his only nephew, the renowned paladin Exaultus the Pure, along with a dire quest.
+     Exaultus was to eradicate a vampiric coven, led by a particularily vile lichlord named Scarvos the Blight. He marched valiantly into their reeking cavern, his only company the trusty Avenger, Pristine Glory. 
+     And with his valiant martial prowess, shielded by the Helm's mighty dweomer, The paladin made quick work of the vampiric horde. In the main antechamber, however, his luck changed drastically.
+     Exaultus the Pure was overwhelmed by the fierce lichlord and his demonic consort. He fell victim to Scarvos' dreaded Random Imprisonment spell, and has been lost to the Realms to this day. How the Helm escaped a similar fate is a conundrum for the pious to ponder.
+
+STATISTICS:
+
+Permanent Protection from Evil
+(+4 AC Bonus vs Evil)
+
+Life Protection 4 hours/day
+    (Immunity to Level Draining)
+Chaotic Commander 2 hours/day
+   (Chaotic Commands, party)
+Resurrection 1/Day
+Immunity to Critical Hits
+
+Usable By:
+Good Characters
+Fighter Types
+Clerics
+
+Requires: 
+13 Strength
+13 Wisdom
+13 Charisma
+ ~
+@78   = ~Bracers~
+@79   = ~Bracers Of Dual Malice~
+@80   = ~Bracers are thick bands of metal or leather that are strapped, belted, or tied to a characters' forearms.~
+@81   = ~These bracers were crafted by the greatest of enchanters to complement the fighting prowess of the melee warrior. Their most recent owner, Adarion Kalvaras, excelled in the art of dual swordplay. The bracers' enchantment further improved his already impressive command of the twin blades.
+
+STATISTICS:
+
+Special Abilities: Grants the wearer a +3 THAC0 bonus in melee combat.
+
+Weight:2
+Usable By: Adario Kalvaras~
+@82   = ~Sewer Key~
+@83   = ~This oddly shaped key looks like it was made to open a sewer grate or a related door somewhere. The head of the key is etched with a picture of a crane.~
+@84   = ~Demon-Head Key~
+@85   = ~This sort of key appears to fit a sewer door somewhere in Athkatla.~
+@86   = ~This key is headed with a tiny, yet authentic, demonic skull. It is engraved with the letter "H", and does not appear to be drow in origin.~
+@87   = ~Kuo-Toans have treated their bolts with a special poison of aquatic origin. The victim must save vs poison (at +2), or be stunned for two to four rounds.
+
+STATISTICS:
+
+Special Damage: Stun 2-4 rounds (save vs. poison at +2)
+Damage: 1D8
+Weight: 0
+Launcher: Crossbow~
+@88   = ~Kuo-Toa Harpoon~
+@89   = ~Another tribute to the Kuo-Toan art of spearcraft. This barbed javelin has been fitted with a lightweight, yet durable chain. It reaches out to 20 feet. A victim has a chance of being ensnared by the barbs. Those failing a save vs death (at +2) will be reeled in by the thrower. They will be prone for the first round (treat as stunned), and will suffer a -4 dexterity penalty for the following four rounds.
+
+Combat Ability: Snagged 25% (save vs death+2)
+Damage: 1-6+2
+Speed Factor: 8 (set to 1 attack/round)
+Weight: 12
+Requires: Strength 10
+Not Usable By:
+Cleric
+Mage
+Thief~
+@90   = ~Ensnared~
+@91   = ~Like other aquatic species, kuo-toans have mastered the art of spearcraft. Their wicked barbed weapon does 3-10 points of damage per hit. Furthermore, they have treated it with a special poison brewed from sea anemones. The victim must make a saving throw vs poison, or be slowed for two to four rounds.
+
+Combat Ability: Slow 25% 2-4 rounds (save vs poison)
+Damage: 1-8+2
+Speed Factor: 6 
+Weight: 10
+Requires: Strength 7
+Not Usable By:
+Cleric
+Mage
+Thief~
+@92   = ~Robe~
+@93   = ~Mantle of the Coming Storm~
+@94   = ~Since the age of Netheril, mages have learned to bestow a wide variety of magical properties upon the everyday objects that surround them. A favorite item of such enchantment is the common robe. It is lightweight, affordable, and holds its enchantment well, thereby making it ideal equipment for a mage. Due to their magical heritage, however, only single-, dual-, and multi-class mages may wear these enchanted robes.~
+@95   = ~This seemingly threadbare robe had become "dormant" upon Lysan's command, so as not to expose herself as a priestess of Auril. When as much as a single snowflake falls upon the robe, it transforms into a scintillating cloak of white that allows the wielder to float above snow drifts and walk through even raging rivers with ease. Most merchants will not wish to purchase this item, or will do so at a very low price, as they see it as a sacred item of Auril the Frost-Maiden and likely to attract her followers... and her displeasure. 
+
+Created during the ceremonies of the Coming Storm (the onset of winter) to Auril, these robes are specially created to resist flames and allow the wearer to resist any attempt to stop or hold them. Although the priestesses of Auril are naturally resistant to cold and can move through snow and icy rivers with ease, these cloaks amplify the protection of the goddess, allowing the wearer additional cold resistance (which allows a wearer already immune to cold to absorb its power) and even goes so far as to leach the heat from fire attacks directed at the wearer. In addition, the robe may be invoked to allow the wearer to pass over or through any obstacle designed to hold them, whether Web spells, ghoul paralyzation, Hold Person spells and the like.  
+
+STATISTICS:
+
+Special: Casts 'Free Action' (3 Charges)
+Armor Class Bonus: 3
+Resistance Bonuses:
+  +2 Save vs. Paralyzation
+  +40% Cold Resistance
+  +40% Fire Resistance
+Weight:  1
+Usable by:
+  Mage (Any Class)~
+@96   = ~Sime's Body~
+@97   = ~Sime was captured by Bodhi and infected with vampirism, forcing you to slay her. There may be some way to revive her, though you don't know what it would be.~
+@98   = ~Sacrificial Transfer~
+@99   = ~Sacrificial Transfer (Necromancy)
+Level: 9
+Range: Touch
+Casting time: 10
+Duration: Permanent
+Area of effect: 1 creature
+Saving Throw: None
+
+This spell is a sacrifice that the mage makes to better another member of his party. The mage will actually tap into his life source, removing a tiny section of it. He then channels this energy to another member of his party. The spell will permanently remove 1 HP of the mage's max HP, but will transfer that to the recipient who will gain +1 HP to his max. ~
+@100  = ~Adrenaline Rush~
+@101  = ~Ring of wizardry:  'Evermemory'
+Long ago, a grand wizard from Amn was rumored to have defied Mystra's limitations on the magical arts.  Legends spoke of this wizard being able to cast spells without the limitation of memorization.  In the end it was found that his powers stemmed from the several magical rings that he had made for himself.  His proclaimed "everlasting memory" was a hoax, though his rings continue to be one of the most sought after items in the Realms.'
+
+STATISTICS:
+
+Spells:  Doubles the amount of 1st level spells a mage can memorize
+Only usable by:
+Mage ~
+@102  = ~Bolt~
+@103  = ~Paralytic Bolt~
+@104  = ~Quarrels or bolts are the ammunition fired by crossbows regardless of the weapon's size.
+This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.
+
+STATISTICS:
+
+Damage:  1D8
+Damage type:  missile (piercing)
+Weight:  0
+Launcher:  Crossbow~
+@105  = ~Paralytic Bolt
+
+
+Any  target hit by this bolt must making a saving throw or be paralyzed for two to five rounds.
+
+STATISTICS:
+
+Combat Ability: target must save vs. paralyzation or be stunned for two to five rounds
+Damage:  1D10 
+Damage type:  missile (piercing)
+Weight:  1
+Launcher:  Crossbow~
+@106  = ~Sahuagin Throwing Net~
+@107  = ~The sahuagin have woven strands of seaweed and other aquatic flora into a tangly circular mesh. They weight the ends of this down with shells and coral, so it makes an effective throwing weapon. They weave barbs, teeth, and other sharp objects into the mesh itself, so it cuts up the victim as they struggle to free themselves.
+
+Those hit by the net will spend a full round detangling themselves (equivalent of a web spell). Those failing a save versus paralyzation will be tangled an additional 1-3 rounds.
+
+Note: The net is typically ruined in the detangling process (good for one throw only).
+
+Range: 30 feet
+Speed: 8 (Set to one attack per round)
+Damage: 2-4 per round while entangled
+Proficiency: Clubs
+Special: Target will be entangled for one round, and an additional 1-3 rounds if a save versus paralyzation is failed.~
+@108  = ~Entangled~
+@109  = ~Sahuagin Spear~
+@110  = ~The sahuagin have mastered the art of weapons that work well in underwater climates. The spear has always served them well. They have refined it with several barbs in such a manner that it can rip the weapon out of an opponent's hands. It also affords the user with some protection against other piercing and slashing weapons.
+
+STATISTICS:
+
+Special Attack: Disarm 25% (save vs wands at -2)
+Damage: 2D6
+Damage Type: Piercing
+Weight: 10
+Speed Factor: 6
+Proficiency Type: Spear
+Type: 2-handed
+Requires: 7 Strength
+Special: +4 AC vs. piercing and slashing
+Not Usable By:
+Cleric
+Mage
+Thief~
+@111  = ~Disarming Strike~
+@112  = ~The sahuagin clergy has devoted some effort into increasing the suffering of their opponents. This staff has weighted ends, shod with metal and wrapped with strong fishbones. Such is the impact of the blow, the victim is often knocked unconscious.
+
+STATISTICS:
+
+Special Attack: Stun 2 rounds, 25% (save vs wands at -3)
+Damage: 2d4
+Weight: 7
+Speed Factor: 5
+Type: 2-handed
+Requires: 7 Strength~
+@113  = ~Gem~
+@114  = ~The sea charts.~
+@115  = ~Lantern~
+@116  = ~Shadow Lanthorn~
+@117  = ~This looks like any other lantern you would use to light up the night. The only peculiar qualities are its absence of coloring and that it radiates magic.~
+@118  = ~"Gift of the Shade Lord"
+    
+This item dates back to ancient days, so long past that the creature known as the Shade Lord walked the Realms as a mere mortal. He was a particularly nasty man (yes, he was of human descent), obsessed with darkness and all that was evil. A homicidal megalomaniac by nature, he never ventured forth during daylight hours, always preferring the cover of shadowy twilight for his murderous rampages and general terrorizing. Eventually, the extra-dimensional beings dwelling in the shadowy extraplanar realm took notice of him (no one does remember his mortal name, after all; not even Ellisime). They came upon him under full moonlight, crossing through the shadowy veil that seperated their worlds. They offered him semi-immortality in exchange for the souls of his victims and, like so many before him and yet to come, he readily accepted. The Lanthorn was presented to him a symbol of their pact; with it he could succor their favor and summon the very shadows around him to his aid, to delight in a feast of carnage and suffering.
+     Over time, the elements of his essence began to merge with that of the shadows, and they became less and less distinguishable. Eventually, over the course of many normal lfespans, he became one with the shadows he adored and became the bodiless entity known only as the Shade Lord. 
+
+Abilities:
+
+Summon Shadows 1/day
+(3-5 Shadows or 1-2 Shadow Fiends will come to the wielder's aid for one full turn)
+
+1% chance per use of draining the wielder's Strength by one point permanently (when STR reaches 0, the wielder is "dead" - he or she has crossed over to the Plane of Shadows)
+
+Requirements:
+Wisdom 14
+
+Not Usable By:
+Good Characters~
+@119  = ~Tundra Halberd +4~
+@120  = ~By far the oldest and most often used pole-arm, the halberd consists of a cleaver-like axe blade mounted on a staff averaging six feet in length.  The axe blade is balanced at the rear with a fluke, and surmounted by a sharp spike, usually of quadrangular design.  The fluke is sometimes replaced by a hook used to dismount cavalry.  A halberd can be best described as a cross between a spear and an axe.  
+
+STATISTICS:
+
+Damage:  1D10
+Damage Type:  Piercing
+Weight: 15
+Speed Factor: 9
+Proficiency Type: Halberd
+Type:  2-handed
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+@121  = ~Like others of its type, this halberd consists of a cleaver-like blade mounted on a staff approximately six feet in length. It has also been bestowed with a small number of magical properties, thus making it more effective in combat. Its keen blade, for instance, will shear through your opponent's flesh to find the bone while its barbed tip will seek out gaps in their armor. 
+
+STATISTICS:
+
+Damage: 1D10 +4
+THAC0: +4
+Damage type: Piercing
+Special: 50% chance +2D3 acid damage
+Resistance Bonus: +10% Magic Resistance
+Weight: 14
+Speed Factor: 8
+Proficiency Type: Halberds
+Type:  2-handed
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+@122  = ~Katana~
+@123  = ~Katana
+The katana is a single-edged, slightly curved sword that ends with a chisel point. The katana is perhaps one of the finest swords ever made, the steps to its creation a long and secret process, that is more art form than anything else.  This blade is an important facet of Kara-Tur culture.  To touch or wield a samurai's katana is to insult the samurai and to incite his wrath.  For a gaijin, or foreigner, to own such a blade is a rare occurrence. Either the gaijin is a greatly honored friend of an important minister, or  the gaijin has murdered a samurai.
+
+STATISTICS:
+
+Damage:  1D10
+Damage type:  slashing
+Weight:  6
+Speed Factor: 4
+Proficiency Type: Katana
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+@124  = ~Dak'kon's Streaming Blade~
+@125  = ~Dak'kon's Streaming Blade +2
+This sword was the weapon of choice of the famous githzerai Dak'kon.  Dak'kon was killed by a powerful entity while working for a creature known as the 'Nameless One'.  
+ 
+STATISTICS:
+
+Equipped Abilities:
++2 AC bonus
+able to memorize two extra 1st, 2nd, 3rd, and 4th level mage spell
+
+THAC0: +2 bonus
+Damage:  1D10 +2
+Damage type:  slashing
+Weight:  4
+Speed Factor: 2
+Proficiency Type: Katana
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+@126  = ~Dak'kon's Streaming Blade +3
+This sword was the weapon of choice of the famous githzerai Dak'kon.  Dak'kon was killed by a powerful entity while working for a creature known as the 'Nameless One'.  
+ 
+STATISTICS:
+
+Equipped Abilities:
++3 AC bonus
+able to memorize three extra 1st, 2nd, 3rd, and two extra 4th level mage spell
+
+THAC0: +3 bonus
+Damage:  1D10 +3
+Damage type:  slashing
+Weight:  4
+Speed Factor: 2
+Proficiency Type: Katana
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+@127  = ~Dak'kon's Streaming Blade +4
+This sword was the weapon of choice of the famous githzerai Dak'kon.  Dak'kon was killed by a powerful entity while working for a creature known as the 'Nameless One'.  
+ 
+STATISTICS:
+
+Equipped Abilities:
++3 AC bonus
+able to memorize three extra 1st, 2nd, 3rd, 4th, and one extra 5th level mage spell
+
+THAC0: +4 bonus
+Damage:  1D10 +4
+Damage type:  slashing
+Weight:  4
+Speed Factor: 2
+Proficiency Type: Katana
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+@128  = ~This symbolic paw represents a Shapeshifter Druid's control over lycanthropy. While the paw is wielded the Shapeshifter becomes a Werewolf.  When the paw is removed, the Shapeshifter returns to human form. The paws of a Werewolf count as +2 weapons.  
+
+STATISTICS:
+
+Attributes:  19 STR, 16 DEX, 15 CON
+Base Armor Class:  1
+Resistances:  20% magic resistance, immunity to non-magical weapons
+Attacks Per Round:  2
+Damage:  1D12
+Damage type:  slashing
+Speed Factor:  3
+Proficiency Type:  Dagger 
+Type:  1-handed
+Usable By:  Shapeshifter~
+@129  = ~This symbolic paw represents a Shapeshifter Druid's ultimate control over lycanthropy. While the paw is wielded the Shapeshifter becomes a Greater Werewolf. When the paw is removed, the Shapeshifter returns to human form. The paws of a Greater Werewolf count as +3 weapons.  
+
+STATISTICS:
+
+Attributes:  21 STR, 20 DEX, 25 CON
+Base Armor Class:  -6
+Base Saving Throws:  1/1/1/2/1
+Resistances:  40% magic resistance, 50% elemental resistance, immunity to non-magical weapons
+Regeneration:  3 hit points per second
+Attacks Per Round:  3
+Base Paw THAC0:  6 
+Damage:  2D8
+Damage type:  slashing
+Speed Factor:  3
+Proficiency Type:  Dagger 
+Type:  1-handed
+Usable By:  Shapeshifter~
+@130  = ~Patching all the existing innate spells, setting level to one.....~
+@131  = ~Duergar Reduction~
+@132  = ~Duergar Enlargement~
+@133  = ~Cures~
+@134  = ~Finger of Death~
+@135  = ~Finger of Death (Necromancy) 
+Level: 7
+Range: Visual sight of caster 
+Duration: Permanent
+Casting Time: 5
+Area of Effect: 1 Creature
+Saving Throw: Neg
+
+The finger of death spell snuffs out the victim's life force.  The caster points his finger at the victim after the incantation is complete, effectively ripping the life out of his body unless a save vs. spells is made at -2.  A creature that successfully saves still receives 2d8 +1 points of damage.  ~
+@136  = ~Shocking Grasp~
+@137  = ~Shocking Grasp (Alteration) 
+Level: 1
+Range: Touch
+Duration: Special 
+Casting Time: 1 
+Area of Effect: Touched creature 
+Saving Throw: None
+
+When the wizard touches a creature while this spell is in effect, an electrical charge will deal 1d8 damage + 1 per level of the caster to the creature touched.   The wizard only has one charge, and once an opponent has been touched the spell's energies have been used.  If the mage misses, then the spell is wasted.  The wizard has 1 round per level in order to touch the target creature.~
+@138  = ~     Protects with Negative Plane Protection for a four hour duration.~
+@139  = ~     This emanates the effects of a Chaotic Commands spell on the whole party, with a set duration of two hours.~
+@140  = ~Globe of Darkness~
+@141  = ~Globe of Darkness (Schooless/Unspecified) 
+Level: 1
+Range:  Sight 
+Duration: 1 round/ two levels of the caster
+Casting Time: 2
+Area of Effect: One Target
+Saving Throw: Neg
+
+This innate ability of the deep elves causes blindness on a target that lasts for a round for every two levels of the caster, or until dispelled.~
+@142  = ~Improved Globe of Darkness~
+@143  = ~Improved Globe of Darkness (Schooless/Unspecified)
+Level: 1
+Range:  Sight
+Duration: 1 round/ two levels of the caster
+Casting Time: 2
+Area of Effect: One Target
+Saving Throw: Neg
+
+This innate ability of the deep elves causes blindness on a target that lasts for a round for every two levels of the caster, or until dispelled.~
+@144  = ~Faerie Fire~
+@145  = ~Faerie Fire (Schoolless/Unspecified) 
+Level: 1
+Sphere: Combat 
+Range: 0 
+Duration: 6 rounds
+Casting Time: 1 
+Area of Effect: One Target 
+Saving Throw: None 
+
+This spell outlines the target in a white glow which gives a -2 to armor class.~
+@146  = ~Dancing Lights~
+@147  = ~Dancing Lights (Schooless/Unspecified) 
+Level: 1
+Range:  Sight 
+Duration: 3 rounds
+Casting Time: 2
+Area of Effect: One Target
+Saving Throw: Neg
+
+This innate ability of the dark elves causes confusion in a target for 3 rounds.~
+@148  = ~Under the effects of Dancing Lights.~
+@149  = ~Distracted.~
+@150  = ~Enemy Summon Ghast~
+@151  = ~Animate Tree~
+@152  = ~Animate Tree
+(Conjuration/Summoning)
+Level: 7
+Range: 30 yards
+Area of Effect: Special
+Duration: 2 Turns
+Saving Throw: None
+
+By means of this spell, the druid is able to call on the aid of one or two large trees to defend him/her, for the duration of the spell. These trees will fight as elder treants, doing 4-24 points of damage per strike; attacking twice per round. While they do not gain the tree summoning ability of a real treant, they will fight to the death if necessary. The druid must be outdoors, in  natural surroundings, for this spell to function.~
+@153  = ~Summon Gauth~
+@154  = ~Horred's Evil Clones~
+@155  = ~Summon Shadow Fiends~
+@156  = ~Celestial Fire~
+@157  = ~Athach~
+@158  = ~Green Abishai~
+@159  = ~Shargrailar~
+@160  = ~Barbazu~
+@161  = ~Bugbear~
+@162  = ~Efreeti~
+@163  = ~Noble Efreeti~
+@164  = ~Djinni~
+@165  = ~Noble Djinni~
+@166  = ~Giblan~
+@167  = ~Arabic Thug~
+@168  = ~Store Guard~
+@169  = ~Priest of Waukeen~
+@170  = ~Wererat~
+@171  = ~Arab~
+@172  = ~Trader~
+@173  = ~Captive Woman~
+
+@174  = ~Topaz Dragon~
+
+@175  = ~Chromatic Dragon~
+@176  = ~Dalhaleitkazyyr~
+@177  = ~Mage Construct~
+@178  = ~Red Crystal Golem~
+@179  = ~Cyclops~
+@180  = ~Dark Mist~
+@181  = ~Balor~
+@182  = ~Nabassu~
+@183  = ~Pit Fiend~
+@184  = ~Rylock~
+@185  = ~Nizidramanii'yt~
+@186  = ~Gnoll~
+@187  = ~Red Dragon~
+@188  = ~Thaxll'ssillyia~
+@189  = ~Silver Dragon~
+@190  = ~Topaz Dragon~
+@191  = ~Icebraniken~
+@192  = ~Drow Warrior~
+@193  = ~Drow~
+@194  = ~Drow Priestess~
+@195  = ~Green Abishai Guardian~
+@196  = ~Duergar~
+@197  = ~Duergar Mage~
+@198  = ~Duergar Skeletal Conjurer~
+@199  = ~Drow Wizard~
+@200  = ~Greater Earth Elemental~
+@201  = ~Greater Fire Elemental~
+@202  = ~Greater Water Elemental~
+@203  = ~Elminster~
+@204  = ~Errtu~
+@205  = ~Elvenhair Firebead~
+@206  = ~Firkraag~
+@207  = ~Mercenary~
+@208  = ~Frost Giant~
+@209  = ~Frost Worm~
+@210  = ~Gandar~
+@211  = ~Gargoyle~
+@212  = ~Gelugon~
+@213  = ~Genie~
+@214  = ~Greater Glabrezu~
+@215  = ~Ghast~
+@216  = ~Gibberling Mother~
+@217  = ~Ice Golem~
+@218  = ~Greater Zombie~
+@219  = ~Lucette~
+@220  = ~Hasuno~
+@221  = ~Hive Mother~
+@222  = ~Horred the Plague~
+@223  = ~Horred~
+@224  = ~Water Elemental~
+@225  = ~Ice Troll~
+@226  = ~Goblin~
+@227  = ~Goblin Captain~
+@228  = ~Myconid~
+@229  = ~Gibberling~
+@230  = ~Imp~
+@231  = ~Guard~
+@232  = ~Tomb Guardian~
+@233  = ~Skeleton~
+@234  = ~Jarlaxle~
+@235  = ~Kalvassa~
+@236  = ~Karan~
+@237  = ~Keris~
+@238  = ~Khelben~
+@239  = ~Kiotsi~
+@240  = ~Ogre~
+@241  = ~Knord~
+@242  = ~Lava Elemental~
+@243  = ~Lightening Elemental~
+@244  = ~Lulu Hashimoto~
+@245  = ~Lulu~
+@246  = ~Madeel~
+@247  = ~Mae'Var~
+@248  = ~Masaki Hayashi~
+@249  = ~Masaki~
+@250  = ~Shadow Thief~
+@251  = ~Death Tyrant~
+@252  = ~Michio Nakanishi~
+@253  = ~Michio~
+@254  = ~Minotaur~
+@255  = ~Elven Warrior~
+@256  = ~Elven Sorcerer~
+@257  = ~Elven Assassin~
+@258  = ~Troglodyte~
+@259  = ~Momoko Nakanishi~
+@260  = ~Momoko~
+@261  = ~Montaron~
+@262  = ~Mummy~
+@263  = ~Night Hag~
+@264  = ~Night Walker~
+@265  = ~Nakanishi Guard~
+@266  = ~Undead Samurai~
+@267  = ~Nakanishi Acolyte~
+@268  = ~Ogi Hashimoto~
+@269  = ~Ogi~
+@270  = ~Orc~
+@271  = ~Orc Archer~
+@272  = ~Orog~
+@273  = ~Orc Priest~
+@274  = ~Slave~
+@275  = ~Orgoth~
+@276  = ~Otako Hashimoto~
+@277  = ~Otako~
+@278  = ~Phlydia~
+@279  = ~Pibble~
+@280  = ~Branthor~
+@281  = ~Ghostly Apparition~
+@282  = ~Scarlet Sending~
+@283  = ~Shadow Spectre~
+@284  = ~Beghael~
+@285  = ~Orfa~
+@286  = ~Deneron~
+@287  = ~Carval~
+@288  = ~Wolf~
+@289  = ~Sending~
+@290  = ~[MALE GREETING 5]  Hello there.~ [GENMG05]
+@291  = ~[MALE TOWNSFOLK 5]~ [VILLM05]
+@292  = ~[MALE TOWNSFOLK 6]~ [MTOWN06]
+@293  = ~[POE THE BARD HOSTILE]  My words are likely lost on such thick skulls as yours.  Leave me.~
+@294  = ~[POE THE BARD POST]  I must apologize if I seem rude, but I must ask for privacy.  I must finish these changes to my epic poem.~
+@295  = ~Mighty Dark Knight Lord~
+@296  = ~Purang Berserker~
+@297  = ~Hurgan~
+@298  = ~Makan~
+@299  = ~Chobenhair~
+@300  = ~Laras~
+@301  = ~Reno~
+@302  = ~Giant Troll~
+@303  = ~Reingard~
+@304  = ~Norin~
+@305  = ~Ronar~
+@306  = ~Rugnar~
+@307  = ~Hammel~
+@308  = ~Red Abishai~
+@309  = ~Rezak the Arms Master~
+@310  = ~Renal Bloodscalp~
+@311  = ~Gorrek~
+@312  = ~Orc Mage~
+@313  = ~Sandrain Durion~
+@314  = ~Fighter~
+@315  = ~Sasaki Hashimoto~
+@316  = ~Sasaki~
+@317  = ~Pookey~
+@318  = ~Shakar~
+@319  = ~Tribal Warrior~
+@320  = ~Half Quallian Warrior~
+@321  = ~Tribal Shaman~
+@322  = ~Tyrian~
+@323  = ~Hoarax~
+@324  = ~Skeleton Warrior~
+@325  = ~Blood Boil~
+@326  = ~Yuan-Ti  mage~
+@327  = ~Yuan-Ti mage~
+@328  = ~Greater Yuan-Ti~
+@329  = ~Snare Trap~
+@330  = ~Special Snare Trap~
+@331  = ~Spike Trap~
+@332  = ~Exploding Trap~
+@333  = ~Time Trap~
+@334  = ~Tanar'ri~
+@335  = ~Tethtoril~
+@336  = ~Tormentest~
+@337  = ~Calimport Guard~
+@338  = ~Calimport Archmage~
+@339  = ~Rotted Ice Troll~
+@340  = ~Adalon~
+@341  = ~Umber Hulk~
+@342  = ~Aran Linvail~
+@343  = ~Animated Plate~
+@344  = ~Virdei Forgebrand~
+@345  = ~Eris Elenaak~
+@346  = ~Priest of Selune~
+@347  = ~Winthrop~
+@348  = ~Winter Wolf~
+@349  = ~Thorknar~
+@350  = ~Bearwere~
+@351  = ~Greater Bearwere~
+@352  = ~Crew Member~
+@353  = ~Yochlol~
+@354  = ~Marilith~
+@355  = ~Zombie~
+@356  = ~Drider Cleric~
+@357  = ~Drider Fighter~
+@358  = ~Drider Wizard~
+@359  = ~Greater Ghast~
+@360  = ~Kuo-Toan Archer~
+@361  = ~Kuo-Toa Priest~
+@362  = ~Lizard King~
+@363  = ~Lizard Shaman~
+@364  = ~Pyro-Tyugh~
+@365  = ~Sumatran Rat~
+@366  = ~Skullen Crossbones~
+@367  = ~Skulley~
+@368  = ~Treant~
+@369  = ~Treant Chieftain~
+@370  = ~Treant Elder~
+@371  = ~Converting creatures to the BP script system. This will take some time...~
+@372  = ~%new_script%~
+@373  = ~Configuring creatures' spell system...~
+@374  = ~Configuring creatures' proficiency system...~
+@375  = ~Improved Suldanessallar~
+@376  = ~Improved Spellhold~
+@377  = ~Wand of Orcus Add-In~
+@378  = ~The bell swings soundlessly, seemingly supported by some invisible force. An inscription on the wall reads:
+
+Beware, o mortal, and heed these words
+Keep well the ritual, and still shall sit the bell
+But, should the Imprisoned One break his bonds, 
+This bell shall ring out warning to Helm. 
+He shall know thou has failed in thy duty 
+And His anger will burn like the midday sun. ~
+@379  = ~Large Rod~
+@380  = ~Wand of Orcus~
+@381  = ~Orcus' Summoning~
+@382  = ~The Prince of the Dead has all kinds of nasty friends......~
+@383  = ~Darkness, 15' Radius~
+@384  = ~Darkness, 15' Radius
+
+Level:5
+Sphere: Illusion/Phantasm
+Range: Visual sight of caster
+Casting Time:5
+Duration: 1 turn
+Saving Throw: None
+Area of Effect: 30' sphere
+
+This spell afflicts the area with lightlessness; the effect is to blind all within for the spell's duration. Although there is no saving throw, magic resistance does apply and it can be dispelled by any conventional means.~
+@385  = ~Darkness~
+@386  = ~Skull-headed Club~
+@387  = ~This club fills the beholder with a sense of foreboding. The shaft is forged of some unknown metal. The skull that heads this codgel, although humanoid, seems different, as if "alien" in origin. You can't shake the feeling that you'd rather be elsewhere (for instance, anywhere that the club WASN'T!!)...
+
+
+STATISTICS:
+
+Damage:  1D6
+Damage type:  crushing
+Weight: 20
+Speed Factor: 5
+Proficiency Type:Club
+Type:  1-handed
+Requires: 5 Strength
+Not Usable By:
+ Mage~
+@388  = ~     "Wand of Orcus: Death's Doorstopper
+  
+  This ghastly weapon is the property of the demon prince, Orcus, but at times it is said that he will allow his Wand to pass into the Prime Material Plane in order to wreak chaos and evil upon all living things there....The wielder of the Wand does not have the full death-dealing power of the device, the victim of its blow having a saving throw versus [Death] magic to avoid death or annihilation (gods, godlings, demon lords, greater devils,saints, and demi-gods [Excluding Bhaalspawn] are not affected at all, of course). However, the Wand of Orcus confers these powers/effects upon the user:"
+
+COMBAT ABILITIES:
+
+15% chance per hit of causing instant death 
+ (Save vs. Death Magic at -2)
+
+15% chance per hit of causing confusion on the victim
+ (Save vs. Spells at -4)
+
+5% chance per hit of causing Blindness/Deafness
+ To the wielder, for 2 rounds 
+ (Save vs. Death/Petrification at -2)
+
+5% chance per hit of summoning a demon 
+ (Magical protection not included)
+
+1% chance per hit of summoning Orcus himself 
+ (Perhaps he comes to congratulate you 
+  On your proficiency with his Wand?)
+
+SPECIAL ABILITIES:
+
+Immunity to Death Magic/Maze/Imprisonment
+ (While grasped)
+
+Darkness 30' Radius 3/day
+ (Causes blindness to all within its radius, 
+  No save--one turn duration)
+
+Summon Pit Fiend 1/day
+ (Again, no protections offered; 
+  Has a 5% chance per use of summoning Orcus instead)
+
+
+STATISTICS:
+
+THAC0: +5
+Damage: 2d6 + 5
+Damage Type: Crushing
+Weight: 20
+Speed Factor: 6
+Proficiency Type: Club
+Requirements: 
+14 Strength
+12 Wisdom
+15 Constitution
+
+Not Usable By:
+Mages
+Lawful Characters
+Good Characters~
+@389  = ~Orcus~
+@390  = ~ ~ [DEMOG02]
+@391  = ~ ~ [DEMOG03]
+
+
+@394  = ~ You dare to approach, mortal?~ [DEMOG01]
+@395  = ~Improved Small Teeth Pass, by Kensai Ryu~
+@396  = ~Improved Kangaxx Encounter, by Kensai Ryu~
+@397  = ~Kensai Ryu's Improved Crypt King~
+@398  = ~Kensai Ryu's Gnome Fighter/Illusionist in the Docks~
+@399  = ~Improved Random Encounters, by Gebhard Blucher and Kensai Ryu~
+@400  = ~Gebhard Blucher's Lich in the Docks~
+@401  = ~Red Badge, Poison-Based Encounter, by Westley Weimer~
+@402  = ~Bittersnake~
+@403  = ~Bloodcaster~
+@404  = ~Fallowmist~
+@405  = ~Redspike~
+@406  = ~Bloodspear~
+@407  = ~Bloodbane +5~
+@408  = ~Bloodbane +5: Throwing Spear
+This incarnadine lance was found on the body of one of <CHARNAME>'s assailants, a self-styled "Avatar of Poison." The spear itself is hot to the touch and seems to thrum slightly beneath your fingers, beating out a stacatto rhythm like an irregular pulse. The effect is quite disconcerting, but it is much more comfortable than being on the receiving end. Victims pierced by the spear are often struck with paralytic seizures as its magic tries to coagulate the blood within their veins.  
+
+Unlike all other spears you have encountered, this spear was designed to be thrown. The spear instantly returns to the hands of the wielder after every attack. Bloodbane may also be used as a melee weapon. 
+
+STATISTICS:
+
+Equipped Abilities:  1 additional attack per round
+Combat Ability:  Each successful hit inflicts 6 points of poison damage on the target over the course of 6 seconds (no save) and will stun the target for 10 seconds if a save vs. breath weapons at -4 is failed. 
+THACO:  +5 bonus
+Damage:  1D6 +5
+Damage type:  piercing
+Weight:  5
+Speed Factor:  0
+Proficiency Type:  Spear
+Type:  2-handed
+Unusable By:  Cleric, Mage, Thief~
+@409  = ~Kuroisan the Acid Kensai, by Westley Weimer~
+@410  = ~Kuroisan~
+@411  = ~Acidic Backlash~
+@412  = ~Sanchuudoku +4~
+@413  = ~Sanchuudoku +4: Acidic Katana
+This green blade was forged by a Kara-Turan Wu Jen as a gift for his paranoid overlord; its name means "Acidic Poisoning". The sword was enchanted using the fresh blood of a Black Dragon and the hilt guard is decorated with Wolfwere bone fragments. The blade heals its user's wounds at an alarming rate and powerful acid seem to fly from it whenever an attack is made on the user. 
+
+STATISTICS:
+
+Equipped Abilities:  Regeneration (1 hit point every two seconds), Immunity to Acid, anyone attacking or casting spells on the wielder is subject to an Acidic Backlash. 
+Combat Ability:  Each hit lowers the target's acid resistance by 25% for 18 seconds and inflicts 2d4 acid damage. 
+THACO:  +4 bonus
+Damage:  1D10 +4 
+Damage type:  slashing
+Weight:  8
+Speed Factor:  0
+Proficiency Type:  Katana 
+Type:  1-handed
+Unusable By:  Cleric, Druid, Mage~
+@414  = ~The Ritual, by Westley Weimer~
+@415  = ~Ritual Theurgeon~
+@416  = ~Ritual Battlerager~
+@417  = ~Countess Merentha~
+@418  = ~Ritual Totemist~
+@419  = ~Ira'kiou'dneg~
+@420  = ~Ender, Ritual Captain~
+@421  = ~Unit Zero~
+@422  = ~Unit One~
+@423  = ~Unit Two~
+@424  = ~Manifestation~
+@425  = ~Vryce, Ritual Inquisitor~
+@426  = ~Ritual Battlemage~
+@427  = ~Ritual Shadowstalker~
+@428  = ~Number Ten Ox, Ritual Monk~
+@429  = ~Pontifex~
+@430  = ~Li Kao, Ritual Wu Jen~
+@431  = ~Chanur, Ritual Shapeshifter~
+@432  = ~Ritual Skull~
+@433  = ~Ritual Disruptor~
+@434  = ~Preserving Boots~
+@435  = ~Preserving Boots: 'Dweomer-Friend'
+These magically-endowed boots are useless on their own, but when worn by a powerful magician they become deadly indeed. The Preserving Boots make the wearer immune to almost all dispelling effects. For example, Khelben's Warding Whip, the potent Breach, the all-seeing True Sight and the Inquisitor's Divine Dispelling all slide harmlessly around enchantments that protect the mage's person. Magically created weapons carried by the mage (like Melf's Minute Meteors) may still be dispelled normally. Note that even friendly attempts to dispel sorceries on the mage are deflected, so the wearer is advised to avoid Charm and Confusion. In addition, the wearer is immune to the backstabbing effects of thieves. 
+
+Equipped Abilities: Immunity to Dispelling Effects and Backstab
+Weight: 3
+Useable By: Anyone~
+@436  = ~Lillith Amulet~
+@437  = ~Amulet of the Lillim
+This accursed amulet smells strongly of blood and dust. It came into your possession during your involvement with the Ritual affair. Both the Ritual and this amulet remain shrouded in mystery, but some of the powers of the amulet can be understood. It appears to grant the bearer all of the magical immunities and defenses normally associated with a young vampire: regeneration; resistance to cold and electricity; immunity to poison, fear, sleep, level drain, hold, charm and non-magical weapons. Truly noble hearts cannot bear to don the amulet and it cannot be removed without clerical aid. You feel certain that the powers of the amulet must come with a terrible price, but you cannot detect any such downside. In fact, the amulet feels strangely natural and stirs something deep in your memory.
+
+*CURSED ITEM*
+
+STATISTICS:
+
+Provides Vampiric defenses
+Unusable By: Paladins~
+@438  = ~Yellow Dragon Armor~
+@439  = ~Yellow Dragon Armor
+This suit of armor is formed from interlocking Yellow Dragon scales. Yellow Dragons are known for their fiery sand attacks and resistance to piercing weapons. This particular suit was obtained by <CHARNAME> while <PRO_HESHE> was investigating the Ritual. The armor is magically light and unencumbering. 
+
+STATISTICS:
+
+Bonuses: +50% Resistance to Piercing and Missile Attacks
+Armor Class: -1
+Weight: 10
+Requires: 6 Strength
+Not Usable By:
+ Mage~
+@440  = ~her part of the Complete Ritual~
+@441  = ~Level-50 Ruleset (Code By King Diamond)~
+@442  = ~You have TDD installed, so you already have this~
+@443  = ~Patching rulesets (2DA, IDS)...~
+@444  = ~%cnt%      10  10  10  10  10  9   8~
+@445  = ~%cnt%      11  10  10  10  10  9   9~
+@446  = ~%cnt%      11  10  10  10  10  10  9~
+@447  = ~%cnt%      11  11  10  10  10  10  9~
+@448  = ~%cnt%      11  11  11  10  10  10  9~
+@449  = ~%cnt%      11  11  11  10  10  10  10~
+@450  = ~%cnt%      11  11  11  11  10  10  10~
+@451  = ~%cnt%      11  11  11  11  11  10  10~
+@452  = ~%cnt%      6   6   5   5~
+@453  = ~%cnt%      6   6   6   5~
+@454  = ~%cnt%      7   6   6   5~
+@455  = ~%cnt%      7   7   6   5~
+@456  = ~%cnt%      7   7   6   6~
+@457  = ~%cnt%      8   7   6   6~
+@458  = ~%cnt%      7   7   6~
+@459  = ~%cnt%      8   7   6~
+@460  = ~%cnt%      8   8   6~
+@461  = ~%cnt%      8   8   7~
+@462  = ~%cnt%      9   9   8   8   8   7   7   7   5~
+@463  = ~%cnt%      10  9   9   8   8   7   7   7   5~
+@464  = ~%cnt%      10  9   9   8   8   8   7   7   5~
+@465  = ~%cnt%      10  10  9   9   8   8   7   7   5~
+@466  = ~%cnt%      11  10  10  9   8   8   8   7   6~
+@467  = ~%cnt%      11  10  10  9   9   8   8   7   6~
+@468  = ~%cnt%      9   9   8   8   8   8   8   7   7~
+@469  = ~%cnt%      9   9   9   8   8   8   8   7   7~
+@470  = ~%cnt%      10  9   9   9   8   8   8   8   7~
+@471  = ~%cnt%      10  9   9   9   9   8   8   8   7~
+@472  = ~%cnt%      10  10  9   9   9   9   8   8   7~
+@473  = ~%cnt%      10  10  10  9   9   9   9   8   7~
+@474  = ~%cnt%      11  10  10  10  9   9   9   8   8~
+@475  = ~%cnt%      11  11  10  10  10  9   9   9   8~
+@476  = ~%cnt%      11  11  11  10  10  10  9   9   8~
+@477  = ~%cnt%      12  11  11  10  10  10  9   9   8~
+@478  = ~%cnt%      17500~
+@479  = ~%cnt%      18000~
+@480  = ~%cnt%      18500~
+@481  = ~%cnt%      19000~
+@482  = ~%cnt%      19500~
+@483  = ~%cnt%      20000~
+@484  = ~%cnt%      20500~
+@485  = ~%cnt%      21000~
+@486  = ~%cnt%      21500~
+@487  = ~%cnt%      22000~
+@488  = ~%cnt%      100~
+@489  = ~%cnt%      105~
+@490  = ~%cnt%      110~
+@491  = ~%cnt%      115~
+@492  = ~%cnt%      120~
+@493  = ~%cnt%      125~
+@494  = ~%cnt%      130~
+@495  = ~%cnt%      135~
+@496  = ~%cnt%      140~
+@497  = ~%cnt%      99~
+@498  = ~%cnt%      9   9   9   9   9   9   9   8   8~
+@499  = ~%cnt%      9   9   9   9   9   9   9   9   9~
+@500  = ~Ascension for BP~
+@501  = ~Babau~
+@502  = ~Sword of Chaos +4~
+@503  = ~Sarevok's Sword of Chaos
+The blade of Sarevok, brother of <CHARNAME>, used in the battle they fought in faraway Baldur's Gate.  <CHARNAME> prevailed, destroying Sarevok's plans and rescuing the Sword Coast from the brink of war.  Now Sarevok has joined with <CHARNAME>'s cause and his blade has been restored to him.  Sarevok describes the weapon as a Deathbringer blade and has restored some of the weapon's old power.  Without his Bhaalspawn essence to channel through the sword, however, it cannot achieve the power it once had.  Still, however, it is a formidable weapon...and one that Sarevok warns would become increasingly difficult to wield in the hands of one who was not a Deathbringer, if they could use it at all.
+
+STATISTICS:
+
+Abilities: each hit drains one to five hit points from the target and transfers it to the wielder.  This will not heal beyond the wielder's maximum.
+
+The blade also grants +10% Magic Resistance while wielded.
+
+Damage:  1D10 +4
+THAC0: +4 bonus
+Damage type:  slashing
+Weight: 10
+Speed Factor: 8
+Proficiency Type: Two Handed sword
+Type:  2-handed
+Requires: 14 Strength, 18 Constitution
+Not Usable By:
+Cleric
+Mage
+Paladin
+Ranger
+Druid
+non-Chaotic aligned~
+@504  = ~Sendai's Potion~
+@505  = ~Sendai's Potion
+Possibly a brew of Sendai's own, this is an incredibly potent healing potion capable of fully restoring the hit points of any who use it.~
+@506  = ~Shockwave~
+@507  = ~Lightning Aura~
+@508  = ~You stay STILL! RRrr... Me crush you head!~
+@509  = ~Flip Resistances~
+@510  = ~Control Demon~
+@511  = ~Focus~
+@512  = ~Divine Mantle~
+@513  = ~Draw Power~
+@514  = ~Divine Spell Shield~
+@515  = ~Command Demon~
+@516  = ~Banish~
+@517  = ~Unleash~
+@518  = ~Feedback~
+@519  = ~Divine Restoration~
+@520  = ~Divine Cleansing~
+@521  = ~Melissan: Command the Minions of the Abyss~
+@522  = ~Paralyzation Aura~
+@523  = ~Ravager Change~
+@524  = ~Transform Into Bat~
+@525  = ~Lose Strength~
+@526  = ~Symbol Slow~
+@527  = ~Lava Bomb~
+@528  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained the ability, usable once per day: 
+
+Mass Healing (Necromancy)
+Range: Sight of caster 
+Duration: Permanent 
+Casting Time: 1
+Area of Effect: 30 foot radius
+Saving Throw: None 
+
+When using this ability, the Bhaalspawn must picture the faces of <PRO_HISHER> fellow party members clearly and focus on the unity of the group.  Upon completion, all party members within 30 foot radius of the caster are healed 2d8 + 2/level hit points.  Other conditions suffered by the party are cured, as well: fatigue, poison, disease, blindness and deafness.~
+@529  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained the ability, usable once per day: 
+
+Regeneration (Necromancy) 
+Range: Touch
+Duration: 1 round/ 2 levels
+Casting Time: 7
+Area of Effect: Target Creature
+Saving Throw: None 
+
+This powerful ability enables the Bhaalspawn to imbue 1 creature with the ability to regenerate.  This regeneration will heal any wounds and even regenerate lost limbs.  The creature affected will regain 3 hit points per second.  The effect lasts for 1 round per every 2 levels of the caster or until dispelled.  For example, a 14th level character would regenerate 18 hit points per round for 7 rounds.~
+@530  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained the ability, usable once per day: 
+
+Draw Upon Holy Might (Invocation) 
+Range: 0 
+Duration: 1 turn
+Casting Time: 1
+Area of Effect: The caster 
+Saving Throw: None 
+
+The Bhaalspawn calls upon the might of <PRO_HISHER> blood to grant him power for a short period.  When <PRO_HESHE> does this, <PRO_HISHER> strength, constitution and dexterity all are raised by 1 point for every 3 levels of the caster.  A third level caster would have <PRO_HISHER> abilities raised by 1, while a 12th level caster would have all <PRO_HISHER> abilities raised by 4.~
+@531  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained the ability, usable once per day: 
+
+Dark Taint (Necromancy) 
+Range: 20 feet
+Duration: 1 turn
+Casting Time: 1
+Area of Effect: 1 creature
+Saving Throw: Negates
+
+Through this spell, the Bhaalspawn can expel the taint of <PRO_HISHER> evil sire onto a victim, poisoning those who fail their save vs. death.  The effects depend upon the caster's level and are detailed below:
+7-9th level:  2d8  +  2/round, slow for 12 seconds, save at -2
+10-12th level:  3d8  + 3/round, slow for 12 seconds, save at -2
+13-14th level:  4d8  +  4/round, slow for 12 seconds, save at -2
+15-16th level:  6d8  +  5/round, slow for 24 seconds, save at -2
+17-21st level:  8d8  +  6/round, slow for 24 seconds, save at -4
+25th level: 8d8 + 6/round, slow for 36 seconds, save at -4, affects group of targets~
+@532  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained permanent negative plane protection (i.e., <CHARNAME> cannot be level-drained) and 5% magic resistance.~
+@533  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained the ability, usable once per day: 
+
+Hand of Murder (Necromancy) 
+Range: Caster
+Duration: 1 rounds/5 levels
+Casting Time: 1
+Saving Throw: none 
+
+When this power is called upon by the Bhaalspawn, <PRO_HESHE> immediately does extra damage with each hit to <PRO_HISHER> target with any melee weapon desired (whether it be fist or sword). <PRO_HISHER> dark energies travel through <PRO_HISHER> weapon and assaulting <PRO_HISHER> victim...and absorb that damage as healing for <PRO_HIMHER>self.
+The effects vary by level as follows:
+10th: 2 rounds, 4 hp extra damage, 4 hp healed
+15th: 3 rounds, 6 hp extra damage, 6 hp healed
+20th: 4 rounds, 8 hp extra damage, 8 hp healed
+25th: 5 rounds, 10 hp extra damage, 10 hp healed
+30th: 6 rounds, 12 hp extra damage, 12 hp healed~
+@534  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained the ability, usable once per day: 
+
+Resurrection (Necromancy)
+Range: Touch
+Duration: Permanent
+Casting Time: 1
+Area of Effect: Creature Touched
+Saving Throw: None
+
+Like the 5th level spell Raise Dead, Resurrection will return a character back to life.  However, Resurrection also heals the character so that they are ready for the adventuring life once more.~
+@535  = ~Bhaalspawn Powers
+
+<CHARNAME> has gained 25% resistance to physical damage (i.e., slashing, piercing, crushing and missile damage).~
+@536  = ~Aerie continued adventuring after years after leaving <CHARNAME>'s company, often traveling with a larger group but sometimes striking out on her own to use her considerable power to fight against slavery in the Realms.  Her compassion grew tainted by revenge, however; revenge for what had been taken from her when she was in chains and could never be restored.  She might have lost herself to her vengeance entirely had fortune not smiled upon her.  The tale goes that Aerie, filled with a righteous fury, destroyed a slaver enclave in the northern hills of Cormyr single-handedly.  She was surprised to find a group of avariel elves that had been held captive there and quickly freed them, and was in turn invited to return to her long-lost home of Faenya-Dail.  She learned much while she was there.  Most importantly, she learned she was no longer truly one of avariel, and let go forever of the wings that she had lost. Faenya-Dail was no longer her home, and it was with mixed emotions that she bid it farewell.  It is said that Aerie eventually became a high priestess in Understone, a gnomish village her mentor Quayle had sometimes spoken of.  He had been her true family, and it was among his people that she finally found happiness and the family she had always longed for.  It was also said that Aerie prayed for her old friend, <CHARNAME>, each night as the stars revealed themselves in the sky above.  She sincerely hoped her friend had been fortunate enough to find the peace that she had...for without <CHARNAME>, it would never have been possible.~
+@537  = ~Aerie and <CHARNAME> would prove inseparable, continuing their adventuring for many years into the future.  Aerie's zest for travel brought the pair over much of Faerun and even further.  Their young son was always in tow, making <CHARNAME> smile with his wide-eyed awe at the wonders of the world.  Eventually the pair would settle, subsequently giving birth to a beautiful daughter that was the second joy of their lives.  Only rarely would trouble cause <CHARNAME> and Aerie to bring their great power to bear against the evil of the world, though the tales of their battles would become legendary.  Their later years would hold one last great trek, as Aerie still felt a sadness from her time of enslavement and the loss of her wings.  Together she and <CHARNAME> sought the Avariel of Faenya-Dail, the winged elves she was stolen from so long ago.  They discovered not only her people, but loving parents that had spent years searching for their lost child.  Aerie had finally found her family.  With no more mystery or confusion to cloud their lives, it was there, among the clouds, that Aerie and <CHARNAME> would finally be married.  Their union, it is said, was blessed by the presence of Aerdrie Faenya and Baervan Wildwanderer both.  As for the children of <CHARNAME> and Aerie, tutored by two of the Realm's most powerful beings, their own destiny would be a tale to rival their father's...~
+@538  = ~Eventually parting ways with his companions, Anomen would enter the hierarchy of Helm's church, over time rising to the rank of High Watcher.  He remained restless and dissatisfied, remembering his days adventuring with <CHARNAME>...and though many friends would urge him otherwise, Anomen never felt that the church was his true home.  He remained in his position for a year until finally he could bear it no more.  He left active duty in the church and, for a time, wandered the new land of Maztica as a missionary.  Anomen remained a troubled soul, still never content even though his prowess earned him great respect from the new friends he encountered.  When the powerful evil priest Yamash summoned a horde of demons in an effort to rid Maztica of all life, Anomen would at last find his purpose.  He alone was responsible for organizing the tattered remnants of the Amnish soldiers and local Mazticans into a united army that stood against the dark priest.  In the great battle that followed, Anomen was seen plainly by all to plunge into combat single-handedly against Yamash.  He did not have <CHARNAME> or other companions beside him: alone he stood against the tide of evil, and for once he was not found wanting.  He was last seen from afar, shedding tears of joy as he engaged Yamash and shouted out to Helm while chanelling a blinding flash of power.  When it cleared, both the priest and Anomen were gone.  The battle was won and Maztica was saved.  Anomen would forever after be regarded as a hero, inspiring the creation of a protective order of knights in his name.  A new order for a new land.~
+@539  = ~Anomen and <CHARNAME> continued adventuring until they were known as heroes almost everywhere they went.  Many were the grand tales of the Shining Knight and his utter devotion to his great lady.  <CHARNAME>'s past as the terrible Bhaalspawn was forgotten forever as new deeds replaced old and a legacy was created that far outstripped anything granted by godly blood.  So prolific were their careers that the proposed date of their wedding kept getting moved back, either due to impending crisis or some lucrative adventure that one or the other would insist on investigating. Finally a date approached that both <CHARNAME> and her beloved were determined to keep, and the much heralded event drew heroes and dignitaries from across Faerun. The couple had touched the lives of many, and those people arrived in droves to watch Elminster himself unite the two in one of the grandest ceremonies the city of Baldur's Gate had ever seen. Anomen and <CHARNAME> retired from public life shortly after the celebrated birth of their daughter, although if tales be true, their adventures never truly ended.  Anomen would rise high in the hierarchy of his church, and <CHARNAME> would continue to be the center of strange events throughout their lives.  So, too, would their daughter, tutored by two of the greatest heroes in the Realms, forge a legend to rival that of her mother's.  That, however, is another story completely...~
+@540  = ~Upon returning to Amkethran, Balthazar began to implement changes for the better.  He had learned well from his friend and sibling the meaning of the word "Good".  He carried his guilt with him always; a reminder never to make the same mistakes again.  The remaining criminal elements were quickly driven from his outpost, which attracted new settlers and merchants.   Over the years, Amkethran grew into a thriving city and the cultural center of the entire region, renown for its peace and compassion.   Balthazar was also central in the creation of the Monastic Guard; an elite group of Paladins and Monks that were sworn to protect the common folk from tyranny in any form.  His deeds quickly earned him the respect and trust of his people.  In Balthazar's advanced years, his work finished, it was said he could be found most often gazing at the night sky and remembering <CHARNAME>.  Later, Balthazar would leave Amkethran forever on a pilgrimage to Candlekeep...... to give a final thanks for the peace he had found and to see for himself the humble beginnings of a legend.~
+@541  = ~Bodhi had tasted godlike power in the form of <CHARNAME>'s soul.  As the last vestiges of it faded with time, she began to desire more, slipping into bitter hatred as it became her obsession to reach such heights again.  People up and down the Sword Coast came to know fear as Bodhi bathed in their blood, sating her thirst for chaos and death.  Villages began to leave people bound by the road as an offering to the thing that stalked the night.  Her name became a byword for terror, with temples far and wide trying in vain to hunt her down.  Many a mighty cleric was later found drained of blood, agony etched across their pallid features.  Over time Bodhi felt the icy grip of the curse tighten its hold on her.  Desperation mixed with fear clawed at the very fibre of her being.  Desire for chaos faded and she fought to survive once more.  Ambiton, which had once prompted her to whisper dreams of power into the ear of her brother, now brought her back to the place she had long ago called home, Suldanessellar.  It was at the gates that Ellesime met her.  At the gates that Bodhi danced one last time.  Revenge burned bright in both of them, and it called out for blood.  The power of the Tree of Life drove Bodhi on, and the memory of Joneleth cried out to Ellesime.  The two embraced, and it was revenge that was destined to be the victor, even as a stake pierced the still black heart of Bodhi, one who was as damned in life as she was in death.~
+@542  = ~Cernd left the adventuring life to return to his grove in Tethyr, promising to take up his responsibility and raise his son, Ahsdale, as he believed a father should.  Cernd would eventually become the Grand Druid and make a name for himself throughout the realms by not only fighting for the balance of his grove but in protecting the sanctity of life in all realms and in all peoples.  Cernd would discover in time, to his regret, that in his attention to his duty he had forgotten his promise to Ahsdale.  His son had left the grove long before and Cernd learned that Ahsdale had become an evil and twisted wizard in command of a power that threatened the Sword Coast.  Determined that this was his burden alone to face, Cernd solemnly abdicated as Grand Druid and sought out his son.  He engaged in many battles with the forces of his son, wielding the forces of nature with a great fierceness that would be regarded as legendary by all who saw it.  Cernd finally confronted Ahsdale himself deep in the Forest of Tethyr, and made a final effort to convince him to turn away from his path.  Ahsdale refused, and Cernd fought his only son in a long and terrible battle that eventually saw both of their deaths.  With his last breath, Cernd would crawl along the ground to clasp Ahsdale's dead hand, tears flowing down his face as he begged his son's forgiveness.  Cernd's spirit would enter that of a great oak within the forest, and it is believed that this immortal oak still stands, and that around it has grown a wondrous grove of great beauty that is home to the rarest of the Realm's magical creatures.  Each fall the great oak and the grove around it would turn the grimmest shade of red, a reminder that even the most flawed amongst us may eventually find their balance.~
+@543  = ~Haer'Dalis found traveling with <CHARNAME> a fine introduction to the Realms, and once they parted company he was eager to see more.  He visited such varied locales as Waterdeep, Neverwinter, and Thay, spreading the tales of his deeds with <CHARNAME>...and somehow always managing to find himself in the midst of as many adventures as he once had.  Eventually Haer'Dalis would find himself immersed in local troubles on one side or another, and that would lead to him being back on the road once again.  Which was fine by him, although the bard would admit to himself that he only rarely understood some of the peculiarities of these Primes and longed for the remembered grandeur of the planes.  In time, he would befriend a wandering female Cambion and gladly returned with her to the Abyss...only to unintentionally end up leading a revolt on several layers of the hells.  Afterward, the tiefling would be amused to hear stories that he had forced the great Graa'zt to the negotiating table, an awkward position for such a great demon lord...though Haer'Dalis would never verify the truth of the tale.  For a time afterward, Haer'Dalis was the most-hunted man among the planes...but the ire of his enemies could not match his wanderlust, and he eventually found his way back to the city of Sigil unharmed in any permanent fashion. There he rejoined his beloved Raelis and her acting troupe, pleased to finally settle down for once --- until the next misunderstanding occurred, of course.~
+@544  = ~And what of Imoen, the eternal child?  She had been through much during her travels with <CHARNAME>, things that she would refuse to discuss later in life, but her spirit had never been broken.  She parted ways from her companions to seek her own destiny, out from under the shadow of her <PRO_BROTHERSISTER>.  She returned to Candlekeep for a short time, her formidable skill in magic granting her a greater appreciation for its tomes.  Here she could remember simpler times with <CHARNAME> and Gorion, and feel glad that she had followed in her foster-father's footsteps.  Though asked to remain, Imoen eventually decided that Candlekeep was much smaller than she remembered and left to pursue adventures abroad.
+Many are the tales of the archmage that Imoen became.  She wore many other names throughout her life, some mysterious and foreboding while others odd and quirky considering the power this great woman possessed.  Anyone who had known Imoen in her youth would immediately recognize her despite any name, however...no amount of age or wisdom could disguise the mischievious twinkle in her eyes or the ready grin to greet a friend.  She became the confidante of Khelben "Blackstaff" Arunson and was oft-associated with a tale involving the great Elminster, supposedly picking the sage's pocket one day and then leading him on a merry magical chase across Faerun for four months.  The exact truth of the tale is unknown...though it's certainly not  unlike Imoen to encourage an old codger to not be such a stick-in-the-mud, and her later friendship with Elminster is well-documented.  Later tales say Imoen founded a thieves guild that operated all the way to Neverwinter, sparred with the Shadow Thieves and the Zhentarim and even duelled a dragon because (so the story goes) "he was rude".  At times, Imoen was known to think back on her old friend, <CHARNAME>, and smile sadly...and then immediately be possessed with a wickedly funny thought that would propel her onto her next scheme.  It seems that some people, thankfully, will never change.~
+@545  = ~The events of the Bhaalspawn saga affected Jaheira deeply.  It was her duty to protect the greater balance of things, but in the years to come she found an increased portion of that fight occurring within her own mind. Witness to great change while in <CHARNAME>'s company, she had become acutely aware of how fleeting life was, and how the loss of those she held dear ate away at her thoughts.  In time she would be known as a tireless champion of balance, one that sometimes acted in concert with the Harpers and sometimes did not.  Jaheira operated quietly, appearing when needed and moving on when not.  Many called out to her for leadership, but always Jaheira would deny that she was capable of such and say that there was somewhere else that needed her aid more.  She remained distant and guarded, never staying long in any one place.  It is said that she crossed the Forgotten Realms thrice over, always wandering and always searching...until finally she began to wonder what it was, in truth, that she was searching for.
+What happened to Jaheira later in life is not well-known.  Some say that Elminster eventually came to her and convinced her to take her place amongst the greatest commanders of the mysterious Harpers.  Some say that she fell in battle against a great lich that threatened to defile the northern forests.  Some also say that she went in search of <CHARNAME>, traveling to lands far beyond our own.  Whatever happened to her, Jaheira never did return to either the Sword Coast or Tethyr ever again.~
+@546  = ~The years following the Bhaalspawn saga were kind to Jaheira. They couldn't be called peaceful, by any means, but her relationship with <CHARNAME> weathered it all. Theirs was an unshakable union, and while duty or adventure might separate them for even years a time, they always returned to one another.  Her friends would marvel at how secure in this Jaheira seemed to be, especially considering her initial reluctance, but she would chuckle when thinking back on those first cautious days. After all, she and <CHARNAME> had literally been to the hells and back, and when the gods themselves couldn't separate the two, what were simple months and miles going to do?  Jaheira raised high in the ranks of the Harpers, always the voice of wisdom and sense in the organization.  She became renown as a great heroine and mediator, although no-one was surprised when she would leave for great spans of time to travel with <CHARNAME> to some distant corner of the Realms.  The pair were sighted in Neverwinter, Rashemon, the great southern steppes and even the jungles of Chult.  Eventually Jaheira left the Harpers over a dispute, relieved to be done with them and dedicating herself to the raising of <CHARNAME>'s new son.  <CHARNAME> visited often, reveling in the joy of fatherhood...but always his wanderlust would take him on the road again.  Jaheira was not always with <CHARNAME> and not always share in his victories and achievements, but would never be truly apart from him.  And <CHARNAME>'s son?  Tutored by two of the most potent being in the Realms, he would grow to forge a destiny of his own to rival his father's.  That, however, is another tale...~
+@547  = ~The perils that Mazzy Fentan faced at the side of <CHARNAME> did nothing to dissuade her thirst for adventure.  In fact, it was not long after the events in Tethyr that she formed the Fentan Knights, a stalwart band of heroes that spawned tales across the Realms.  Always Mazzy invoked the name of <CHARNAME> when urging her comrades to valour, or when they battled doubt and temptation.  <CHARNAME> was the greatest <PRO_MANWOMAN> that Mazzy had ever known, and the halfling knight felt it was her duty to try to live up to her old friend's legacy.  The Fentan Knights battled trolls to save endangered towns, turned back tides of orcs to preserve ancient forests, and faced a rogue dragon in its own lair just to make the world a better place.  Their legend was larger than life, especially so for Mazzy, and it was said on occasion that if valor were inches, she'd be twenty feet tall.  It was well known that Mazzy's crowning achievement was the day she was annointed an honorary paladin in the great hall of the Radiant Heart.  The first halfling ever to do so, indeed the first non-human, Mazzy's quiet tears of pride flowed freely down her face as the aged Prelate laid the Order's greatest honors across her shoulders.  It was said that Mazzy scanned the crowd often during the ceremony, and for all the old friends that had been able to attend, the face she looked for most was <CHARNAME>'s.  For all her risks, Mazzy eventually passed peacefully at a ripe old age.  She had never settled down and had no children, but her legacy was one that would go on to inspire her people for generations to come.~
+@548  = ~Nalia grew quite powerful after her association with <CHARNAME>.  Initially she traveled, slaking her thirst for magical lore by associating with some of the greatest wizards across the Realms.  She sought to use her great power to bring justice to the land, but over time found that if her time with <CHARNAME> had taught her anything, it is that such power must be tempered with wisdom or it is useless.  She could strike out at evil as she wished...it did not always help the needy, as she thought it would, and after a year of travel she remembered that there was a far better way that she could be of service to her people.
+Nalia returned to Amn and her family home of de'Arnise Hold.  She found it in the control of none other than Isaea Roenal, but she was no longer the wayward child that he expected, and single-handedly brought him to justice for his indiscretions.  She declared herself the inheritor of her father's ducal title, and for once there was no argument from the local nobility.  They snubbed her and her magic, and initially rejoiced when the Cowled Wizards sought to remove her from power.  Nalia demonstrated to them all that she was no-one to trifle with, however, and the Cowled Wizards learned to fear her name.  Over time Nalia became a beloved ruler, respected archmage, and eventually earned a seat on the Amnish Council of Six itself.  The nobility grew to rely on Nalia's leadership, and she would become a prominent figure in Amn for many years, constantly fighting for the good of the common folk and making many frustrated enemies among the nobility and Cowled Wizards both.  Nalia would die many years later, surrounded by a loving family...her last words would be to thank <CHARNAME> for so long ago showing her the true path she needed to walk.~
+@549  = ~In the years following his resurrection by <CHARNAME>, Sarevok spent many years wandering throughout the Forgotten Realms, rarely spending much time in any single place.  In Berdusk he is said to have routed an army of invading orcs, displaying such fearsome power and rage that terrified locals weren't sure whom to fear more...only to disappear quietly without expecting a reward.  In Westgate he arrived as conqueror, brutally enforcing his will over the city only to mysteriously vanish months later, leaving his own startled men to the mercies of the angry mobs.  He acted like a man that did not know himself, and all the stories agreed that Sarevok was a tortured soul, balanced between life and death, never to achieve either.  Those who knew Sarevok best, which were few, said that the tormented warrior would in turn curse the fabled <CHARNAME> for giving him his second chance...and then thank <PRO_HIMHER>.  Eventually he disappeared entirely from the Realms, said to have assaulted the Abyss itself or even taken his own life.  In truth, he journeyed to Kara-Tur to bury his one true love, the warrior Tamoko.   He never returned, though the stories endure.~
+@550  = ~Upon parting ways with <CHARNAME>, the reborn Sarevok proved as good as his word.  He returned to the lands he once knew, far more powerful now than he was even before.  Old enemies were startled by his visits, but never for long, and it was not even months later that Sarevok would start a reign of terror in Baldur's Gate that would place him completely in charge of the city.  Resistance was crushed as Sarevok began raising an army for conquest in his own name.  If he could not have the divine power of his father, he would have enough earthly power to satiate his appetite.  Sarevok partook of women as he pleased as his name became a bitter epithet on the tongue of every citizen of the Sword Coast.
+The first victims of his terrible army fell easily, and Sarevok's power grew.  The warrior was maddened, however, to find that the victories gave him no thrill.  The power tasted as ashes, though Sarevok tried many times to drive himself into a frenzy of delight at his achievements.  In the end, his throne grew heavy, and it was with dread acceptance that he greeted the arrival of the inevitable heroes to displace him not a year after his return.
+Sarevok fled into the night, abandoning Baldur's Gate and his dreams of power both.  He became a man haunted by his second chance, hunted by a former life that never was and a possible life that never could be.  Without a destiny and or a true soul of his own, he wandered the Realms...sometimes he brought terror and sometimes he brought nothing but his tired heart, and before long he was gone forever.  Some say that he found his purpose in the great desert, forging a kingdom to last an age.  Some say he traveled to the planes, launching a campaign against the great Mount Celestia.  The truth is unknown, though the tales still persist.~
+@551  = ~After parting ways with <CHARNAME>, Valygar continued his adventures for several years, traveling in the wilds of northern Faerun and becoming a common sight in the area of Waterdeep.  Later he was content to finally return to Athkatla and retire to the quiet, contemplative life at his family's estate that he had always desired.  Pressure from admirers within the local nobility saw him taking up the mantle of Chief Inspector, a responsibility he never desired but took on willingly to combat the growing corruption within the city.  For many years, Valygar's was the name spat by every criminal or slaver who dared to place a foot within the city.  Valygar was dauntless, turning the city garrison into a force even the most self-confident thief had to respect.  Valygar and the Shadow Thieves sparred many times, eventually reaching a point of mutual respect...though most considered the ranger the victor even then.  Surprising even himself, Valygar eventually restored the good name of the Corthalas in Athkatla and even married.  His only son, the pride of his life, took the lessons of his father to heart. Valygar would watch him go on to become the head of the Cowled Wizards and its greatest agent of reform, and for once in his life Valygar would know pride.  Remembering the man that he had once been, fleeing his history into the deepest woods of Amn, the ranger would be thankful that <CHARNAME> had entered his life and forever wish his old friend well.~
+@552  = ~Upon parting paths with <CHARNAME>, Viconia wandered for a great deal of time.  She still met with ignorance and hatred from those who knew of her kind, but Viconia was determined now more than ever to establish herself as seperate from the legacy of the dark elves.  She had been to the deepest planes of hell and fought side-by-side with <CHARNAME> as <PRO_HESHE> became a God...and she would hide her face from the surface lands any longer.  Even when Shar, her goddess of darkness and loss, abandoned her completely Viconia was unrepetant.  Tales of her grew as she made her presence felt in one land after another...often as a savior, only to be thanklessly driven out by suspicion and fear.  Still Viconia traveled on, refusing the company of fellow travelers and adventurers and never finding anywhere that she could truly name a home.  Her destiny was her own, and she would seek it on her own terms.
+What eventually become of Viconia is unknown.  Her greatest legend is also the most unlikely, although its persistence gives it some credit.  It is said that Viconia saved the elves of Suldanessalar from a Zhentarim plot, fighting valiantly against the organization's agents...and in the end placing herself in harm's way to save Queen Ellesime from a deadly arrow.  Upon being revived, Viconia was surprised to discover that this last act had prompted the Suldanessalar elves to finally accept and forgive their drow sister.  Queen Ellesime granted the highest honors of the Seldarine to Viconia, the first drow ever honored so, and even invited Viconia to find a home in the Tree of Life once again.  Viconia was obviously moved by the gesture...and while she considered the Queen's offer, it is said she eventually merely bowed deeply to Ellesime and silently left Suldanessalar forever.  Viconia was never reported seen again.~
+@553  = ~Viconia traveled only for a short time after parting ways with <CHARNAME>, eventually starting a cult dedicated to Shar within the massive city of Waterdeep.  One of her followers would eventually turn against her, precipitating a furious Viconia to slaughter the entire cult, herself.  Shar did not forgive Viconia this trespass and removed her abilities.  Viconia stubbornly refused to atone, however, and instead left Waterdeep to wander the Realms.  The dark elf became known as an enigmatic and powerful figure as tales of her spread...and while it was known she no longer worshipped Shar, it was also known that her clerical powers were still great.  Who the dark lady now worshipped, however, was her own secret to keep.  She reportedly raised an army against the Vaasan Witch-King, viciously attempting to subvert rule over his Kingdom and only barely being defeated after several military failures.  Viconia prevented an attempt by the Knights of the Shield to take over Calimport...only to take over the city herself days later and institute a reign of terror and cruelty which is spoken of even years later in shuddered tones.  Viconia abandoned Calimport and, it is said, returned to the Underdark from whence she came.  Hers was not a gentle return, however, as Viconia would become a conquering force amongst the drow to give even Lolth pause.  Her mettle had been tested by both worlds, Viconia said, and proven herself worthy.  She would make the drow strong whereas now they were weak.  What eventually became of Viconia is unknown and shrouded in rumor...but it is said that even the great Spider Queen does not rest easily any more.~
+@554  = ~Viconia and <CHARNAME> continued their adventuring careers for several years, gaining considerable fame after being drawn into central roles in two wars that rocked the Sword Coast.  <CHARNAME>'s standing in the Realms grew considerably over time, his dark maiden always at his side.  Eventually, Viconia became pregnant with <CHARNAME>'s child, an event that caused much argument and strife between the couple, resulting briefly in their seperation.  The birth of <CHARNAME>'s son, however, would change Viconia forever.  She would return to <CHARNAME> and convince him to settle finally in Baldur's Gate, dedicating herself utterly to raising their son and teaching him the ways of the drow as well as the ways of <CHARNAME>'s people and marvelling at the power the boy already was demonstrating.  Though she delighted at the understanding in her son's eyes, she would not live to see him grow.  Viconia was a powerful priestess and all but immune to common poisons, but the venom of the Spider Queen's vengeance was not easily resisted and her reach is far.  Poisoned by a servant of the goddess Lolth, <CHARNAME> railed in rage as even the most powerful magics proved ineffective in curing his ailing wife.  Viconia's last words were whispered to <CHARNAME>, in private, before she finally succumbed and are unknown...but the tale is well-told of how <CHARNAME> held the body of his dark maiden close to him and wept, while the entire city wept with him, suffering a loss of something precious that they never even truly knew they had.  The furious <CHARNAME> left Baldur's Gate and raised his son in secret far away.  Tales vary of him, some saying he began a crusade against the drow in the Underdark, some claiming he became a hero in the far-off northlands...and some even saying with surety that <CHARNAME> had waged war against Lolth herself in the abyssal Demonweb Pits...but all agreeing that the former son of Bhaal had been changed forever by his love for the dark maiden.  As for the son, tutored by two of the most potent beings in the Realms?  He would go on to forge a legend that would rival that of his father.  That, however, is a different story...  ~
+
+@600 = ~Improved Abazigal~
+
+@610 = ~Improved Demogorgon~
+@620 = ~Improved Gromnir~
+@630 = ~Improved Illasera~
+@640 = ~Improved Yaga-Shura~
+
+
+
+
+//*****New Components******BPv181
+@650 = ~Improved Sendai~
+@700 = ~Improved Tolgerias and Lavok~
+@750 = ~BP General AI and Creature Enhancements~
+@800 = ~BP GUI (for GUI Switcher Mod)~
+@810 = ~Sea Devils: Sahuagin and Kuo-Toan Enhancements~
+@820 = ~Troll Enhancements~
+@830 = ~Horred's Lair~
+
+@990 = ~Big Picture is brought to you by Horred the Plague.~
+@991 = ~A special thanks to all the modders and modmakers that made Big Picture possible!~
+@992 = ~Be sure to stop through Horred's Lair on your grand adventures!
+(Are fireballs considered 'warm welcomes'?)~
+
+
+
+
+
+@1001 = ~Improved Xvart Village, for BGT-weidu~
+@1004 = ~Xvart Shaman~
+
+
+
+//*****More Stuff******
+
+@2006 = ~BP core not detected, skipping component.~
+@2008 = ~BP core not detected, required for Horred's Lair addition.~
+@2009 = ~BP core not detected, required for Improved Tolgerias and Lavok.~
+@2010 = ~BP core not detected, required for Improved Suldanessallar.~
+@2012 = ~BP core not detected, required for Wand of Orcus mod.~
+@2013 = ~You must install Ascension Core for this component to work.~
+@2014 = ~This component is already installed with TDD.~
+@2015 = ~This component is already installed with RoT.~
+@2016 = ~Must have BP core installed to install Ascension~
+
+
+// BP Series v0.3070 additions (for BPv181 & DS compatibility)
+@5003 = ~Detectable Stats already...detected. Skipping component.~
+@5004 = ~BG2EE Detected, skipping stats.ids and detectable spells additions~
+@5005 = ~Weapon stats added by SCS/II. Skipping....~
+@5006 = ~BP Additions already installed by another mod. Skipping~
+
+
+@7002 = ~DS Stats IDS Cleanup~
+@7003 = ~Fix for STATE_DISEASED~
+@7004 = ~Fix for Wyverns and other 'Mages'~
+
+@7100 = ~BP Detectable Spell Additions~
+@7101 = ~BP IDS Rule Additions~
+
+
+
+@10001 = ~Miscellaneous Tweaks~
+@10002 = ~Add Bags and Magic Throwing Daggers to Stores~
+@10003 = ~Custom Grandmastery (w/ extra attacks)~
+@10004 = ~Halberds and Spears Extended Ranges~
+
+@10101 = ~Creature Enhancements~
+@10102 = ~Animals~
+@10103 = ~Beholders~
+@10104 = ~Demons and Devils~
+@10105 = ~Dragons~
+@10106 = ~Drow~
+@10107 = ~Duergar: The Works~
+@10108 = ~Duergar Irenicus Dungeon Enhancements Only~
+@10109 = ~Duergar: Leave Irenicus Dungeon Alone~
+@10110 = ~Elementals~
+@10111 = ~Generic Mages~
+@10112 = ~Generic Priests~
+@10113 = ~Generic Thieves~
+@10114 = ~Githyanki~
+@10115 = ~Golems~
+@10116 = ~Hellhounds~
+@10117 = ~Humanoids~
+@10118 = ~Knights and Paladins~
+@10119 = ~Mind Flayers~
+@10120 = ~Mists~
+@10121 = ~Shadows - The Works~
+@10122 = ~Shadows - Just the Shade Lord~
+@10123 = ~Shadows - Leave the Shade Lord Alone~
+@10124 = ~Shadow Thieves~
+@10125 = ~Treant Summoning Spell Only~
+@10126 = ~Trolls~
+@10127 = ~Undead (Except Shadows/Wraiths/Vampires)~
+@10128 = ~Were-Animals~
+@10129 = ~Generic Creature & Script Processing~
+@10130 = ~Processing Scripts and Creatures as Required. Please be Patient.....~
+@10131 = ~Fewer On-Screen Shouts~
+@10132 = ~Duergars~
+@10133 = ~Shadow and Wraith Enhancements~
+@10134 = ~You must install the generic creature & script processing for this~
+
+
+@10135 = ~Djinni, Efreet, & Dao~
+
+
+@10201 = ~Encounter Enhancements~
+@10202 = ~Generic Encounter Enhancements~
+@10203 = ~You must install generic creatures and scripts first~
+@10204 = ~Beholder Cult~
+@10205 = ~Chapter 3 (w/ bodhi)~
+@10206 = ~Chapter 3 (no bodhi)~
+@10207 = ~Chapter 6 (w/ bodhi)~
+@10208 = ~Chapter 6 (no bodhi)~ 
+@10209 = ~Chapter 3 and 6 (w/ bodhi)~ 
+@10210 = ~Chapter 3 and 6 (no bodhi)~
+@10211 = ~Vampire Encounters~
+@10212 = ~Copper Coronet and Slavers~
+@10213 = ~Drizzt Encounter (Chapter 6)~
+@10214 = ~Druid Grove (with Druid Encounter)~
+@10215 = ~Druid Encounter (w/ Treant Spell)~
+@10216 = ~Druidic Improvements~
+@10217 = ~Treant Encounter~
+@10218 = ~Horreds Lair~
+@10219 = ~Mae Var~
+@10220 = ~Nalia Quests~
+@10221 = ~Tavern Brawl (In the Seven Veils)~
+@10222 = ~Planar Prison~
+@10223 = ~Planar Sphere Enhancements (including Tolgerias)~
+@10224 = ~Improved Spellhold~
+@10225 = ~Spellhold Enhancments - Only~
+@10226 = ~Chapter Four Enhancements - Only~
+@10227 = ~Spellhold Enhancments - Full Package~
+@10228 = ~Tanners Quest~
+@10229 = ~Trademeet Enhancements~
+@10230 = ~Windspear Hills Enhancements~
+@10231 = ~You do not have BGT installed; skipping this component~
+@10232 = ~This component is already installed with DSotSC.~
+@10233 = ~Generic Vampires Only~
+@10234 = ~Spellhold Only w/ Item Taking~
+@10235 = ~Full Package w/ Item Taking~
+@10236 = ~Irenicus Dungeon Enhancements (except Duergar)~
+@10237 = ~Kensai Ryu's Brown Dragon~
+@10238 = ~Hell Trial Additions~
+@10290 = ~Modder Contributions~
+@10291 = ~Tactics Mod Additions~
+
+@10301 = ~ToB Enhancements~
+@10302 = ~Watchers Keep Improvements~
+@10303 = ~Must have Throne of Bhaal Installed~
+@10304 = ~ToB Improvements~
+
+
+
+
+
+//Brown Dragon Additions
+
+@10500 = ~Druidic Nature Seed~
+@10501 = ~Magical currents are embedded inside this bullet so that it seems a little more balanced and lighter as it jumps towards an opponent.  But even more that most enchanted weapons, this bullet shows unusual abilities granted by druids to defend their grove from attack.
+Each of these bullets glows with the fury of nature.  When they strike a druid's opponent, the bullets have a chance of releasing this energy into their target, burning him with the power of the sun, calling upon plants to hold him in place, freezing him to brittle ice, or focusing a lightning storm on the target.
+
+STATISTICS:
+Always considered to be of +2 enchantment when determining what it can hit.
+Combat Abilities: 
+    5% chance of blinding and dealing 2 fire damage to the target if it fails a save vs. spell
+    5% change of entangling the target if it fails a save vs. spell with a +4 bonus
+    5% chance of causing 2 cold damage and increasing future damage to the target by 10% if it fails a save vs. breath weapons at +2
+    5% chance of a 4D6 lightning bolt striking the target (save vs. spells for half damage)
+    NOTE: all duration effects last for 12 seconds
+Damage:  1D4 + 2
+THACO:  +1
+Damage type:  missile (piercing)
+Weight: 0
+Launcher:  sling
+Usable by:
+ Druid
+~
+@10502 = ~Shadebane~
+@10503 = ~Club +5, Shadebane: Created by The Arch-Druid Jernd to battle a Tyrant red dragon: Woaha'aha.
+
+STATISTICS
+
+Equipped Abilities:
+  Fire Resistance: +60%
+
+Combat Abilities:
+  25% chance to paralyze the target - 3 rounds
+  5% chance the target will flee in terror - 3 rounds
+
+THAC0: +5 Bonus, +10 Vs Undead
+Damage: 2D4 +5, +6 Fire Damage, +10 vs undead, double vs dragons
+Damage Type: Crushing
+Weight: 5
+Speed Factor: 2
+Proficiency Type: Club
+Type: 1-handed
+Requires: 7 Strength
+Not Usable By:
+  Mage~
+@10504 = ~Brown Dragon~

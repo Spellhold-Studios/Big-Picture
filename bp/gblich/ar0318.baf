@@ -1,0 +1,26 @@
+IF
+  Global("GB_LichSpawn","Ar0318",0)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    TriggerActivation("Tran0300",FALSE)
+    CreateCreature("gblich01",[290.378],0)  // ~Lich~
+    CreateCreature("skelwa03",[520.321],0)  // ~Skeleton Warrior~
+    CreateCreature("skelwa03",[632.335],0)  // ~Skeleton Warrior~
+    CreateCreature("skelwa01",[542.512],0)  // ~Skeleton Warrior~
+    CreateCreature("skelwa01",[631.537],0)  // ~Skeleton Warrior~
+    CreateCreature("icbone01",[651.458],0)  // ~Bone Golem~
+    CreateCreatureImpassable("gblichob",[320.212],0)
+    SetGlobal("GB_LichSpawn","Ar0318",1)
+END
+
+IF
+  !Difficulty(EASIEST)
+  Dead("gblich01")  // ~Lich~
+  Global("GB_LichIsDead","Ar0318",0)
+THEN
+  RESPONSE #100
+    TriggerActivation("Tran0300",TRUE)
+    SetGlobal("GB_LichIsDead","Ar0318",1)
+END
+

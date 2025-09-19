@@ -1,0 +1,8 @@
+IF
+  See([NEUTRAL])
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Shout(79)
+END
+

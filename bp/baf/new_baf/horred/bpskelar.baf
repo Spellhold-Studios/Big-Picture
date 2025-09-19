@@ -1,0 +1,24 @@
+IF
+  ActionListEmpty()
+  HaveSpell(INNATE_HORROR)
+  !GlobalTimerNotExpired("BPT","LOCALS")
+  See(NearestEnemyOf(Myself))
+  !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+  RandomNumLT(141,61)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BPT","LOCALS",ONE_ROUND)
+    Spell(NearestEnemyOf(Myself),INNATE_HORROR)
+END
+
+IF
+  HPLT(Myself,10)
+  !Detect("HORRED")  // ~Horred~
+  !Detect("BPSKULLY")  // ~Skulley~
+THEN
+  RESPONSE #100
+    ChangeClass(Myself,MAGE)
+    SpellNoDec(Myself,WIZARD_SKULL_TRAP)
+    Kill(Myself)
+END
+

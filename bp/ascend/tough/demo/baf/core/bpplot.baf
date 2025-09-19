@@ -1,0 +1,8 @@
+IF
+  Global("BP_PlotCatch","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_PlotCatch","LOCALS",1)
+    SetGlobal("BP_PlotMan","LOCALS",1)
+END
+

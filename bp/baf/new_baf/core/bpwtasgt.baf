@@ -1,0 +1,47 @@
+IF
+  !GlobalTimerNotExpired("LavRun","LOCALS")
+  Global("LavCt","LOCALS",0)
+THEN
+  RESPONSE #50
+    MoveToPointNoInterrupt([745.945])
+    SetGlobal("LavCt","LOCALS",1)
+  RESPONSE #50
+    MoveToPointNoInterrupt([670.475])
+    SetGlobal("LavCt","LOCALS",1)
+  RESPONSE #50
+    MoveToPointNoInterrupt([765.350])
+    SetGlobal("LavCt","LOCALS",1)
+  RESPONSE #50
+    MoveToPointNoInterrupt([495.455])
+    SetGlobal("LavCt","LOCALS",1)
+  RESPONSE #50
+    MoveToPointNoInterrupt([510.670])
+    SetGlobal("LavCt","LOCALS",1)
+  RESPONSE #50
+    MoveToPointNoInterrupt([810.765])
+    SetGlobal("LavCt","LOCALS",1)
+  RESPONSE #50
+    MoveToPointNoInterrupt([1125.630])
+    SetGlobal("LavCt","LOCALS",1)
+  RESPONSE #50
+    MoveToPointNoInterrupt([895.430])
+    SetGlobal("LavCt","LOCALS",1)
+END
+
+IF
+  Global("LavCt","LOCALS",1)
+THEN
+  RESPONSE #50
+    SetGlobal("LavCt","LOCALS",0)
+    SetGlobalTimer("LavRun","LOCALS",2)
+  RESPONSE #50
+    SetGlobal("LavCt","LOCALS",0)
+    SetGlobalTimer("LavRun","LOCALS",3)
+  RESPONSE #50
+    SetGlobal("LavCt","LOCALS",0)
+    SetGlobalTimer("LavRun","LOCALS",4)
+  RESPONSE #50
+    SetGlobal("LavCt","LOCALS",0)
+    SetGlobalTimer("LavRun","LOCALS",1)
+END
+

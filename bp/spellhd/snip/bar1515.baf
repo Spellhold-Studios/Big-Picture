@@ -1,0 +1,34 @@
+
+IF
+  OR(2)
+    Global("AsylumPlot","GLOBAL",51)
+    Global("AsylumPlot","GLOBAL",53)
+  Global("BP_GetTheGoods","GLOBAL",0)
+  Global("BP_HardRoad","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BP_GoQuickly","GLOBAL",185)
+    SetGlobal("BP_GetTheGoods","GLOBAL",1)
+    ActionOverride(Player1,DisplayStringHead(Myself, @0))
+    Unlock("Door06")
+    Unlock("Door08")
+END
+
+IF
+  Global("BP_GetTheGoods","GLOBAL",1)
+  !GlobalTimerNotExpired("BP_GoQuickly","GLOBAL")
+  Global("AsylumPlot","GLOBAL",53)
+THEN
+  RESPONSE #100
+    CloseDoor("DOOR06")
+    Lock("DOOR06")
+    CloseDoor("DOOR08")
+    Lock("DOOR08")
+    DisplayString(Myself,48691)
+    SetGlobal("AsylumPlot","GLOBAL",54)
+    StartCutSceneMode()
+    StartCutScene("Cut41m")
+END
+
+
+

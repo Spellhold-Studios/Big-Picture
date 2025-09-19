@@ -1,0 +1,10 @@
+IF
+  Dead("cefald01")
+  OR(2)
+    AreaCheck("AR1900")
+    AreaCheck("AR1901")
+THEN
+  RESPONSE #100
+    EscapeArea()
+END
+

@@ -1,0 +1,246 @@
+IF
+  OR(3)
+    HitBy([GOODCUTOFF],CRUSHING)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    Die()
+  Allegiance(Myself,NEUTRAL)
+THEN
+  RESPONSE #100
+    Shout(79)
+    Enemy()
+END
+
+IF
+  OR(2)
+    Heard([NEUTRAL],79)
+    Heard([EVILCUTOFF],79)
+  !Allegiance(Myself,ENEMY)
+  !Allegiance(Myself,GOODCUTOFF)
+THEN
+  RESPONSE #100
+    Shout(79)
+    Enemy()
+END
+
+IF
+  OR(2)
+    Heard([EVILCUTOFF],89)
+    Heard([NEUTRAL],89)
+  Allegiance(Myself,NEUTRAL)
+  !Global("BP_PlotMan","LOCALS",1)
+THEN
+  RESPONSE #100
+    Enemy()
+    Continue()
+END
+
+IF
+  OR(2)
+    Heard([NEUTRAL],151)
+    Heard([EVILCUTOFF],151)
+  Allegiance(Myself,NEUTRAL)
+  !Global("BP_PlotMan","LOCALS",1)
+THEN
+  RESPONSE #100
+    Enemy()
+    Continue()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+END
+
+IF
+  OR(2)
+    General(Myself,HUMANOID)
+    General(Myself,GIANTHUMANOID)
+  HPPercentLT(Myself,40)
+  HPGT(Myself,0)
+  Global("whined","LOCALS",0)
+  See(NearestMyGroupOfType)
+  Allegiance(Myself,ENEMY)
+  HPGT(LastSeenBy(Myself),20)
+THEN
+  RESPONSE #50
+    SetGlobal("whined","LOCALS",1)
+    DisplayStringHead(Myself,46151)  // ~help!~
+    Shout(123)
+  RESPONSE #50
+    SetGlobal("whined","LOCALS",1)
+    DisplayStringHead(Myself,49763)  // ~I require assistance~
+    Shout(123)
+  RESPONSE #50
+    SetGlobal("whined","LOCALS",1)
+    DisplayStringHead(Myself,49764)  // ~Defend me!~
+    Shout(123)
+  RESPONSE #50
+    SetGlobal("whined","LOCALS",1)
+    DisplayStringHead(Myself,49765)  // ~Slay my attacker!~
+    Shout(123)
+END
+
+IF
+  HPPercentLT(Myself,50)
+  OR(5)
+    AttackedBy([PC],DEFAULT)
+    AttackedBy([FAMILIAR],DEFAULT)
+    AttackedBy([ALLY],DEFAULT)
+    AttackedBy([CONTROLLED],DEFAULT)
+    AttackedBy([CHARMED],DEFAULT)
+  Allegiance(Myself,ENEMY)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    Shout(124)
+END
+
+IF
+  AttackedBy([ANYONE],DEFAULT)
+  DamageTakenGT(5)
+  Global("Whined","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Whined","LOCALS",1)
+    Shout(124)
+END
+
+IF
+  BreakingPoint()
+  Global("Panic","LOCALS",0)
+THEN
+  RESPONSE #50
+    SetGlobal("Panic","LOCALS",1)
+    DisplayStringHead(Myself,49766)  // ~I can't take this~
+  RESPONSE #50
+    SetGlobal("Panic","LOCALS",1)
+    DisplayStringHead(Myself,49767)  // ~No more~
+  RESPONSE #50
+    SetGlobal("Panic","LOCALS",1)
+    DisplayStringHead(Myself,49768)  // ~Mercy!~
+END
+
+IF
+  Heard([EVILCUTOFF],69)
+  !HaveAnySpells()
+  Range(LastHeardBy(Myself),30)
+  HPPercentGT(Myself,50)
+  !GlobalTimerNotExpired("BPSH","LOCALS")
+THEN
+  RESPONSE #60
+    DisplayStringHead(Myself,25337)  // ~Don't worry...I'll be here to protect you.~
+    MoveToObject(LastHeardBy(Myself))
+    ProtectObject(LastHeardBy(Myself),12)
+    SetGlobalTimer("BPSH","LOCALS",THREE_ROUNDS)
+  RESPONSE #80
+    DisplayStringHead(Myself,25337)  // ~Don't worry...I'll be here to protect you.~
+    ProtectObject(LastHeardBy(Myself),40)
+    SetGlobalTimer("BPSH","LOCALS",THREE_ROUNDS)
+  RESPONSE #40
+    SetGlobalTimer("BPSH","LOCALS",TWO_ROUNDS)
+END
+
+IF
+  Heard([EVILCUTOFF],124)
+  Range(LastHeardBy(Myself),20)
+  HPGT(LastHeardBy(Myself),0)
+  !HaveAnySpells()
+  !GlobalTimerNotExpired("BPH","LOCALS")
+  Global("MeleeMan","LOCALS",1)
+THEN
+  RESPONSE #20
+    SetGlobalTimer("BPH","LOCALS",FOUR_ROUNDS)
+    ProtectObject(LastHeardBy(Myself),20)
+  RESPONSE #40
+    SetGlobalTimer("BPH","LOCALS",THREE_ROUNDS)
+    MoveToObject(LastAttackerOf(LastHeardBy(Myself)))
+    Attack(LastAttackerOf(LastHeardBy(Myself)))
+  RESPONSE #40
+    SetGlobalTimer("BPH","LOCALS",FOUR_ROUNDS)
+    MoveToObject(LastHitter(LastHeardBy(Myself)))
+    AttackOneRound(LastHitter(LastHeardBy(Myself)))
+    AttackOneRound(LastHitter(LastHeardBy(Myself)))
+  RESPONSE #60
+    MoveToObject(LastHeardBy(Myself))
+    SetGlobalTimer("BPH","LOCALS",FOUR_ROUNDS)
+    ProtectObject(LastHeardBy(Myself),10)
+  RESPONSE #20
+    SetGlobalTimer("BPH","LOCALS",TWO_ROUNDS)
+END
+
+IF
+  Heard([EVILCUTOFF],123)
+  !GlobalTimerNotExpired("BP_Cure","LOCALS")
+  HPPercentLT(LastHeardBy(Myself),60)
+  !Died(LastHeardBy(Myself))
+  !HasItem("POTN52",LastHeardBy(Myself))  // ~Potion of Extra Healing~
+  !HasItem("POTN55",LastHeardBy(Myself))  // ~Potion of Superior Healing~
+  HasItem("POTN52",Myself)  // ~Potion of Extra Healing~
+  DamageTakenLT(27)
+  CheckStatGT(LastHeardBy(Myself),600,XPVALUE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BP_Cure","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,72809)  // ~Here! Catch!~
+    GiveItem("POTN52",LastHeardBy(Myself))  // ~Potion of Extra Healing~
+    ActionOverride(LastHeardBy(Myself),SetGlobal("Whined","LOCALS",0))
+END
+
+IF
+  Heard([EVILCUTOFF],123)
+  !GlobalTimerNotExpired("BP_Cure","LOCALS")
+  HPPercentLT(LastHeardBy(Myself),50)
+  !Died(LastHeardBy(Myself))
+  !HasItem("POTN52",LastHeardBy(Myself))  // ~Potion of Extra Healing~
+  !HasItem("POTN55",LastHeardBy(Myself))  // ~Potion of Superior Healing~
+  HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+  DamageTakenLT(40)
+  CheckStatGT(LastHeardBy(Myself),1200,XPVALUE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("BP_Cure","LOCALS",ONE_ROUND)
+    DisplayStringHead(Myself,72809)  // ~Here! Catch!~
+    GiveItem("POTN55",LastHeardBy(Myself))  // ~Potion of Superior Healing~
+    ActionOverride(LastHeardBy(Myself),SetGlobal("Whined","LOCALS",0))
+END
+
+IF
+  Heard([EVILCUTOFF],123)
+  HPGT(LastHeardBy(Myself),0)
+  !HaveAnySpells()
+  !HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+  !HasItem("POTN52",Myself)  // ~Potion of Extra Healing~
+  !GlobalTimerNotExpired("BP_Helper","LOCALS")
+  Global("MeleeMan","LOCALS",1)
+THEN
+  RESPONSE #80
+    ProtectObject(LastHeardBy(Myself),15)
+    SetGlobalTimer("BP_Helper","LOCALS",THREE_ROUNDS)
+  RESPONSE #20
+    SetGlobalTimer("BP_Helper","LOCALS",TWO_ROUNDS)
+END
+
+IF
+  Heard([EVILCUTOFF],123)
+  HPGT(LastHeardBy(Myself),0)
+  !HaveAnySpells()
+  !HasItem("POTN55",Myself)  // ~Potion of Superior Healing~
+  !HasItem("POTN52",Myself)  // ~Potion of Extra Healing~
+  !GlobalTimerNotExpired("BP_Helper","LOCALS")
+  !Global("MeleeMan","LOCALS",1)
+THEN
+  RESPONSE #80
+    Attack(LastAttackerOf(LastHeardBy(Myself)))
+    SetGlobalTimer("BP_Helper","LOCALS",THREE_ROUNDS)
+  RESPONSE #20
+    SetGlobalTimer("BP_Helper","LOCALS",TWO_ROUNDS)
+END
+
+IF
+  HitBy(Myself,CRUSHING)
+THEN
+  RESPONSE #100
+    RunAwayFrom(NearestEnemyOf(Myself),15)
+END
+

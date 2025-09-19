@@ -1,0 +1,15 @@
+IF
+  OR(3)
+    Difficulty(NORMAL)
+    Difficulty(HARD)
+    Difficulty(HARDEST)
+  Global("BP_RoundTwo","AR2807",0)
+  Dead("DRAGBLAC")  // ~Nizidramanii'yt~
+THEN
+  RESPONSE #100
+    SetGlobal("BP_RoundTwo","AR2807",1)
+    Wait(6)
+    DisplayString(Player1,@0)
+    Wait(3)
+    CreateCreature("DRAGREDD",[250.650],12)  // ~Red Dragon~
+END

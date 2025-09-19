@@ -1,0 +1,50 @@
+IF
+  OnCreation()
+  Global("BP_MoreStooges","AR1301",0)
+  LevelGT(Player1,9)
+  NumInPartyGT(1)
+  !Difficulty(EASIEST)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1301",1)
+    CreateCreature("ICYUAN03",[2380.280],2)
+    CreateCreature("ICYUAN03",[2720.500],2)
+    CreateCreature("ICYUAN04",[2660.540],2)
+    CreateCreature("ICYUAN04",[2320.300],2)
+END
+
+IF
+  Global("BP_MoreStooges","AR1301",1)
+  LevelGT(Player1,11)
+  NumInPartyGT(3)
+  !Difficulty(EASIEST)
+  !Difficulty(EASY)
+THEN
+  RESPONSE #100
+    SetGlobal("BP_MoreStooges","AR1301",2)
+    CreateCreature("TROLSP01",[2540.490],2)
+    CreateCreature("TROLSP01",[2420.430],2)
+    CreateCreature("TROLSN01",[2470.530],2)
+    CreateCreature("TROLSN01",[2360.450],2)
+END
+
+IF
+  OpenState("DOOR03",TRUE)
+  Global("TorgMove","AR1301",0)
+  !Dead("Torgal")
+THEN
+  RESPONSE #100
+    SetGlobal("TorgMove","AR1301",1)
+    TriggerActivation("TRAN1303",FALSE)
+    ActionOverride("Torgal",MoveToPointNoInterrupt([2320.530]))
+END
+
+IF
+  Global("TorgMove","AR1301",1)
+  Dead("Torgal")
+THEN
+  RESPONSE #100
+    SetGlobal("TorgMove","AR1301",2)
+    TriggerActivation("TRAN1303",TRUE)
+END
+

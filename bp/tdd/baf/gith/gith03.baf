@@ -1,0 +1,82 @@
+IF
+  Global("Prep","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    ApplySpellRES("SPHEAL4",Myself)  // <Invalid Strref -1>
+    ApplySpellRES("SPPAL9",Myself)  // ~~
+END
+
+IF
+  HPLT(Myself,30)
+  GlobalLT("lay","LOCALS",2)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,EVIL_LAYONHANDS)
+    IncrementGlobal("lay","LOCALS",1)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  Delay(6)
+THEN
+  RESPONSE #33
+    ForceSpell(LastSeenBy(Myself),PSIONIC_MAZE)
+  RESPONSE #67
+    Continue()
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  Delay(11)
+THEN
+  RESPONSE #50
+    ForceSpellRES("SPPAL1",Myself)  // ~Cause Critical Wounds~
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #50
+    ForceSpellRES("SPPAL2",LastSeenBy(Myself))  // ~Disease~
+  RESPONSE #50
+    ForceSpellRES("SPPAL13",LastSeenBy(Myself))  // ~Withering Touch~
+  RESPONSE #95
+    Continue()
+END
+
+IF
+  See([GOODCUTOFF.UNDEAD])
+  GlobalLT("BPPAL3","LOCALS",3)
+  Delay(7)
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("BPPAL3","LOCALS",1)
+    ForceSpellRES("SPPAL3",LastSeenBy(Myself))  // ~Dominate the Dead~
+END
+
+IF
+  See([GOODCUTOFF.MONSTER])
+  GlobalLT("BPPAL4","LOCALS",3)
+  Delay(8)
+  RandomNumLT(4,3)
+THEN
+  RESPONSE #100
+    IncrementGlobal("BPPAL4","LOCALS",1)
+    ForceSpellRES("SPPAL4",LastSeenBy(Myself))  // ~Dominate Monster~
+END
+
+IF
+  GlobalLT("BPPAL6","LOCALS",3)
+  OR(3)
+    SpellCast(GroupOf([PC]),0)
+    SpellCastPriest(GroupOf([PC]),0)
+    SpellCastInnate(GroupOf([PC]),0)
+  Detect(LastTrigger)
+  !Range(LastTrigger,15)
+THEN
+  RESPONSE #80
+    IncrementGlobal("BPPAL6","LOCALS",1)
+    ForceSpellRES("SPPAL6",LastTrigger)  // ~Silence 15' Radius~
+  RESPONSE #40
+    Continue()
+END
+

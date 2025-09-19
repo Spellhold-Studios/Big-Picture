@@ -1,0 +1,174 @@
+IF
+  NumberOfTimesTalkedTo(0)
+  See([PC])
+THEN
+  RESPONSE #100
+    StartDialogNoSet(Player1)
+END
+
+IF
+  Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("One","LOCALS",6)
+    SetGlobal("Two","LOCALS",5)
+    SetGlobal("Three","LOCALS",6)
+    SetGlobal("Four","LOCALS",5)
+    SetGlobal("Five","LOCALS",3)
+    SetGlobalTimer("PrepTimer","LOCALS",0)
+    SetGlobalTimer("RemoveTimer","LOCALS",18)
+END
+
+IF
+  GlobalTimerExpired("PrepTimer","LOCALS")
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("PrepTimer","LOCALS",3600)
+    SetGlobalTimer("Cast","LOCALS",0)
+    GiveItemCreate("potn52",Myself,2,0,0)  // ~Potion of Extra Healing~
+    Continue()
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("Four","LOCALS",0)
+  CheckStatLT(Myself,1,STONESKINS)
+THEN
+  RESPONSE #100
+    IncrementGlobal("Four","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SpellNoDec(Myself,WIZARD_STONE_SKIN)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalTimerExpired("RemoveTimer","LOCALS")
+  GlobalGT("Three","LOCALS",0)
+  See(NearestEnemyOfType([PC]))
+THEN
+  RESPONSE #100
+    IncrementGlobal("Three","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SetGlobalTimer("RemoveTimer","LOCALS",44)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_TRUE_DISPEL_MAGIC)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("Four","LOCALS",0)
+  See(NearestEnemyOfType([PC]))
+  Global("Malison","LOCALS",0)
+THEN
+  RESPONSE #100
+    IncrementGlobal("Four","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SetGlobal("Malison","LOCALS",1)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_GREATER_MALISON)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("Five","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    IncrementGlobal("Five","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_CHAOS)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("Three","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    IncrementGlobal("Three","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_SLOW)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,50)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("Two","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+  !HasItem("clck26",LastSeenBy(Myself))  // ~Cloak of Mirroring~
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    IncrementGlobal("Two","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_MELF_ACID_ARROW)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("Two","LOCALS",0)
+  See(SecondNearestEnemyOf(Myself))
+  !HasItem("clck26",LastSeenBy(Myself))  // ~Cloak of Mirroring~
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    IncrementGlobal("Two","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_MELF_ACID_ARROW)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("One","LOCALS",0)
+  See(NearestEnemyOf(Myself))
+  !HasItem("clck26",LastSeenBy(Myself))  // ~Cloak of Mirroring~
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    IncrementGlobal("One","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  GlobalGT("One","LOCALS",0)
+  See(SecondNearestEnemyOf(Myself))
+  !HasItem("clck26",LastSeenBy(Myself))  // ~Cloak of Mirroring~
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    IncrementGlobal("One","LOCALS",-1)
+    SetGlobalTimer("Cast","LOCALS",6)
+    SpellNoDec(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+END
+
+IF
+  GlobalTimerExpired("Cast","LOCALS")
+  HasItem("potn52",Myself)  // ~Potion of Extra Healing~
+  HPPercentLT(Myself,90)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Cast","LOCALS",6)
+    UseItem("potn52",Myself)  // ~Potion of Extra Healing~
+END
+
+IF
+  Heard([ENEMY],ALERT)
+  !Detect([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject(LastHeardBy(Myself))
+END
+

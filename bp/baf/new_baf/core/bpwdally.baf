@@ -1,0 +1,235 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  Global("BPCHARM","LOCALS",1)
+  !StateCheck(Myself,STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCHARM","LOCALS",0)
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  OR(2)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+THEN
+  RESPONSE #100
+    Shout(151)
+    Enemy()
+    Continue()
+END
+
+IF
+  !Allegiance(Myself,GOODCUTOFF)
+THEN
+  RESPONSE #100
+    ChangeAIScript("WDASIGHT",DEFAULT)
+END
+
+IF
+  TargetUnreachable(LastSeenBy(Myself))
+  Delay(3)
+THEN
+  RESPONSE #100
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  Range(NearestEnemyOf(Myself),2)
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(NearestEnemyOf(Myself),0,125)
+THEN
+  RESPONSE #80
+    RunAwayFrom(NearestEnemyOf(Myself),4)
+  RESPONSE #20
+    Continue()
+END
+
+IF
+  HasItem("potn55",Myself)
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,60)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("potn55",Myself)
+END
+
+IF
+  HasItem("potn52",Myself)
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,70)
+THEN
+  RESPONSE #100
+    DisplayStringHead(Myself,46150)
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("potn52",Myself)
+END
+
+IF
+  HasItem("POTN08",Myself)
+  !GlobalTimerNotExpired("POT","LOCALS")
+  HPPercentLT(Myself,85)
+  RandomNumLT(201,80)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("POT","LOCALS",ONE_ROUND)
+    UseItem("POTN08",Myself)
+    DisplayStringHead(Myself,46150)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(32,21)
+  OR(3)
+    Heard(ThirdNearest([GOODCUTOFF]),124)
+    Heard(SecondNearest([GOODCUTOFF]),124)
+    Heard([GOODCUTOFF],124)
+  HPGT(LastHeardBy(Myself),1)
+  Range(LastHeardBy(Myself),20)
+  HPGT(LastHitter(LastHeardBy(Myself)),1)
+  !See(LastHitter(LastHeardBy(Myself)))
+  HPGT(LastAttackerOf(LastHeardBy(Myself)),1)
+  !See(LastAttackerOf(LastHeardBy(Myself)))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  RandomNumLT(31,21)
+  OR(3)
+    See(NearestEnemyOf(Myself))
+    See(LastAttackerOf(Myself))
+    See(LastHitter(Myself))
+  RandomNumLT(28,22)
+  OR(4)
+    See([EVILCUTOFF.0.0.0.0.SUMMONED_DEMON])
+    See([EVILCUTOFF.0.0.0.0.SUMMONED])
+    See([EVILCUTOFF.0.0.0.SIMULACRUM])
+    See([EVILCUTOFF.0.0.0.0.ILLUSIONARY])
+  RandomNumLT(29,23)
+  OR(7)
+    See([EVILCUTOFF.0.0.RANGER_ALL])
+    See([EVILCUTOFF.0.0.PALADIN_ALL])
+    See([EVILCUTOFF.0.0.BARD_ALL])
+    See([EVILCUTOFF.0.0.DRUID_ALL])
+    See([EVILCUTOFF.0.0.CLERIC_ALL])
+    See([EVILCUTOFF.0.0.LONG_BOW])
+    See([EVILCUTOFF.0.0.SORCERER])
+  RandomNumLT(26,14)
+  OR(4)
+    See([EVILCUTOFF.0.0.RANGER_ALL])
+    See([EVILCUTOFF.0.0.DRUID_ALL])
+    See([EVILCUTOFF.0.0.PALADIN_ALL])
+    See([EVILCUTOFF.0.0.CLERIC_ALL])
+  RandomNumLT(27,14)
+  OR(3)
+    See([EVILCUTOFF.0.0.MONK])
+    See([EVILCUTOFF.0.0.BARD_ALL])
+    See([EVILCUTOFF.0.0.THIEF_ALL])
+  RandomNumLT(32,17)
+  OR(2)
+    See(TenthNearest([EVILCUTOFF.0.0.LONG_BOW]))
+    See(TenthNearest([EVILCUTOFF.0.0.SORCERER]))
+  RandomNumLT(20,11)
+  See(TenthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+THEN
+  RESPONSE #100
+END
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_CHARMED)
+THEN
+  RESPONSE #80
+    Continue()
+  RESPONSE #20
+END
+
+IF
+  ActionListEmpty()
+  CheckStatGT(Myself,0,SCRIPTINGSTATE4)
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  CheckStatGT(LastSeenBy(Myself),10,180)
+  CheckStatLT(Myself,11,180)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+  OR(3)
+    !Range(NearestEnemyOf(Myself),5)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,121)
+    CheckStatGT(LastSeenBy(Myself),0,125)
+THEN
+  RESPONSE #25
+    Continue()
+  RESPONSE #75
+END
+
+IF
+  ActionListEmpty()
+  !Range(LastSeenBy(Myself),8)
+THEN
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    AttackOneRound(NearestEnemyOf(Myself))
+  RESPONSE #90
+    EquipMostDamagingMelee()
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+

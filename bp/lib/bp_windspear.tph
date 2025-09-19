@@ -1,0 +1,1762 @@
+DEFINE_ACTION_FUNCTION windspear_hills BEGIN
+
+INCLUDE ~bp/lib/bp_main.tph~
+INCLUDE ~bp/lib/bp_creatures.tph~
+INCLUDE ~bp/lib/bp_encounters.tph~
+
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~spin473.spl~ BEGIN
+  COPY ~bp/spl/spin473.spl~ ~override~
+END
+
+APPEND ~spell.ids~ ~3473 SPECTATOR_SUGGESTION~ UNLESS ~SPECTATOR_SUGGESTION~
+
+LAF trap_projectiles END
+LAF bp_boulder END
+LAF druid_encounter END
+LAF shadow_rules END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~OHB_101.bcs~ BEGIN
+  // Must be done here instead of in the rules, because the creatures used are only here
+  // What if some other component just needs the rules &/or scripts?
+  APPEND_COL ~spawngrp.2da~ ~9999 9999 RDSDruid--- 150!!!!--- bpdru10a--- bpdru8a!!!! bpdrufg2--- bpdrufg1--- bpdrumg1--- bpdru8b!!!! bpdrudt1--- *=======--- ~
+  UNLESS ~RDSDruid~
+
+
+  COPY_EXISTING ~spawngrp.2da~ ~override~
+   REPLACE_TEXTUALLY ~9999~    ~~
+   REPLACE_TEXTUALLY ~---~     ~   ~
+   REPLACE_TEXTUALLY ~!!!!~    ~    ~
+   REPLACE_TEXTUALLY ~++++++~  ~      ~
+   REPLACE_TEXTUALLY ~+++++~   ~     ~
+   REPLACE_TEXTUALLY ~=======~ ~       ~
+   REPLACE_TEXTUALLY ~++~ ~  ~
+END
+
+
+//More spawns added, some in-game ones changed
+COPY_EXISTING ~ar1200.are~ ~override~
+ READ_LONG  0x54  "actors_offset"
+ READ_LONG  0x58  "actors_num"
+ READ_SHORT 0x5a  "infotrig_num"
+ READ_LONG  0x5c  "infotrig_offset"
+ READ_LONG  0x60  "spawns_offset"
+ READ_LONG  0x64  "spawns_num"
+ READ_LONG  0x68  "entrances_offset"
+ READ_LONG  0x6c  "entrances_num"
+ READ_LONG  0x70  "cont_offset"
+ READ_SHORT 0x74  "cont_num"
+ READ_SHORT 0x76  "items_num"
+ READ_LONG  0x78  "items_offset"
+ READ_LONG  0x7c  "vert_offset"
+ READ_SHORT 0x80  "vert_num"
+ READ_SHORT 0x82  "amb_num"
+ READ_LONG  0x84  "amb_offset"
+ READ_LONG  0x88  "vars_offset"
+ READ_LONG  0x8c  "vars_num"
+ READ_LONG  0xa0  "expbmp_offset"
+ READ_LONG  0xa4  "doors_num"
+ READ_LONG  0xa8  "doors_offset"
+ READ_LONG  0xac  "anim_num"
+ READ_LONG  0xb0  "anim_offset"
+ READ_LONG  0xb4  "tiled_num"
+ READ_LONG  0xb8  "tiled_offset"
+ READ_LONG  0xbc  "songs_offset"
+ READ_LONG  0xc0  "rest_spawns_offset"
+ READ_LONG  0xc4  "automap_offset"
+ READ_LONG  0xc8  "automap_num"
+
+ SET "found_name" = 0
+
+ FOR( cnt=0; cnt<"%spawns_num%"; cnt=cnt+1) BEGIN  //patching current in-game spawns
+   SET "switch1" = 0
+   SET "switch1a" = 0
+   SET "switch4" = 0
+   SET "switch6" = 0
+   SET "switch6a" = 0
+   SET "current_spawn" = "%spawns_offset%" + 0xc8*cnt
+   READ_ASCII "%current_spawn%" "spawn_name" (13)
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 1")=0) BEGIN
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "RDORC")=0) BEGIN
+       SET "switch1" = 1
+       WRITE_ASCII ("%current_spawn%"+0x24) ~RDSAND1~ #8 //change only if not modded
+       WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+     END
+     READ_ASCII ("%current_spawn%"+0x2c) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "RDGOB")=0) BEGIN
+       SET "switch1a" = 1
+       WRITE_ASCII ("%current_spawn%"+0x2c) ~RDTROLL~ #8 //change only if not modded
+       WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+     END
+   END
+   PATCH_IF NOT FILE_EXISTS_IN_GAME ~OHB_101.bcs~ BEGIN
+     PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 4")=0) BEGIN
+       READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+       PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "RDGIBB")=0) BEGIN
+         SET "switch4" = 1
+         WRITE_ASCII ("%current_spawn%"+0x24) ~RDSDRUID~ #8 //change only if not modded
+         WRITE_SHORT ("%current_spawn%" + 0x84) ~8~
+       END
+     END
+   END
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 6")=0) AND ("%found_name%" = 1)BEGIN //BW has two spawn point 6's in the file!
+     SET "found_name" = 2
+     WRITE_ASCII "%current_spawn%" "Spawn Point 8" #32
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "RDGOB")=0) BEGIN
+       SET "switch6" = 1
+       WRITE_ASCII ("%current_spawn%"+0x24) ~RDTROLL~ #8 //change only if not modded
+       WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+     END
+     READ_ASCII ("%current_spawn%"+0x2c) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "RDORC")=0) BEGIN
+       SET "switch6a" = 1
+       WRITE_ASCII ("%current_spawn%"+0x2c) ~RDGNOLL~ #8 //change only if not modded
+       WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+     END
+   END
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 6")=0) AND ("%found_name%" = 0)BEGIN
+     SET "found_name" = 1
+   END
+ END
+
+//Loop through once more, and check for any of the above not added. If so, find an empty slot and add it
+
+FOR( cnt=0; cnt<"%spawns_num%"; cnt=cnt+1) BEGIN  //patching current in-game spawns
+  SET "current_spawn" = "%spawns_offset%"+0xc8*cnt
+  PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 1")=0) BEGIN
+    PATCH_IF ("%switch1%" = 0) BEGIN
+
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%" + 0x24 + (8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch1" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDSAND1~ #8
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10 //shut the loop down before we have a string of entries
+          END
+        END
+      END
+    END
+    PATCH_IF ("%switch1a%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch1a" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDTROLL~ #8
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10
+          END
+        END
+      END
+    END
+  END
+  PATCH_IF NOT FILE_EXISTS_IN_GAME ~OHB_101.bcs~ BEGIN
+    PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 4")=0) BEGIN
+      PATCH_IF ("%switch4%" = 0) BEGIN
+        FOR (x=0;x<10;x=x+1) BEGIN
+          READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+          READ_SHORT ("%current_spawn%" + 0x74) num_cre
+          PATCH_IF ("%num_cre%"<10) BEGIN
+            PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+              SET "switch4" = 1
+              WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDSDRUID~
+              num_cre = %num_cre% + 1
+              WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+              WRITE_SHORT ("%current_spawn%" + 0x84) ~8~
+              WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+              x = 10
+            END
+          END
+        END
+      END
+    END
+  END
+  PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 8")=0) BEGIN
+    PATCH_IF ("%switch6%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch6" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDTROLL~ #8
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10
+          END
+        END
+      END
+    END
+    PATCH_IF ("%switch6a%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch6a" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDGNOLL~ #8
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10 //shut the loop down before we have a string of entries
+          END
+        END
+      END
+    END
+  END
+END
+
+//Now, to add my own spawns to the picture!
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 7~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~2985~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~2229~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDSPID3~ #8
+WRITE_ASCII ("%new_spawns_offset%" + 0x2c) ~RDLIZ~ #8
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~2~ //unknown, but it always seems to match the 0x74 bytes
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 3~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~2849~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~971~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDSAND1~ #8
+WRITE_ASCII ("%new_spawns_offset%" + 0x2c) ~RDOGRE~ #8
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~2~
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 9~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~3806~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~1239~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDOGRE~ #8
+WRITE_ASCII ("%new_spawns_offset%" + 0x2c) ~RDORC~ #8
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~2~
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 10~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~4304~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~647~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDHOBGOB~
+WRITE_ASCII ("%new_spawns_offset%" + 0x2c) ~RDORC~ #8
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~2~
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 11~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~1074~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~530~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDSAND1~ #8
+WRITE_ASCII ("%new_spawns_offset%" + 0x2c) ~RDSPID3~ #8
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~2~
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 12~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~1174~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~1147~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDORC~ #8
+WRITE_ASCII ("%new_spawns_offset%" + 0x2c) ~RDGNOLL~ #8
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~2~ //unknowns
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+WRITE_LONG  0x64  "%spawns_num%"
+
+SET "info_ext"=0xc8*6
+PATCH_IF ("%actors_offset%">="%spawns_offset%") BEGIN
+  "actors_offset"="%actors_offset%"+"%info_ext%"
+  WRITE_LONG  0x54 "%actors_offset%"
+END
+PATCH_IF ("%vert_offset%">="%spawns_offset%") BEGIN
+  "vert_offset"="%vert_offset%"+"%info_ext%"
+  WRITE_LONG  0x7c  "%vert_offset%"
+END
+PATCH_IF ("%entrances_offset%">="%spawns_offset%") BEGIN
+  "entrances_offset"="%entrances_offset%"+"%info_ext%"
+  WRITE_LONG  0x68  "%entrances_offset%"
+END
+PATCH_IF ("%cont_offset%">="%spawns_offset%") BEGIN
+  "cont_offset"="%cont_offset%"+"%info_ext%"
+  WRITE_LONG  0x70  "%cont_offset%"
+END
+PATCH_IF ("%items_offset%">="%spawns_offset%") BEGIN
+  "items_offset"="%items_offset%"+"%info_ext%"
+  WRITE_LONG  0x78  "%items_offset%"
+END
+PATCH_IF ("%infotrig_offset%">="%spawns_offset%") BEGIN
+  "infotrig_offset"="%infotrig_offset%"+"%info_ext%"
+  WRITE_LONG  0x5c  "%infotrig_offset%"
+END
+PATCH_IF ("%amb_offset%">="%spawns_offset%") BEGIN
+  "amb_offset"="%amb_offset%"+"%info_ext%"
+  WRITE_LONG  0x84  "%amb_offset%"
+END
+PATCH_IF ("%vars_offset%">="%spawns_offset%") BEGIN
+  "vars_offset"="%vars_offset%"+"%info_ext%"
+  WRITE_LONG  0x88  "%vars_offset%"
+END
+PATCH_IF ("%expbmp_offset%">="%spawns_offset%") BEGIN
+  "expbmp_offset"="%expbmp_offset%"+"%info_ext%"
+   WRITE_LONG  0xa0  "%expbmp_offset%"
+END
+PATCH_IF ("%doors_offset%">="%spawns_offset%") BEGIN
+  "doors_offset"="%doors_offset%"+"%info_ext%"
+  WRITE_LONG  0xa8  "%doors_offset%"
+END
+PATCH_IF ("%anim_offset%">="%spawns_offset%") BEGIN
+  "anim_offset"="%anim_offset%"+"%info_ext%"
+  WRITE_LONG  0xb0  "%anim_offset%"
+END
+PATCH_IF ("%tiled_offset%">="%spawns_offset%") BEGIN
+  "tiled_offset"="%tiled_offset%"+"%info_ext%"
+  WRITE_LONG  0xb8  "%tiled_offset%"
+END
+PATCH_IF ("%songs_offset%">="%spawns_offset%") BEGIN
+  "songs_offset"="%songs_offset%"+"%info_ext%"
+  WRITE_LONG  0xbc  "%songs_offset%"
+END
+PATCH_IF ("%rest_spawns_offset%">="%spawns_offset%") BEGIN
+  "rest_spawns_offset"="%rest_spawns_offset%"+"%info_ext%"
+  WRITE_LONG  0xc0  "%rest_spawns_offset%"
+END
+PATCH_IF ("%automap_offset%">="%spawns_offset%") BEGIN
+  "automap_offset"="%automap_offset%"+"%info_ext%"
+  WRITE_LONG  0xc4  "%automap_offset%"
+END
+BUT_ONLY //ar1200.are
+
+//More spawns added
+COPY_EXISTING ~ar1201.are~ ~override~
+ READ_LONG  0x54  "actors_offset"
+ READ_LONG  0x58  "actors_num"
+ READ_SHORT 0x5a  "infotrig_num"
+ READ_LONG  0x5c  "infotrig_offset"
+ READ_LONG  0x60  "spawns_offset"
+ READ_LONG  0x64  "spawns_num"
+ READ_LONG  0x68  "entrances_offset"
+ READ_LONG  0x6c  "entrances_num"
+ READ_LONG  0x70  "cont_offset"
+ READ_SHORT 0x74  "cont_num"
+ READ_SHORT 0x76  "items_num"
+ READ_LONG  0x78  "items_offset"
+ READ_LONG  0x7c  "vert_offset"
+ READ_SHORT 0x80  "vert_num"
+ READ_SHORT 0x82  "amb_num"
+ READ_LONG  0x84  "amb_offset"
+ READ_LONG  0x88  "vars_offset"
+ READ_LONG  0x8c  "vars_num"
+ READ_LONG  0xa0  "expbmp_offset"
+ READ_LONG  0xa4  "doors_num"
+ READ_LONG  0xa8  "doors_offset"
+ READ_LONG  0xac  "anim_num"
+ READ_LONG  0xb0  "anim_offset"
+ READ_LONG  0xb4  "tiled_num"
+ READ_LONG  0xb8  "tiled_offset"
+ READ_LONG  0xbc  "songs_offset"
+ READ_LONG  0xc0  "rest_spawns_offset"
+ READ_LONG  0xc4  "automap_offset"
+ READ_LONG  0xc8  "automap_num"
+
+ SET "found_name" = 0
+
+ FOR( cnt=0; cnt<"%spawns_num%"; cnt=cnt+1) BEGIN  //patching current in-game spawns
+   SET "switch1" = 0
+   SET "switch1a" = 0
+   SET "switch2" = 0
+   SET "switch4" = 0
+   SET "current_spawn" = "%spawns_offset%" + 0xc8*cnt
+   READ_ASCII "%current_spawn%" "spawn_name" (13)
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 1")=0) BEGIN
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "MISTVA01")=0) BEGIN
+       SET "switch1" = 1
+       WRITE_ASCII ("%current_spawn%" + 0x24) ~RDMIST1~ #8 //change only if not modded
+       WRITE_LONG  ("%current_spawn%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+     END
+     READ_ASCII ("%current_spawn%"+0x2c) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "MISTCD01")=0) BEGIN
+       SET "switch1a" = 1
+       WRITE_ASCII ("%current_spawn%" + 0x2c) ~RDMIST2~ #8 //change only if not modded
+       WRITE_LONG  ("%current_spawn%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+     END
+   END
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 2")=0) BEGIN
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "RDORC")=0) BEGIN
+       SET "switch2" = 1
+       WRITE_ASCII ("%current_spawn%"+0x24) ~RDOGRE~ //change only if not modded
+     END
+   END
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 4")=0) BEGIN
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "MISTVA01")=0) BEGIN
+       SET "switch4" = 1
+       WRITE_ASCII ("%current_spawn%"+0x24) ~RDMIST1~ #8 //change only if not modded
+       WRITE_SHORT ("%current_spawn%" + 0x84) ~6~
+     END
+   END
+ END
+
+//Loop through once more, and check for any of the above that didn't overwrite. Instead, we add on to the list
+
+FOR( cnt=0; cnt<"%spawns_num%"; cnt=cnt+1) BEGIN  //patching current in-game spawns
+  SET "current_spawn" = "%spawns_offset%"+0xc8*cnt
+  PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 1")=0) BEGIN
+    PATCH_IF ("%switch1%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN //if we cannot find an open slot in the ten, we have to skip
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch1" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDMIST1~ #8
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            WRITE_LONG  ("%current_spawn%" + 0x88) ~0xffffffff~
+            x = 10
+          END
+        END
+      END
+    END
+    PATCH_IF ("%switch1a%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch1a" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDMIST2~ #8
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            WRITE_LONG  ("%current_spawn%" + 0x88) ~0xffffffff~
+            x = 10
+          END
+        END
+      END
+    END
+  END
+  PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 2")=0) BEGIN
+    PATCH_IF ("%switch2%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch2" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDOGRE~
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10
+          END
+        END
+      END
+    END
+  END
+  PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 4")=0) BEGIN
+    PATCH_IF ("%switch4%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch4" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDMIST1~ #8
+            num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10
+          END
+        END
+      END
+    END
+  END
+END
+
+//Now, to add my own spawns to the picture!
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 5~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~2982~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~1483~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDHOBGOB~
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT  ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~1~ //unknowns
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 6~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~1296~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~966~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDORC~ #8
+WRITE_ASCII ("%new_spawns_offset%" + 0x2c) ~RDORC~ #8
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT  ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~1~ //unknowns
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+WRITE_LONG  0x64  "%spawns_num%"
+
+SET "info_ext"=0xc8*2
+PATCH_IF ("%actors_offset%">="%spawns_offset%") BEGIN
+  "actors_offset"="%actors_offset%"+"%info_ext%"
+  WRITE_LONG  0x54 "%actors_offset%"
+END
+PATCH_IF ("%vert_offset%">="%spawns_offset%") BEGIN
+  "vert_offset"="%vert_offset%"+"%info_ext%"
+  WRITE_LONG  0x7c  "%vert_offset%"
+END
+PATCH_IF ("%entrances_offset%">="%spawns_offset%") BEGIN
+  "entrances_offset"="%entrances_offset%"+"%info_ext%"
+  WRITE_LONG  0x68  "%entrances_offset%"
+END
+PATCH_IF ("%cont_offset%">="%spawns_offset%") BEGIN
+  "cont_offset"="%cont_offset%"+"%info_ext%"
+  WRITE_LONG  0x70  "%cont_offset%"
+END
+PATCH_IF ("%items_offset%">="%spawns_offset%") BEGIN
+  "items_offset"="%items_offset%"+"%info_ext%"
+  WRITE_LONG  0x78  "%items_offset%"
+END
+PATCH_IF ("%infotrig_offset%">="%spawns_offset%") BEGIN
+  "infotrig_offset"="%infotrig_offset%"+"%info_ext%"
+  WRITE_LONG  0x5c  "%infotrig_offset%"
+END
+PATCH_IF ("%amb_offset%">="%spawns_offset%") BEGIN
+  "amb_offset"="%amb_offset%"+"%info_ext%"
+  WRITE_LONG  0x84  "%amb_offset%"
+END
+PATCH_IF ("%vars_offset%">="%spawns_offset%") BEGIN
+  "vars_offset"="%vars_offset%"+"%info_ext%"
+  WRITE_LONG  0x88  "%vars_offset%"
+END
+PATCH_IF ("%expbmp_offset%">="%spawns_offset%") BEGIN
+  "expbmp_offset"="%expbmp_offset%"+"%info_ext%"
+   WRITE_LONG  0xa0  "%expbmp_offset%"
+END
+PATCH_IF ("%doors_offset%">="%spawns_offset%") BEGIN
+  "doors_offset"="%doors_offset%"+"%info_ext%"
+  WRITE_LONG  0xa8  "%doors_offset%"
+END
+PATCH_IF ("%anim_offset%">="%spawns_offset%") BEGIN
+  "anim_offset"="%anim_offset%"+"%info_ext%"
+  WRITE_LONG  0xb0  "%anim_offset%"
+END
+PATCH_IF ("%tiled_offset%">="%spawns_offset%") BEGIN
+  "tiled_offset"="%tiled_offset%"+"%info_ext%"
+  WRITE_LONG  0xb8  "%tiled_offset%"
+END
+PATCH_IF ("%songs_offset%">="%spawns_offset%") BEGIN
+  "songs_offset"="%songs_offset%"+"%info_ext%"
+  WRITE_LONG  0xbc  "%songs_offset%"
+END
+PATCH_IF ("%rest_spawns_offset%">="%spawns_offset%") BEGIN
+  "rest_spawns_offset"="%rest_spawns_offset%"+"%info_ext%"
+  WRITE_LONG  0xc0  "%rest_spawns_offset%"
+END
+PATCH_IF ("%automap_offset%">="%spawns_offset%") BEGIN
+  "automap_offset"="%automap_offset%"+"%info_ext%"
+  WRITE_LONG  0xc4  "%automap_offset%"
+END
+BUT_ONLY //ar1201.are
+
+//7 Actors, 1 Trigger, 1 Spawn ---1 big old pile of code :P
+COPY_EXISTING ~ar1202.are~ ~override~
+ READ_LONG  0x54  "actors_offset"
+ READ_SHORT 0x58  "actors_num"
+ READ_SHORT 0x5a  "infotrig_num"
+ READ_LONG  0x5c  "infotrig_offset"
+ READ_LONG  0x60  "spawns_offset"
+ READ_LONG  0x64  "spawns_num"
+ READ_LONG  0x68  "entrances_offset"
+ READ_LONG  0x6c  "entrances_num"
+ READ_LONG  0x70  "cont_offset"
+ READ_SHORT 0x74  "cont_num"
+ READ_SHORT 0x76  "items_num"
+ READ_LONG  0x78  "items_offset"
+ READ_LONG  0x7c  "vert_offset"
+ READ_SHORT 0x80  "vert_num"
+ READ_SHORT 0x82  "amb_num"
+ READ_LONG  0x84  "amb_offset"
+ READ_LONG  0x88  "vars_offset"
+ READ_LONG  0x8c  "vars_num"
+ READ_LONG  0xa0  "expbmp_offset"
+ READ_LONG  0xa4  "doors_num"
+ READ_LONG  0xa8  "doors_offset"
+ READ_LONG  0xac  "anim_num"
+ READ_LONG  0xb0  "anim_offset"
+ READ_LONG  0xb4  "tiled_num"
+ READ_LONG  0xb8  "tiled_offset"
+ READ_LONG  0xbc  "songs_offset"
+ READ_LONG  0xc0  "rest_spawns_offset"
+ READ_LONG  0xc4  "automap_offset"
+ READ_LONG  0xc8  "automap_num"
+
+   SET offset = ("%actors_offset%"+0x110*"%actors_num%")
+   INSERT_BYTES offset 0x110
+   WRITE_ASCII offset ~Orc~ #8
+   WRITE_SHORT (offset+0x20) 2108         //X
+   WRITE_SHORT (offset+0x22) 843         //Y
+   WRITE_SHORT (offset+0x24) 2108         //destination X
+   WRITE_SHORT (offset+0x26) 2843         //destination Y
+   WRITE_LONG  (offset+0x28) 1            //visible
+   WRITE_BYTE  (offset+0x31) 0xe8
+   WRITE_LONG  (offset+0x34) 0            //orientation
+   WRITE_LONG  (offset+0x38) 0xffffffff   //unknown
+   WRITE_LONG  (offset+0x40) 0xffffffff   //schedule
+   WRITE_ASCII (offset+0x80) ~ORC01~ #8   //creature
+   INSERT_BYTES offset 0x110
+   WRITE_ASCII offset ~Orc~ #8
+   WRITE_SHORT (offset+0x20) 2306         //X
+   WRITE_SHORT (offset+0x22) 769          //Y
+   WRITE_SHORT (offset+0x24) 2306         //destination X
+   WRITE_SHORT (offset+0x26) 769         //destination Y
+   WRITE_LONG  (offset+0x28) 1            //visible
+   WRITE_BYTE  (offset+0x31) 0xe8
+   WRITE_LONG  (offset+0x34) 0            //orientation
+   WRITE_LONG  (offset+0x38) 0xffffffff   //unknown
+   WRITE_LONG  (offset+0x40) 0xffffffff   //schedule
+   WRITE_ASCII (offset+0x80) ~ORC04~ #8  //creature
+   INSERT_BYTES offset 0x110
+   WRITE_ASCII offset ~Orc~ #8
+   WRITE_SHORT (offset+0x20) 2065         //X
+   WRITE_SHORT (offset+0x22) 593         //Y
+   WRITE_SHORT (offset+0x24) 2065         //destination X
+   WRITE_SHORT (offset+0x26) 593         //destination Y
+   WRITE_LONG  (offset+0x28) 1            //visible
+   WRITE_BYTE  (offset+0x31) 0xe8
+   WRITE_LONG  (offset+0x34) 0           //orientation
+   WRITE_LONG  (offset+0x38) 0xffffffff   //unknown
+   WRITE_LONG  (offset+0x40) 0xffffffff   //schedule
+   WRITE_ASCII (offset+0x80) ~ORC04~ #8 //creature
+   INSERT_BYTES offset 0x110
+   WRITE_ASCII offset ~Orc~ #8
+   WRITE_SHORT (offset+0x20) 2160         //X
+   WRITE_SHORT (offset+0x22) 644         //Y
+   WRITE_SHORT (offset+0x24) 2160         //destination X
+   WRITE_SHORT (offset+0x26) 644         //destination Y
+   WRITE_LONG  (offset+0x28) 1            //visible
+   WRITE_BYTE  (offset+0x31) 0xe8
+   WRITE_LONG  (offset+0x34) 0            //orientation
+   WRITE_LONG  (offset+0x38) 0xffffffff   //unknown
+   WRITE_LONG  (offset+0x40) 0xffffffff   //schedule
+   WRITE_ASCII (offset+0x80) ~ORC03~ #8  //creature
+   INSERT_BYTES offset 0x110
+   WRITE_ASCII offset ~Orc~ #8
+   WRITE_SHORT (offset+0x20) 2096         //X
+   WRITE_SHORT (offset+0x22) 642         //Y
+   WRITE_SHORT (offset+0x24) 2096         //destination X
+   WRITE_SHORT (offset+0x26) 642         //destination Y
+   WRITE_LONG  (offset+0x28) 1            //visible
+   WRITE_BYTE  (offset+0x31) 0xe8
+   WRITE_LONG  (offset+0x34) 0            //orientation
+   WRITE_LONG  (offset+0x38) 0xffffffff   //unknown
+   WRITE_LONG  (offset+0x40) 0xffffffff   //schedule
+   WRITE_ASCII (offset+0x80) ~ORC02~ #8   //creature
+   INSERT_BYTES offset 0x110
+   WRITE_ASCII offset ~Orc~ #8
+   WRITE_SHORT (offset+0x20) 2187         //X
+   WRITE_SHORT (offset+0x22) 826         //Y
+   WRITE_SHORT (offset+0x24) 2187         //destination X
+   WRITE_SHORT (offset+0x26) 826         //destination Y
+   WRITE_LONG  (offset+0x28) 1            //visible
+   WRITE_BYTE  (offset+0x31) 0xe8
+   WRITE_LONG  (offset+0x34) 0            //orientation
+   WRITE_LONG  (offset+0x38) 0xffffffff   //unknown
+   WRITE_LONG  (offset+0x40) 0xffffffff   //schedule
+   WRITE_ASCII (offset+0x80) ~ORC01~ #8  //creature
+   INSERT_BYTES offset 0x110
+   WRITE_ASCII offset ~Orc~ #8
+   WRITE_SHORT (offset+0x20) 2002         //X
+   WRITE_SHORT (offset+0x22) 699         //Y
+   WRITE_SHORT (offset+0x24) 2002         //destination X
+   WRITE_SHORT (offset+0x26) 699         //destination Y
+   WRITE_LONG  (offset+0x28) 1            //visible
+   WRITE_BYTE  (offset+0x31) 0xe8
+   WRITE_LONG  (offset+0x34) 0           //orientation
+   WRITE_LONG  (offset+0x38) 0xffffffff   //unknown
+   WRITE_LONG  (offset+0x40) 0xffffffff   //schedule
+   WRITE_ASCII (offset+0x80) ~ORC01~ #8   //creature
+   SET "actors_num" = "%actors_num%"+7
+   WRITE_SHORT 0x58  "%actors_num%"
+
+   SET "info_ext"=0x110*7
+   PATCH_IF ("%infotrig_offset%">="%actors_offset%") BEGIN
+     "infotrig_offset"="%infotrig_offset%"+"%info_ext%"
+     WRITE_LONG  0x5c "%infotrig_offset%"
+   END
+   PATCH_IF ("%spawns_offset%">="%actors_offset%") BEGIN
+     "spawns_offset"="%spawns_offset%"+"%info_ext%"
+     WRITE_LONG  0x60  "%spawns_offset%"
+   END
+   PATCH_IF ("%entrances_offset%">="%actors_offset%") BEGIN
+     "entrances_offset"="%entrances_offset%"+"%info_ext%"
+     WRITE_LONG  0x68  "%entrances_offset%"
+   END
+   PATCH_IF ("%cont_offset%">="%actors_offset%") BEGIN
+     "cont_offset"="%cont_offset%"+"%info_ext%"
+     WRITE_LONG  0x70  "%cont_offset%"
+   END
+   PATCH_IF ("%items_offset%">="%actors_offset%") BEGIN
+     "items_offset"="%items_offset%"+"%info_ext%"
+     WRITE_LONG  0x78  "%items_offset%"
+   END
+   PATCH_IF ("%vert_offset%">="%actors_offset%") BEGIN
+     "vert_offset"="%vert_offset%"+"%info_ext%"
+     WRITE_LONG  0x7c  "%vert_offset%"
+   END
+   PATCH_IF ("%amb_offset%">="%actors_offset%") BEGIN
+     "amb_offset"="%amb_offset%"+"%info_ext%"
+     WRITE_LONG  0x84  "%amb_offset%"
+   END
+   PATCH_IF ("%vars_offset%">="%actors_offset%") BEGIN
+     "vars_offset"="%vars_offset%"+"%info_ext%"
+     WRITE_LONG  0x88  "%vars_offset%"
+   END
+   PATCH_IF ("%expbmp_offset%">="%actors_offset%") BEGIN
+     "expbmp_offset"="%expbmp_offset%"+"%info_ext%"
+     WRITE_LONG  0xa0  "%expbmp_offset%"
+   END
+   PATCH_IF ("%doors_offset%">="%actors_offset%") BEGIN
+     "doors_offset"="%doors_offset%"+"%info_ext%"
+     WRITE_LONG  0xa8  "%doors_offset%"
+   END
+   PATCH_IF ("%anim_offset%">="%actors_offset%") BEGIN
+     "anim_offset"="%anim_offset%"+"%info_ext%"
+     WRITE_LONG  0xb0  "%anim_offset%"
+   END
+   PATCH_IF ("%tiled_offset%">="%actors_offset%") BEGIN
+     "tiled_offset"="%tiled_offset%"+"%info_ext%"
+     WRITE_LONG  0xb8  "%tiled_offset%"
+   END
+   PATCH_IF ("%songs_offset%">="%actors_offset%") BEGIN
+     "songs_offset"="%songs_offset%"+"%info_ext%"
+     WRITE_LONG  0xbc  "%songs_offset%"
+   END
+   PATCH_IF ("%rest_spawns_offset%">="%actors_offset%") BEGIN
+     "rest_spawns_offset"="%rest_spawns_offset%"+"%info_ext%"
+     WRITE_LONG  0xc0  "%rest_spawns_offset%"
+   END
+   PATCH_IF ("%automap_offset%">="%actors_offset%") BEGIN
+     "automap_offset"="%automap_offset%"+"%info_ext%"
+     WRITE_LONG  0xc4  "%automap_offset%"
+   END
+
+   SET "switch3" = 0
+   SET "switch3a" = 0
+   SET "switch12" = 0
+
+ FOR( cnt=0; cnt<"%spawns_num%"; cnt=cnt+1) BEGIN  //patching current in-game spawns
+   SET "current_spawn" = "%spawns_offset%" + 0xc8*cnt
+   READ_ASCII "%current_spawn%" "spawn_name" (14)
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 12")=0) BEGIN
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "GHASTF01")=0) BEGIN
+       SET "switch12" = 1
+       WRITE_ASCII ("%current_spawn%"+0x24) ~RDUNDEAD~  //change only if not modded
+     END
+   END
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 2")=0) BEGIN
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     PATCH_IF(("%spawn_cre%" STRING_COMPARE_CASE "OTYUGH01")=0) BEGIN
+       READ_SHORT ("%current_spawn%" + 0x84) "max_spawn"
+       PATCH_IF ("%max_spawn%" < 3) BEGIN
+         WRITE_SHORT ("%current_spawn%" + 0x84) ~3~
+       END
+     END
+   END
+   PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 3")=0) BEGIN
+     READ_ASCII ("%current_spawn%"+0x24) "spawn_cre"
+     READ_ASCII ("%current_spawn%"+0x2c) "spawn_cre2"
+     PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "FIRWRA01")=0) BEGIN
+       PATCH_IF (("%spawn_cre2%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre2%" STRING_COMPARE_CASE "None") = 0) BEGIN
+         SET "switch3" = 1
+         SET "switch3a" = 1
+         WRITE_ASCII ("%current_spawn%"+0x2c) ~WRAITH01~ //change only if not modded
+         WRITE_ASCII ("%current_spawn%"+0x34) ~SHADFI01~ //change only if not modded
+         WRITE_SHORT ("%current_spawn%" + 0x74) ~3~
+         WRITE_SHORT ("%current_spawn%" + 0x84) ~4~
+         WRITE_SHORT ("%current_spawn%" + 0x86) ~3~
+       END
+     END
+   END
+ END
+
+//Loop through once more, and check for any of the above not added. If so, find an empty slot and add it
+
+FOR( cnt=0; cnt<"%spawns_num%"; cnt=cnt+1) BEGIN  //patching current in-game spawns
+  SET "current_spawn" = "%spawns_offset%"+0xc8*cnt
+  READ_ASCII "%current_spawn%" "spawn_name" (13)
+  PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 3")=0) BEGIN
+    PATCH_IF ("%switch3%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(0x8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            "switch3" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(0x8*x)) ~WRAITH01~
+            SET num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x84) ~4~
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10
+          END
+        END
+      END
+    END
+    PATCH_IF ("%switch3a%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(0x8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            "switch3a" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(0x8*x)) ~SHADFI01~
+            SET num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x84) ~4~
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10
+          END
+        END
+      END
+    END
+  END
+  PATCH_IF (("%spawn_name%" STRING_COMPARE_CASE "Spawn Point 12")=0) BEGIN
+    PATCH_IF ("%switch12%" = 0) BEGIN
+      FOR (x=0;x<10;x=x+1) BEGIN
+        READ_ASCII ("%current_spawn%"+0x24+(8*x)) "spawn_cre"
+        READ_SHORT ("%current_spawn%" + 0x74) num_cre
+        PATCH_IF ("%num_cre%"<10) BEGIN
+          PATCH_IF (("%spawn_cre%" STRING_COMPARE_CASE "") = 0) OR (("%spawn_cre%" STRING_COMPARE_CASE "None") = 0) BEGIN
+            SET "switch12" = 1
+            WRITE_ASCII ("%current_spawn%"+0x24+(8*x)) ~RDUNDEAD~
+            SET num_cre = %num_cre% + 1
+            WRITE_SHORT ("%current_spawn%" + 0x74) %num_cre%
+            WRITE_SHORT ("%current_spawn%" + 0x84) ~4~
+            WRITE_SHORT ("%current_spawn%" + 0x86) %num_cre% // a connected offset
+            x = 10
+          END
+        END
+      END
+    END
+  END
+END
+
+SET "new_spawns_offset" = ("%spawns_offset%"+0xc8*"%spawns_num%")
+INSERT_BYTES "%new_spawns_offset%" 0xc8
+WRITE_ASCII "%new_spawns_offset%" ~Spawn Point 13~ #32
+WRITE_SHORT ("%new_spawns_offset%" + 0x20) ~3466~
+WRITE_SHORT ("%new_spawns_offset%" + 0x22) ~2325~
+WRITE_ASCII ("%new_spawns_offset%" + 0x24) ~RDUNDEA2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x74) ~1~
+WRITE_SHORT ("%new_spawns_offset%" + 0x76) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x78) ~1~
+WRITE_SHORT  ("%new_spawns_offset%" + 0x7a) ~0x1~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x7c) ~0x03e8~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x80) ~0x03e8~ //unknowns
+WRITE_SHORT  ("%new_spawns_offset%" + 0x82) ~0x03e8~ //unknowns
+WRITE_SHORT ("%new_spawns_offset%" + 0x84) ~2~
+WRITE_SHORT ("%new_spawns_offset%" + 0x86) ~1~ //unknowns
+WRITE_LONG  ("%new_spawns_offset%" + 0x88) ~0xffffffff~ //time to pull out the hex editor...
+WRITE_LONG  ("%new_spawns_offset%" + 0x8c) ~0x640064~
+SET "spawns_num" = "%spawns_num%" +1
+
+WRITE_LONG  0x64  "%spawns_num%"
+
+SET "info_ext"=0xc8
+PATCH_IF ("%actors_offset%">="%spawns_offset%") BEGIN
+  "actors_offset"="%actors_offset%"+"%info_ext%"
+  WRITE_LONG  0x54 "%actors_offset%"
+END
+PATCH_IF ("%vert_offset%">="%spawns_offset%") BEGIN
+  "vert_offset"="%vert_offset%"+"%info_ext%"
+  WRITE_LONG  0x7c  "%vert_offset%"
+END
+PATCH_IF ("%entrances_offset%">="%spawns_offset%") BEGIN
+  "entrances_offset"="%entrances_offset%"+"%info_ext%"
+  WRITE_LONG  0x68  "%entrances_offset%"
+END
+PATCH_IF ("%cont_offset%">="%spawns_offset%") BEGIN
+  "cont_offset"="%cont_offset%"+"%info_ext%"
+  WRITE_LONG  0x70  "%cont_offset%"
+END
+PATCH_IF ("%items_offset%">="%spawns_offset%") BEGIN
+  "items_offset"="%items_offset%"+"%info_ext%"
+  WRITE_LONG  0x78  "%items_offset%"
+END
+PATCH_IF ("%infotrig_offset%">="%spawns_offset%") BEGIN
+  "infotrig_offset"="%infotrig_offset%"+"%info_ext%"
+  WRITE_LONG  0x5c  "%infotrig_offset%"
+END
+PATCH_IF ("%amb_offset%">="%spawns_offset%") BEGIN
+  "amb_offset"="%amb_offset%"+"%info_ext%"
+  WRITE_LONG  0x84  "%amb_offset%"
+END
+PATCH_IF ("%vars_offset%">="%spawns_offset%") BEGIN
+  "vars_offset"="%vars_offset%"+"%info_ext%"
+  WRITE_LONG  0x88  "%vars_offset%"
+END
+PATCH_IF ("%expbmp_offset%">="%spawns_offset%") BEGIN
+  "expbmp_offset"="%expbmp_offset%"+"%info_ext%"
+   WRITE_LONG  0xa0  "%expbmp_offset%"
+END
+PATCH_IF ("%doors_offset%">="%spawns_offset%") BEGIN
+  "doors_offset"="%doors_offset%"+"%info_ext%"
+  WRITE_LONG  0xa8  "%doors_offset%"
+END
+PATCH_IF ("%anim_offset%">="%spawns_offset%") BEGIN
+  "anim_offset"="%anim_offset%"+"%info_ext%"
+  WRITE_LONG  0xb0  "%anim_offset%"
+END
+PATCH_IF ("%tiled_offset%">="%spawns_offset%") BEGIN
+  "tiled_offset"="%tiled_offset%"+"%info_ext%"
+  WRITE_LONG  0xb8  "%tiled_offset%"
+END
+PATCH_IF ("%songs_offset%">="%spawns_offset%") BEGIN
+  "songs_offset"="%songs_offset%"+"%info_ext%"
+  WRITE_LONG  0xbc  "%songs_offset%"
+END
+PATCH_IF ("%rest_spawns_offset%">="%spawns_offset%") BEGIN
+  "rest_spawns_offset"="%rest_spawns_offset%"+"%info_ext%"
+  WRITE_LONG  0xc0  "%rest_spawns_offset%"
+END
+PATCH_IF ("%automap_offset%">="%spawns_offset%") BEGIN
+  "automap_offset"="%automap_offset%"+"%info_ext%"
+  WRITE_LONG  0xc4  "%automap_offset%"
+END
+
+SET info_1=1
+FOR( cnt=0; cnt<"%infotrig_num%"; cnt=cnt+1) BEGIN  //info/triggers loop
+  READ_ASCII ("%infotrig_offset%"+0xc4*cnt)       "info_name"
+  PATCH_IF (("%info_name%" STRING_COMPARE_CASE "Chapter 6 trap 5")=0) BEGIN  //if already exists
+    info_1=0
+  END
+END
+
+ PATCH_IF (info_1=1) BEGIN                //adding new Travel trigger  *******************************
+   SET offset = ("%infotrig_offset%"+0xc4*"%infotrig_num%")
+   INSERT_BYTES offset 0xc4
+   WRITE_ASCII offset ~Chapter 6 trap 5~
+   WRITE_SHORT (offset+0x20) 0            //proximity trigger
+   WRITE_SHORT (offset+0x22) 2595         //bounding box
+   WRITE_SHORT (offset+0x24) 1214         //bounding box
+   WRITE_SHORT (offset+0x26) 2716         //bounding box
+   WRITE_SHORT (offset+0x28) 1272         //bounding box
+   WRITE_SHORT (offset+0x2a) 4            //vertices number
+   WRITE_LONG  (offset+0x2c) "%vert_num%" //first vertex index
+   WRITE_LONG  (offset+0x34) 0            //cursor frame number
+   WRITE_SHORT (offset+0x68) 255          //Trap Detection
+   WRITE_SHORT (offset+0x6a) 255          //Trap Removal
+   WRITE_SHORT (offset+0x6c) 1            //Yup, it's trapped alrighty
+   WRITE_SHORT (offset+0x6e) 0            //And not detected
+   WRITE_SHORT (offset+0x70) 3422         //Trap Location X
+   WRITE_SHORT (offset+0x72) 771          //Trap Location Y
+   WRITE_ASCII (offset+0x7c) ~SPWNVAMP~   //script
+   SET "infotrig_num"="%infotrig_num%"+1
+   WRITE_SHORT 0x5a  "%infotrig_num%"
+ END
+
+ SET "info_ext"=0xc4*%info_1%
+ PATCH_IF ("%actors_offset%">="%infotrig_offset%") BEGIN
+   "actors_offset"="%actors_offset%"+"%info_ext%"
+   WRITE_LONG  0x54 "%actors_offset%"
+ END
+ PATCH_IF ("%spawns_offset%">="%infotrig_offset%") BEGIN
+   "spawns_offset"="%spawns_offset%"+"%info_ext%"
+   WRITE_LONG  0x60  "%spawns_offset%"
+ END
+ PATCH_IF ("%entrances_offset%">="%infotrig_offset%") BEGIN
+   "entrances_offset"="%entrances_offset%"+"%info_ext%"
+   WRITE_LONG  0x68  "%entrances_offset%"
+ END
+ PATCH_IF ("%cont_offset%">="%infotrig_offset%") BEGIN
+   "cont_offset"="%cont_offset%"+"%info_ext%"
+   WRITE_LONG  0x70  "%cont_offset%"
+ END
+ PATCH_IF ("%items_offset%">="%infotrig_offset%") BEGIN
+   "items_offset"="%items_offset%"+"%info_ext%"
+   WRITE_LONG  0x78  "%items_offset%"
+ END
+ PATCH_IF ("%vert_offset%">="%infotrig_offset%") BEGIN
+   "vert_offset"="%vert_offset%"+"%info_ext%"
+   WRITE_LONG  0x7c  "%vert_offset%"
+ END
+ PATCH_IF ("%amb_offset%">="%infotrig_offset%") BEGIN
+   "amb_offset"="%amb_offset%"+"%info_ext%"
+   WRITE_LONG  0x84  "%amb_offset%"
+ END
+ PATCH_IF ("%vars_offset%">="%infotrig_offset%") BEGIN
+   "vars_offset"="%vars_offset%"+"%info_ext%"
+   WRITE_LONG  0x88  "%vars_offset%"
+ END
+ PATCH_IF ("%expbmp_offset%">="%infotrig_offset%") BEGIN
+   "expbmp_offset"="%expbmp_offset%"+"%info_ext%"
+   WRITE_LONG  0xa0  "%expbmp_offset%"
+ END
+ PATCH_IF ("%doors_offset%">="%infotrig_offset%") BEGIN
+   "doors_offset"="%doors_offset%"+"%info_ext%"
+   WRITE_LONG  0xa8  "%doors_offset%"
+ END
+ PATCH_IF ("%anim_offset%">="%infotrig_offset%") BEGIN
+   "anim_offset"="%anim_offset%"+"%info_ext%"
+   WRITE_LONG  0xb0  "%anim_offset%"
+ END
+ PATCH_IF ("%tiled_offset%">="%infotrig_offset%") BEGIN
+   "tiled_offset"="%tiled_offset%"+"%info_ext%"
+   WRITE_LONG  0xb8  "%tiled_offset%"
+ END
+ PATCH_IF ("%songs_offset%">="%infotrig_offset%") BEGIN
+   "songs_offset"="%songs_offset%"+"%info_ext%"
+   WRITE_LONG  0xbc  "%songs_offset%"
+ END
+ PATCH_IF ("%rest_spawns_offset%">="%infotrig_offset%") BEGIN
+   "rest_spawns_offset"="%rest_spawns_offset%"+"%info_ext%"
+   WRITE_LONG  0xc0  "%rest_spawns_offset%"
+ END
+ PATCH_IF ("%automap_offset%">="%infotrig_offset%") BEGIN
+   "automap_offset"="%automap_offset%"+"%info_ext%"
+   WRITE_LONG  0xc4  "%automap_offset%"
+ END
+
+ PATCH_IF (info_1=1) BEGIN            //adding vertices for the new trigger
+   SET offset = ("%vert_offset%"+0x04*"%vert_num%")
+   INSERT_BYTES offset (0x04*4)
+   WRITE_SHORT  offset      2619
+   WRITE_SHORT  (offset+2)  1214
+   WRITE_SHORT  (offset+4)  2716
+   WRITE_SHORT  (offset+6)  1249
+   WRITE_SHORT  (offset+8)  2867
+   WRITE_SHORT  (offset+10) 1272
+   WRITE_SHORT  (offset+12) 2595
+   WRITE_SHORT  (offset+14) 1232
+   SET "vert_num"="%vert_num%"+4
+   WRITE_SHORT 0x80  "%vert_num%"
+ END
+
+ SET "info_ext"=0x04*info_1*4
+ PATCH_IF ("%actors_offset%">="%vert_offset%") BEGIN
+   "actors_offset"="%actors_offset%"+"%info_ext%"
+   WRITE_LONG  0x54 "%actors_offset%"
+ END
+ PATCH_IF ("%spawns_offset%">="%vert_offset%") BEGIN
+   "spawns_offset"="%spawns_offset%"+"%info_ext%"
+   WRITE_LONG  0x60  "%spawns_offset%"
+ END
+ PATCH_IF ("%entrances_offset%">="%vert_offset%") BEGIN
+   "entrances_offset"="%entrances_offset%"+"%info_ext%"
+   WRITE_LONG  0x68  "%entrances_offset%"
+ END
+ PATCH_IF ("%cont_offset%">="%vert_offset%") BEGIN
+   "cont_offset"="%cont_offset%"+"%info_ext%"
+   WRITE_LONG  0x70  "%cont_offset%"
+ END
+ PATCH_IF ("%items_offset%">="%vert_offset%") BEGIN
+   "items_offset"="%items_offset%"+"%info_ext%"
+   WRITE_LONG  0x78  "%items_offset%"
+ END
+ PATCH_IF ("%infotrig_offset%">="%vert_offset%") BEGIN
+   "infotrig_offset"="%infotrig_offset%"+"%info_ext%"
+   WRITE_LONG  0x5c  "%infotrig_offset%"
+ END
+ PATCH_IF ("%amb_offset%">="%vert_offset%") BEGIN
+   "amb_offset"="%amb_offset%"+"%info_ext%"
+   WRITE_LONG  0x84  "%amb_offset%"
+ END
+ PATCH_IF ("%vars_offset%">="%vert_offset%") BEGIN
+   "vars_offset"="%vars_offset%"+"%info_ext%"
+   WRITE_LONG  0x88  "%vars_offset%"
+ END
+ PATCH_IF ("%expbmp_offset%">="%vert_offset%") BEGIN
+   "expbmp_offset"="%expbmp_offset%"+"%info_ext%"
+   WRITE_LONG  0xa0  "%expbmp_offset%"
+ END
+ PATCH_IF ("%doors_offset%">="%vert_offset%") BEGIN
+   "doors_offset"="%doors_offset%"+"%info_ext%"
+   WRITE_LONG  0xa8  "%doors_offset%"
+ END
+ PATCH_IF ("%anim_offset%">="%vert_offset%") BEGIN
+   "anim_offset"="%anim_offset%"+"%info_ext%"
+   WRITE_LONG  0xb0  "%anim_offset%"
+ END
+ PATCH_IF ("%tiled_offset%">="%vert_offset%") BEGIN
+   "tiled_offset"="%tiled_offset%"+"%info_ext%"
+   WRITE_LONG  0xb8  "%tiled_offset%"
+ END
+ PATCH_IF ("%songs_offset%">="%vert_offset%") BEGIN
+   "songs_offset"="%songs_offset%"+"%info_ext%"
+   WRITE_LONG  0xbc  "%songs_offset%"
+ END
+ PATCH_IF ("%rest_spawns_offset%">="%vert_offset%") BEGIN
+   "rest_spawns_offset"="%rest_spawns_offset%"+"%info_ext%"
+   WRITE_LONG  0xc0  "%rest_spawns_offset%"
+ END
+ PATCH_IF ("%automap_offset%">="%vert_offset%") BEGIN
+   "automap_offset"="%automap_offset%"+"%info_ext%"
+   WRITE_LONG  0xc4  "%automap_offset%"
+ END
+BUT_ONLY //ar1202.are
+
+
+COPY_EXISTING ~garren.cre~ ~override~ //Garren Windspear
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_ASCII 0x258 ~bp!plot~ #8 // Race (was NONE)
+    WRITE_ASCII 0x260 ~bppald16~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 17 // Alignment (was 0)
+    REMOVE_KNOWN_SPELL ~sppr401~
+    REMOVE_MEMORIZED_SPELL ~sppr401~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr323~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr313~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr406~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr412~ #3 ~priest~
+    ADD_MEMORIZED_SPELL ~spcl211~ #0 ~innate~ (3)
+    ADD_MEMORIZED_SPELL ~spcl213~ #0 ~innate~ (11)
+    REMOVE_CRE_ITEM ~CHAN01~
+    REMOVE_CRE_ITEM ~SW1H07~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~PLAT01~ #0 #0 #0 ~NONE~ ~ARMOR~
+    REPLACE_CRE_ITEM ~SW2H01~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP TWOHANDED
+    ADD_CRE_ITEM ~POTN52~ #1 #0 #0 ~NONE~ ~QITEM1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firkra02.cre~ ~override~ //Firkraag
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    SAY NAME1 #34947 // LongName (~Firkraag~)
+    SAY NAME2 #34947 // ShortName (~Firkraag~)
+    WRITE_ASCII 0x34 ~firks~ #8 // SmallPortrait (was NONE)
+    WRITE_ASCII 0x248 ~shoutdlg~ #8 // Override (was FIRKRA02)
+    WRITE_ASCII 0x250 ~bpdragre~ #8 // Override (was FIRKRA02)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~akae.cre~ ~override~ //Akae
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 4
+    WRITE_SHORT 0x48 4
+    WRITE_SHORT 0x238 16
+    WRITE_ASCII 0x248 ~humansht~ #8 
+    WRITE_ASCII 0x258 ~~ #8 
+    WRITE_ASCII 0x260 ~~ #8 
+    WRITE_ASCII 0x268 ~bpcken2b~ #8 
+  END
+BUT_ONLY
+
+COPY_EXISTING ~chak.cre~ ~override~ //Chak
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 128 // CurrHP (was 98)
+    WRITE_SHORT 0x26 128 // MaxHP (was 98)
+    WRITE_SHORT 0x28 59168 // AnimationID (was 59152)
+    WRITE_SHORT 0x46 4 // ACNatul (was 7)
+    WRITE_SHORT 0x48 4 // ACEffec (was 7)
+    WRITE_ASCII 0x248 ~humansht~ #8 
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    SET_BG2_PROFICIENCY ~PROFICIENCYAXE~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~deshar.cre~ ~override~ //Ferric Ironblade
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 85 // CurrHP (was 75)
+    WRITE_SHORT 0x26 85 // MaxHP (was 75)
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_BYTE 0x64 60 // DtectIll (was 0)
+    WRITE_BYTE 0x68 80 // Stealth (was 100)
+    WRITE_BYTE 0x235 13 // HighestLevelSecond (was 10)
+    WRITE_ASCII 0x248 ~bpthfsht~ #8 
+    WRITE_ASCII 0x250 ~~ #8 // Class (was USEITEM)
+    WRITE_ASCII 0x258 ~~ #8 // Race (was YOSHX)
+    WRITE_ASCII 0x268 ~bpthief~ #8 // Default (was NONE)
+    ADD_MEMORIZED_SPELL ~spin483~ #0 ~innate~ (4)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~kaol.cre~ ~override~ //Kaol
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 
+    WRITE_ASCII 0x250 ~bpmag12d~ #8
+    WRITE_ASCII 0x260 ~~ #8 // General (was USEITEM)
+    WRITE_ASCII 0x268 ~wbarsgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spwi308~
+    REMOVE_KNOWN_SPELL ~spwi313~
+    REMOVE_KNOWN_SPELL ~spwi605~
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi212~
+    REMOVE_MEMORIZED_SPELL ~spwi408~
+    REMOVE_MEMORIZED_SPELL ~spwi605~
+    ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (3)
+    ADD_MEMORIZED_SPELL ~spwi118~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi318~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi312~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi615~ #5 ~wizard~
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~legdor.cre~ ~override~ //Legdoril
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 
+    WRITE_ASCII 0x250 ~bppri12a~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~sppr608~
+    REMOVE_KNOWN_SPELL ~sppr603~
+    REMOVE_MEMORIZED_SPELL ~sppr208~
+    REMOVE_MEMORIZED_SPELL ~sppr315~
+    REMOVE_MEMORIZED_SPELL ~sppr511~
+    REMOVE_MEMORIZED_SPELL ~sppr607~
+    REMOVE_MEMORIZED_SPELL ~sppr608~
+    ADD_MEMORIZED_SPELL ~sppr109~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr108~ #0 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr208~ #1 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr203~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ (2)
+    ADD_MEMORIZED_SPELL ~sppr301~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr511~ #4 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr517~ #4 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr699~ #5 ~priest~
+    ADD_MEMORIZED_SPELL ~sppr613~ #5 ~priest~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~SLNG01~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+    REPLACE_CRE_ITEM ~BULL01~ #40 #0 #0 ~NONE~ ~QUIVER1~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~samia.cre~ ~override~ //Samia
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x53 7 // NOAtt (was 1)
+    WRITE_ASCII 0x250 ~humansht~ #8 
+    WRITE_ASCII 0x258 ~~ #8 // Race (was USEITEM)
+    WRITE_ASCII 0x268 ~wbasight~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~POTN14~ #1 #0 #0 ~NONE~ ~QITEM1~
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~firarc01.cre~ ~override~ //Orc Archer
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_SHORT 0x46 3 // ACNatul (was 10)
+    WRITE_SHORT 0x48 3 // ACEffec (was 10)
+    WRITE_BYTE 0x234 8 // HighestLevelPrimary (was 6)
+    WRITE_BYTE 0x238 18 // Str (was 17)
+    WRITE_BYTE 0x239 51 // StrBon (was 0)
+    WRITE_BYTE 0x23c 18 // Dex (was 9)
+    WRITE_BYTE 0x23d 19 // Con (was 9)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Override (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_CRE_ITEM ~SHLD05~
+    REMOVE_CRE_ITEM ~BOW01~
+    REPLACE_CRE_ITEM ~HELM01~ #0 #0 #0 ~NONE~ ~HELMET~
+    REPLACE_CRE_ITEM ~BOW03~ #0 #0 #0 ~NONE~ ~WEAPON2~ EQUIP TWOHANDED
+    SET_BG2_PROFICIENCY ~PROFICIENCYLONGBOW~ 3
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firban01.cre~ ~override~ //Bandit
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~humansht~ #8 
+    WRITE_ASCII 0x248 ~bpmag16a~ #8
+    WRITE_ASCII 0x258 ~~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DAGG03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DAGG16~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firban02.cre~ ~override~ //Bandit
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 
+    WRITE_ASCII 0x258 ~bpprst12~ #8
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DAGG03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DAGG16~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firban03.cre~ ~override~ //Bandit
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~humansht~ #8 
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+    REPLACE_CRE_ITEM ~DAGG03~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+    REPLACE_CRE_ITEM ~DAGG16~ #20 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firban04.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 32 // CurrHP (was 20)
+    WRITE_SHORT 0x26 32 // MaxHP (was 20)
+    WRITE_BYTE 0x234 4 // HighestLevelPrimary (was 6)
+    WRITE_ASCII 0x250 ~humansht~ #8 
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x274 1 // IDSSpecifc (was 5)
+    WRITE_BYTE 0x27b 19 // Alignment (was 50)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firban05.cre~ ~override~ //Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 32 // CurrHP (was 20)
+    WRITE_SHORT 0x26 32 // MaxHP (was 20)
+    WRITE_BYTE 0x234 4 // HighestLevelPrimary (was 6)
+    WRITE_ASCII 0x250 ~humansht~ #8 
+    WRITE_ASCII 0x268 ~bpwtrsgt~ #8 // Default (was WTASIGHT)
+    WRITE_BYTE 0x27b 19 // Alignment (was 50)
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~firmag01.cre~ ~override~ //Conster
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~bpmag16m~ #8 
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spwi522~
+    REMOVE_MEMORIZED_SPELL ~spwi211~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi408~
+    REMOVE_MEMORIZED_SPELL ~spwi522~
+    REMOVE_MEMORIZED_SPELL ~spwi713~
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi308~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi306~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi303~ #2 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi418~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi423~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi508~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi501~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi611~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi716~ #6 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi812~ #7 ~wizard~
+    REPLACE_CRE_ITEM ~DART01~ #30 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firorc01.cre~ ~override~ //Chieftain DigDag
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x46 6 // ACNatul (was 10)
+    WRITE_SHORT 0x48 6 // ACEffec (was 10)
+    WRITE_BYTE 0x238 19 // Str (was 17)
+    WRITE_BYTE 0x23c 10 // Dex (was 9)
+    WRITE_BYTE 0x23d 20 // Con (was 9)
+    WRITE_BYTE 0x23f 15 // Mor (was 12)
+    WRITE_BYTE 0x240 4 // Morbrk (was 7)
+    WRITE_BYTE 0x241 255 // Racial (was 0)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpleader~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REPLACE_CRE_ITEM ~AX1H04~ #20 #0 #0 ~NONE~ ~WEAPON2~ EQUIP
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firorc02.cre~ ~override~ //Derg the Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 38 // CurrHP (was 8)
+    WRITE_SHORT 0x26 38 // MaxHP (was 8)
+    WRITE_ASCII 0x258 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firorc03.cre~ ~override~ //Flaylan the Orc
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x28 59392 // AnimationID (was 59424)
+    WRITE_ASCII 0x248 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firrak01.cre~ ~override~ //Ruhk Transmuter
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~shoutdlg~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpmag12a~ #8 // Race (was NONE)
+    WRITE_ASCII 0x258 ~bprakruh~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+    REMOVE_KNOWN_SPELL ~spwi210~
+    REMOVE_KNOWN_SPELL ~spwi209~
+    REMOVE_KNOWN_SPELL ~spwi504~
+    REMOVE_MEMORIZED_SPELL ~spwi116~
+    REMOVE_MEMORIZED_SPELL ~spwi210~
+    REMOVE_MEMORIZED_SPELL ~spwi209~
+    ADD_MEMORIZED_SPELL ~spwi116~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi104~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi118~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi219~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi213~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi311~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi411~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi407~ #3 ~wizard~
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firrak02.cre~ ~override~ //Ruhk
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x248 ~shoutdlg~ #8 // Class (was NONE)
+    WRITE_ASCII 0x250 ~humansht~ #8 // Class (was NONE)
+    WRITE_ASCII 0x258 ~bpmag12a~ #8 // Race (was NONE)
+    WRITE_ASCII 0x258 ~bprakruh~ #8 // Race (was NONE)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firamb03.cre~ ~override~ //Troll
+              ~firtrl01.cre~ ~override~ //Troll Cook
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_BYTE 0x234 7 // HighestLevelPrimary (was 6)
+    WRITE_BYTE 0x239 100 // StrBon (was 0)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8 // Default (was WTASIGHT)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firwlf01.cre~ ~override~ //Grancor
+              ~firwlf02.cre~ ~override~ //Falik
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_ASCII 0x250 ~~ #8 // Class (was WTASIGHT)
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+  END
+BUT_ONLY
+              
+COPY_EXISTING ~firwra01.cre~ ~override~ //Greater Wraith
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 91 // CurrHP (was 65)
+    WRITE_SHORT 0x26 91 // MaxHP (was 65)
+    WRITE_SHORT 0x46 ~-1~ // ACNatul (was 2)
+    WRITE_SHORT 0x48 ~-1~ // ACEffec (was 2)
+    WRITE_BYTE 0x234 10 // HighestLevelPrimary (was 8)
+    WRITE_ASCII 0x248 ~creshout~ #8 // Class (was WTASIGHT)
+    WRITE_ASCII 0x250 ~bpmag14m~ #8 // Class (was NONE)
+    WRITE_ASCII 0x268 ~bpshadow~ #8
+    REMOVE_MEMORIZED_SPELL ~spwi112~
+    REMOVE_MEMORIZED_SPELL ~spwi212~
+    REMOVE_MEMORIZED_SPELL ~spwi304~
+    REMOVE_MEMORIZED_SPELL ~spwi308~
+    REMOVE_MEMORIZED_SPELL ~spwi402~
+    REMOVE_MEMORIZED_SPELL ~spwi415~
+    REMOVE_MEMORIZED_SPELL ~spwi502~
+    REMOVE_MEMORIZED_SPELL ~spwi504~
+    REMOVE_MEMORIZED_SPELL ~spwi602~
+    REMOVE_MEMORIZED_SPELL ~spwi604~
+    ADD_MEMORIZED_SPELL ~spwi106~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi105~ #0 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi125~ #0 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi205~ #1 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi317~ #2 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi314~ #2 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~ (2)
+    ADD_MEMORIZED_SPELL ~spwi409~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi412~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi419~ #3 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi512~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi513~ #4 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi607~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~spwi618~ #5 ~wizard~
+    ADD_MEMORIZED_SPELL ~sumshad~ #0 ~innate~ (3)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~firamb01.cre~ ~override~ //Captain
+              ~firamb02.cre~ ~override~ //Gerg
+              ~firamb04.cre~ ~override~ //Captain
+              ~firban03.cre~ ~override~ //Bandit
+              ~firmon01.cre~ ~override~ //Banshee
+              ~firmon03.cre~ ~override~ //Director
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+  END
+BUT_ONLY
+
+COPY_EXISTING ~palkni01.cre~ ~override~ //Ogre Mage
+              ~palkni02.cre~ ~override~ //Ogre
+              ~palkni03.cre~ ~override~ //Gnoll Elite
+              ~palkni04.cre~ ~override~ //Ogre
+              ~palkni05.cre~ ~override~ //Baby Wyvern
+  LAUNCH_PATCH_FUNCTION FJ_CRE_VALIDITY RET vl = valid END
+  PATCH_IF vl BEGIN
+    WRITE_ASCII 0x268 ~bpwdasgt~ #8
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tazok.cre~ ~override~ //Tazok
+  PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+    WRITE_SHORT 0x24 168 // CurrHP (was 136)
+    WRITE_SHORT 0x26 168 // MaxHP (was 136)
+    WRITE_BYTE 0x53 2 // NOAtt (was 1)
+    WRITE_BYTE 0x60 25 // RstSlash (was 0)
+    WRITE_BYTE 0x61 35 // RstCrush (was 0)
+    WRITE_BYTE 0x62 30 // RstPierc (was 0)
+    WRITE_BYTE 0x63 50 // RstMissl (was 0)
+    WRITE_ASCII 0x250 ~~ #8 // Class (was GPUSE)
+    WRITE_ASCII 0x268 ~bpcber2b~ #8 // Default (was WTASIGHT)
+    ADD_MEMORIZED_SPELL ~spcl321~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl907~ #0 ~innate~
+    ADD_MEMORIZED_SPELL ~spcl904~ #0 ~innate~
+    REPLACE_CRE_ITEM ~BOULDER~ #8 #0 #0 ~NONE~ ~WEAPON2~
+  END
+BUT_ONLY
+
+
+
+//Scripts at the end, as 'always'
+
+
+COPY_EXISTING ~firamb05.bcs~ ~override~
+  REPLACE_TEXTUALLY ~bp/SNIP/oFIRAMB5.baf~ ~bp/SNIP/nFIRAMB5.baf~
+BUT_ONLY
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppald16.bcs~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~dd0012.are~ BEGIN
+    COMPILE ~bp/tdd/baf/core/bppald16.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/no_tdd/core/bppald16.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpshadow.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/shadow/bpshadow.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~creshout.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/creshout.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/creshout.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~humansht.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings/humansht.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/shouts/strings/humansht.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthfsht.bcs~ BEGIN
+  COMPILE ~bp/baf/shouts/strings/bpthfsht.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpthief.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpthief.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpleader.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bpleader.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bp!plot.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/bp!plot.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbarsgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbarsgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbarsgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~wbasight.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/wbasight.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/new_baf/core/wbasight.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpwdasgt.bcs~ BEGIN
+  ACTION_IF MOD_IS_INSTALLED ~setup-bp.tp2~ ~175~ BEGIN
+    COMPILE ~bp/baf/shouts/no_strings_2/bpwdasgt.baf~
+  END ELSE BEGIN
+    COMPILE ~bp/baf/re-baf/core/bpwdasgt.baf~
+  END
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpdragre.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/dragon/bpdragre.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcber2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcber2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpcken2b.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpcken2b.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag12d.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag12d.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpmag16m.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpmag16m.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bppri12a.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bppri12a.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bpprst12.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/core/bpprst12.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~bprakruh.bcs~ BEGIN
+  COMPILE ~bp/baf/re-baf/misc/bprakruh.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-smage.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-smage.baf~
+END
+
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~gb-summ.bcs~ BEGIN
+  COMPILE ~bp/baf/new_baf/core/gb-summ.baf~
+END
+
+
+
+
+END

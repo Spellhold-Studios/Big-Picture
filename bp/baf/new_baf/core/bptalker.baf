@@ -1,0 +1,9 @@
+IF
+  See([PC])
+  Global("BPTalk","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BPTalk","LOCALS",1)
+    StartDialogNoSet([PC])
+END
+

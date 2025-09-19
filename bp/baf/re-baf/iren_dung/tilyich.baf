@@ -1,0 +1,73 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    Shout(66)
+END
+
+IF
+  Global("BPCHARM","LOCALS",1)
+  !StateCheck(Myself,STATE_CHARMED)
+THEN
+  RESPONSE #100
+    SetGlobal("BPCHARM","LOCALS",0)
+    ClearActions(Myself)
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  See([NEUTRAL])
+THEN
+  RESPONSE #100
+    Shout(79)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  Heard([ANYONE],79)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  ActionListEmpty()
+  Global("ILYC","GLOBAL",0)
+  !GlobalTimerNotExpired("MeTempers","LOCALS")
+  NumCreatureVsPartyGT([ENEMY.0.DWARF.0.5],2)
+  !Range(SecondNearest([ENEMY.0.DWARF.0.5]),12)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MeTempers","LOCALS",10)
+    Shout(82)
+END
+
+IF
+  HPLT(Myself,10)
+  AreaCheck("AR0602")
+  Global("ILYC","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("ILYC","GLOBAL",1)
+    MoveToPointNoInterrupt([2050.270])
+END
+
+IF
+  Global("ILYC","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("ILYC","GLOBAL",2)
+    ClearAllActions()
+    StartCutSceneMode()
+    MoveViewPoint([2050.270],FAST)
+    SmallWait(12)
+    DisplayStringHead(Myself,@1)
+    ReallyForceSpell(Myself,WIZARD_INVISIBILITY)
+    Wait(3)
+    DisplayStringHead(Myself,@2)
+    Wait(2)
+    EndCutSceneMode()
+    EscapeArea()
+END
+

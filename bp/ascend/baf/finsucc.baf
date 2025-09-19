@@ -1,0 +1,751 @@
+IF
+  Allegiance(Myself,ENEMY)
+  Delay(6)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  OR(2)
+    NumCreatureLT([ENEMY.0.DEMONIC],3)
+    NumCreatureVsPartyLT([ENEMY.0.DEMONIC],0)
+  HaveSpellRES("GATE1")
+  RandomNum(2,1)
+  !Range(NearestEnemyOf(Myself),10)
+  OR(2)
+    NumInPartyAliveGT(2)
+    DifficultyGT(EASY)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Spell","LOCALS",6)
+    SpellRES("GATE1",Myself)  // ~Gate~
+END
+
+IF
+  HPPercentLT(Myself,15)
+  HPGT(Myself,0)
+  Range(NearestEnemyOf(Myself),10)
+  HPPercentGT(NearestEnemyOf(Myself),20)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  Global("GateAway","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("GateAway","LOCALS",1)
+    CreateVisualEffectObject("SPGFLSH1",Myself)
+    DisplayString(Myself,14260)  // ~Gate~
+    DestroySelf()
+END
+
+IF
+  Allegiance(Myself,ALLY)
+  !Detect([ENEMY])
+  CombatCounter(0)
+  Global("GateAway","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("GateAway","LOCALS",1)
+    CreateVisualEffectObject("SPGFLSH1",Myself)
+    DisplayString(Myself,14260)  // ~Gate~
+    DestroySelf()
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  AttackedBy([ANYONE],DEFAULT)
+  Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+  Global("LetItGoOnce","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("LetItGoOnce","LOCALS",1)
+    SetGlobalTimer("GetMadNow","LOCALS",6)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  AttackedBy([ANYONE],DEFAULT)
+  Allegiance(LastAttackerOf(Myself),GOODCUTOFF)
+  Global("LetItGoOnce","LOCALS",1)
+  GlobalTimerExpired("GetMadNow","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobal("LetItGoOnce","LOCALS",0)
+    Enemy()
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  Range(NearestEnemyOf(Myself),8)
+  Range(SecondNearestEnemyOf(Myself),8)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  RandomNumLT(4,3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(Myself,SUCCUBUS_ETHEREAL)
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(Myself,30,RESISTMAGIC)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  RandomNumLT(6,4)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(Myself,SUCCUBUS_ETHEREAL)
+END
+
+IF
+  !StateCheck(Myself,STATE_INVISIBLE)
+  !StateCheck(Myself,STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(Myself,30,RESISTMAGIC)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  RandomNumLT(8,5)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Spell","LOCALS",6)
+    ForceSpell(Myself,SUCCUBUS_ETHEREAL)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range(SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]),30)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]),0,SAVEVSSPELL)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]),STATE_BERSERK)
+  !Class(SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]),MONK)
+  !Kit(SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]),CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquiped("MISCBC",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquiped("NPCHAN",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquiped("REAVER",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquiped("SHLD25",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquipedReal("SPER07",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquipedReal("STAF11",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquipedReal("SW1H35",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquipedReal("SW1H54",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquipedReal("SW2H14",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+    !HasItemEquiped("WA2SHIEL",SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+  See(SecondNearest([GOODCUTOFF.0.0.0.0.FEMALE]))
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range([GOODCUTOFF.0.0.0.0.FEMALE],30)
+  CheckStatGT([GOODCUTOFF.0.0.0.0.FEMALE],0,SAVEVSSPELL)
+  !StateCheck([GOODCUTOFF.0.0.0.0.FEMALE],STATE_BERSERK)
+  !Class([GOODCUTOFF.0.0.0.0.FEMALE],MONK)
+  !Kit([GOODCUTOFF.0.0.0.0.FEMALE],CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("MISCBC",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("NPCHAN",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("REAVER",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("SHLD25",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SPER07",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("STAF11",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SW1H35",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SW1H54",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SW2H14",[GOODCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("WA2SHIEL",[GOODCUTOFF.0.0.0.0.FEMALE])
+  See([GOODCUTOFF.0.0.0.0.FEMALE])
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range([EVILCUTOFF.0.0.0.0.FEMALE],30)
+  CheckStatGT([EVILCUTOFF.0.0.0.0.FEMALE],0,SAVEVSSPELL)
+  !StateCheck([EVILCUTOFF.0.0.0.0.FEMALE],STATE_BERSERK)
+  !Class([EVILCUTOFF.0.0.0.0.FEMALE],MONK)
+  !Kit([EVILCUTOFF.0.0.0.0.FEMALE],CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("MISCBC",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("NPCHAN",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("REAVER",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("SHLD25",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SPER07",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("STAF11",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SW1H35",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SW1H54",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquipedReal("SW2H14",[EVILCUTOFF.0.0.0.0.FEMALE])
+    !HasItemEquiped("WA2SHIEL",[EVILCUTOFF.0.0.0.0.FEMALE])
+  See([EVILCUTOFF.0.0.0.0.FEMALE])
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range(SixthNearest([GOODCUTOFF.0.0.0.0.MALE]),30)
+  CheckStatGT(SixthNearest([GOODCUTOFF.0.0.0.0.MALE]),0,SAVEVSSPELL)
+  !StateCheck(SixthNearest([GOODCUTOFF.0.0.0.0.MALE]),STATE_BERSERK)
+  !Class(SixthNearest([GOODCUTOFF.0.0.0.0.MALE]),MONK)
+  !Kit(SixthNearest([GOODCUTOFF.0.0.0.0.MALE]),CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("MISCBC",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("NPCHAN",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("REAVER",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("SHLD25",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SPER07",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("STAF11",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H35",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H54",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW2H14",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("WA2SHIEL",SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+  See(SixthNearest([GOODCUTOFF.0.0.0.0.MALE]))
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range(SixthNearest([EVILCUTOFF.0.0.0.0.MALE]),30)
+  CheckStatGT(SixthNearest([EVILCUTOFF.0.0.0.0.MALE]),0,SAVEVSSPELL)
+  !StateCheck(SixthNearest([EVILCUTOFF.0.0.0.0.MALE]),STATE_BERSERK)
+  !Class(SixthNearest([EVILCUTOFF.0.0.0.0.MALE]),MONK)
+  !Kit(SixthNearest([EVILCUTOFF.0.0.0.0.MALE]),CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("MISCBC",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("NPCHAN",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("REAVER",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("SHLD25",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SPER07",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("STAF11",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H35",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H54",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW2H14",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("WA2SHIEL",SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+  See(SixthNearest([EVILCUTOFF.0.0.0.0.MALE]))
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range(ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]),30)
+  CheckStatGT(ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]),0,SAVEVSSPELL)
+  !StateCheck(ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]),STATE_BERSERK)
+  !Class(ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]),MONK)
+  !Kit(ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]),CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("MISCBC",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("NPCHAN",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("REAVER",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("SHLD25",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SPER07",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("STAF11",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H35",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H54",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW2H14",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("WA2SHIEL",ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+  See(ThirdNearest([GOODCUTOFF.0.0.0.0.MALE]))
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range(ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]),30)
+  CheckStatGT(ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]),0,SAVEVSSPELL)
+  !StateCheck(ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]),STATE_BERSERK)
+  !Class(ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]),MONK)
+  !Kit(ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]),CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("MISCBC",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("NPCHAN",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("REAVER",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("SHLD25",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SPER07",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("STAF11",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H35",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW1H54",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquipedReal("SW2H14",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+    !HasItemEquiped("WA2SHIEL",ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+  See(ThirdNearest([EVILCUTOFF.0.0.0.0.MALE]))
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range([GOODCUTOFF.0.0.0.0.MALE],30)
+  CheckStatGT([GOODCUTOFF.0.0.0.0.MALE],0,SAVEVSSPELL)
+  !StateCheck([GOODCUTOFF.0.0.0.0.MALE],STATE_BERSERK)
+  !Class([GOODCUTOFF.0.0.0.0.MALE],MONK)
+  !Kit([GOODCUTOFF.0.0.0.0.MALE],CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("MISCBC",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("NPCHAN",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("REAVER",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("SHLD25",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SPER07",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("STAF11",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SW1H35",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SW1H54",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SW2H14",[GOODCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("WA2SHIEL",[GOODCUTOFF.0.0.0.0.MALE])
+  See([GOODCUTOFF.0.0.0.0.MALE])
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  Global("TargetCharm","LOCALS",0)
+  Range([EVILCUTOFF.0.0.0.0.MALE],30)
+  CheckStatGT([EVILCUTOFF.0.0.0.0.MALE],0,SAVEVSSPELL)
+  !StateCheck([EVILCUTOFF.0.0.0.0.MALE],STATE_BERSERK)
+  !Class([EVILCUTOFF.0.0.0.0.MALE],MONK)
+  !Kit([EVILCUTOFF.0.0.0.0.MALE],CAVALIER)
+  OR(11)
+    !HasItemEquiped("HELM06",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("MISCBC",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("NPCHAN",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("REAVER",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("SHLD25",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SPER07",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("STAF11",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SW1H35",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SW1H54",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquipedReal("SW2H14",[EVILCUTOFF.0.0.0.0.MALE])
+    !HasItemEquiped("WA2SHIEL",[EVILCUTOFF.0.0.0.0.MALE])
+  See([EVILCUTOFF.0.0.0.0.MALE])
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",1)
+END
+
+IF
+  Global("TargetCharm","LOCALS",1)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  Gender(LastSeenBy(Myself),MALE)
+  General(LastSeenBy(Myself),HUMANOID)
+  Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+  RandomNumLT(10,6)
+THEN
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobal("TargetCharm","LOCALS",0)
+    ForceSpell(LastSeenBy(Myself),SUCCUBUS_CHARM_MALE)
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobal("TargetCharm","LOCALS",0)
+    SpellNoDec(LastSeenBy(Myself),SUCCUBUS_CHARM_MALE)
+END
+
+IF
+  Global("TargetCharm","LOCALS",1)
+  !GlobalTimerNotExpired("Spell","LOCALS")
+  Gender(LastSeenBy(Myself),FEMALE)
+  General(LastSeenBy(Myself),HUMANOID)
+  Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+  RandomNumLT(12,5)
+THEN
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobal("TargetCharm","LOCALS",0)
+    ForceSpell(LastSeenBy(Myself),SUCCUBUS_CHARM_FEMALE)
+  RESPONSE #50
+    SetGlobalTimer("Spell","LOCALS",6)
+    SetGlobal("TargetCharm","LOCALS",0)
+    SpellNoDec(LastSeenBy(Myself),SUCCUBUS_CHARM_FEMALE)
+END
+
+IF
+  Global("TargetCharm","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetGlobal("TargetCharm","LOCALS",0)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  CombatCounter(0)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  OR(6)
+    See(SixthNearestEnemyOf(Myself))
+    See(FifthNearestEnemyOf(Myself))
+    See(FourthNearestEnemyOf(Myself))
+    See(ThirdNearestEnemyOf(Myself))
+    See(SecondNearestEnemyOf(Myself))
+    See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.CLERIC_ALL]),STATE_SILENCED)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.CLERIC_ALL]),STATE_STUNNED)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.CLERIC_ALL]),STATE_PANIC)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.CLERIC_ALL]),STATE_SLEEPING)
+  CheckStatLT(SecondNearest([EVILCUTOFF.0.0.CLERIC_ALL]),100,SPELLFAILUREPRIEST)
+  See(SecondNearest([EVILCUTOFF.0.0.CLERIC_ALL]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_SILENCED)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_STUNNED)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_PANIC)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_SLEEPING)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),100,SPELLFAILUREPRIEST)
+  See(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !StateCheck([EVILCUTOFF.0.0.CLERIC_ALL],STATE_SILENCED)
+  !StateCheck([EVILCUTOFF.0.0.CLERIC_ALL],STATE_STUNNED)
+  !StateCheck([EVILCUTOFF.0.0.CLERIC_ALL],STATE_PANIC)
+  !StateCheck([EVILCUTOFF.0.0.CLERIC_ALL],STATE_SLEEPING)
+  CheckStatLT([EVILCUTOFF.0.0.CLERIC_ALL],100,SPELLFAILUREPRIEST)
+  See([EVILCUTOFF.0.0.CLERIC_ALL])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_SILENCED)
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_STUNNED)
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_PANIC)
+  !StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_SLEEPING)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],100,SPELLFAILUREPRIEST)
+  See([GOODCUTOFF.0.0.CLERIC_ALL])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.LONG_BOW]),STATE_SILENCED)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.LONG_BOW]),STATE_STUNNED)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.LONG_BOW]),STATE_PANIC)
+  !StateCheck(SecondNearest([GOODCUTOFF.0.0.LONG_BOW]),STATE_SLEEPING)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.LONG_BOW]),100,SPELLFAILUREMAGE)
+  See(SecondNearest([GOODCUTOFF.0.0.LONG_BOW]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.LONG_BOW]),STATE_SILENCED)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.LONG_BOW]),STATE_STUNNED)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.LONG_BOW]),STATE_PANIC)
+  !StateCheck(SecondNearest([EVILCUTOFF.0.0.LONG_BOW]),STATE_SLEEPING)
+  CheckStatLT(SecondNearest([EVILCUTOFF.0.0.LONG_BOW]),100,SPELLFAILUREMAGE)
+  See(SecondNearest([EVILCUTOFF.0.0.LONG_BOW]))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !StateCheck([EVILCUTOFF.0.0.LONG_BOW],STATE_SILENCED)
+  !StateCheck([EVILCUTOFF.0.0.LONG_BOW],STATE_STUNNED)
+  !StateCheck([EVILCUTOFF.0.0.LONG_BOW],STATE_PANIC)
+  !StateCheck([EVILCUTOFF.0.0.LONG_BOW],STATE_SLEEPING)
+  CheckStatLT([EVILCUTOFF.0.0.LONG_BOW],100,SPELLFAILUREMAGE)
+  See([EVILCUTOFF.0.0.LONG_BOW])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,EVILCUTOFF)
+  !StateCheck([GOODCUTOFF.0.0.LONG_BOW],STATE_SILENCED)
+  !StateCheck([GOODCUTOFF.0.0.LONG_BOW],STATE_STUNNED)
+  !StateCheck([GOODCUTOFF.0.0.LONG_BOW],STATE_PANIC)
+  !StateCheck([GOODCUTOFF.0.0.LONG_BOW],STATE_SLEEPING)
+  CheckStatLT([GOODCUTOFF.0.0.LONG_BOW],100,SPELLFAILUREMAGE)
+  See([GOODCUTOFF.0.0.LONG_BOW])
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Range(NearestEnemyOf(Myself),8)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  AttackedBy([ANYONE],DEFAULT)
+  See(LastAttackerOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Range(NearestEnemyOf(Myself),8)
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),4,NUMBEROFATTACKS)
+    StateCheck(NearestEnemyOf(Myself),STATE_HASTED)
+  !StateCheck(NearestEnemyOf(Myself),STATE_STUNNED)
+  !StateCheck(NearestEnemyOf(Myself),STATE_PANIC)
+  !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+  !StateCheck(NearestEnemyOf(Myself),STATE_SLEEPING)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(SixthNearestEnemyOf(Myself),0,SCRIPTINGSTATE3)
+  !HasItem("AMUL21",SixthNearestEnemyOf(Myself))  // ~Amulet of Power~
+  !HasItemEquiped("Blun25",SixthNearestEnemyOf(Myself))
+  !Kit(SixthNearestEnemyOf(Myself),BARBARIAN)
+  !CheckStatGT(SixthNearestEnemyOf(Myself),0,128)
+  !Gender(SixthNearestEnemyOf(Myself),ILLUSIONARY)
+  OR(2)
+    !Gender(SixthNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(SixthNearestEnemyOf(Myself),10)
+  OR(2)
+    CheckStatGT(SixthNearestEnemyOf(Myself),0,ARMORCLASS)
+    HPPercentLT(SixthNearestEnemyOf(Myself),30)
+  !CheckStatLT(SixthNearestEnemyOf(Myself),-9,ARMORCLASS)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_HELPLESS)
+  Range(SixthNearestEnemyOf(Myself),25)
+  See(SixthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(FifthNearestEnemyOf(Myself),0,SCRIPTINGSTATE3)
+  !HasItem("AMUL21",FifthNearestEnemyOf(Myself))  // ~Amulet of Power~
+  !HasItemEquiped("Blun25",FifthNearestEnemyOf(Myself))
+  !Kit(FifthNearestEnemyOf(Myself),BARBARIAN)
+  !CheckStatGT(FifthNearestEnemyOf(Myself),0,128)
+  !Gender(FifthNearestEnemyOf(Myself),ILLUSIONARY)
+  OR(2)
+    !Gender(FifthNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(FifthNearestEnemyOf(Myself),10)
+  OR(2)
+    CheckStatGT(FifthNearestEnemyOf(Myself),0,ARMORCLASS)
+    HPPercentLT(FifthNearestEnemyOf(Myself),30)
+  !CheckStatLT(FifthNearestEnemyOf(Myself),-9,ARMORCLASS)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_HELPLESS)
+  Range(FifthNearestEnemyOf(Myself),25)
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(FourthNearestEnemyOf(Myself),0,SCRIPTINGSTATE3)
+  !HasItem("AMUL21",FourthNearestEnemyOf(Myself))  // ~Amulet of Power~
+  !HasItemEquiped("Blun25",FourthNearestEnemyOf(Myself))
+  !Kit(FourthNearestEnemyOf(Myself),BARBARIAN)
+  !CheckStatGT(FourthNearestEnemyOf(Myself),0,128)
+  !Gender(FourthNearestEnemyOf(Myself),ILLUSIONARY)
+  OR(2)
+    !Gender(FourthNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(FourthNearestEnemyOf(Myself),10)
+  OR(2)
+    CheckStatGT(FourthNearestEnemyOf(Myself),0,ARMORCLASS)
+    HPPercentLT(FourthNearestEnemyOf(Myself),30)
+  !CheckStatLT(FourthNearestEnemyOf(Myself),-9,ARMORCLASS)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_HELPLESS)
+  Range(FourthNearestEnemyOf(Myself),25)
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(ThirdNearestEnemyOf(Myself),0,SCRIPTINGSTATE3)
+  !HasItem("AMUL21",ThirdNearestEnemyOf(Myself))  // ~Amulet of Power~
+  !HasItemEquiped("Blun25",ThirdNearestEnemyOf(Myself))
+  !Kit(ThirdNearestEnemyOf(Myself),BARBARIAN)
+  !CheckStatGT(ThirdNearestEnemyOf(Myself),0,128)
+  !Gender(ThirdNearestEnemyOf(Myself),ILLUSIONARY)
+  OR(2)
+    !Gender(ThirdNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(ThirdNearestEnemyOf(Myself),10)
+  OR(2)
+    CheckStatGT(ThirdNearestEnemyOf(Myself),0,ARMORCLASS)
+    HPPercentLT(ThirdNearestEnemyOf(Myself),30)
+  !CheckStatLT(ThirdNearestEnemyOf(Myself),-9,ARMORCLASS)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_HELPLESS)
+  Range(ThirdNearestEnemyOf(Myself),25)
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(SecondNearestEnemyOf(Myself),0,SCRIPTINGSTATE3)
+  !HasItem("AMUL21",SecondNearestEnemyOf(Myself))  // ~Amulet of Power~
+  !HasItemEquiped("Blun25",SecondNearestEnemyOf(Myself))
+  !Kit(SecondNearestEnemyOf(Myself),BARBARIAN)
+  !CheckStatGT(SecondNearestEnemyOf(Myself),0,128)
+  !Gender(SecondNearestEnemyOf(Myself),ILLUSIONARY)
+  OR(2)
+    !Gender(SecondNearestEnemyOf(Myself),SUMMONED)
+    LevelGT(SecondNearestEnemyOf(Myself),10)
+  OR(2)
+    CheckStatGT(SecondNearestEnemyOf(Myself),0,ARMORCLASS)
+    HPPercentLT(SecondNearestEnemyOf(Myself),30)
+  !CheckStatLT(SecondNearestEnemyOf(Myself),-9,ARMORCLASS)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_HELPLESS)
+  Range(SecondNearestEnemyOf(Myself),25)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  !CheckStatGT(NearestEnemyOf(Myself),0,SCRIPTINGSTATE3)
+  !HasItem("AMUL21",NearestEnemyOf(Myself))  // ~Amulet of Power~
+  !HasItemEquiped("Blun25",NearestEnemyOf(Myself))
+  !Kit(NearestEnemyOf(Myself),BARBARIAN)
+  !CheckStatGT(NearestEnemyOf(Myself),0,128)
+  !Gender(NearestEnemyOf(Myself),ILLUSIONARY)
+  OR(2)
+    !Gender(NearestEnemyOf(Myself),SUMMONED)
+    LevelGT(NearestEnemyOf(Myself),10)
+  OR(2)
+    CheckStatGT(NearestEnemyOf(Myself),0,ARMORCLASS)
+    HPPercentLT(NearestEnemyOf(Myself),30)
+  !CheckStatLT(NearestEnemyOf(Myself),-9,ARMORCLASS)
+  !StateCheck(NearestEnemyOf(Myself),STATE_HELPLESS)
+  Range(NearestEnemyOf(Myself),25)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+  See([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject([GOODCUTOFF])
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    !Allegiance(LastSeenBy(Myself),GOODCUTOFF)
+    !See([GOODCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  !Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+  See([EVILCUTOFF])
+THEN
+  RESPONSE #100
+    MoveToObject([EVILCUTOFF])
+END
+
+IF
+  Allegiance(Myself,GOODCUTOFF)
+  OR(2)
+    !Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+    !See([EVILCUTOFF])
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+
+IF
+  StateCheck(LastSeenBy(Myself),STATE_DEAD)
+THEN
+  RESPONSE #100
+    AttackOneRound(NearestEnemyOf(Myself))
+END
+
+IF
+  !Range(LastSeenBy(Myself),10)
+  !GlobalTimerNotExpired("Running","LOCALS")
+  CheckStat(LastSeenBy(Myself),0,SCRIPTINGSTATE3)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Running","LOCALS",1)
+    MoveToObject(LastSeenBy(Myself))
+END
+
+IF
+  StateCheck(Myself,STATE_INVISIBLE)
+  !GlobalTimerNotExpired("Running","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("Running","LOCALS",6)
+    RunAwayFrom(NearestEnemyOf(Myself),90)
+END
+
+IF
+  Range(LastSeenBy(Myself),10)
+  CheckStat(LastSeenBy(Myself),0,SCRIPTINGSTATE3)
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  True()
+THEN
+  RESPONSE #100
+    RandomWalkContinuous()
+END
+

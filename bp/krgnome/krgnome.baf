@@ -1,0 +1,688 @@
+IF
+  OnCreation()
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",1)
+END
+
+IF
+  OnCreation()
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",1)
+END
+
+IF
+  CheckStat(Myself,3,127)
+  Global("ProdigalSon","LOCALS",1)
+  See([ENEMY.HUMANOID.GNOME.FIGHTER_MAGE])
+THEN
+  RESPONSE #100
+    DisplayStringHead(LastSeenBy(Myself),26234)  // ~Simulacrum~
+    SetGlobal("ProdigalSon","LOCALS",0)
+    ActionOverride(LastSeenBy(Myself),RemoveSpell(WIZARD_SIMULACRUM))
+    ActionOverride(LastSeenBy(Myself),RemoveSpell(WIZARD_PROJECT_IMAGE))
+    ActionOverride(LastSeenBy(Myself),RemoveSpell(WIZARD_MISLEAD))
+    ChangeSpecifics(LastSeenBy(Myself),207)
+    ChangeGender(LastSeenBy(Myself),EXTRA3)
+    ActionOverride(LastSeenBy(Myself),ChangeAIScript("KRGNOME",DEFAULT))
+    SpellNoDecRES("SPMISLED",Myself)
+    RunAwayFrom(LastSeenBy(Myself),20)
+END
+
+IF
+  !Specifics(Myself,207)
+  See([PC])
+  Global("KR_GNOME_TALKED","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_GNOME_TALKED","LOCALS",1)
+    StartDialogNoSet([PC])
+END
+
+IF
+  OR(2)
+    !CombatCounter(0)
+    Detect(NearestEnemyOf(Myself))
+  Global("Resting","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetGlobal("Resting","LOCALS",0)
+    SetGlobalTimer("WakeUp","LOCALS",0)
+END
+
+IF
+  CombatCounter(0)
+  !Detect(NearestEnemyOf(Myself))
+  Global("Resting","LOCALS",0)
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    SetGlobal("Resting","LOCALS",1)
+    SetGlobalTimer("WakeUp","LOCALS",900)
+END
+
+IF
+  Specifics(Myself,207)
+  GlobalTimerExpired("WakeUp","LOCALS")
+  Global("Resting","LOCALS",1)
+THEN
+  RESPONSE #100
+    DestroySelf()
+END
+
+IF
+  !Specifics(Myself,207)
+  GlobalTimerExpired("WakeUp","LOCALS")
+  Global("Resting","LOCALS",1)
+THEN
+  RESPONSE #100
+    DestroySelf()
+    CreateCreatureObject("KRGNOME",Myself,0,0,0)  // ~Illusionist~
+    ActionOverride("KRGNOME",SetNumTimesTalkedTo(2))
+    SetGlobal("Resting","LOCALS",0)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",1)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Continue()
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",1)
+    Continue()
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(7,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ApplySpell(Myself,WIZARD_MIRROR_IMAGE)
+    ApplySpell(Myself,WIZARD_SPELL_TRAP)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(6,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ApplySpell(Myself,WIZARD_PROTECTION_FROM_THE_ELEMENTS)
+    ApplySpell(Myself,WIZARD_SPELL_SHIELD)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(5,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ApplySpell(Myself,WIZARD_MISLEAD)
+    ApplySpell(Myself,WIZARD_SPELL_IMMUNITY_DIVINATION)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(4,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ApplySpell(Myself,WIZARD_SPELL_TRAP)
+    ApplySpell(Myself,WIZARD_SPELL_IMMUNITY_ABJURATION)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(3,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ApplySpell(Myself,WIZARD_SPELL_IMMUNITY_ABJURATION)
+    ApplySpell(Myself,WIZARD_SPELL_IMMUNITY_NECROMANCY)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ApplySpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY)
+    ApplySpell(Myself,WIZARD_SPELL_SHIELD)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+    ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("Prep","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(6,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_RUBY_RAY_OF_REVERSAL)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_POWER_WORD_SILENCE)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(5,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_METEOR_SWARM)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_METEOR_SWARM)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("Prep","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(4,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_INCENDIARY_CLOUD)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_DEATH_FOG)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("Prep","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(3,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_RUBY_RAY_OF_REVERSAL)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_POWER_WORD_SILENCE)
+    SetGlobal("Prep","LOCALS",1)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  RandomNum(2,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_METEOR_SWARM)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_METEOR_SWARM)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("Prep","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("Prep","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    DisplayString(Myself,26328)  // ~Chain Contingency~
+    ApplySpell(Myself,WIZARD_STONE_SKIN)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_INCENDIARY_CLOUD)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_DEATH_FOG)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("Prep","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+  !HasBounceEffects(LastSeenBy(Myself))
+  RandomNum(6,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_CHAIN_LIGHTNING)
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_CONE_OF_COLD)
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_LIGHTNING_BOLT)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  RandomNum(6,2)
+  See(NearestEnemyOf(Myself))
+  !HasBounceEffects(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_PRISMATIC_SPRAY)
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_SYMBOL_STUN)
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_SPHERE_OF_CHAOS)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See(NearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+  !HasBounceEffects(LastSeenBy(Myself))
+  RandomNum(6,3)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_RUBY_RAY_OF_REVERSAL)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_POWER_WORD_STUN)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_SPHERE_OF_CHAOS)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  RandomNum(6,4)
+  See(NearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+  HPLT(LastSeenBy(Myself),60)
+  !HasBounceEffects(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_SPELL_STRIKE)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_POWER_WORD_KILL)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_ICE_STORM)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  RandomNum(6,5)
+  See(NearestEnemyOfType([GOODCUTOFF.0.0.LONG_BOW]))
+  !HasBounceEffects(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_SUMMON_HAKEASHAR)
+    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_CHAIN_LIGHTNING)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF.0.0.LONG_BOW])
+  RandomNum(6,1)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_SUMMON_HAKEASHAR)
+    ReallyForceSpell(LastSeenBy(Myself),WIZARD_SUMMON_NISHRUU)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  RandomNum(6,2)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(Myself,WIZARD_MANTLE)
+    ReallyForceSpell(Myself,WIZARD_HASTE)
+    ReallyForceSpell(Myself,WIZARD_PHANTOM_BLADE)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  RandomNum(6,3)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(Myself,WIZARD_IMPROVED_MANTLE)
+    ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+    ReallyForceSpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  RandomNum(6,4)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(Myself,WIZARD_SPELL_DEFLECTION)
+    ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_DIVINATION)
+    ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_NECROMANCY)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  RandomNum(6,4)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_ENERGY)
+    ReallyForceSpell(Myself,WIZARD_SPELL_SHIELD)
+    ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_NECROMANCY)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("SpellTrigger","LOCALS",0)
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  RandomNum(6,5)
+THEN
+  RESPONSE #100
+    DisplayString(Myself,39968)  // ~Spell Trigger - Fired~
+    ReallyForceSpell(Myself,WIZARD_MINOR_GLOBE_OF_INVULNERABILITY)
+    ReallyForceSpell(Myself,WIZARD_SPELL_SHIELD)
+    ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_ABJURATION)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobal("SpellTrigger","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("KR_CONT","LOCALS",0)
+  CheckStatLT(Myself,2,STONESKINS)
+  RandomNum(4,1)
+  TookDamage()
+  !Died(Myself)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_CONT","LOCALS",1)
+    ApplySpell(Myself,WIZARD_SIMULACRUM)
+    SetGlobal("ProdigalSon","LOCALS",1)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("KR_CONT","LOCALS",0)
+  CheckStatLT(Myself,2,STONESKINS)
+  RandomNum(3,1)
+  TookDamage()
+  !Died(Myself)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_CONT","LOCALS",1)
+    ApplySpell(Myself,WIZARD_MISLEAD)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("KR_CONT","LOCALS",0)
+  CheckStatLT(Myself,2,STONESKINS)
+  RandomNum(2,1)
+  TookDamage()
+  !Died(Myself)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_CONT","LOCALS",1)
+    ApplySpell(Myself,WIZARD_SHADOW_DOOR)
+END
+
+IF
+  !Specifics(Myself,207)
+  Global("KR_CONT","LOCALS",0)
+  CheckStatLT(Myself,2,STONESKINS)
+  TookDamage()
+  !Died(Myself)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_CONT","LOCALS",1)
+    ReallyForceSpell(Myself,WIZARD_MASS_INVISIBILITY)
+END
+
+IF
+  CheckStatLT(Myself,2,STONESKINS)
+  HaveSpell(WIZARD_STONE_SKIN)
+THEN
+  RESPONSE #100
+    Spell(Myself,WIZARD_STONE_SKIN)
+END
+
+IF
+  CheckStatLT(Myself,2,STONESKINS)
+  !HaveSpell(WIZARD_STONE_SKIN)
+  HaveSpell(WIZARD_IMPROVED_INVISIBILITY)
+THEN
+  RESPONSE #100
+    Spell(Myself,WIZARD_IMPROVED_INVISIBILITY)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  !StateCheck(Myself,STATE_HASTED)
+  HaveSpell(WIZARD_IMPROVED_HASTE)
+THEN
+  RESPONSE #100
+    Spell(Myself,WIZARD_IMPROVED_HASTE)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  !HasItem("BLAKBLAD",Myself)  // ~Black Blade of Disaster~
+  HaveSpell(WIZARD_BLACK_BLADE_OF_DISASTER)
+  HaveSpell(WIZARD_TENSERS_TRANSFORMATION)
+THEN
+  RESPONSE #100
+    Spell(Myself,WIZARD_BLACK_BLADE_OF_DISASTER)
+    Spell(Myself,WIZARD_TENSERS_TRANSFORMATION)
+    SetGlobal("KR_TIME_TO_ATTACK","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    Continue()
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF.0.0.LONG_BOW])
+  Range(LastSeenBy(Myself),12)
+  HaveSpell(WIZARD_SPELL_TRAP)
+  !HasBounceEffects(Myself)
+THEN
+  RESPONSE #100
+    Spell(Myself,WIZARD_SPELL_TRAP)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  !StateCheck(Myself,STATE_INVISIBLE)
+  HaveSpell(WIZARD_MASS_INVISIBILITY)
+THEN
+  RESPONSE #100
+    Spell(Myself,WIZARD_MASS_INVISIBILITY)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  !GlobalTimerNotExpired("KR_MANTLE","LOCALS")
+  HaveSpell(WIZARD_MANTLE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    SetGlobalTimer("KR_MANTLE","LOCALS",24)
+    Spell(Myself,WIZARD_MANTLE)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  !HasItem("BLAKBLAD",Myself)  // ~Black Blade of Disaster~
+  HasItem("Staf05",Myself)  // ~Staff of Striking~
+THEN
+  RESPONSE #100
+    SelectWeaponAbility(SLOT_WEAPON2,1)
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    SelectWeaponAbility(SLOT_WEAPON2,1)
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    SelectWeaponAbility(SLOT_WEAPON2,1)
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    SelectWeaponAbility(SLOT_WEAPON2,1)
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  !HasItem("BLAKBLAD",Myself)  // ~Black Blade of Disaster~
+  !HasItem("Staf05",Myself)  // ~Staff of Striking~
+  HasItemEquiped("Staf17",Myself)
+THEN
+  RESPONSE #100
+    UseItem("Staf17",LastSeenBy(Myself))  // ~Staff of Fire +2~
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    UseItem("Staf17",LastSeenBy(Myself))  // ~Staff of Fire +2~
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    UseItem("Staf17",LastSeenBy(Myself))  // ~Staff of Fire +2~
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    UseItem("Staf17",LastSeenBy(Myself))  // ~Staff of Fire +2~
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    Attack(LastSeenBy(Myself))
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  HasItem("BLAKBLAD",Myself)  // ~Black Blade of Disaster~
+  Global("KR_TIME_TO_ATTACK","LOCALS",1)
+THEN
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+    AttackOneRound(LastSeenBy(Myself))
+  RESPONSE #100
+    Attack(LastSeenBy(Myself))
+END

@@ -1,0 +1,163 @@
+@0     = ~Dunque, finalmente sei arrivato. Ti stavo aspettando.~ ~Dunque, finalmente sei arrivata. Ti stavo aspettando.~ [SAREVO01]
+@1     = ~Sarevok?! Non ti avevo ucciso definitivamente all'Inferno, l'ultima volta?~
+@2     = ~Dove mi trovo, Sarevok? Perché mi hai portato quaggiù?!~ ~Dove mi trovo, Sarevok? Perché mi hai portata quaggiù?!~
+@3     = ~È così, infatti... anche se non per mio volere. Sei stato tu a evocarmi qui, anche se le parole erano mie. Non ho fatto altro che tentare di riprendere forma, da allora.~ ~È così, infatti... anche se non per mio volere. Sei stata tu a evocarmi qui, anche se le parole erano mie. Non ho fatto altro che tentare di riprendere forma, da allora.~
+@4     = ~Ah. Ancora tu. Che vuoi adesso?~
+@5     = ~Io? Non sono stato io a portarti qui, stolto. C'è voluto fin troppo tempo perché potessi riprendere forma dall'ultima volta che mi hai evocato. Ricordi di avermi ucciso, <PRO_BROTHERSISTER>, sì?~ ~Io? Non sono stato io a portarti qui, stolta. C'è voluto fin troppo tempo perché potessi riprendere forma dall'ultima volta che mi hai evocato. Ricordi di avermi ucciso, <PRO_BROTHERSISTER>, sì?~
+@6     = ~Come ricorderai, è la tua volontà che plasma il dominio di nostro padre... che tu ne sia consapevole o meno. Io stesso ora non sono altro che l'ombra che vedi davanti a te.~
+@7     = ~Vuoi dire che sono di nuovo all'Inferno?~
+@8     = ~Questo non spiega cosa ci fai tu qui.~
+@9     = ~Beh, ombra o non ombra, ti distruggerò di nuovo!~
+@10   = ~Tu... non sai dove ti trovi, vuoi dire? Non sei venuto qui volontariamente?~ ~Tu... non sai dove ti trovi, vuoi dire? Non sei venuta qui volontariamente?~
+@11   = ~Ha ha! Che amara ironia, questa! Tu, che inciampi quasi per caso nel tuo vero potere, continui a sopravvivere, mentre io, Sarevok, sono ridotto a questo. Bah! E va bene, <CHARNAME>... Ti dirò dove ti trovi.~
+@12   = ~È ovvio che intendo fare un patto. Ho ben poco da perdere, <PRO_BROTHERSISTER> mio... e molto da guadagnare. Proprio come te. E ho atteso nella tua dimora per lungo tempo per poter trattare con te.~ ~È ovvio che intendo fare un patto. Ho ben poco da perdere, <PRO_BROTHERSISTER> mia... e molto da guadagnare. Proprio come te. E ho atteso nella tua dimora per lungo tempo per poter trattare con te.~
+@13   = ~La mia dimora? Che intendi dire?~
+@14   = ~Scordatelo, Sarevok. Non ho intenzione di trattare con te.~
+@15   = ~Non puoi distruggermi, <CHARNAME>, io non sono che un'ombra. E scommetto che non possiedi il potere di scacciarmi dalla tua dimora.~
+@16   = ~Che vuol dire, 'dimora'? Io non vivo qui!~
+@17   = ~Ti trovi nel reame abissale di nostro padre, <PRO_BROTHERSISTER>. Il piano un tempo dominato da Bhaal e ora plasmato dalla sua corruzione che vive nella tua anima... ma che è scomparsa dalla mia. Sei già stato quaggiù.~
+@18   = ~Questo è... un guscio di qualche tipo. Una versione in miniatura del grande reame di nostro padre, una specie di piano all'interno del piano. Penso che la tua mente lo abbia creato per proteggerti dal potere di questo posto. Molto ingegnoso, mio caro <PRO_BROTHERSISTER>... Non te ne credevo capace.~ ~Questo è... un guscio di qualche tipo. Una versione in miniatura del grande reame di nostro padre, una specie di piano all'interno del piano. Penso che la tua mente lo abbia creato per proteggerti dal potere di questo posto. Molto ingegnoso, mia cara <PRO_BROTHERSISTER>... Non te ne credevo capace.~
+@19   = ~Comunque sia, l'ho visto nascere e mi sono chiesto perché, e così sono venuto qui e ho atteso, sapendo che prima o poi saresti venuto... e che avremmo discusso del mio... patto.~
+@20   = ~Che genere di patto? Cosa puoi desiderare *tu*?~
+@21   = ~Dimmi come faccio ad andarmene da qui... questo è tutto quello che voglio sapere.~
+@22   = ~Perdi tempo quaggiù, allora. Cerca una via d'uscita, se devi. Tornerai.~
+@23   = ~Sarevok agli Inferi: Parte 2
+
+Un angelo mi ha ricondotto all'Abisso per informarmi, per quanto ne ho capito, che il mio destino come progenie di Bhaal sta per compiersi. Ma non sono ancora pronto, a quanto sembra. La mia mente non è ancora preparata a ricevere tutto il potere del regno di Bhaal... è per questo che è stato creato un semi piano di esistenza, un guscio, stando alla sua descrizione, nel quale dovrò prepararmi.
+
+Apparentemente non vi sono vie d'uscita... il posto non è esattamente spazioso. E già i primi vicini indesiderati hanno fatto capolino. Il mio antico nemico Sarevok, da quel buono a nulla che è, se ne è uscito fuori con una proposta... mi dirà come andar via dal semi piano, e qualunque altra cosa di cui sia a conoscenza, chiedendo in cambio un minimo frammento della mia anima che possa riportarlo ad una mera apparenza di vita. Non so se sono pronto allo scambio... Ho barattato la mia anima talmente tante volte da bastarmi per diverse esistenze. Forse potrei trovare da solo una via d'uscita, staremo a vedere.~
+@24   = ~E dove credi di andare? Questo non è un edificio, mio caro <PRO_BROTHERSISTER>, questo è un *intero* piano di esistenza. E a meno che tu non abbia acquisito capacità di spostamento planare dal nostro ultimo incontro, c'è un solo modo per andarsene da qui.~ ~E dove credi di andare? Questo non è un edificio, mia cara <PRO_BROTHERSISTER>, questo è un *intero* piano di esistenza. E a meno che tu non abbia acquisito capacità di spostamento planare dal nostro ultimo incontro, c'è un solo modo per andarsene da qui.~
+@25   = ~Io so qual è, e tu no. E non penso che tu abbia il tempo o la pazienza per poterlo scoprire da solo. Accetta la mia proposta, <CHARNAME>, e io te lo dirò.~ ~Io so qual è, e tu no. E non penso che tu abbia il tempo o la pazienza per poterlo scoprire da sola. Accetta la mia proposta, <CHARNAME>, e io te lo dirò.~
+@26   = ~Dimmi cosa proponi, allora. Cosa chiedi?~
+@27   = ~Scordatelo. Troverò da solo un modo per uscire.~ ~Scordatelo. Troverò da sola un modo per uscire.~
+@28   = ~Cosa pensi che possa desiderare, <PRO_BROTHERSISTER> mio? Voglio esistere... Voglio tornare in vita. E tu puoi aiutarmi.~ ~Cosa pensi che possa desiderare, <PRO_BROTHERSISTER> mia? Voglio esistere... Voglio tornare in vita. E tu puoi aiutarmi.~
+@29   = ~Un minuscolo frammento della tua anima, <PRO_BROTHERSISTER> mio... Se donato liberamente, e con il marchio di nostro padre al suo interno, ricreerebbe la mia carne, mi restituirebbe le mie spoglie mortali... e Sarevok sarebbe di nuovo vivo!~ ~Un minuscolo frammento della tua anima, <PRO_BROTHERSISTER> mia... Se donato liberamente, e con il marchio di nostro padre al suo interno, ricreerebbe la mia carne, mi restituirebbe le mie spoglie mortali... e Sarevok sarebbe di nuovo vivo!~
+@30   = ~E io cosa otterrei in cambio?~
+@31   = ~Ti ho ucciso una volta... cosa ti fa credere che abbia intenzione di riportarti in vita?~
+@32   = ~Non mi presento alle trattative a mani vuote, <CHARNAME>. Mi credi un pazzo? So che sei più forte di me... Non discuto su questo. Ma posso aiutarti. E il mio aiuto ha un prezzo.~
+@33   = ~E come penseresti di aiutarmi?~
+@34   = ~Sono a conoscenza del modo per lasciare questo piano, <CHARNAME>. Quello posso spiegartelo, anche se non lo conoscevo quando sono venuto quaggiù.~
+@35   = ~No, ti offro una conoscenza assai più fondamentale. Qualcosa che risale ai miei giorni mortali, nel corso della mia scalata verso il Trono di Ferro. Qualcosa che troverai... affascinante.~
+@36   = ~Cosa rispondi?~
+@37   = ~E come hai ottenuto questa presunta conoscenza?~
+@38   = ~Conoscenza? È tutto qui ciò che offri in cambio di un frammento della mia anima?~
+@39   = ~Uh-huh. E cosa mi impedirà di ucciderti di nuovo dopo che mi avrai detto tutto quanto?~
+@40   = ~Inizia a parlare, e giudicherò se queste informazioni valgono quanto dici.~
+@41   = ~Non c'è altro modo di riportarti in vita?~
+@42   = ~Scordatelo, Sarevok. Non mi fiderò mai di te.~
+@43   = ~E cosa intendi fare una volta dotato di... nuova vita?~
+@44   = ~E va bene, accetto le tue richieste.~
+@45   = ~Ho appreso molte delle vecchie leggende quando ero in vita, <PRO_BROTHERSISTER> mio. Come ricorderai, avevo intenzione di reclamare l'eredità di nostro padre. Io sarò morto, ma ciò che so ha ancora valore... per te.~ ~Ho appreso molte delle vecchie leggende quando ero in vita, <PRO_BROTHERSISTER> mia. Come ricorderai, avevo intenzione di reclamare l'eredità di nostro padre. Io sarò morto, ma ciò che so ha ancora valore... per te.~
+@46   = ~Bah! La conoscenza è più importante di *qualsiasi* altra cosa, stolto. E ciò che chiedo è solo una scintilla... una scintilla del marchio divino che è in te. Non farò più parte delle progenie di Bhaal, il mio marchio è ormai annientato... ma sarò di nuovo vivo.~ ~Bah! La conoscenza è più importante di *qualsiasi* altra cosa, stolta. E ciò che chiedo è solo una scintilla... una scintilla del marchio divino che è in te. Non farò più parte delle progenie di Bhaal, il mio marchio è ormai annientato... ma sarò di nuovo vivo.~
+@47   = ~Nulla, forse. Ma farlo non ti restituirebbe ciò che hai donato liberamente, sappilo.~
+@48   = ~E perché dovresti uccidermi? Per vendetta? Ti sei vendicato. Disapprovi davvero le mie vecchie ambizioni? Rifarei ancora ciò che ho fatto, se potessi. Tuttavia non posso, e da me non hai più nulla da temere.~ ~E perché dovresti uccidermi? Per vendetta? Ti sei vendicata. Disapprovi davvero le mie vecchie ambizioni? Rifarei ancora ciò che ho fatto, se potessi. Tuttavia non posso, e da me non hai più nulla da temere.~
+@49   = ~Non sono un pazzo. Ho lottato solo per arrivare fino a qui dopo che mi hai distrutto l'ultima volta, e so che gli eventi mentre parliamo continuano ad evolversi. Non hai più tempo per apprendere ciò che ti serve da solo... e non troverai un'altra opportunità come questa.~ ~Non sono un pazzo. Ho lottato solo per arrivare fino a qui dopo che mi hai distrutto l'ultima volta, e so che gli eventi mentre parliamo continuano ad evolversi. Non hai più tempo per apprendere ciò che ti serve da sola... e non troverai un'altra opportunità come questa.~
+@50   = ~Io... non lo so. Di sicuro eviterò di incrociare il tuo sentiero, <PRO_BROTHERSISTER> mio. La mia ambizione era tutto, un tempo. Ora che ho perduto il mio marchio... non so cosa fare. Ma voglio vivere.~ ~Io... non lo so. Di sicuro eviterò di incrociare il tuo sentiero, <PRO_BROTHERSISTER> mia. La mia ambizione era tutto, un tempo. Ora che ho perduto il mio marchio... non so cosa fare. Ma voglio vivere.~
+@51   = ~Forse sì. Andrà bene qualsiasi scintilla divina, non ha importanza da quale dei figli di Bhaal provenga. Ma dubito che la nostra sorellina, qui, abbia anche solo metà del coraggio necessario a farlo.~
+@52   = ~L'hai capito tutto da sola, vero? Anche se il pensiero di ospitare una scintilla della tua anima sdolcinata per l'eternità non mi entusiasma... sì, funzionerebbe anche con te.~
+@53   = ~Ho ucciso molti altri oltre lui, mia cara Imoen, mentre perseguivo le mie ambizioni. Ma ora chiediti quante persone hai ucciso tu... o <CHARNAME>. Quanto siete innocenti voi? Quanto lo era Gorion? Io non chiedo alcun perdono.~
+@54   = ~Ah, dunque <CHARNAME> trova qualcuno pronto a prendersi il colpo al suo posto. Sei sicura, ragazza? Non potrai ripensarci in seguito e dire che è stato <CHARNAME> a manipolarti. Devi farlo di tua spontanea volontà.~
+@55   = ~Con una tua scintilla dentro di me, ho pochi dubbi che mi ritroverò a correre per i prati fioriti prima che la stagione sia finita. Tuttavia, lo prenderò per un sì.~
+@56   = ~Non c'è altro modo, <CHARNAME>, a meno che tu non abbia con te altre progenie di Bhaal di cui io non sono a conoscenza. O la vostra scintilla o niente. Scegli.~
+@57   = ~E va bene. Allora credo che lascerò che sia Imoen a farlo.~
+@58   = ~E va bene. Accetto.~
+@59   = ~Non ho ancora deciso.~
+@60   = ~Scordatelo. Non mi fido di te.~
+@61   = ~Come desideri. Fai tutto quello che vuoi, esplora ed esamina ogni cosa del tuo dominio. Il tempo scorre e gli eventi incalzano. Sono sicuro che non ci vorrà molto perché perfino tu capisca la verità.~
+@62   = ~E così ho ingannato anche la morte! Grazie, <PRO_BROTHERSISTER> mio... Nessun altro dono avrebbe potuto farmi più piacere.~ ~E così ho ingannato anche la morte! Grazie, <PRO_BROTHERSISTER> mia... Nessun altro dono avrebbe potuto farmi più piacere.~
+@63   = ~Vattene. Devo parlare con <CHARNAME> soltanto, e non con uno dei suoi inutili seguaci. Non potete fare nulla per me.~
+@64   = ~Beh, guarda qua, la mia cara sorellina. Dimmi, piccola... vai ancora saltellando in giro a far finta di essere una ladra? Ti ritieni degna di portare il sangue di Bhaal nelle vene?~ [SAREVO74]
+@65   = ~Oh, di questo non sarei così sicuro. Passa un po' di tempo nell'Abisso, ragazzina... morta e distrutta... e poi vedremo cosa si diventa capaci di immaginare. Scommetto che appassiresti come un fiore gettato nel fuoco.~
+@66   = ~Allora? Hai scoperto un modo per andartene da qui, <PRO_BROTHERSISTER>? Hai saputo ciò che desideravi sapere o hai deciso di ascoltare la voce della ragione?~
+@67   = ~Ascolterò le tue proposte, Sarevok. Dimmi cosa vuoi.~
+@68   = ~Non ho ancora finito di guardare in giro.~
+@69   = ~Ho deciso che faremo come dici tu. Imoen ti riporterà in vita.~
+@70   = ~Ho deciso che faremo come chiedi, Sarevok. Ti riporterò in vita.~
+@71   = ~Prima voglio sapere come sei venuto a sapere ciò che dici di sapere.~
+@72   = ~Non sono sicuro di voler cedere parte della mia anima in cambio di alcune informazioni.~
+@73   = ~E cosa dovrebbe impedirmi di ucciderti di nuovo dopo che mi avrai detto ciò che mi serve?~
+@74   = ~Non c'è altro modo per farti tornare in vita?~
+@75   = ~Io... sono vivo! In carne, ossa e sangue! Sono vivo! Ha, ha! Avevo giurato che mi sarei fatto strada con le unghie e coi denti fino a tornare al mondo dei vivi... e ce l'ho fatta!~ [SAREVO76]
+@76   = ~Tuttavia la mia spada e la mia armatura non sono ricomparse. Non importa. Senza l'essenza di Bhaal ad incanalare il loro potere, servono a ben poco. Ne farò a meno, come ho già fatto in passato. Grazie, <CHARNAME>. Sono soddisfatto.~
+@77   = ~Non ringraziare me. Ringrazia Imoen.~
+@78   = ~È strano... Non mi sento affatto diverso.~
+@79   = ~Ho mantenuto fede al patto, Sarevok. Ora dimmi
+ ciò che sai.~
+@80   = ~Come ti pare. Ora parla, altrimenti partiremo col terzo round, se capisci ciò che intendo.~
+@81   = ~Naturalmente. Grazie, sorellina. Anche se ti irrita infinitamente, farò tesoro della tua  piccola scintilla che adesso arde in me.~
+@82   = ~Ti avevo detto che si trattava solo di un frammento insignificante. Pensavo che farlo qui, in questo posto, avrebbe potuto funzionare, ma non ne ero certo. È bello vedere che avevo ragione, dopotutto.~
+@83   = ~Non ne eri *certo*? È stato un bel rischio.~
+@84   = ~Non sono arrivato fin dove sono arrivato in vita senza rischiare, stolto. Non era un bluff... Ne sapevo abbastanza da sospettare che avrebbe potuto funzionare, dal momento che la nostra stirpe era la stessa. Ma ora non ha più importanza. Immagino sarai ansioso di sentire ciò che ho da dirti.~ ~Non sono arrivato fin dove sono arrivato in vita senza rischiare, stolta. Non era un bluff... Ne sapevo abbastanza da sospettare che avrebbe potuto funzionare, dal momento che la nostra stirpe era la stessa. Ma ora non ha più importanza. Immagino sarai ansiosa di sentire ciò che ho da dirti.~
+@85   = ~La prima cosa che ti dirò è come uscire da questo piano extradimensionale che hai creato. È un'estensione della tua volontà, <CHARNAME>... Esiste perché tu ne hai bisogno per esistere.~
+@86   = ~È questo piano a creare il portale per uscire, ma non ti condurrà dove desideri andare. Ti condurrà dove c'è bisogno di te. O forse, dove credi ci sia bisogno di te.~
+@87   = ~Ma non posso darti la capacità di far sì che il piano crei un portale simile. Esistono molti passaggi chiusi in questo tuo piano di cui so poco o nulla. Uno, tuttavia, sono in grado di aprirlo... e dall'altra parte c'è ciò che cerchi. Osserva...~
+@88   = ~Entra in quella stanza e affronta la tua sfida, <CHARNAME>. Sarà difficile... E forse non vorrai farlo da solo. C'è uno... spirito... che è in grado di evocare i compagni che vorrai includere nel tuo gruppo, se così desideri.~ ~Entra in quella stanza e affronta la tua sfida, <CHARNAME>. Sarà difficile... E forse non vorrai farlo da sola. C'è uno... spirito... che è in grado di evocare i compagni che vorrai includere nel tuo gruppo, se così desideri.~
+@89   = ~In gioventù, ho passato molto tempo a studiare gli antichi testi dei sacerdoti deceduti di Bhaal. Ho rinvenuto un'antica profezia da una setta di Cyric poco atta a collaborare... una profezia che parlava in dettaglio del tempo che ora incombe su di noi.~ [SAREVO78]
+@90   = ~La Costa della Spada si tingerà di sangue, sì... ma le battaglie culmineranno con una grande lotta in una città del sud, la città Tethyiriana di Saradush.~ [SAREVO79]
+@91   = ~Sarevok agli Inferi: Parte 2
+
+Un angelo mi ha ricondotto all'Abisso per informarmi che il mio destino come progenie di Bhaal sta per compiersi. Ma non sono ancora pronto, a quanto sembra. La mia mente non è ancora preparata a ricevere tutto il potere del regno di Bhaal... è per questo che è stato creato un semi piano di esistenza, un guscio, stando alla sua descrizione, nel quale dovrò prepararmi.
+
+Nessun altro all'infuori dello stesso Sarevok si è fatto vivo per il momento dopo che l'angelo se ne è andata. Mi ha proposto un accordo: in cambio delle informazioni su come lasciare il piano extradimensionale, oltre ad altre relative al mio destino, vorrebbe essere riportato in vita. Non avevo molte alternative a parte accettare la sua proposta.~
+@92   = ~È lì che *devi* andare, perché lì si compierà la prima predizione della profezia. Anche se, naturalmente, devi affrontare prima la tua sfida.~ [SAREVO80]
+@93   = ~E poi cosa succederà?~
+@94   = ~Le Sfide e lo Spirito del Fato
+
+Sarevok mi ha informato di due aspetti importanti del mio piano extradimensionale.
+
+Innanzi tutto vi sono le sfide. Non sono sicuro delle forme in cui si presenteranno, ma vi sono cinque corridoi che si dipartono dalla stanza principale e sono convinto che in qualche modo si apriranno non appena sarò pronto ad affrontare ciò che vi è al di là. Sarevok lascia intendere che le sfide potrebbero essere molto difficili, e che dovrei prendere in considerazione la possibilità di farmi coprire le spalle.
+
+E questo mi porta allo 'spirito del fato'. Non sono sicuro di come lo spirito faccia quel che fa, ma sembra che io abbia un certo controllo sulle persone il cui destino è intrecciato al mio. Lo spirito del fato evocherà per me dei compagni... non dei servitori, bensì possibili amici. Per parlare con lo spirito, è sufficiente che io interagisca con esso vicino all''entrata' del piano.~
+@95   = ~Come posso credere a ciò che dici?~
+@96   = ~Allora affronterò la mia sfida subito.~
+@97   = ~Non sei ancora un Figlio di Bhaal?~
+@98   = ~Allora il futuro ha inizio. Presto vedremo tutti quale ruolo devi svolgere in questo conflitto e se sarai meritevole del lignaggio del tuo signore.~
+@99   = ~Allora è lì che andremo.~
+@100  = ~Allora, sei ancora un Figlio di Bhaal o no?~
+@101  = ~Va bene, ho sentito abbastanza.~
+@102  = ~No. L'essenza di Bhaal mi ha lasciato quando sono morto... e quella che mi è stata data ora contiene solo la mia mortalità. Alcuni potrebbero ancora considerarmi progenie di Bhaal, ma è solo una questione di storia e di memoria.~
+@103  = ~Allora, cosa accadrà dopo che sarò andato a Saradush?~
+@104  = ~Allora affronterò subito la sfida.~
+@105  = ~Ma certo che non puoi fidarti di me. Perché dovresti? Portami con te, <CHARNAME>.~
+@106  = ~Cosa?!~
+@107  = ~Prima che tu vada, devo chiederti un'ultima cosa, <CHARNAME>. Portami con te.~
+@108  = ~Una volta ero convinto che le vecchie profezie si riferissero a me. Anche se ora so che non è così, le conosco meglio di chiunque altro, forse. Posso aiutarti, <CHARNAME>. Sia con la sfida che ti attende in quella stanza che oltre.~
+@109  = ~Di sicuro non faccio nulla di tutto questo per altruismo. Il tuo sentiero è ricco di potere, <CHARNAME>. Sono certo di non essere il primo a dirtelo. E per me non c'è migliore opportunità di questa.~
+@110  = ~Inoltre... mi hai sconfitto molto tempo fa. Ti sei guadagnato il mio rispetto. Pensaci,  <CHARNAME>! Fratello e <PRO_BROTHERSISTER>, fianco a fianco!~ ~Inoltre... mi hai sconfitto molto tempo fa. Ti sei guadagnata il mio rispetto. Pensaci,  <CHARNAME>! Fratello e <PRO_BROTHERSISTER>, fianco a fianco!~
+@111  = ~Scordatelo. Tu non sei mio fratello e non mi fido neanche a voltarti le spalle.~
+@112  = ~E di che utilità potresti mai essermi?~
+@113  = ~Potrei quasi acconsentire a farti venire con me... Ma dovrai fare esattamente ciò che dico.~
+@114  = ~Non c'è posto per te nel mio gruppo, anche se volessi averti con me.~
+@115  = ~Capisco. E così sia. Le nostre strade si separano, allora, <CHARNAME>. Tu hai ciò che volevi, e anch'io. Raduna i compagni che desideri per la tua sfida e vattene. Spero di non rincontrarti mai più.~
+@116  = ~Prossima Fermata del Destino
+
+Secondo Sarevok, il posto successivo dove bisogna che vada è la città Tethyriana di Saradush. Potrei non avere molta scelta, comunque... questo piano extradimensionale non è un semplice portale che mi conduce dove voglio andare. Mi porta invece dove occorre che io mi trovi.~
+@117  = ~Al di là della conoscenza che possiedo, sono un guerriero di provata abilità. Tu mi hai combattuto, <CHARNAME>, e dovresti saperlo. Il tempo passato all'Inferno mi ha solo reso più forte. Ai tuoi comandi, però, potrei diventare ancora più grande.~
+@118  = ~Senza la tua armatura e il tuo potere divino, per me sei meno che inutile. Vattene.~
+@119  = ~E come posso sapere che non mi tradiresti non appena se ne presentasse l'opportunità?~
+@120  = ~Formulerò un giuramento per poterti seguire, <PRO_BROTHERSISTER> mio, se ti può accontentare. Qui... in questo luogo... un tale giuramento avrebbe potere, come una costrizione. Non potrei tradirti.~ ~Formulerò un giuramento per poterti seguire, <PRO_BROTHERSISTER> mia, se ti può accontentare. Qui... in questo luogo... un tale giuramento avrebbe potere, come una costrizione. Non potrei tradirti.~
+@121  = ~No, mi sembri troppo desideroso di farlo. Non mi fido. Non se ne parla.~
+@122  = ~No, non c'è bisogno di un giuramento. Mi va bene così. Unisciti a me e andiamo.~
+@123  = ~E va bene. Se formulerai il giuramento di non tradirmi... potrai unirti a me.~
+@124  = ~Potrei tornare a chiamarti in seguito. Forse potrai formulare un giuramento allora.~
+@125  = ~Allora lascia uno dei tuoi lacchè qui, nel tuo piano, tornerai a prenderlo quando ne avrai bisogno. Oppure lascia qui me, finché non ti servirò. Voglio vedere cosa ti accadrà, quindi aspetterò.~
+@126  = ~No, hai acconsentito troppo facilmente. Non mi fiderò mai di te. Scordatelo.~
+@127  = ~Come posso sapere che non mi tradirai alla prima occasione?~
+@128  = ~No, non disturbarti ad attendere qui. Non voglio che tu ti unisca a me, in ogni modo.~
+@129  = ~Tu... non pretendi un giuramento? Una... scelta strana, <PRO_BROTHERSISTER>. Io lo avrei preteso da te. Se mai ti avessi lasciato vivere. Come vuoi, allora... occupiamoci della tua sfida. Ricorda... Potresti avere bisogno di alcuni compagni per portarla a termine.~
+@130  = ~E sia. Io, Sarevok, giuro sulle grigie ceneri di mia madre e del dio defunto che fu mio padre, in nome della vendetta e dell'amara bile che è il mio sangue... Giuro che non tradirò <CHARNAME> finché avrò vita.~
+@131  = ~Ottimo. Andiamo.~
+@132  = ~Mi sta bene. Forse tornerò a prenderti in seguito... Aspetta qui.~
+@133  = ~Non credo ad una sola parola. Il tuo giuramento non significa niente per me, Sarevok.~
+@134  = ~Bene! Ora sarà ancora più facile ucciderti una terza volta!~
+@135  = ~Come desideri. Attenderò il tuo ritorno, <CHARNAME>. Ricorda... la sfida sarà difficile. Pensa a chiamare al tuo fianco alcuni tuoi compagni.~
+@136  = ~Ti rivolti contro di me? Dovevo aspettarmelo. Anch'io avrei fatto altrettanto. Ma so come andarmene da solo da questo posto... Che non possa mai più incontrarti, <PRO_BROTHERSISTER> mio.~ ~Ti rivolti contro di me? Dovevo aspettarmelo. Anch'io avrei fatto altrettanto. Ma so come andarmene da solo da questo posto... Che non possa mai più incontrarti, <PRO_BROTHERSISTER> mia.~
+@137  = ~Hai di nuovo bisogno della mia spada? È pronta a uccidere al tuo comando.~ [SAREVO81]
+@138  = ~Sì, unisciti a me ora.~
+@139  = ~Credo che avrò bisogno di un giuramento di fedeltà da te, se devo portarti con me.~
+@140  = ~No, continua ad aspettarmi qui. Tornerò.~
+@141  = ~Vattene. Non ho nulla da dirti. Devo parlare solo con <CHARNAME>.~
+@142  = ~So dove conduce il tuo destino, <CHARNAME>. E so dove devi cercarlo. Se conduci la tua ricerca da solo non troverai le tue risposte in tempo... Ciò che le antiche profezie avevano predetto incombe su di noi. O su di *te*, almeno.~ ~So dove conduce il tuo destino, <CHARNAME>. E so dove devi cercarlo. Se conduci la tua ricerca da sola non troverai le tue risposte in tempo... Ciò che le antiche profezie avevano predetto incombe su di noi. O su di *te*, almeno.~
+@143  = ~Silenzio. Ho atteso che <CHARNAME> venisse, e le mie parole sono solo per <PRO_HIMHER>.~
+@144  = ~Esatto, come desideri, <PRO_BROTHERSISTER> mio. Ricorda... La sfida va affrontata in quella caverna. Avrai bisogno di invocare aiuti attraverso lo spirito.~ ~Esatto, come desideri, <PRO_BROTHERSISTER> mia. Ricorda... La sfida va affrontata in quella caverna. Avrai bisogno di invocare aiuti attraverso lo spirito.~
+@145  = ~Indipendentemente da questo, una volta superata la sfida, sarai in grado di andartene da questo tuo piano. Ma il varco non ti porterà dove desideri andare... ti porterà dove c'è bisogno di te. E io, come ti dicevo, so di che posto si tratta.~

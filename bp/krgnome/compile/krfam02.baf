@@ -1,0 +1,370 @@
+IF
+  RandomNumGT(4,2)
+  Global("KR_OFFENSIVE_TIME","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",1)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  RandomNumLT(4,2)
+  Global("KR_DEFENSIVE_TIME","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",1)
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_ABI_DALZIMS_HORRID_WILTING)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !HasBounceEffects(LastSeenBy(Myself))
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),0,SHIELDGLOBE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_ABI_DALZIMS_HORRID_WILTING)
+END
+
+IF
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_ABI_DALZIMS_HORRID_WILTING)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  HasBounceEffects(LastSeenBy(Myself))
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),0,SHIELDGLOBE)
+  GlobalLT("KR_NEED_A_RAT_OR_SOMETHING","LOCALS",100)
+THEN
+  RESPONSE #100
+    CreateCreatureObject("rat",LastSeenBy(Myself),0,0,0)  // ~Rat~
+    Continue()
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_ABI_DALZIMS_HORRID_WILTING)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  HasBounceEffects(LastSeenBy(Myself))
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),0,SHIELDGLOBE)
+  GlobalLT("KR_NEED_A_RAT_OR_SOMETHING","LOCALS",100)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell("rat",WIZARD_ABI_DALZIMS_HORRID_WILTING)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF.0.0.0.0.SUMMONED])
+  HaveSpell(WIZARD_FINGER_OF_DEATH)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_FINGER_OF_DEATH)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  OR(4)
+    See([GOODCUTOFF.0.0.DRUID_ALL])
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+    See([GOODCUTOFF.0.0.BARD_ALL])
+    See([GOODCUTOFF.0.0.LONG_BOW])
+  HaveSpell(WIZARD_SUMMON_HAKEASHAR)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_SUMMON_HAKEASHAR)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF.0.0.0.0.SUMMONED])
+  HaveSpell(WIZARD_DEATH_SPELL)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_DEATH_SPELL)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF.UNDEAD])
+  HaveSpell(WIZARD_CONTROL_UNDEAD)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_CONTROL_UNDEAD)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  OR(4)
+    See([GOODCUTOFF.0.0.DRUID_ALL])
+    See([GOODCUTOFF.0.0.CLERIC_ALL])
+    See([GOODCUTOFF.0.0.BARD_ALL])
+    See([GOODCUTOFF.0.0.LONG_BOW])
+  HaveSpell(WIZARD_SUMMON_NISHRUU)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_SUMMON_NISHRUU)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  HaveSpell(WIZARD_ANIMATE_DEAD)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_ANIMATE_DEAD)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_FIRE_SHIELD_RED)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !GlobalTimerNotExpired("KR_FIRE_SHIELD","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("KR_FIRE_SHIELD","LOCALS",126)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    Spell(Myself,WIZARD_FIRE_SHIELD_RED)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  OR(2)
+    Range(LastSeenBy(Myself),4)
+    Range(LastHitter(Myself),4)
+  See("KRFAM01")  // ~Familiar~
+  HaveSpell(WIZARD_DIMENSION_DOOR)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_DIMENSION_DOOR)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  OR(2)
+    Range(LastSeenBy(Myself),4)
+    Range(LastHitter(Myself),4)
+  See("KRGNOME")  // ~Illusionist~
+  HaveSpell(WIZARD_DIMENSION_DOOR)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_DIMENSION_DOOR)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_CONTAGION)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_CONTAGION)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  Range(LastSeenBy(Myself),4)
+  HaveSpell(WIZARD_VAMPIRIC_TOUCH)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_VAMPIRIC_TOUCH)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  Range(LastSeenBy(Myself),4)
+  HaveSpell(WIZARD_SKULL_TRAP)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !StateCheck(LastSeenBy(Myself),STATE_MIRRORIMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_SKULL_TRAP)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_LIGHTNING_BOLT)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !HasBounceEffects(LastSeenBy(Myself))
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),45,RESISTELECTRICITY)
+  !CheckStatGT(LastSeenBy(Myself),0,SHIELDGLOBE)
+  !CheckStatGT(LastSeenBy(Myself),0,MINORGLOBE)
+  !StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_LIGHTNING_BOLT)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_LIGHTNING_BOLT)
+  HasBounceEffects(LastSeenBy(Myself))
+  Global("KR_NEED_A_RAT_OR_SOMETHING","LOCALS",0)
+THEN
+  RESPONSE #100
+    CreateCreatureObject("rat",LastSeenBy(Myself),0,0,0)  // ~Rat~
+    SetGlobal("KR_NEED_A_RAT_OR_SOMETHING","LOCALS",1)
+    Continue()
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_LIGHTNING_BOLT)
+  HasBounceEffects(LastSeenBy(Myself))
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),30,RESISTELECTRICITY)
+  !CheckStatGT(LastSeenBy(Myself),0,SHIELDGLOBE)
+  !CheckStatGT(LastSeenBy(Myself),0,MINORGLOBE)
+  Global("KR_NEED_A_RAT_OR_SOMETHING","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell("rat",WIZARD_LIGHTNING_BOLT)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_STINKING_CLOUD)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_STINKING_CLOUD)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_HORROR)
+  !General(LastSeenBy(Myself),UNDEAD)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_HORROR)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_GHOUL_TOUCH)
+  Range(LastSeenBy(Myself),4)
+  !General(LastSeenBy(Myself),UNDEAD)
+  !Kit(LastSeenBy(Myself),16)
+  !Class(LastSeenBy(Myself),MONK)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_GHOUL_TOUCH)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_LARLOCH_MINOR_DRAIN)
+  Range(LastSeenBy(Myself),4)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_LARLOCH_MINOR_DRAIN)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  HaveSpell(WIZARD_CHILL_TOUCH)
+  Range(LastSeenBy(Myself),4)
+  !CheckStatGT(Myself,25,SPELLFAILUREMAGE)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTMAGIC)
+  !CheckStatGT(LastSeenBy(Myself),40,RESISTCOLD)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    Spell(LastSeenBy(Myself),WIZARD_CHILL_TOUCH)
+END
+
+IF
+  Global("KR_DEFENSIVE_TIME","LOCALS",1)
+  Range([GOODCUTOFF],4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+    RunAwayFrom([GOODCUTOFF],120)
+END
+
+IF
+  Global("KR_OFFENSIVE_TIME","LOCALS",1)
+  See([GOODCUTOFF])
+  Range([GOODCUTOFF],4)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    AttackOneRound([GOODCUTOFF])
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    AttackOneRound([GOODCUTOFF])
+    AttackOneRound([GOODCUTOFF])
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    AttackOneRound([GOODCUTOFF])
+    AttackOneRound([GOODCUTOFF])
+    AttackOneRound([GOODCUTOFF])
+END
+
+IF
+  OR(3)
+    Global("KR_OFFENSIVE_TIME","LOCALS",1)
+    Global("KR_DEFENSIVE_TIME","LOCALS",1)
+    Global("KR_END_TIME","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("KR_OFFENSIVE_TIME","LOCALS",0)
+    SetGlobal("KR_DEFENSIVE_TIME","LOCALS",0)
+END
+
